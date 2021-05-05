@@ -20,7 +20,7 @@ final class NotesPresenter extends OpenVKPresenter
         $user = (new Users)->get($owner);
         if(!$user) $this->notFound();
         
-        $this->template->notes = $this->notes->getUserNotes($user, $this->queryParam("p") ?? 1);
+        $this->template->notes = $this->notes->getUserNotes($user, (int)($this->queryParam("p") ?? 1));
         $this->template->count = $this->notes->getUserNotesCount($user);
         $this->template->owner = $user;
         $this->template->paginatorConf = (object) [

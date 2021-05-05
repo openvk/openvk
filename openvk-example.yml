@@ -48,5 +48,5 @@ openvk:
             enable: false # Better enable this
             database:
                 dsn: "mysql:unix_socket=/tmp/mysql.sock;dbname=openvk-eventdb"
-                user: ""
-                password: ""
+                user: "root"
+                password: "DATABASE_PASSWORD"

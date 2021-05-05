@@ -1,0 +1,8 @@
+cd /opt/chandler && \
+mysql -p'DATABASE_PASSWORD' -e "CREATE DATABASE openvk" && \
+mysql -p'DATABASE_PASSWORD' -e "CREATE DATABASE openvk_eventdb" && \
+mysql -p'DATABASE_PASSWORD' openvk < install/init-db.sql && \
+cd extensions/available/openvk/ && \
+mysql -p'DATABASE_PASSWORD' openvk < install/init-static-db.sql && \
+mysql -p'DATABASE_PASSWORD' openvk_eventdb < install/init-event-db.sql && \
+systemctl enable --now httpd
