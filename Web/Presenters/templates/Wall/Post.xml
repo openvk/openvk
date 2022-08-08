@@ -1,16 +1,21 @@
 {extends "../@layout.xml"}
 {block title}{_"post"}{/block}
 
+{block headIncludes}
+    {var $description = iconv_substr(strip_tags($post->getText()), 0, 96)}
+    <meta n:if="!empty($description)" name="description" content="{$post->getOwner()->getCanonicalName()} {$post->getPublicationTime()}&mdash; {$description}" />
+{/block}
+
 {block header}
-	<a href="{$wallOwner->getURL()}">
-		{$wallOwner->getCanonicalName()}
-	</a>
-	»
-	<a href="/wall{$wallOwner->getId() * ($isWallOfGroup ? -1 : 1)}">
-		{_wall}
-	</a>
-	»
-	{_"post"}
+    <a href="{$wallOwner->getURL()}">
+        {$wallOwner->getCanonicalName()}
+    </a>
+    »
+    <a href="/wall{$wallOwner->getId() * ($isWallOfGroup ? -1 : 1)}">
+        {_wall}
+    </a>
+    »
+    {_"post"}
 {/block}
 
 {block content}

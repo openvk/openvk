@@ -3,6 +3,7 @@ openvk:
     appearance:
         name: "OpenVK"
         motd: "Yet another OpenVK instance"
+        description: ""
     
     preferences:
         femaleGenderPriority: true

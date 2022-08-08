@@ -1,6 +1,12 @@
 {extends "../@layout.xml"}
 {block title}{_"welcome"}{/block}
 
+{block headIncludes}
+    {if !empty(OPENVK_ROOT_CONF['openvk']['appearance']['description'])}
+        <meta name="description" content="{= OPENVK_ROOT_CONF['openvk']['appearance']['description']}" />
+    {/if}
+{/block}
+
 {block header}
     {_"welcome"}
 {/block}

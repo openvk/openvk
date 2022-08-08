@@ -2,6 +2,21 @@
 
 {block title}{$club->getName()}{/block} 
 
+{block headIncludes}
+    {if !empty($club->getDescriptionHtml())}
+        <meta name="description" content="{$club->getName()} ♠ {tr('participants', $club->getFollowersCount())} ♠ {strip_tags($club->getDescriptionHtml())}" />
+    {else}
+        <meta name="description" content="{$club->getName()} ♠ {tr('participants', $club->getFollowersCount())} ♠ {_default_club_seo_cfa}" />
+    {/if}
+    
+    <!-- openGraph -->
+    <meta property="og:title" content="{$club->getName()}" />
+    <meta property="og:url" content="http://{$_SERVER['HTTP_HOST']}{$club->getURL()}" />
+    <meta property="og:image" content="{$club->getAvatarUrl('normal')}" />
+    <meta property="og:type" content="profile" />
+    <meta n:if="!is_null($club->getShortcode())" property="og:username" content="{$club->getShortcode()}" />
+{/block}
+
 {block header}
     {$club->getName()}
     

@@ -4,27 +4,37 @@
 
 {block headIncludes}
     {if $user->getPrivacyPermission('page.read', $thisUser ?? NULL)}
-    <!-- openGraph -->
-    <meta property="og:title" content="{$user->getCanonicalName()}" />
-    <meta property="og:url" content="http://{$_SERVER['HTTP_HOST']}{$user->getURL()}" />
-    <meta property="og:image" content="{$user->getAvatarUrl('normal')}" />
-    <meta property="og:type" content="profile" />
-    <meta property="og:first_name" content="{$user->getFirstName()}" />
-    <meta property="og:last_name" content="{$user->getLastName()}" />
-    <meta n:if="!is_null($user->getShortcode())" property="og:username" content="{$user->getShortcode()}" />
-    <meta property="og:gender" content="{($user->isFemale() ? 'fe' : '')}male" />
-    
-    <!-- json-ld -->
-    <script type="application/ld+json">
-        {
-            "@context": "http://schema.org/",
-            "type": "Person",
-            "name": {$user->getCanonicalName()},
-            "url": {('http://') . $_SERVER['HTTP_HOST'] . $user->getURL()}
-        }
-    </script>
+        {if $user->isBanned()}
+            <meta name="description" content="{tr('banned_user_seo_description', $user->getCanonicalName())}" />
+        {elseif !is_null($user->getDescription())}
+            <meta name="description" content="{$user->getCanonicalName()} ♠ {tr('friends', $user->getFriendsCount())} ♠ {tr('followers', $user->getFollowersCount())} ♠ {$user->getDescription()}" />
+        {else}
+            {var $instance_name = OPENVK_ROOT_CONF['openvk']['appearance']['name']}
+            <meta name="description"
+                content="{$user->getCanonicalName()} @ {$instance_name} ♠ {tr('friends', $user->getFriendsCount())} ♠ {tr('followers', $user->getFollowersCount())} ♠ {_default_user_seo_cfa}" />
+        {/if}
+        
+        <!-- openGraph -->
+        <meta property="og:title" content="{$user->getCanonicalName()}" />
+        <meta property="og:url" content="http://{$_SERVER['HTTP_HOST']}{$user->getURL()}" />
+        <meta property="og:image" content="{$user->getAvatarUrl('normal')}" />
+        <meta property="og:type" content="profile" />
+        <meta property="og:first_name" content="{$user->getFirstName()}" />
+        <meta property="og:last_name" content="{$user->getLastName()}" />
+        <meta n:if="!is_null($user->getShortcode())" property="og:username" content="{$user->getShortcode()}" />
+        <meta property="og:gender" content="{($user->isFemale() ? 'fe' : '')}male" />
+        
+        <!-- json-ld -->
+        <script type="application/ld+json">
+            {
+                "@context": "http://schema.org/",
+                "type": "Person",
+                "name": {$user->getCanonicalName()},
+                "url": {('http://') . $_SERVER['HTTP_HOST'] . $user->getURL()}
+            }
+        </script>
     {else} 
-    <meta name="robots" content="noindex, noarchive">
+        <meta name="robots" content="noindex, noarchive" />
     {/if}
 {/block}
 

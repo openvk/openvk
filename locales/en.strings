@@ -47,7 +47,7 @@
 "registration_closed" = "Registration is closed.";
 "invites_you_to" = "<strong>$1</strong> invites you to $2";
 
-"register_meta_desc" = "Register in $1 now!";
+"register_meta_desc" = "Create your profile in $1 right now and take part in various fun activities organized by local users";
 "register_referer_meta_title" = "$1 invites you to $2!";
 "register_referer_meta_desc" = "Join $1 and many other users at $2!";
 
@@ -1042,3 +1042,8 @@
 
 "cookies_popup_content" = "All kids love cookie, so this website uses Cookies to identify your session and nothing more. Check <a href='/privacy'>our privacy policy</a> for more information.";
 "cookies_popup_agree" = "Accept";
+
+/* SEO */
+"banned_user_seo_description" = "Blocked page, that once belonged to $1.";
+"default_user_seo_cfa" = "Join this and many other users in this social network :3";
+"default_club_seo_cfa" = "Join this and many other clubs in this social network :3";
