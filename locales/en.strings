@@ -1186,6 +1186,21 @@
 "url_is_banned_title" = "Link to a suspicious site";
 "url_is_banned_proceed" = "Follow the link";
 
+/* Names */
+
+"names_new" = "New";
+"names_approved" = "Approved";
+"names_rejected" = "Rejected";
+"names_showed" = "$1 name change requests are shown (total $2)";
+"approve" = "Approve";
+"reject" = "Reject";
+"approved" = "Approved";
+"rejected" = "Rejected";
+"name_change_request" = "Name change";
+"name_change_request_pending" = "Your application for a name change is under consideration by the moderators.";
+"name_change_request_rejected" = "Your request to change your name was rejected by the moderators. You can submit a new one when this message disappears.";
+
+
 /* Maintenance */
 
 "global_maintenance" = "Undergoing maintenance";

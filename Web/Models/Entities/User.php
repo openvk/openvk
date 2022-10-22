@@ -5,7 +5,7 @@ use openvk\Web\Themes\{Themepack, Themepacks};
 use openvk\Web\Util\DateTime;
 use openvk\Web\Models\RowModel;
 use openvk\Web\Models\Entities\{Photo, Message, Correspondence, Gift};
-use openvk\Web\Models\Repositories\{Users, Clubs, Albums, Gifts, Notifications};
+use openvk\Web\Models\Repositories\{Users, Clubs, Albums, Gifts, Notifications, Names};
 use openvk\Web\Models\Exceptions\InvalidUserNameException;
 use Nette\Database\Table\ActiveRow;
 use Chandler\Database\DatabaseConnection;
@@ -1040,6 +1040,16 @@ class User extends RowModel
             return false;
 
         return true;
+    }
+
+    function getNamesRequests(int $status = 0, ?bool $actual = false): \Traversable
+    {
+        return (new Names)->getByUser($this->getId(), $status, $actual);
+    }
+
+    function hasNamesRequests(int $status = 0, ?bool $actual = false): bool
+    {
+        return sizeof(iterator_to_array($this->getNamesRequests($status, $actual))) > 0;
     }
     
     use Traits\TSubscribable;

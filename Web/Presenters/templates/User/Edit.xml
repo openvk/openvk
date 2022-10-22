@@ -33,8 +33,17 @@
     
     <div class="container_gray">
         {if $isMain}
-        
+
         <h4>{_main_information}</h4>
+        <div class="msg msg_info" n:if="$user->hasNamesRequests() AND !$user->hasNamesRequests(2, true)">
+            <b>{_name_change_request}</b><br>
+            {_name_change_request_pending}
+        </div>
+        <div class="msg msg_err" n:if="$user->hasNamesRequests(2, true)">
+            <b>{_name_change_request}</b><br>
+            {_name_change_request_rejected}
+        </div>
+
         <form action="/edit?act=main" method="POST" enctype="multipart/form-data">
             <table cellspacing="7" cellpadding="0" width="60%" border="0" align="center">
                 <tbody>

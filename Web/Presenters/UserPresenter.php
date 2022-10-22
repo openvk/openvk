@@ -2,7 +2,7 @@
 namespace openvk\Web\Presenters;
 use openvk\Web\Util\Sms;
 use openvk\Web\Themes\Themepacks;
-use openvk\Web\Models\Entities\{Photo, Post, EmailChangeVerification};
+use openvk\Web\Models\Entities\{Photo, Post, EmailChangeVerification, Name};
 use openvk\Web\Models\Entities\Notifications\{CoinsTransferNotification, RatingUpNotification};
 use openvk\Web\Models\Repositories\{Users, Clubs, Albums, Videos, Notes, Vouchers, EmailChangeVerifications};
 use openvk\Web\Models\Exceptions\InvalidUserNameException;
@@ -142,8 +142,19 @@ final class UserPresenter extends OpenVKPresenter
             
             if($_GET['act'] === "main" || $_GET['act'] == NULL) {
                 try {
-                    $user->setFirst_Name(empty($this->postParam("first_name")) ? $user->getFirstName() : $this->postParam("first_name"));
-                    $user->setLast_Name(empty($this->postParam("last_name")) ? "" : $this->postParam("last_name"));
+                    if(!OPENVK_ROOT_CONF["openvk"]["preferences"]["namesModeration"]) {
+                        $user->setFirst_Name(empty($this->postParam("first_name")) ? $user->getFirstName() : $this->postParam("first_name"));
+                        $user->setLast_Name(empty($this->postParam("last_name")) ? "" : $this->postParam("last_name"));
+                    } else {
+                        if(!$user->hasNamesRequests(0, true) AND !$user->hasNamesRequests(2, true)) {
+                            $name = new Name;
+                            $name->setNew_fn(empty($this->postParam("first_name")) ? $user->getFirstName() : $this->postParam("first_name"));
+                            $name->setNew_ln(empty($this->postParam("last_name")) ? $user->getFirstName() : $this->postParam("last_name"));
+                            $name->setAuthor($user->getId());
+                            $name->setCreated(time());
+                            $name->save();
+                        }
+                    }
                 } catch(InvalidUserNameException $ex) {
                     $this->flashFail("err", tr("error"), tr("invalid_real_name"));
                 }

@@ -143,6 +143,11 @@
                                     (<b>{$helpdeskTicketNotAnsweredCount}</b>)
                                 {/if}
                             </a>
+                            <a href="/names_admin.php" class="link" n:if="$canAccessHelpdesk">Имена
+                                {if $namesNotModeratedCount > 0}
+                                    (<b>{$namesNotModeratedCount}</b>)
+                                {/if}
+                            </a>
 
                             <a n:if="$thisUser->getLeftMenuItemStatus('links')" n:foreach="OPENVK_ROOT_CONF['openvk']['preferences']['menu']['links'] as $menuItem" href="{$menuItem['url']}" target="_blank" class="link">{strpos($menuItem["name"], "@") === 0 ? tr(substr($menuItem["name"], 1)) : $menuItem["name"]}</a>
 

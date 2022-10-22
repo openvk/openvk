@@ -33,6 +33,7 @@ openvk:
                 maxViolations: 50
                 maxViolationsAge: 120
                 autoban: true
+        namesModeration: true
         registration:
             enable: true
             reason: "" # reason for disabling registration

@@ -1,0 +1,121 @@
+{extends "../@layout.xml"}
+
+{block header}
+    Администрирование
+{/block}
+
+{block content}
+    {var $isNew       = $mode === 'new'}
+    {var $isAccepted  = $mode === 'accepted'}
+    {var $isRejected  = $mode === 'rejected'}
+
+    {var $amount = sizeof($names)}
+
+    <div class="tabs">
+        <div n:attr="id => ($isNew ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isNew ? 'act_tab_a' : 'ki')" href="/names_admin.php">{_names_new}</a>
+        </div>
+        <div n:attr="id => ($isAccepted ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isAccepted ? 'act_tab_a' : 'ki')" href="/names_admin.php?act=accepted">{_names_approved}</a>
+        </div>
+        <div n:attr="id => ($isRejected ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isRejected ? 'act_tab_a' : 'ki')" href="/names_admin.php?act=rejected">{_names_rejected}</a>
+        </div>
+    </div>
+    <br/>
+    <div
+        class="user-alert"
+        style="padding: 10px 0; background-color: #F5F7F9; border: 1px solid #E9E9EB; color: #000; font-weight: normal;"
+    >
+        {presenter "openvk!Support->knowledgeBaseArticle", "names"}
+    </div>
+
+    {if $count < 1}
+        {include "../components/nothing.xml"}
+    {else}
+            <h4>{tr("names_showed", $amount, $count)}</h4>
+            <div class="container_gray">
+                <div
+                    n:foreach="$names as $name"
+                    class="content"
+                >
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td valign="top">
+                                    <a href="{$name->getUser()->getURL()}">
+                                        <img src="{$name->getUser()->getAvatarURL()}" width="100" height="100" />
+                                    </a>
+                                    <center>{$name->getCreationDate()}</center>
+                                </td>
+                                <td valign="top" style="width: 100%">
+                                    <table id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0">
+                                        <tbody style="display: flex; justify-content: space-between;">
+                                            <tr>
+                                                <td class="data">
+                                                    <a>{$name->getUser()->getFirstName()} {$name->getUser()->getLastName()}</a>
+                                                </td>
+                                            </tr>
+                                            <tr style="margin-left: 20%;">
+                                                <td class="data">
+                                                    <?xml version="1.0" standalone="no"?>
+                                                    <!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+                                                    "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+                                                    <svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+                                                         width="30px" height="20px" viewBox="0 0 512.000000 512.000000"
+                                                         preserveAspectRatio="xMidYMid meet">
+                                                        <g transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
+                                                           fill="#2B587A" stroke="none">
+                                                            <path d="M3806 3840 c-62 -19 -97 -83 -81 -147 4 -19 171 -192 498 -520 l491
+                                                                -493 -2316 -2 -2317 -3 -28 -21 c-15 -11 -35 -39 -43 -62 -13 -37 -12 -45 3
+                                                                -76 9 -19 29 -43 44 -53 26 -17 133 -18 2342 -21 l2315 -2 -486 -488 c-268
+                                                                -268 -492 -500 -497 -515 -25 -65 0 -126 62 -152 70 -29 56 -41 708 612 410
+                                                                410 610 617 614 636 4 15 4 39 0 55 -4 18 -203 224 -608 631 -514 515 -644
+                                                                638 -669 630 -2 0 -16 -5 -32 -9z"
+                                                            />
+                                                        </g>
+                                                    </svg>
+                                                </td>
+                                            </tr>
+                                            <tr style="text-align: right;">
+                                                <td class="data">
+                                                    <a>{$name->getFirstName()} {$name->getLastName()}</a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div
+                                        class="user-alert"
+                                        style="background-color: #EDEDED; border: 1px solid #D8D8D8; font-weight: normal; color: #000; padding: 10px;"
+                                    >
+                                        <b style="color: #858787;">{_city}:</b> {$name->getUser()->getCity() ?? "Не указан"}
+                                    </div>
+                                    <center style="margin-top: 20px;">
+                                        <div n:if="$name->getStatus() == 0">
+                                            <a href="/name{$name->getId()}?act=accept" class="button">{_approve}</a>
+                                            <a href="/name{$name->getId()}?act=reject" class="button">{_reject}</a>
+                                        </div>
+                                        <div n:if="$name->getStatus() == 1">
+                                            <b style="color: green;">{_approved}</b>
+                                        </div>
+                                        <div n:if="$name->getStatus() == 2">
+                                            <b style="color: red;">{_rejected}</b>
+                                        </div>
+                                    </center>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        <div style="padding: 8px;">
+            {include "../components/paginator.xml", conf => (object) [
+                "page"     => $page,
+                "count"    => $count,
+                "amount"   => $amount,
+                "perPage"  => 5,
+                "atBottom" => true,
+            ]}
+        </div>
+    {/if}
+{/block}

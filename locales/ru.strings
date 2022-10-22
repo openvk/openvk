@@ -1244,6 +1244,20 @@
 "url_is_banned_title" = "Ссылка на подозрительный сайт";
 "url_is_banned_proceed" = "Перейти по ссылке";
 
+/* Names */
+
+"names_new" = "Новые";
+"names_approved" = "Принятые";
+"names_rejected" = "Отклонённые";
+"names_showed" = "Показано $1 заявок на смену имени (всего $2)";
+"approve" = "Одобрить";
+"reject" = "Отклонить";
+"approved" = "Одобрена";
+"rejected" = "Отклонена";
+"name_change_request" = "Смена имени";
+"name_change_request_pending" = "Ваша заявка на смену имени находится на рассмотрении модераторами.";
+"name_change_request_rejected" = "Ваша заявка на смену имени была отклонена модераторами. Вы можете подать новую, когда это сообщение исчезнет.";
+
 /* Maintenance */
 
 "global_maintenance" = "Технические работы";
