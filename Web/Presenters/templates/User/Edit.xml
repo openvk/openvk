@@ -133,11 +133,23 @@
                         <td width="120" valign="top">
                             <span class="nobold">{_gender}: </span>
                         </td>
+                        <script>
+                            function genderChanged(e) {
+                                if(e.target.value == "other")
+                                    $('#other-gender-input').show('slide', 0, 1000)
+                                else
+                                    $('#other-gender-input').hide('slide', 0, 1000);
+                            }
+                        </script>
                         <td>
-                            <select name="gender">
-                                <option value="1" {if $user->isFemale() == true}selected{/if}>{_female}</option>
-                                <option value="0" {if $user->isFemale() == false}selected{/if}>{_male}</option>
+                            <select name="gender" onchange="genderChanged(event)">
+                                <option value="hide" n:attr="selected => $user->getRawGender() == NULL">{_hidden}</option>
+                                <option value="female"  n:attr="selected => $user->getRawGender() == 'female'">{_female}</option>
+                                <option value="male" n:attr="selected => $user->getRawGender() == 'male'">{_male}</option>
+                                <option value="non-binary" n:attr="selected => $user->getRawGender() == 'non-binary'">{_non-binary}</option>
+                                <option value="other" n:attr="selected => $user->hasOtherGenderString()">{_other}</option>
                             </select>
+                            <input id="other-gender-input" type="text" name="other-gender-string" placeholder="{_other_gender_placeholder}" style="display: {$user->hasOtherGenderString() ? 'inline' : 'none'};" n:attr="value => $user->hasOtherGenderString() ? $user->getGender() : ''" />
                         </td>
                     </tr>
                     <tr>

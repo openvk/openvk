@@ -382,7 +382,7 @@
                     <tbody>
                         <tr>
                             <td class="label"><span class="nobold">{_gender}: </span></td>
-                            <td class="data">{$user->isFemale() ? tr("female") : tr("male")}</td>
+                            <td class="data">{$user->getGender()}</td>
                         </tr>
                         <tr>
                             <td class="label"><span class="nobold">{_relationship}:</span></td>

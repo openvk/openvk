@@ -91,7 +91,10 @@ final class AuthPresenter extends OpenVKPresenter
                 $user = new User;
                 $user->setFirst_Name($this->postParam("first_name"));
                 $user->setLast_Name($this->postParam("last_name"));
-                $user->setSex((int)($this->postParam("sex") === "female"));
+
+                if ($this->postParam("sex") != "null")
+                    $user->setGender((int)($this->postParam("sex") === "female"));
+
                 $user->setEmail($this->postParam("email"));
                 $user->setSince(date("Y-m-d H:i:s"));
                 $user->setRegistering_Ip(CONNECTING_IP);

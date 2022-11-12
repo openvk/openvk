@@ -72,6 +72,10 @@
 "gender" = "Gender";
 "male" = "male";
 "female" = "female";
+"non-binary" = "non-binary";
+"other" = "other";
+"other_gender_placeholder" = "I refer to myself as...";
+"hidden" = "not specified";
 "description" = "Description";
 "save" = "Save";
 "main_information" = "Main information";
@@ -1226,3 +1230,5 @@
 "undergoing_section_maintenance" = "Unfortunately, the <b>$1</b> section is temporarily unavailable. We are already working on troubleshooting. Please try to come back later.";
 
 "topics" = "Topics";
+
+"not_specified" = "Not specified";

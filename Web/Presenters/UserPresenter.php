@@ -165,9 +165,17 @@ final class UserPresenter extends OpenVKPresenter
                 if ($this->postParam("politViews") <= 9 && $this->postParam("politViews") >= 0)
                 $user->setPolit_Views($this->postParam("politViews"));
                 
-                if ($this->postParam("gender") <= 1 && $this->postParam("gender") >= 0)
-                $user->setSex($this->postParam("gender"));
-                
+                if ($this->postParam("gender"))
+                    if($this->postParam("gender") == "hide")
+                        $user->setGender(NULL);
+                    elseif($this->postParam("gender") == "other")
+                        if($this->postParam("other-gender-string"))
+                            $user->setGender($this->postParam("other-gender-string"));
+                        else
+                            $user->setGender(NULL);
+                    else
+                        $user->setGender($this->postParam("gender"));
+
                 if(!empty($this->postParam("phone")) && $this->postParam("phone") !== $user->getPhone()) {
                     if(!OPENVK_ROOT_CONF["openvk"]["credentials"]["smsc"]["enable"])
                         $this->flashFail("err", tr("error_segmentation"), "котлетки");

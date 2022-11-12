@@ -726,7 +726,25 @@ class User extends RowModel
 
     function isFemale(): bool
     {
-        return (bool) $this->getRecord()->sex;
+        return (bool) $this->getRawGender() == "female";
+    }
+
+    function getGender(): string
+    {
+        $gender = $this->getRecord()->gender;
+
+        if(in_array($gender, ["female", "male", "non-binary"])) return tr($gender);
+        else return $gender ?? "Не указан";
+    }
+
+    function getRawGender(): ?string
+    {
+        return $this->getRecord()->gender;
+    }
+
+    function hasOtherGenderString(): bool
+    {
+        return !in_array($this->getRecord()->gender, ["female", "male", "non-binary", NULL]);
     }
 
     function isVerified(): bool
