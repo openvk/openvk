@@ -25,6 +25,7 @@ services:
     - openvk\Web\Presenters\VKAPIPresenter
     - openvk\Web\Presenters\PollPresenter
     - openvk\Web\Presenters\BannedLinkPresenter
+    - openvk\Web\Presenters\LinksPresenter
     - openvk\Web\Models\Repositories\Users
     - openvk\Web\Models\Repositories\Posts
     - openvk\Web\Models\Repositories\Polls
@@ -44,6 +45,7 @@ services:
     - openvk\Web\Models\Repositories\Gifts
     - openvk\Web\Models\Repositories\Topics
     - openvk\Web\Models\Repositories\Applications
+    - openvk\Web\Models\Repositories\Links
     - openvk\Web\Models\Repositories\ContentSearchRepository
     - openvk\Web\Models\Repositories\Aliases
     - openvk\Web\Models\Repositories\BannedLinks

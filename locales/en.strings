@@ -790,6 +790,31 @@
 "app_err_note" = "Failed to attach a news note";
 "app_err_note_desc" = "Make sure the link is correct and the note belongs to you.";
 
+/* Links */
+
+"links" = "Links";
+"create_link" = "Create link";
+"new_link" = "New link";
+"edit_link" = "Edit link";
+"icon" = "Icon";
+
+"failed_to_create_link" = "Failed to create link";
+"failed_to_change_link" = "Failed to change link";
+
+"unable_to_upload_icon" = "Unable to upload icon";
+"unable_to_upload_icon_desc" = "Icon too big or wrong: general error #$res.";
+
+"not_all_data_entered" = "Not all data has been entered.";
+"wrong_address" = "Wrong address :(";
+
+"link_created" = "Link created.";
+"link_changed" = "Link changed";
+"link_deleted" = "Link deleted.";
+
+"links_count_zero" = "No links";
+"links_count_one" = "One link";
+"links_count_other" = "$1 links";
+
 /* Support */
 
 "support_opened" = "Opened";

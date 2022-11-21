@@ -725,6 +725,33 @@
 "app_err_note" = "Не удалось прикрепить новостную заметку";
 "app_err_note_desc" = "Убедитесь, что ссылка правильная и заметка принадлежит Вам.";
 
+/* Links */
+
+"links" = "Ссылки";
+"create_link" = "Создать ссылку";
+"new_link" = "Новая ссылка";
+"edit_link" = "Редактировать ссылку";
+"icon" = "Иконка";
+
+"failed_to_create_link" = "Не удалось создать ссылку";
+"failed_to_change_link" = "Не удалось изменить ссылку";
+
+"failed_to_upload_icon" = "Не удалось загрузить иконку";
+"failed_to_upload_icon_desc" = "Иконка слишком большая или кривая: ошибка общего характера №$res.";
+
+"not_all_data_entered" = "Не все данные введены.";
+"wrong_address" = "Неправильный адрес :(";
+
+"link_created" = "Ссылка создана.";
+"link_changed" = "Ссылка изменена";
+"link_deleted" = "Ссылка удалена.";
+
+"links_count_zero" = "Нет ссылок";
+"links_count_one" = "Одна ссылка";
+"links_count_few" = "$1 ссылки";
+"links_count_many" = "$1 ссылок";
+"links_count_other" = "$1 ссылок";
+
 /* Support */
 
 "support_opened" = "Открытые";

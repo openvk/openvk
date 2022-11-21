@@ -229,6 +229,32 @@
                 </div>
             </div>
         </div>
+        <div n:if="$linksCount > 0 || $thisUser != NULL && $user->getId() === $thisUser->getId()">
+            <div class="content_title_expanded" onclick="hidePanel(this, {$linksCount});">
+                {_links}
+            </div>
+            <div>
+                <div class="content_subtitle">
+                    {tr("links_count", $linksCount)}
+                    <div style="float: right;">
+                        <a href="/links{$user->getId()}">{_all_title}</a>
+                    </div>
+                </div>
+                <div class="avatar-list">
+                    <div class="avatar-list-item" n:foreach="$links as $link">
+                        <div class="avatar">
+                            <a href="/away.php?to={$link->getUrl()}">
+                                <img height="32" class="ava" src="{$link->getIconUrl()}" />
+                            </a>
+                        </div>
+                        <div class="info">
+                            <a href="/away.php?to={$link->getUrl()}" class="title">{$link->getTitle()}</a>
+                            <div class="subtitle">{$link->getDescriptionOrDomain()}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div n:if="$albumsCount > 0 && $user->getPrivacyPermission('photos.read', $thisUser ?? NULL)">
             <div class="content_title_expanded" onclick="hidePanel(this, {$albumsCount});">
                 {_albums}

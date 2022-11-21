@@ -1,0 +1,71 @@
+{extends "../@layout.xml"}
+{block title}
+    {if $create}
+        {_new_link}
+    {else}
+        {_edit_link} "{$title}"
+    {/if}
+{/block}
+
+{block header}
+    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+    »
+    <a href="/links{$ownerId}">{_links}</a>
+    »
+    {if $create}{_new_link}{else}{_edit_link}{/if}
+{/block}
+
+{block content}
+    <div class="container_gray">
+        <h4>{if $create}{_new_link}{else}{_edit_link}{/if}</h4>
+        <form method="POST" action="/links{$ownerId}/edit{$linkId ?? 0}" enctype="multipart/form-data">
+            <table cellspacing="7" cellpadding="0" width="60%" border="0" align="center">
+                <tbody>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_title}:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="title" value="{$title ?? ''}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_address}:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="url" value="{$url ?? ''}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_description}:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="description" value="{$description ?? ''}" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_icon}: </span>
+                        </td>
+                        <td>
+                            <input type="file" name="icon" accept="image/*" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top">
+                            
+                        </td>
+                        <td>
+                            <input type="hidden" name="hash" value="{$csrfToken}" />
+                            <input type="submit" value="{_save}" class="button" />
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <input type="hidden" name="hash" value="{$csrfToken}" />
+        </form>
+    </div>
+{/block}

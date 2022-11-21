@@ -2,7 +2,7 @@
 namespace openvk\Web\Presenters;
 use openvk\Web\Models\Entities\{Club, Photo};
 use openvk\Web\Models\Entities\Notifications\ClubModeratorNotification;
-use openvk\Web\Models\Repositories\{Clubs, Users, Albums, Managers, Topics};
+use openvk\Web\Models\Repositories\{Clubs, Users, Albums, Managers, Topics, Links};
 use Chandler\Security\Authenticator;
 
 final class GroupPresenter extends OpenVKPresenter
@@ -27,6 +27,8 @@ final class GroupPresenter extends OpenVKPresenter
             $this->template->albumsCount = (new Albums)->getClubAlbumsCount($club);
             $this->template->topics      = (new Topics)->getLastTopics($club, 3);
             $this->template->topicsCount = (new Topics)->getClubTopicsCount($club);
+            $this->template->links       = (new Links)->getByOwnerId($club->getId() * -1, 1, 5);
+            $this->template->linksCount  = (new Links)->getCountByOwnerId($club->getId() * -1);
 
             $this->template->club = $club;
         }

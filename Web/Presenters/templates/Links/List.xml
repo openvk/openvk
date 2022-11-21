@@ -1,0 +1,42 @@
+{extends "../@listView.xml"}
+{var $iterator = iterator_to_array($links)}
+{var $page     = $paginatorConf->page}
+
+{block title}{_links} {$owner->getCanonicalName()}{/block}
+
+{block header}
+    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a> » {_links}
+    
+    <div n:if="!is_null($thisUser) && ($ownerId > 0 ? $ownerId === $thisUser->getId() : $owner->canBeModifiedBy($thisUser))" style="float: right;">
+        <a href="/links{$ownerId}/create">{_create_link}</a>
+    </div>
+{/block}
+
+{* BEGIN ELEMENTS DESCRIPTION *}
+
+{block link|strip|stripHtml}
+    /away.php?to={$x->getUrl()}
+{/block}
+
+{block preview}
+    <img src="{$x->getIconUrl()}" alt="{$x->getTitle()}" width=75 />
+{/block}
+
+{block name}
+    {$x->getTitle()}
+{/block}
+
+{block description}
+    {$x->getDescriptionOrDomain()}
+{/block}
+
+{block actions}
+    {if !is_null($thisUser) && $x->canBeModifiedBy($thisUser)}
+        <a class="profile_link" href="/links{$ownerId}/edit{$x->getId()}">
+            {_edit}
+        </a>
+        <a class="profile_link" href="/links{$ownerId}/delete{$x->getId()}">
+            {_delete}
+        </a>
+    {/if}
+{/block}
