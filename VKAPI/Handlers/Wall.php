@@ -436,6 +436,9 @@ final class Wall extends VKAPIRequestHandler
         if(!$post || $post->isDeleted()) $this->fail(100, "One of the parameters specified was missing or invalid");
 
         $comments = (new CommentsRepo)->getCommentsByTarget($post, $offset+1, $count, $sort == "desc" ? "DESC" : "ASC");
+
+        if(!$post->getPrivacyPermission('comments.read', $this->user->identity))
+            $this->fail(15, "Access denied");
         
         $items = [];
         $profiles = [];
@@ -545,8 +548,11 @@ final class Wall extends VKAPIRequestHandler
         $post = (new PostsRepo)->getPostById($owner_id, $post_id);
         if(!$post || $post->isDeleted()) $this->fail(100, "One of the parameters specified was missing or invalid");
 
+        if($post->isClosed() || !$post->getPrivacyPermission('comments.write', $this->user->identity))
+            $this->fail(15, "Access denied");
+
         if($post->getTargetWall() < 0)
-            $club = (new ClubsRepo)->get(abs($post->getTargetWall()));
+            $club = (new ClubsRepo)->get(abs($post->getTargetWall()));        
         
         $flags = 0;
         if($from_group != 0 && !is_null($club) && $club->canBeModifiedBy($this->user))
@@ -581,7 +587,7 @@ final class Wall extends VKAPIRequestHandler
         $comment = (new CommentsRepo)->get($comment_id);
         if(!$comment) $this->fail(100, "One of the parameters specified was missing or invalid");;
         if(!$comment->canBeDeletedBy($this->user))
-            $this->fail(7, "Access denied");
+            $this->fail(15, "Access denied");
         
         $comment->delete();
         

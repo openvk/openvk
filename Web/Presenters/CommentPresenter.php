@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Presenters;
-use openvk\Web\Models\Entities\{Comment, Photo, Video, User, Topic, Post};
+use openvk\Web\Models\Entities\{Comment, Photo, Video, User, Topic, Post, Wall};
 use openvk\Web\Models\Entities\Notifications\CommentNotification;
 use openvk\Web\Models\Repositories\{Comments, Clubs};
 
@@ -42,6 +42,9 @@ final class CommentPresenter extends OpenVKPresenter
 
         if($entity instanceof Topic && $entity->isClosed())
             $this->notFound();
+
+        if($entity instanceof Post && !$entity->getOwner()->getPrivacyPermission('comments.write', $this->user->identity))
+            exit(header("HTTP/1.1 403 Forbidden"));
 
         if($entity instanceof Post && $entity->getTargetWall() < 0)
             $club = (new Clubs)->get(abs($entity->getTargetWall()));

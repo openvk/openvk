@@ -429,6 +429,8 @@ class User extends RowModel
                 "friends.add",
                 "wall.write",
                 "messages.write",
+                "comments.read",
+                "comments.write",
             ],
         ])->get($id);
     }
@@ -875,6 +877,8 @@ class User extends RowModel
                 "friends.add",
                 "wall.write",
                 "messages.write",
+                "comments.read",
+                "comments.write",
             ],
         ])->set($id, $status)->toInteger());
     }

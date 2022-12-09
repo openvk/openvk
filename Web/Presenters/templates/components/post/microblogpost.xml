@@ -86,7 +86,7 @@
                     {if isset($thisUser)}
                         &nbsp;
                         
-                        <a n:if="!($forceNoCommentsLink ?? false) && $commentsCount == 0" href="javascript:expand_comment_textarea({$commentTextAreaId})">{_comment}</a>
+                        <a n:if="!($forceNoCommentsLink ?? false) && $author->getPrivacyPermission('comments.read', $thisUser) && $commentsCount == 0" href="javascript:expand_comment_textarea({$commentTextAreaId})">{_comment}</a>
                         
                         <div class="like_wrap">
                             <a n:if="!($forceNoShareLink ?? false)" class="post-share-button" href="javascript:repostPost('{$post->getPrettyId()}', '{rawurlencode($csrfToken)}')">
@@ -104,12 +104,12 @@
                         </div>
                     {/if}
                 </div>
-                <div n:if="!($forceNoCommentsLink ?? false) && $commentSection == true && $compact == false" class="post-menu-s">
+                <div n:if="!($forceNoCommentsLink ?? false) && $author->getPrivacyPermission('comments.read', $thisUser) && $commentSection == true && $compact == false" class="post-menu-s">
                     <a n:if="$commentsCount > 3" href="/wall{$post->getPrettyId()}" class="expand_button">{_view_other_comments}</a>
                     {foreach $comments as $comment}
                         {include "../comment.xml", comment => $comment, $compact => true}
                     {/foreach}
-                    <div n:ifset="$thisUser" id="commentTextArea{$commentTextAreaId}" n:attr="style => ($commentsCount == 0 ? 'display: none;')" class="commentsTextFieldWrap">
+                    <div n:ifset="$thisUser" n:if="$author->getPrivacyPermission('comments.write', $thisUser) && !$post->isClosed()" id="commentTextArea{$commentTextAreaId}" n:attr="style => ($commentsCount == 0 ? 'display: none;')" class="commentsTextFieldWrap">
                         {var $commentsURL = "/al_comments/create/posts/" . $post->getId()}
                         {var $club = is_null($club) ? ($post->getTargetWall() < 0 ? (new openvk\Web\Models\Repositories\Clubs)->get(abs($post->getTargetWall())) : NULL) : $club}
                         {include "../textArea.xml", route => $commentsURL, postOpts => false, graffiti => (bool) ovkGetQuirk("comments.allow-graffiti"), post => $post, club => $club}

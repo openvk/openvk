@@ -420,4 +420,26 @@ final class WallPresenter extends OpenVKPresenter
         # TODO localize message based on language and ?act=(un)pin
         $this->flashFail("succ", tr("information_-1"), tr("changes_saved_comment"));
     }
+
+    function renderOpen(int $wall, int $post_id): void
+    {
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction();
+        
+        $post = $this->posts->getPostById($wall, $post_id);
+        if(!$post)
+            $this->notFound();
+        
+        if(!$post->canBeClosedBy($this->user->identity))
+            $this->flashFail("err", tr("not_enough_permissions"), tr("not_enough_permissions_comment"));
+        
+        if(($this->queryParam("act") ?? "open") === "open") {
+            $post->open();
+        } else {
+            $post->close();
+        }
+        
+        # TODO localize message based on language and ?act=(open|close)
+        $this->flashFail("succ", tr("information_-1"), tr("changes_saved_comment"));
+    }
 }

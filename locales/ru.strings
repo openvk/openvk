@@ -154,6 +154,8 @@
 "pinned" = "закреплено";
 "comments_tip" = "Будьте первым, кто оставит комментарий!";
 "your_comment" = "Ваш комментарий";
+"enable_comments" = "Включить комментарии";
+"disable_comments" = "Выключить комментарии";
 "shown" = "Показано";
 "x_out_of" = "$1 из";
 "wall_zero" = "нет записей";
@@ -434,6 +436,8 @@
 "privacy_setting_add_to_friends" = "Кто может называть меня другом";
 "privacy_setting_write_wall" = "Кто может писать у меня на стене";
 "privacy_setting_write_messages" = "Кто может писать мне сообщения";
+"privacy_setting_see_comments" = "Кому видно комментарии к моим записям";
+"privacy_setting_write_comments" = "Кто может комментировать мои записи";
 "privacy_value_anybody" = "Все желающие";
 "privacy_value_anybody_dative" = "Всем желающим";
 "privacy_value_users" = "Пользователям OpenVK";

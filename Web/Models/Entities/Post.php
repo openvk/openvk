@@ -103,6 +103,11 @@ class Post extends Postable
     {
         return (bool) $this->getRecord()->nsfw;
     }
+
+    function isClosed(): bool
+    {
+        return (bool) $this->getRecord()->closed;
+    }
     
     function isDeleted(): bool
     {
@@ -134,6 +139,27 @@ class Post extends Postable
         $this->stateChanges("pinned", false);
         $this->save();
     }
+
+    function close(): void
+    {
+        DB::i()
+            ->getContext()
+            ->table("posts")
+            ->where([
+                "wall"   => $this->getTargetWall(),
+                "closed" => true,
+            ])
+            ->update(["closed" => false]);
+        
+        $this->stateChanges("closed", true);
+        $this->save();
+    }
+    
+    function open(): void
+    {
+        $this->stateChanges("closed", false);
+        $this->save();
+    }
     
     function canBePinnedBy(User $user): bool
     {
@@ -146,6 +172,11 @@ class Post extends Postable
     function canBeDeletedBy(User $user): bool
     {
         return $this->getOwnerPost() === $user->getId() || $this->canBePinnedBy($user);
+    }
+
+    function canBeClosedBy(User $user): bool
+    {
+        return $this->canBeDeletedBy($user);
     }
     
     function setContent(string $content): void

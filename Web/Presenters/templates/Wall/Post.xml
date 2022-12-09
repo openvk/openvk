@@ -14,22 +14,39 @@
 {/block}
 
 {block content}
-    {include "../components/post.xml", post => $post, forceNoCommentsLink => TRUE, forceNoDeleteLink => TRUE}
+    {include "../components/post.xml", post => $post, forceNoCommentsLink => TRUE, forceNoPinLink => TRUE, forceNoDeleteLink => TRUE}
     <hr/>
-    <div style="float: left; min-height: 100px; width: 68%;">
+    <div n:if="$wallOwner->getPrivacyPermission('comments.read', $thisUser)" style="float: left; min-height: 100px; width: 68%;">
         {include "../components/comments.xml",
                  comments => $comments,
                  count => $cCount,
                  page => $cPage,
                  model => "posts",
-                 parent => $post }
+                 parent => $post,
+                 readOnly => (!$wallOwner->getPrivacyPermission('comments.write', $thisUser) XOR $post->isClosed()) }
     </div>
-    <div style="float: left; min-height: 100px; width: 32%;">
+    <div style="float: right; min-height: 100px; width: 32%;">
         <h4>{_actions}</h4>
         {if isset($thisUser)}
+            {var $canPin = $post->canBePinnedBy($thisUser)}
+            {var $canClose = $post->canBeClosedBy($thisUser)}
             {var $canDelete = $post->canBeDeletedBy($thisUser)}
         {/if}
-        
+
+        {if $canPin}
+            {if $post->isPinned()}
+                <a class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/pin?act=unpin&hash={rawurlencode($csrfToken)}">{_unpin}</a>
+            {else}
+                <a class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/pin?act=pin&hash={rawurlencode($csrfToken)}">{_pin}</a>
+            {/if}
+        {/if}
+        {if $canClose}
+            {if $post->isClosed()}
+                <a class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/open?act=open&hash={rawurlencode($csrfToken)}">{_enable_comments}</a>
+            {else}
+                <a class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/open?act=close&hash={rawurlencode($csrfToken)}">{_disable_comments}</a>
+            {/if}
+        {/if}
         <a n:if="$canDelete ?? false" class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/delete">{_delete}</a>
     </div>
 {/block}

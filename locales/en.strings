@@ -172,6 +172,8 @@
 "pinned" = "pinned";
 "comments_tip" = "Be first, who leaves a comment at this post!";
 "your_comment" = "Your comment";
+"enable_comments" = "Enable comments";
+"disable_comments" = "Disable comments";
 "shown" = "Shown";
 "x_out_of" = "$1 of";
 "wall_zero" = "no posts";
@@ -464,6 +466,8 @@
 "privacy_setting_add_to_friends" = "Who can add me to friends";
 "privacy_setting_write_wall" = "Who can publish post on my wall";
 "privacy_setting_write_messages" = "Who can write messages to me";
+"privacy_setting_see_comments" = "Who can see comments on my posts";
+"privacy_setting_write_comments" = "Who can write comment on my posts";
 "privacy_value_anybody" = "Anybody";
 "privacy_value_anybody_dative" = "Anybody";
 "privacy_value_users" = "OpenVK users";

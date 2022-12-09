@@ -1,6 +1,7 @@
 {var $author = $comment->getOwner()}
-{var $Club  = openvk\Web\Models\Entities\Club::class}
+{var $Club   = openvk\Web\Models\Entities\Club::class}
 {var $postId = $comment->getTarget() instanceof \openvk\Web\Models\Entities\Post ? $comment->getTarget()->getId() : NULL}
+{var $post   = $comment->getTarget() instanceof \openvk\Web\Models\Entities\Post ? (new \openvk\Web\Models\Repositories\Posts)->get($postId) : NULL}
 
 <a name="cid={$comment->getId()}"></a>
 <table border="0" style="font-size: 11px;" class="post comment" id="_comment{$comment->getId()}" data-comment-id="{$comment->getId()}" data-owner-id="{$author->getId()}" data-from-group="{$comment->getOwner() instanceof $Club}" n:attr="data-post-id => $postId">
@@ -29,11 +30,13 @@
                         </div>
                     </div>
                     <div n:if="isset($thisUser) &&! ($compact ?? false)" class="post-menu">
-                        <a href="#_comment{$comment->getId()}" class="date">{$comment->getPublicationTime()}</a>&nbsp;|
+                        <a href="#_comment{$comment->getId()}" class="date">{$comment->getPublicationTime()}</a>
                         {if $comment->canBeDeletedBy($thisUser)}
-                            <a href="/comment{$comment->getId()}/delete">{_delete}</a>&nbsp;|
+                            |&nbsp;<a href="/comment{$comment->getId()}/delete">{_delete}</a>
                         {/if}
-                        <a class="comment-reply">{_reply}</a>
+                        {if $post->getOwner()->getPrivacyPermission('comments.write', $thisUser) && !$post->isClosed()}
+                            |&nbsp;<a class="comment-reply">{_reply}</a>
+                        {/if}
                         <div style="float: right; font-size: .7rem;">
                             <a class="post-like-button" href="/comment{$comment->getId()}/like?hash={rawurlencode($csrfToken)}">
                                 <div class="heart" style="{if $comment->hasLikeFrom($thisUser)}opacity: 1;{else}opacity: 0.4;{/if}"></div>

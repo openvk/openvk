@@ -91,14 +91,14 @@
                         &nbsp;|&nbsp;
                     {/if}
                     
-                    <a n:if="!($forceNoCommentsLink ?? false)" href="/wall{$post->getPrettyId()}#comments">
+                    <a n:if="!($forceNoCommentsLink ?? false) && $author->getPrivacyPermission('comments.read', $thisUser)" href="/wall{$post->getPrettyId()}#comments">
                         {_comments}
                         {if $post->getCommentsCount() > 0}
                             (<b>{$post->getCommentsCount()}</b>)
                         {/if}
                     </a>
 
-                    {if !($forceNoCommentsLink ?? false) && !($forceNoShareLink ?? false)}
+                    {if (!($forceNoCommentsLink ?? false) && $author->getPrivacyPermission('comments.read', $thisUser)) && !($forceNoShareLink ?? false)}
                         &nbsp;|&nbsp;
                     {/if}
                     

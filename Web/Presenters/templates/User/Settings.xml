@@ -385,6 +385,31 @@
                     </td>
                 </tr>
                 <tr>
+                    <td width="120" valign="top">
+                        <span class="nobold">{_privacy_setting_see_comments}</span>
+                    </td>
+                    <td>
+                        <select name="comments.read" style="width: 164px;">
+                            <option value="3" {if $user->getPrivacySetting('comments.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                            <option value="2" {if $user->getPrivacySetting('comments.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                            <option value="1" {if $user->getPrivacySetting('comments.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                            <option value="0" {if $user->getPrivacySetting('comments.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" valign="top">
+                        <span class="nobold">{_privacy_setting_write_comments}</span>
+                    </td>
+                    <td>
+                        <select name="comments.write", style="width: 164px;">
+                            <option value="2" {if $user->getPrivacySetting('comments.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
+                            <option value="1" {if $user->getPrivacySetting('comments.write') == 1}selected{/if}>{_privacy_value_friends}</option>
+                            <option value="0" {if $user->getPrivacySetting('comments.write') == 0}selected{/if}>{_privacy_value_nobody}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
                     <td>
                         
                     </td>

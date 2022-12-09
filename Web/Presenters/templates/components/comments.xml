@@ -16,7 +16,9 @@
         {include "paginator.xml", conf => (object) ["page" => $page, "count" => $count, "amount" => sizeof($comments), "perPage" => 10]}
     </div>
 {else}
-    {_comments_tip}
+    {if $wallOwner->getPrivacyPermission('comments.write', $thisUser)}
+        {_comments_tip}
+    {/if}
 {/if}
 
 {script "js/al_comments.js"}
