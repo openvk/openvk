@@ -965,6 +965,8 @@ class User extends RowModel
             if(in_array($code, OPENVK_ROOT_CONF["openvk"]["preferences"]["shortcodes"]["forbiddenNames"]))
                 return false;
             if(\Chandler\MVC\Routing\Router::i()->getMatchingRoute("/$code")[0]->presenter !== "UnknownTextRouteStrategy") {
+				if (!OPENVK_ROOT_CONF["openvk"]["preferences"]["shortcodes"]["enableFakeNegativeIDs"])
+					return false;
 				if ((substr($code, 0, 3) !== "id-") || (!preg_match("%^id\\-[1-9]\d{0,30}$%", $code)))
 					return false;
 			}
