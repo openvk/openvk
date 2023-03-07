@@ -960,11 +960,11 @@ class User extends RowModel
         if(!is_null($code)) {
             if(strlen($code) < OPENVK_ROOT_CONF["openvk"]["preferences"]["shortcodes"]["minLength"] && !$force)
                 return false;
-            if(!preg_match("%^[a-z][a-z0-9\\.\\_]{0,30}[a-z0-9]$%", $code))
+            if(!preg_match("%^[a-z][a-z0-9\\.\\_\\-]{0,30}[a-z0-9]$%", $code))
                 return false;
             if(in_array($code, OPENVK_ROOT_CONF["openvk"]["preferences"]["shortcodes"]["forbiddenNames"]))
                 return false;
-            if(\Chandler\MVC\Routing\Router::i()->getMatchingRoute("/$code")[0]->presenter !== "UnknownTextRouteStrategy")
+            if(\Chandler\MVC\Routing\Router::i()->getMatchingRoute("/$code")[0]->presenter !== "UnknownTextRouteStrategy" && !str_starts_with($code, "id-"))
                 return false;
 
             $pClub = DatabaseConnection::i()->getContext()->table("groups")->where("shortcode", $code)->fetch();
