@@ -65,11 +65,16 @@ final class Messages extends VKAPIRequestHandler
         ];
     }
     
-    function send(int $user_id = -1, int $peer_id = -1, string $domain = "", int $chat_id = -1, string $user_ids = "", string $message = "", int $sticker_id = -1)
+    function send(int $user_id = -1, int $peer_id = -1, string $domain = "", int $chat_id = -1, string $user_ids = "", string $message = "", int $sticker_id = -1, int $forGodSakePleaseDoNotReportAboutMyOnlineActivity = 0)
     {
         $this->requireUser();
         $this->willExecuteWriteAction();
-        
+
+        if($forGodSakePleaseDoNotReportAboutMyOnlineActivity == 0)
+        {
+            $this->getUser()->updOnline($this->getPlatform());
+        }
+                
         if($chat_id !== -1)
             $this->fail(946, "Chats are not implemented");
         else if($sticker_id !== -1)

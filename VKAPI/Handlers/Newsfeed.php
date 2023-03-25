@@ -7,9 +7,14 @@ use openvk\VKAPI\Handlers\Wall;
 
 final class Newsfeed extends VKAPIRequestHandler
 {
-    function get(string $fields = "", int $start_from = 0, int $offset = 0, int $count = 30, int $extended = 0)
+    function get(string $fields = "", int $start_from = 0, int $offset = 0, int $count = 30, int $extended = 0, int $forGodSakePleaseDoNotReportAboutMyOnlineActivity = 0)
     {
         $this->requireUser();
+
+        if($forGodSakePleaseDoNotReportAboutMyOnlineActivity == 0)
+        {
+            $this->getUser()->updOnline($this->getPlatform());
+        }
         
         $id    = $this->getUser()->getId();
         $subs  = DatabaseConnection::i()

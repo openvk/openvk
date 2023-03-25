@@ -45,14 +45,12 @@ final class Account extends VKAPIRequestHandler
     {
         $this->requireUser();
 
-        $this->getUser()->setOnline(time());
-        $this->getUser()->setClient_name($this->getPlatform());
-        $this->getUser()->save();
+        $this->getUser()->updOnline($this->getPlatform());
         
         return 1;
     }
 
-    function setOffline(): object
+    function setOffline(): int
     {
         $this->requireUser();
 
