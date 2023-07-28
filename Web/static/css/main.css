@@ -2696,3 +2696,13 @@ body.article .floating_sidebar, body.article .page_content {
     right: 22px;
     font-size: 12px;
 }
+
+.sourceDiv {
+    margin-top: 3px;
+    margin-left: 4px;
+}
+
+.sourceDiv span {
+    color:grey;
+    font-size: 11px;
+}

@@ -132,6 +132,12 @@ final class Wall extends VKAPIRequestHandler
                     "count"    => $post->getCommentsCount(),
                     "can_post" => 1
                 ],
+                "copyright" => !is_null($post->getSource(false))  ? (object)[
+                    "id"   => 0,
+                    "link" => $post->getSource(false),
+                    "name" => "none",
+                    "type" => "link"
+                ] : NULL,
                 "likes" => (object)[
                     "count"       => $post->getLikesCount(),
                     "user_likes"  => (int) $post->hasLikeFrom($this->getUser()),
@@ -307,6 +313,12 @@ final class Wall extends VKAPIRequestHandler
                         "count"    => $post->getCommentsCount(),
                         "can_post" => 1
                     ],
+                    "copyright" => !is_null($post->getSource(false))  ? (object)[
+                        "id"   => 0,
+                        "link" => $post->getSource(false),
+                        "name" => "none",
+                        "type" => "link"
+                    ] : NULL,
                     "likes" => (object)[
                         "count"       => $post->getLikesCount(),
                         "user_likes"  => (int) $post->hasLikeFrom($user),
@@ -379,7 +391,7 @@ final class Wall extends VKAPIRequestHandler
             ];
     }
 
-    function post(string $owner_id, string $message = "", int $from_group = 0, int $signed = 0, string $attachments = ""): object
+    function post(string $owner_id, string $message = "", int $from_group = 0, int $signed = 0, string $attachments = "", string $copyright = NULL): object
     {
         $this->requireUser();
         $this->willExecuteWriteAction();
@@ -428,6 +440,11 @@ final class Wall extends VKAPIRequestHandler
             $post->setContent($message);
             $post->setFlags($flags);
             $post->setApi_Source_Name($this->getPlatform());
+
+            if(!is_null($copyright) && !empty($copyright) && $copyright != "" && preg_match("/^(http:\/\/|https:\/\/)*[а-яА-ЯёЁa-z0-9\-_]+(\.[а-яА-ЯёЁa-z0-9\-_]+)+(\/\S*)*$/iu", $copyright) && iconv_strlen($copyright) < 50) {
+                $post->setSource($copyright);
+            }
+
             $post->save();
         } catch(\LogicException $ex) {
             $this->fail(100, "One of the parameters specified was missing or invalid");
@@ -774,6 +791,54 @@ final class Wall extends VKAPIRequestHandler
         $comment->delete();
 
         return 1;
+    }
+
+    function checkCopyrightLink(string $link) {
+        $res = (int)(!is_null($link) && !empty($link) && preg_match("/^(http:\/\/|https:\/\/)*[а-яА-ЯёЁa-z0-9\-_]+(\.[а-яА-ЯёЁa-z0-9\-_]+)+(\/\S*)*$/iu", $link) && iconv_strlen($link) < 50);
+        
+        if($res == 0) {
+            $this->fail(3102, "Specified link is incorrect");
+        }
+
+        return $res;
+    }
+
+    function pin(int $owner_id, int $post_id) {
+        $this->requireUser();
+        $this->willExecuteWriteAction();
+
+        $post = (new PostsRepo)->getPostById($owner_id, $post_id);
+        if(!$post || $post->isDeleted())
+            $this->fail(361, "Invalid post");
+
+        if(!$post->canBePinnedBy($this->getUser()))
+            $this->fail(14, "Access to pinning post denied");
+        
+        if(!$post->isPinned()) {
+            $post->pin();
+            return 1;
+        } else {
+            $this->fail(50, "Post is already pinned");
+        }
+    }
+
+    function unpin(int $owner_id, int $post_id) {
+        $this->requireUser();
+        $this->willExecuteWriteAction();
+        
+        $post = (new PostsRepo)->getPostById($owner_id, $post_id);
+        if(!$post || $post->isDeleted())
+            $this->fail(361, "Invalid post");
+
+        if(!$post->canBePinnedBy($this->getUser()))
+            $this->fail(14, "Access to unpinning post denied");
+        
+        if($post->isPinned()) {
+            $post->unpin();
+            return 1;
+        } else {
+            $this->fail(50, "Post is not pinned");
+        }
     }
 
     private function getApiPhoto($attachment) {

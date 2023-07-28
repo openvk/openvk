@@ -177,6 +177,8 @@
 "attachment" = "Вложение";
 "post_as_group" = "От имени сообщества";
 "comment_as_group" = "От имени сообщества";
+"set_source" = "Указать источник";
+"source" = "Источник";
 "add_signature" = "Подпись автора";
 "contains_nsfw" = "Содержит NSFW-контент";
 "nsfw_warning" = "Данный пост может содержать 18+ контент";

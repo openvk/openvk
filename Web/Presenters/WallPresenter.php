@@ -305,6 +305,11 @@ final class WallPresenter extends OpenVKPresenter
             $post->setAnonymous($anon);
             $post->setFlags($flags);
             $post->setNsfw($this->postParam("nsfw") === "on");
+
+            if($this->postParam("set_source") === "on" && !is_null($this->postParam("source")) && !empty($this->postParam("source")) && preg_match("/^(http:\/\/|https:\/\/)*[а-яА-ЯёЁa-z0-9\-_]+(\.[а-яА-ЯёЁa-z0-9\-_]+)+(\/\S*)*$/iu", $this->postParam("source")) && iconv_strlen($this->postParam("set_source")) < 50) {
+                $post->setSource($this->postParam("source"));
+            }
+
             $post->save();
         } catch (\LengthException $ex) {
             $this->flashFail("err", tr("failed_to_publish_post"), tr("post_is_too_big"));
