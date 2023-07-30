@@ -263,3 +263,17 @@ async function showArticle(note_id) {
     u("body").removeClass("dimmed");
     u("body").addClass("article");
 }
+
+if(document.querySelector("input[name='set_source']") != null) {
+    document.querySelector("input[name='set_source']").checked = false
+}
+
+$(document).on("change", "input[name='set_source']", (e) => {
+    if(e.currentTarget.checked) {
+        document.getElementById("sourceSet").style.display = "block"
+        e.currentTarget.parentNode.querySelector("span").innerHTML = tr("source") + ":"
+    } else {
+        document.getElementById("sourceSet").style.display = "none"
+        e.currentTarget.parentNode.querySelector("span").innerHTML = tr("set_source")
+    }
+})

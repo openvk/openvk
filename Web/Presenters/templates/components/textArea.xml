@@ -27,19 +27,6 @@
                     <div id="sourceSet" style="display:none;">
                         <input type="text" name="source" placeholder="https://youtu.be/dQw4w9WgXcQ/"/>
                     </div>
-
-                    <script>
-                        document.querySelector("input[name='set_source']").checked = false
-                        $(document).on("change", "input[name='set_source']", (e) => {
-                            if(e.currentTarget.checked) {
-                                document.getElementById("sourceSet").style.display = "block"
-                                e.currentTarget.parentNode.querySelector("span").innerHTML = tr("source") + ":"
-                            } else {
-                                document.getElementById("sourceSet").style.display = "none"
-                                e.currentTarget.parentNode.querySelector("span").innerHTML = tr("set_source")
-                            }
-                        })
-                    </script>
                 {/if}
 
                 {if !is_null($thisUser) && !is_null($club ?? NULL) && $owner < 0}
