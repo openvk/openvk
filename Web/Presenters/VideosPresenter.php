@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Presenters;
 use openvk\Web\Models\Entities\Video;
-use openvk\Web\Models\Repositories\{Users, Videos};
+use openvk\Web\Models\Repositories\{Users, Videos, Blacklists};
 use Nette\InvalidStateException as ISE;
 
 final class VideosPresenter extends OpenVKPresenter
@@ -40,8 +40,12 @@ final class VideosPresenter extends OpenVKPresenter
     {
         $user = $this->users->get($owner);
         if(!$user) $this->notFound();
-        if(!$user->getPrivacyPermission('videos.read', $this->user->identity ?? NULL))
+        if(!$user->getPrivacyPermission('videos.read', $this->user->identity ?? NULL)) {
+            if ((new Blacklists)->isBanned($user, $this->user->identity))
+                $this->flashFail("err", tr("forbidden"),  tr("user_blacklisted_you"));
+
             $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
+        }
 
         if($this->videos->getByOwnerAndVID($owner, $vId)->isDeleted()) $this->notFound();
         

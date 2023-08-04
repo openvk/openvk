@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Presenters;
 use openvk\Web\Models\Entities\{Club, Photo, Album};
-use openvk\Web\Models\Repositories\{Photos, Albums, Users, Clubs};
+use openvk\Web\Models\Repositories\{Photos, Albums, Users, Clubs, Blacklists};
 use Nette\InvalidStateException as ISE;
 
 final class PhotosPresenter extends OpenVKPresenter
@@ -27,6 +27,7 @@ final class PhotosPresenter extends OpenVKPresenter
             if(!$user) $this->notFound();
             if (!$user->getPrivacyPermission('photos.read', $this->user->identity ?? NULL))
                 $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
+
             $this->template->albums  = $this->albums->getUserAlbums($user, $this->queryParam("p") ?? 1);
             $this->template->count   = $this->albums->getUserAlbumsCount($user);
             $this->template->owner   = $user;
@@ -136,6 +137,11 @@ final class PhotosPresenter extends OpenVKPresenter
         if(!$album) $this->notFound();
         if($album->getPrettyId() !== $owner . "_" . $id || $album->isDeleted())
             $this->notFound();
+
+        if ((new Blacklists)->isBanned($album->getOwner(), $this->user->identity)) {
+            if (!$this->user->identity->isAdmin() OR $this->user->identity->isAdmin() AND OPENVK_ROOT_CONF["openvk"]["preferences"]["security"]["blacklists"]["applyToAdmins"])
+                $this->flashFail("err", tr("forbidden"), tr("user_blacklisted_you"));
+        }
         
         if($owner > 0 /* bc we currently don't have perms for clubs */) {
             $ownerObject = (new Users)->get($owner);
@@ -158,7 +164,12 @@ final class PhotosPresenter extends OpenVKPresenter
     {
         $photo = $this->photos->getByOwnerAndVID($ownerId, $photoId);
         if(!$photo || $photo->isDeleted()) $this->notFound();
-        
+
+        if ((new Blacklists)->isBanned($photo->getOwner(), $this->user->identity)) {
+            if (!$this->user->identity->isAdmin() OR $this->user->identity->isAdmin() AND OPENVK_ROOT_CONF["openvk"]["preferences"]["security"]["blacklists"]["applyToAdmins"])
+                $this->flashFail("err", tr("forbidden"),  tr("user_blacklisted_you"));
+        }
+
         if(!is_null($this->queryParam("from"))) {
             if(preg_match("%^album([0-9]++)$%", $this->queryParam("from"), $matches) === 1) {
                 $album = $this->albums->get((int) $matches[1]);

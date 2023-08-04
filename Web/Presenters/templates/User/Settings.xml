@@ -13,6 +13,7 @@
 {var $isFinance    = $mode === 'finance'}
 {var $isFinanceTU  = $mode === 'finance.top-up'}
 {var $isInterface  = $mode === 'interface'}
+{var $isBlackList  = $mode === 'blacklist'}
 
        <div class="tabs">
         <div n:attr="id => ($isMain ? 'activetabs' : 'ki')" class="tab">
@@ -29,6 +30,9 @@
         </div>
         <div n:attr="id => ($isInterface ? 'activetabs' : 'ki')" class="tab">
             <a n:attr="id => ($isInterface ? 'act_tab_a' : 'ki')" href="/settings?act=interface">{_interface}</a>
+        </div>
+        <div n:attr="id => ($isBlackList ? 'activetabs' : 'ki')" class="tab">
+            <a n:attr="id => ($isBlackList ? 'act_tab_a' : 'ki')" href="/settings?act=blacklist">{_blacklist}</a>
         </div>
     </div>
     
@@ -683,7 +687,49 @@
                 </tbody>
             </table>
         </form>
-        
+
+        {elseif $isBlackList}
+            {if $count < 1}
+                {include "../components/nothing.xml"}
+            {/if}
+            <div n:foreach="$items as $item" class="content">
+            <table>
+                <tbody>
+                    <tr>
+                        <td valign="top">
+                            <a href="/id2">
+                                <img src="{$item->getTarget()->getAvatarURL()}" width="75" alt="Фотография пользователя">
+                            </a>
+                        </td>
+                        <td valign="top" style="width: 100%">
+                            <a href="/id2">
+                                <b>
+                                    {$item->getTarget()->getCanonicalName()}
+                                    <img n:if="$item->getTarget()->isVerified()" class="name-checkmark" src="/assets/packages/static/openvk/img/checkmark.png">
+                                </b>
+                            </a>
+                            <br>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td width="120" valign="top"><span class="nobold">Дата добавления:</span></td>
+                                        <td>{$item->getCreationDate()}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td valign="top" class="action_links" style="width: 150px;">
+                            <form action="/removeFromBl" method="post" class="profile_link_form">
+                                <input type="hidden" name="act" value="rem">
+                                <input type="hidden" name="id" value="{$item->getTarget()->getId()}">
+                                <input type="hidden" name="hash" value="{$csrfToken}">
+                                <input type="submit" class="profile_link" value="удалить из чёрного списка">
+                            </form>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
         {/if}
     </div>
     

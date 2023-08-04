@@ -5,7 +5,7 @@ use openvk\Web\Util\Sms;
 use openvk\Web\Themes\Themepacks;
 use openvk\Web\Models\Entities\{Photo, Post, EmailChangeVerification};
 use openvk\Web\Models\Entities\Notifications\{CoinsTransferNotification, RatingUpNotification};
-use openvk\Web\Models\Repositories\{Users, Clubs, Albums, Videos, Notes, Vouchers, EmailChangeVerifications};
+use openvk\Web\Models\Repositories\{Users, Clubs, Albums, Videos, Notes, Vouchers, EmailChangeVerifications, Blacklists};
 use openvk\Web\Models\Exceptions\InvalidUserNameException;
 use openvk\Web\Util\Validator;
 use Chandler\Security\Authenticator;
@@ -15,20 +15,34 @@ use Nette\Database\UniqueConstraintViolationException;
 
 final class UserPresenter extends OpenVKPresenter
 {
-    private $users;
     public $deactivationTolerant = false;
     protected $presenterName = "user";
+    private $users;
+    private $blacklists;
 
-    function __construct(Users $users)
+    function __construct(Users $users, Blacklists $blacklists)
     {
         $this->users = $users;
-
+        $this->blacklists = $blacklists;
+        
         parent::__construct();
     }
     
     function renderView(int $id): void
     {
         $user = $this->users->get($id);
+
+        if ($this->user->identity)
+            if ($this->blacklists->isBanned($user, $this->user->identity)) {
+                    if ($this->user->identity->isAdmin()) {
+                        if (OPENVK_ROOT_CONF["openvk"]["preferences"]["security"]["blacklists"]["applyToAdmins"]) {
+                            $this->flashFail("err", tr("forbidden"),  tr("user_blacklisted_you"));
+                        }
+                    } else {
+                        $this->flashFail("err", tr("forbidden"),  tr("user_blacklisted_you"));
+                    }
+                }
+
         if(!$user || $user->isDeleted()) {
             if(!is_null($user) && $user->isDeactivated()) {
                 $this->template->_template = "User/deactivated.xml";
@@ -45,8 +59,11 @@ final class UserPresenter extends OpenVKPresenter
             $this->template->videosCount = (new Videos)->getUserVideosCount($user);
             $this->template->notes       = (new Notes)->getUserNotes($user, 1, 4);
             $this->template->notesCount  = (new Notes)->getUserNotesCount($user);
-            
+            $this->template->blacklists  = (new Blacklists);
+
             $this->template->user = $user;
+            $this->template->isBlacklistedThem = $this->template->blacklists->isBanned($this->user->identity, $user);
+            $this->template->isBlacklistedByThem = $this->template->blacklists->isBanned($user, $this->user->identity);
         }
     }
     
@@ -498,7 +515,7 @@ final class UserPresenter extends OpenVKPresenter
 			$this->flash("succ", tr("changes_saved"), tr("changes_saved_comment"));
         }
         $this->template->mode = in_array($this->queryParam("act"), [
-            "main", "security", "privacy", "finance", "finance.top-up", "interface"
+            "main", "security", "privacy", "finance", "finance.top-up", "interface", "blacklist"
         ]) ? $this->queryParam("act")
             : "main";
 
@@ -511,6 +528,11 @@ final class UserPresenter extends OpenVKPresenter
 
             $this->template->qrCodeType = substr($qrCode[0], 5);
             $this->template->qrCodeData = $qrCode[1];
+        }
+
+        if($this->template->mode == "blacklist") {
+            $this->template->items = $this->blacklists->getList($user);
+            $this->template->count = $this->blacklists->getCount($user);
         }
         
         $this->template->user   = $user;

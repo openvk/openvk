@@ -38,6 +38,8 @@ openvk:
                 maxViolations: 50
                 maxViolationsAge: 120
                 autoban: true
+            blacklists:
+                applyToAdmins: true
         registration:
             enable: true
             disablingReason: ""

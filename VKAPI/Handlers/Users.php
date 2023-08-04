@@ -2,6 +2,7 @@
 namespace openvk\VKAPI\Handlers;
 use openvk\Web\Models\Entities\User;
 use openvk\Web\Models\Repositories\Users as UsersRepo;
+use openvk\Web\Models\Repositories\Blacklists;
 
 final class Users extends VKAPIRequestHandler
 {
@@ -48,12 +49,15 @@ final class Users extends VKAPIRequestHandler
 						"id"                => $usr->getId(),
 						"first_name"        => $usr->getFirstName(),
 						"last_name"         => $usr->getLastName(),
-						"is_closed"         => false,
-						"can_access_closed" => true,
+						"is_closed"         => (new Blacklists)->isBanned($usr, $authuser),
+						"can_access_closed" => !(new Blacklists)->isBanned($usr, $authuser),
+                        "blacklisted"       => (new Blacklists)->isBanned($usr, $authuser),
+                        "blacklisted_by_me" => (new Blacklists)->isBanned($authuser, $usr)
 					];
 
 					$flds = explode(',', $fields);
 
+        if (!(new Blacklists)->isBanned($usr, $authuser))
 					foreach($flds as $field) { 
 						switch($field) {
 							case "verified":
@@ -165,10 +169,11 @@ final class Users extends VKAPIRequestHandler
 						}
 					}
 
-					if($usr->getOnline()->timestamp() + 300 > time())
-						$response[$i]->online = 1;
-					else
-						$response[$i]->online = 0;
+					if (!(new Blacklists)->isBanned($usr, $authuser))
+                        if($usr->getOnline()->timestamp() + 300 > time())
+                            $response[$i]->online = 1;
+                        else
+                            $response[$i]->online = 0;
 				}
 			}
         }
@@ -184,8 +189,14 @@ final class Users extends VKAPIRequestHandler
         $users = new UsersRepo;
 
         $this->requireUser();
-        
-        foreach($users->get($user_id)->getFollowers($offset, $count) as $follower)
+
+        $authuser = $this->getUser();
+        $target = $users->get($user_id);
+
+        if ((new Blacklists)->isBanned($target, $authuser))
+            $this->fail(15, "Access denied: User is blacklisted");
+
+        foreach($target->getFollowers($offset, $count) as $follower)
             $followers[] = $follower->getId();
 
         $response = $followers;
@@ -194,7 +205,7 @@ final class Users extends VKAPIRequestHandler
         	$response = $this->get(implode(',', $followers), $fields, 0, $count);
 
         return (object) [
-            "count" => $users->get($user_id)->getFollowersCount(),
+            "count" => $target->getFollowersCount(),
             "items" => $response
         ];
     }

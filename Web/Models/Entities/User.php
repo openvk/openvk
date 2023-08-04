@@ -5,7 +5,7 @@ use openvk\Web\Themes\{Themepack, Themepacks};
 use openvk\Web\Util\DateTime;
 use openvk\Web\Models\RowModel;
 use openvk\Web\Models\Entities\{Photo, Message, Correspondence, Gift};
-use openvk\Web\Models\Repositories\{Photos, Users, Clubs, Albums, Gifts, Notifications};
+use openvk\Web\Models\Repositories\{Users, Clubs, Albums, Photos, Gifts, Notifications, Blacklists};
 use openvk\Web\Models\Exceptions\InvalidUserNameException;
 use Nette\Database\Table\ActiveRow;
 use Chandler\Database\DatabaseConnection;
@@ -443,6 +443,9 @@ class User extends RowModel
             return $permStatus === User::PRIVACY_EVERYONE;
         else if($user->getId() === $this->getId())
             return true;
+        else if ((new Blacklists)->isBanned($this, $user)) {
+            return $user->isAdmin() && !OPENVK_ROOT_CONF["openvk"]["preferences"]["security"]["blacklists"]["applyToAdmins"];
+        }
 
         switch($permStatus) {
             case User::PRIVACY_ONLY_FRIENDS:
@@ -1097,6 +1100,11 @@ class User extends RowModel
         return (bool) $this->getRecord()->activated;
     }
 
+    function isAdmin(): bool
+    {
+        return $this->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL);
+    }
+    
     function getUnbanTime(): ?string
     {
         return !is_null($this->getRecord()->unblock_time) ? date('d.m.Y', $this->getRecord()->unblock_time) : NULL;

@@ -165,6 +165,19 @@
                 {/if}
             {/if}
             <a style="width: 194px;" n:if="$user->getFollowersCount() > 0" href="/friends{$user->getId()}?act=incoming" class="profile_link">{tr("followers", $user->getFollowersCount())}</a>
+            {if $isBlacklistedThem}
+            <form n:if="$thisUser->getId() != $user->getId()" action="/removeFromBl" method="post" class="profile_link_form">
+                <input type="hidden" name="id" value="{$user->getId()}" />
+                <input type="hidden" name="hash" value="{$csrfToken}" />
+                <input type="submit" class="profile_link" value="Удалить из чёрного списка" />
+            </form>
+            {else}
+            <form n:if="$thisUser->getId() != $user->getId()" action="/addToBl" method="post" class="profile_link_form">
+                <input type="hidden" name="id" value="{$user->getId()}" />
+                <input type="hidden" name="hash" value="{$csrfToken}" />
+                <input type="submit" class="profile_link" value="Добавить в чёрный список" />
+            </form>
+            {/if}
         </div>
         <div n:if="isset($thisUser) && !$thisUser->prefersNotToSeeRating()" class="profile-hints">
             {var $completeness = $user->getProfileCompletenessReport()}
@@ -380,6 +393,11 @@
     
     <div class="right_big_block">
         <div class="page_info">
+            <div n:if="$isBlacklistedByThem AND $thisUser->isAdmin() AND $thisUser->getId() !== $user->getId()" class="user-alert">
+                <b>{admin_privacy_warning}:</b>
+                <br/>
+                {_user_blacklisted_you}
+            </div>
             <div n:if="!is_null($alert = $user->getAlert())" class="user-alert">{strpos($alert, "@") === 0 ? tr(substr($alert, 1)) : $alert}</div>
             {var $thatIsThisUser = isset($thisUser) && $user->getId() == $thisUser->getId()}
             <div n:if="$thatIsThisUser" class="page_status_popup" id="status_editor" style="display: none;">

@@ -1190,6 +1190,8 @@
 "admin_commerce_disabled" = "Commerce has been disabled by the system administrator";
 "admin_commerce_disabled_desc" = "The voucher and gift settings will be saved, but will have no effect.";
 
+"admin_privacy_warning" = "Be careful with this information";
+
 "admin_banned_links" = "Blocked links";
 "admin_banned_link" = "Link";
 "admin_banned_domain" = "Domain";
@@ -1257,6 +1259,13 @@
 
 "cookies_popup_content" = "All kids love cookie, so this website uses Cookies to identify your session and nothing more. Check <a href='/privacy'>our privacy policy</a> for more information.";
 "cookies_popup_agree" = "Accept";
+
+/* Blacklist */
+
+"blacklist" = "Blacklist";
+"user_blacklisted_you" = "This user has blacklisted you.";
+"user_blacklisted" = "$1 has been blacklisted"
+"user_removed_from_the_blacklist" = "$1 has been removed from the blacklist."
 
 /* Away */
 
