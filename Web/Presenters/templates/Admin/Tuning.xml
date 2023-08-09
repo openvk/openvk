@@ -1,0 +1,43 @@
+{extends "@layout.xml"}
+
+{block title}
+    {_admin_settings_tuning}
+{/block}
+
+{block heading}
+    {include title}
+{/block}
+
+{block content}
+    <div style="margin: 8px -8px;" class="aui-tabs horizontal-tabs">
+        <nav class="aui-navgroup aui-navgroup-horizontal">
+            <div class="aui-navgroup-inner">
+                <div class="aui-navgroup-primary">
+                    <ul class="aui-nav">
+                        <li n:attr="class=> $mode === 'cfg' ? 'aui-nav-selected' : ''"><a href="?act=cfg">Конфиг</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="tabs-pane active-pane" id="info">
+        <div n:if="$mode === 'cfg'">
+            <style>
+                h1,h2,h5 {
+                    margin: 5px;
+                }
+
+                #save-button {
+                    position: fixed;
+                    top: 100px;
+                    right: 50px;
+                }
+            </style>
+            <form class="aui">
+                {include 'displayYamlData.xml', cfg => $cfg}
+            </form>
+            <button id="save-button" class="aui-button aui-button-primary" onClick='convertFormToYAML("/admin/settings/tuning?act=cfg", {$csrfToken});'>Сохранить все</button>
+        </div>
+    </div>
+    {script "js/yaml.js"}
+{/block}

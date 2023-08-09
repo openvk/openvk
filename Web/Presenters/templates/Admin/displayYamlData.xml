@@ -1,0 +1,26 @@
+{block displayYamlData}
+    {foreach $cfg as $key => $value}
+        {var $level = 'h' . ($baseLevel + 1)}
+        {var $intLevel = $baseLevel + 1}
+        {var $indent = $intLevel * 10}
+        <div style="margin-left: {$indent}px;">
+            {if is_array($value)}
+                <input type="hidden" name="{$key}" level="{$baseLevel ?? 0}" noValue="1"/>
+                <{$level}>{preg_match('/\d$/', $key) ? ($key + 1 . '. ') : (tr('admin_settings_tuning_' . $key) ?? $key)}</{$level}>
+                {include 'displayYamlData.xml', cfg => $value, baseLevel => ($baseLevel + 1), prevLevel => $baseLevel}
+            {else}
+                <div class="field-group" style="padding: 0;">
+                    <input disabled class="text long-field" type="text" value="{preg_match('/\d$/', $key) ? ($key + 1 . '. ') : (tr('admin_settings_tuning_' . $key) ?? $key)}" name="{$key}"/>
+                    {if $value === true || $value === false}
+                        <select class="select" name="{$key}" level="{$baseLevel}">
+                            <option value="true" {if $value === true}selected{/if}>{_yes}</option>
+                            <option value="false" {if $value === false}selected{/if}>{_no}</option>
+                        </select>
+                    {else}
+                        <input class="text long-field" type="text" name="{$key}" value="{$value}" level="{$baseLevel}"/>
+                    {/if}
+                </div>
+            {/if}
+        </div>
+    {/foreach}
+{/block}

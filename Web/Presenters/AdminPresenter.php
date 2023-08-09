@@ -551,4 +551,84 @@ final class AdminPresenter extends OpenVKPresenter
 
         $this->redirect("/admin/users/id" . $user->getId());
     }
+
+    function renderTuning(): void
+    {
+        $mode = in_array($this->queryParam("act"), ["cfg"]) ? $this->queryParam("act") : "cfg";
+
+        if ($_SERVER["REQUEST_METHOD"] === "POST") {
+            $this->assertNoCSRF();
+            if ($mode === "cfg") {
+                $yaml = $this->postParam("yaml");
+                if (!$yaml)
+                    $this->notFound();
+
+                $temp_file_path = __DIR__ . "../../../openvk." . time() . ".yml";
+                $temp_file = fopen($temp_file_path, "x");
+                if ($temp_file) {
+                    if (fwrite($temp_file, $this->postParam("yaml"))) {
+                        $temp_file_content = file_get_contents($temp_file_path);
+                        if ($temp_file_content) {
+                            if (chandler_parse_yaml($temp_file_path)) {
+                                if (rename(__DIR__ . "../../../openvk.yml", __DIR__ . "../../../openvk.yml.tmp")) {
+                                    $cfg_file = fopen(__DIR__ . "../../../openvk.yml", "x");
+                                    if ($cfg_file) {
+                                        if (file_put_contents(__DIR__ . "../../../openvk.yml", $temp_file_content)) {
+                                            unlink(__DIR__ . "../../../openvk.yml.tmp");
+                                            unlink($temp_file_path);
+                                            $this->returnJson(["success" => true]);
+                                        } else {
+                                            $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_write_fail")]);
+                                        }
+                                    } else {
+                                        $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_create_fail")]);
+                                    }
+                                } else {
+                                    $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_create_fail")]);
+                                }
+                            } else {
+                                $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_tmp_read_fail_yaml")]);
+                            }
+                        } else {
+                            $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_tmp_read_fail")]);
+                        }
+                    } else {
+                        $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_file_write_err")]);
+                    }
+                } else {
+                    $this->returnJson(["success" => false, "error" => tr("admin_tuning_cfg_file_create_err")]);
+                }
+            }
+        } else {
+            $this->template->mode = $mode;
+
+            if ($mode === "cfg") {
+                $file_path = __DIR__ . "../../../openvk.yml";
+                if (file_exists($file_path)) {
+                    $this->template->cfg = chandler_parse_yaml($file_path);
+                } else if (file_exists(__DIR__ . "../../../openvk-example.yml")) {
+                    $this->flash("warn", tr("admin_tuning_cfg_not_found"), tr("admin_tuning_cfg_not_found_description"));
+                    $this->template->cfg = chandler_parse_yaml(__DIR__ . "../../../openvk-example.yml");
+                } else {
+                    $repo_file = file_get_contents("https://raw.githubusercontent.com/openvk/openvk/master/openvk-example.yml");
+                    if ($repo_file) {
+                        $file = fopen($file_path, "x");
+                        if ($file) {
+                            if (fwrite($file, $repo_file)) {
+                                fclose($file);
+                                $this->template->cfg = chandler_parse_yaml($file_path);
+                            } else {
+                                fclose($file);
+                                $this->flash("err", tr("admin_tuning_cfg_file_write_err"), tr("admin_tuning_cfg_error_description"));
+                            }
+                        } else {
+                            $this->flash("err", tr("admin_tuning_cfg_file_create_err"), tr("admin_tuning_cfg_error_description"));
+                        }
+                    } else {
+                        $this->flash("err", tr("admin_tuning_cfg_file_not_found_in_repo"), tr("admin_tuning_cfg_error_description"));
+                    }
+                }
+            }
+        }
+    }
 }

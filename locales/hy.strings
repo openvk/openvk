@@ -1214,3 +1214,16 @@
 "undergoing_section_maintenance" = "Ցավոք սրտի, <b>$1</b> բաժինը ժամանակավորապես անհասանելի է։ Մենք արդեն աշխատում ենք խնդիրները շտկելու ուղղությամբ։ Խնդրում ենք այցելել մի քիչ ուշ։";
 
 "topics" = "Թեմաներ";
+"admin_settings_tuning_openvk" = "OpenVK";
+"admin_settings_tuning_api" = "API";
+"admin_settings_tuning_ton" = "TON";
+"admin_settings_tuning_url" = "URL";
+"admin_settings_tuning_piwik" = "Piwik";
+"admin_settings_tuning_matomo" = "Matomo";
+"admin_settings_tuning_smsc" = "SMSC";
+"admin_settings_tuning_telegram" = "Telegram";
+"admin_settings_tuning_eventDB" = "eventDB";
+"admin_settings_tuning_kafka" = "Kafka";
+"admin_settings_tuning_dsn" = "DSN";
+"admin_settings_tuning_testnet" = "Testnet";
+"admin_settings_tuning_regex" = "Regex";

@@ -505,3 +505,16 @@
 "to_top" = "Nach oben";
 "checkbox_in_registration" = "Ich stimme der <a href=\"/privacy\">Datenschutzpolitik</a> und der <a href=\"/terms\">Seitenpolitik</a> zu.";
 "access_recovery_info" = "Haben Sie Ihr Passwort vergessen? Kein Problem, geben Sie Ihre Daten ein und wir senden Ihnen eine E-Mail mit Anweisungen, wie Sie Ihr Konto wiederherstellen können.";
+"admin_settings_tuning_openvk" = "OpenVK";
+"admin_settings_tuning_api" = "API";
+"admin_settings_tuning_ton" = "TON";
+"admin_settings_tuning_url" = "URL";
+"admin_settings_tuning_piwik" = "Piwik";
+"admin_settings_tuning_matomo" = "Matomo";
+"admin_settings_tuning_smsc" = "SMSC";
+"admin_settings_tuning_telegram" = "Telegram";
+"admin_settings_tuning_eventDB" = "eventDB";
+"admin_settings_tuning_kafka" = "Kafka";
+"admin_settings_tuning_dsn" = "DSN";
+"admin_settings_tuning_testnet" = "Testnet";
+"admin_settings_tuning_regex" = "Regex";
