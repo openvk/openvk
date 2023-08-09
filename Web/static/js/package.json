@@ -6,6 +6,8 @@
     "jquery": "^3.0.0",
     "knockout": "^3.5.1",
     "ky": "^0.19.0",
+    "leaflet": "^1.9.4",
+    "leaflet-control-geocoder": "^2.4.0",
     "literallycanvas": "^0.5.2",
     "monaco-editor": "^0.20.0",
     "msgpack-lite": "^0.1.26",

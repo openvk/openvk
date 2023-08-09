@@ -73,6 +73,12 @@
                             </div>
                         </div>
                     </div>
+                    <div n:if="$post->getGeo()" class="post-signature">
+                        <a onclick="javascript:openGeo({$post->getGeo()}, {$post->getOwner()->getId()}, {$post->getVirtualId()})">
+                            <img src="/assets/packages/static/openvk/img/geo.svg">
+                            <b>{_geotag}</b>: {$post->getGeo()->name ?? tr("admin_open")}
+                        </a>
+                    </div>
                     <div n:if="$post->isAd()" style="color:grey;">
                         <br/>
                         &nbsp;! Этот пост был размещён за взятку.

@@ -111,6 +111,18 @@ final class Wall extends VKAPIRequestHandler
                 ];
             }
 
+            $geo = [];
+
+            if($post->getGeo()) {
+                $geoarray = $post->getGeo();
+
+                $geo = [
+                    "coordinates" => $geoarray->lat . " " . $geoarray->lng,
+                    "showmap" => 1,
+                    "type" => "point"
+                ];
+            }
+
             $items[] = (object)[
                 "id"           => $post->getVirtualId(),
                 "from_id"      => $from_id,
@@ -127,6 +139,7 @@ final class Wall extends VKAPIRequestHandler
                 "is_pinned"    => $post->isPinned(),
                 "is_explicit"  => $post->isExplicit(),
                 "attachments"  => $attachments,
+                "geo"          => $geo,
                 "post_source"  => $post_source,
                 "comments"     => (object)[
                     "count"    => $post->getCommentsCount(),
@@ -379,7 +392,7 @@ final class Wall extends VKAPIRequestHandler
             ];
     }
 
-    function post(string $owner_id, string $message = "", int $from_group = 0, int $signed = 0, string $attachments = ""): object
+    function post(string $owner_id, string $message = "", int $from_group = 0, int $signed = 0, string $attachments = "", ?float $latitude = NULL, ?float $longitude = NULL, ?string $geo_name = NULL): object
     {
         $this->requireUser();
         $this->willExecuteWriteAction();
@@ -420,6 +433,44 @@ final class Wall extends VKAPIRequestHandler
         if(empty($message) && empty($attachments))
             $this->fail(100, "Required parameter 'message' missing.");
 
+        $geo = NULL;
+
+        if ($latitude && $longitude) {
+            $latitude = number_format($latitude, 8, ".", '');
+            $longitude = number_format($longitude, 8, ".", '');
+
+            if ((!$latitude || !$longitude) || ($latitude > 90 || $latitude < -90 || $longitude > 180 || $longitude < -180)) {
+                $this->fail(100, "Invalid latitude or longitude");
+            }
+
+            $geo = array(
+                "name" => null,
+                "lat" => $latitude,
+                "lng" => $longitude,
+            );
+
+            if (strlen(trim($geo_name))) {
+                $geo["name"] = $geo_name;
+            } else {
+                $info = file_get_contents("https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=jsonv2", false, stream_context_create([
+                    'http' => [
+                        'method' => 'GET',
+                        'header' => implode("\r\n", [
+                            'User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.2 (KHTML, like Gecko) Chrome/22.0.1216.0 Safari/537.2',
+                            "Referer: https://$_SERVER[SERVER_NAME]/"
+                        ])
+                    ]
+                ]));
+
+                if ($info) {
+                    $info = json_decode($info, true, JSON_UNESCAPED_UNICODE);
+                    if (key_exists("place_id", $info)) {
+                        $geo["name"] = $info["name"] ?? $info["display_name"];
+                    }
+                }
+            }
+        }
+
         try {
             $post = new Post;
             $post->setOwner($this->getUser()->getId());
@@ -428,6 +479,11 @@ final class Wall extends VKAPIRequestHandler
             $post->setContent($message);
             $post->setFlags($flags);
             $post->setApi_Source_Name($this->getPlatform());
+            if ($geo) {
+                $post->setGeo(json_encode($geo));
+                $post->setGeo_Lat($geo["lat"]);
+                $post->setGeo_Lon($geo["lng"]);
+            }
             $post->save();
         } catch(\LogicException $ex) {
             $this->fail(100, "One of the parameters specified was missing or invalid");

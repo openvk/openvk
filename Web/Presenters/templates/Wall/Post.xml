@@ -32,4 +32,11 @@
         
         <a n:if="$canDelete ?? false" class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/delete">{_delete}</a>
     </div>
+
+    {if $post->getGeo()}
+        {script "js/node_modules/leaflet/dist/leaflet.js"}
+        {css "js/node_modules/leaflet/dist/leaflet.css"}
+        {script "js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.js"}
+        {css "js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.css"}
+    {/if}
 {/block}

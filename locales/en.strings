@@ -204,6 +204,7 @@
 "attach" = "Attach";
 "attach_photo" = "Attach photo";
 "attach_video" = "Attach video";
+"attach_geotag" = "Attach geotag";
 "draw_graffiti" = "Draw graffiti";
 "no_posts_abstract" = "Nobody wrote anything here... So far.";
 "attach_no_longer_available" = "This attachment is no longer available.";
@@ -213,6 +214,11 @@
 "graffiti" = "Graffiti";
 
 "reply" = "Reply";
+"geotag" = "Geotag";
+"nearest_posts" = "Nearest posts";
+"Latitude" = "Latitude";
+"longitude" = "Longitude";
+"name_of_the_place" = "Name of the place";
 
 /* Friends */
 
@@ -1102,6 +1108,8 @@
 "media_file_corrupted_or_too_large" = "The media content file is corrupted or too large.";
 "post_is_empty_or_too_big" = "The post is empty or too big.";
 "post_is_too_big" = "The post is too big.";
+"error_geolocation" = "Error while trying to pin geolocation";
+"error_no_geotag" = "There is no geo-tag pinned in this post";
 
 /* Admin actions */
 

@@ -1,0 +1,11 @@
+SELECT *,
+    SQRT(
+        POW(69.1 * (? - geo_lat), 2) +
+        POW(69.1 * (? - geo_lon) * COS(RADIANS(geo_lat)), 2)
+    ) AS distance
+FROM posts
+WHERE id <> ?
+AND FROM_UNIXTIME(created) >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+HAVING distance < 1 AND distance IS NOT NULL
+ORDER BY distance
+LIMIT 25;

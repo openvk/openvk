@@ -263,3 +263,214 @@ async function showArticle(note_id) {
     u("body").removeClass("dimmed");
     u("body").addClass("article");
 }
+
+async function initGeo(tid) {
+    MessageBox(tr("attach_geotag"), "<div id=\"osm-map\"></div>", ["Прикрепить", tr("cancel")], [(function () {
+        let marker = {
+            lat: currentMarker._latlng.lat,
+            lng: currentMarker._latlng.lng,
+            name: $(`#geo-name-input-${tid}`).val() ? $(`#geo-name-input-${tid}`).val() : $(`#geo-name-${tid}`).text()
+        };
+        $(`#post-buttons${tid} #geo`).val(JSON.stringify(marker));
+        $(`#post-buttons${tid} .post-has-geo`).text(`${tr("geotag")}: ${marker.name}`);
+        $(`#post-buttons${tid} .post-has-geo`).show();
+    }), Function.noop]);
+
+    const element = document.getElementById('osm-map');
+    element.style = 'height: 600px;';
+
+    let markerLayers = L.layerGroup();
+
+    let map = L.map(element, {
+        center: [55.322978, 38.673362],
+        zoom: 10,
+        attributionControl: false,
+        width: 800
+    });
+    let currentMarker = null;
+    markerLayers.addTo(map);
+
+    map.on('click', (e) => {
+        let lat = e.latlng.lat;
+        let lng = e.latlng.lng;
+
+        if (currentMarker) map.removeLayer(currentMarker);
+
+        $.get({
+            url: `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}&format=jsonv2`,
+            success: (response) => {
+                markerLayers.clearLayers();
+
+                currentMarker = L.marker([lat, lng]).addTo(map);
+
+                let name = response?.name ?? response?.display_name ?? tr("geotag");
+                let content = `<span onclick="let name = prompt('Введите название геоточки'); $('#geo-name-input-${tid}').val(name); $(this).text(name);" id="geo-name-${tid}">${name}</span>`;
+                content += `<input type="hidden" id="geo-name-input-${tid}" value="" />`;
+
+                currentMarker.bindPopup(content).openPopup();
+                markerLayers.addLayer(currentMarker);
+            }
+        })
+    });
+
+    const geocoderControl = L.Control.geocoder({
+        defaultMarkGeocode: false,
+    }).addTo(map);
+
+    geocoderControl.on('markgeocode', function (e) {
+        console.log(e);
+        let lat = e.geocode.properties.lat;
+        let lng = e.geocode.properties.lon;
+        let name = (e.geocode.properties?.name ?? e.geocode.properties.display_name);
+
+        if (currentMarker) map.removeLayer(currentMarker);
+
+        currentMarker = L.marker([lat, lng]).addTo(map);
+        currentMarker.bindPopup(name).openPopup();
+
+        console.log(`${tr("latitude")}: ${lat}, ${tr("longitude")}: ${lng}`);
+        console.log(`${tr("name_of_the_place")}: ${name}`);
+
+        let marker = {
+            lat: lat,
+            lng: lng,
+            name: name
+        };
+        map.setView([lat, lng], 15);
+    });
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    $(".ovk-diag-cont").width('50%');
+    setTimeout(function(){ map.invalidateSize()}, 100);
+}
+
+function openGeo(data, owner_id, virtual_id) {
+    MessageBox(tr("geotag"), "<div id=\"osm-map\"></div>", [tr("nearest_posts"), "OK"], [(function () {
+        getNearPosts(owner_id, virtual_id);
+    }), Function.noop]);
+
+    let element = document.getElementById('osm-map');
+    element.style = 'height: 600px;';
+
+    let map = L.map(element, {attributionControl: false});
+    let target = L.latLng(data.lat, data.lng);
+    map.setView(target, 15);
+
+    let marker = L.marker(target).addTo(map);
+    marker.bindPopup(data.name ?? tr("geotag")).openPopup();
+
+    L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    $(".ovk-diag-cont").width('50%');
+    setTimeout(function(){ map.invalidateSize()}, 100);
+}
+
+function getNearPosts(owner_id, virtual_id) {
+    $.ajax({
+        type: "POST",
+        url: `/wall${owner_id}_${virtual_id}/nearest`,
+        success: (response) => {
+            if (response.success) {
+                openNearPosts(response);
+            } else {
+                MessageBox(tr("error"), `${tr("error_segmentation")}: ${(response?.error ?? "Unknown error")}`, ["OK"], [Function.noop]);
+            }
+        }
+    });
+}
+
+function getPostPopup(post) {
+    return `<a style="color: inherit; display: block; margin-bottom: 8px;" href="${post.url}" target="_blank">
+            <table border="0" style="font-size: 11px;" class="post">
+                <tbody>
+                    <tr>
+                        <td width="54" valign="top">
+                            <a href="${post.owner.url}">
+                                <img src="${post.owner.avatar_url}" width="50">
+                            </a>
+                        </td>
+                        <td width="100%" valign="top">
+                            <div class="post-author">
+                                <a href="${post.owner.url}"><b>${post.owner.name}</b></a>
+                                ${post.owner.verified ? `<img class="name-checkmark" src="/assets/packages/static/openvk/img/checkmark.png">` : ""}
+                                ${post.owner.writes}
+                                <br>
+                                <a href="${post.url}" class="date">
+                                    ${post.time}
+                                </a>
+                            </div>
+                            <div class="post-content" id="2_28">
+                                <div class="text" id="text2_28">
+                                    ${post.preview}
+                                </div>
+                                <div style="padding: 4px;">
+                                    <div style="border-bottom: #ECECEC solid 1px;"></div>
+                                    <div style="cursor: pointer; padding: 4px;"><b>${tr("geotag")}</b>: ${post.geo.name ?? tr("admin_open")}</div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+       </a>`;
+}
+
+function openNearPosts(posts) {
+    if (posts.posts.length > 0) {
+        let MsgTxt = "<div id=\"osm-map\"></div>";
+        MsgTxt += "<br /><br /><center style='color: grey;'>Показаны последние 25 постов за месяц</center>";
+
+        MessageBox("Ближайшие посты", MsgTxt, ["OK"], [Function.noop]);
+
+        let element = document.getElementById('osm-map');
+        element.style = 'height: 600px;';
+
+        let markerLayers = L.layerGroup();
+        let map = L.map(element, {attributionControl: false});
+
+        markerLayers.addTo(map);
+
+        let markersBounds = [];
+        let coords = [];
+
+        posts.posts.forEach((post) => {
+            if (coords.includes(`${post.geo.lat} ${post.geo.lng}`)) {
+                markerLayers.getLayers().forEach((marker) => {
+                    if (marker.getLatLng().lat === post.geo.lat && marker.getLatLng().lng === post.geo.lng) {
+                        let content = marker.getPopup()._content += getPostPopup(post);
+                        if (!content.startsWith(`<div style="max-height: 300px; overflow-y: auto;">`))
+                            content = `<div style="max-height: 300px; overflow-y: auto;">${content}`;
+
+                        marker.getPopup().setContent(content);
+                    }
+                });
+            } else {
+                let marker = L.marker(L.latLng(post.geo.lat, post.geo.lng)).addTo(map);
+                marker.bindPopup(getPostPopup(post));
+                markerLayers.addLayer(marker);
+                markersBounds.push(marker.getLatLng());
+            }
+
+            coords.push(`${post.geo.lat} ${post.geo.lng}`);
+        })
+
+        let bounds = L.latLngBounds(markersBounds);
+        map.fitBounds(bounds);
+
+        L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(map);
+
+        $(".ovk-diag-cont").width('50%');
+        setTimeout(function () {
+            map.invalidateSize()
+        }, 100);
+    } else {
+        MessageBox("Ближайшие посты", "<center style='color: grey;'>Нет ближайших постов :(</center>", ["OK"], [Function.noop]);
+    }
+}

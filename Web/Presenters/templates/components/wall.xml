@@ -8,7 +8,7 @@
     </div>
     <div>
         <div n:if="$canPost" class="content_subtitle">
-            {include "../components/textArea.xml", route => "/wall$owner/makePost", graffiti => true, polls => true, notes => true}
+            {include "../components/textArea.xml", route => "/wall$owner/makePost", graffiti => true, polls => true, notes => true, geo => true}
         </div>
         
         <div class="content">

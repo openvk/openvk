@@ -67,6 +67,12 @@
                             </div>
                         </div>
                     </div>
+                    <div n:if="$post->getGeo()" style="padding: 4px;">
+                        <div style="border-bottom: #ECECEC solid 1px;" />
+                        <div style="cursor: pointer; padding: 4px;" onclick="javascript:openGeo({$post->getGeo()}, {$post->getOwner()->getId()}, {$post->getVirtualId()})">
+                            <b>{_geotag}</b>: <a>{$post->getGeo()->name ?? tr("admin_open")}</a>
+                        </div>
+                    </div>
                     <div n:if="$post->isAd()" style="color:grey;">
                         <br/>
                         &nbsp;! Этот пост был размещён за взятку.

@@ -17,6 +17,9 @@
             <div class="post-has-note">
                 
             </div>
+            <div class="post-has-geo">
+
+            </div>
             <div n:if="$postOpts ?? true" class="post-opts">
                 {var $anonEnabled = OPENVK_ROOT_CONF['openvk']['preferences']['wall']['anonymousPosting']['enable']}
                 {if !is_null($thisUser) && !is_null($club ?? NULL) && $owner < 0}
@@ -58,6 +61,7 @@
             <input n:if="!OPENVK_ROOT_CONF['openvk']['preferences']['videos']['disableUploading']" type="file" class="postFileSel" id="postFileVid" name="_vid_attachment" accept="video/*" style="display:none;" />
             <input type="hidden" name="poll" value="none" />
             <input type="hidden" id="note" name="note" value="none" />
+            <input type="hidden" id="geo" name="geo" value="none" />
             <input type="hidden" name="type" value="1" />
             <input type="hidden" name="hash" value="{$csrfToken}" />
             <br/>
@@ -91,6 +95,10 @@
                         <img src="/assets/packages/static/openvk/img/oxygen-icons/16x16/actions/office-chart-bar-stacked.png" />
                         {_poll}
                     </a>
+                    <a n:if="$geo ?? false" href="javascript:initGeo({$textAreaId})">
+                        <img src="/assets/packages/static/openvk/img/oxygen-icons/16x16/apps/amarok.png" />
+                        Гео-метка
+                    </a>
                 </div>
             </div>
         </div>
@@ -112,4 +120,11 @@
     {script "js/node_modules/react-dom/dist/react-dom.min.js"}
     {script "js/vnd_literallycanvas.js"}
     {css "js/node_modules/literallycanvas/lib/css/literallycanvas.css"}
+{/if}
+
+{if $geo}
+    {script "js/node_modules/leaflet/dist/leaflet.js"}
+    {css "js/node_modules/leaflet/dist/leaflet.css"}
+    {script "js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.js"}
+    {css "js/node_modules/leaflet-control-geocoder/dist/Control.Geocoder.css"}
 {/if}

@@ -245,6 +245,23 @@ class Post extends Postable
         $this->unwire();
         $this->save();
     }
+
+    function getGeo(): ?object
+    {
+        if (!$this->getRecord()->geo) return NULL;
+
+        return (object) json_decode($this->getRecord()->geo, true, JSON_UNESCAPED_UNICODE);
+    }
+
+    function getLat(): ?float
+    {
+        return (float) $this->getRecord()->geo_lat ?? NULL;
+    }
+
+    function getLon(): ?float
+    {
+        return (float) $this->getRecord()->geo_lon ?? NULL;
+    }
     
     use Traits\TRichText;
 }

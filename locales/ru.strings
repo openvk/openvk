@@ -184,6 +184,7 @@
 "attach" = "Прикрепить";
 "attach_photo" = "Прикрепить фото";
 "attach_video" = "Прикрепить видео";
+"attach_geotag" = "Прикрепить геометку";
 "draw_graffiti" = "Нарисовать граффити";
 "no_posts_abstract" = "Здесь никто ничего не написал... Пока.";
 "attach_no_longer_available" = "Это вложение больше недоступно.";
@@ -191,6 +192,11 @@
 "version_incompatibility" = "Не удалось отобразить это вложение. Возможно, база данных несовместима с текущей версией OpenVK.";
 "graffiti" = "Граффити";
 "reply" = "Ответить";
+"geotag" = "Геоточка";
+"nearest_posts" = "Ближайшие посты";
+"Latitude" = "Широта";
+"longitude" = "Долгота";
+"name_of_the_place" = "Название места";
 
 /* Friends */
 
@@ -1001,6 +1007,8 @@
 "media_file_corrupted_or_too_large" = "Файл медиаконтента повреждён или слишком велик.";
 "post_is_empty_or_too_big" = "Пост пустой или слишком большой.";
 "post_is_too_big" = "Пост слишком большой.";
+"error_geolocation" = "Ошибка при прикреплении геометки";
+"error_no_geotag" = "У поста не указана гео-метка";
 
 /* Admin actions */
 

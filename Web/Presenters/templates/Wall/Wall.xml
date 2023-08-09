@@ -16,7 +16,7 @@
     <div class="content_divider">
         <div>
             <div n:if="$canPost" class="content_subtitle">
-                {include "../components/textArea.xml", route => "/wall$owner/makePost"}
+                {include "../components/textArea.xml", route => "/wall$owner/makePost", geo => true}
             </div>
             
             <div class="content">
