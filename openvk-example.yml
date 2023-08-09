@@ -102,6 +102,11 @@ openvk:
             fartscroll: false
             testLabel: false
         defaultMobileTheme: ""
+        imagesProxy:
+            replaceInNotes: true
+            settings:
+                url_prefix: ""
+                base64_decode_url: true
     
     telemetry:
         plausible:

@@ -349,6 +349,8 @@ routes:
       handler: "About->dev"
     - url: "/tour"
       handler: "About->tour"
+    - url: "/image.php"
+      handler: "ImagesProxy->index"
     - url: "/{?shortCode}"
       handler: "UnknownTextRouteStrategy->delegate"
       placeholders:
