@@ -1150,6 +1150,54 @@
 "cookies_popup_content" = "Все дети любят печенье, поэтому этот веб-сайт использует Cookies для того, чтобы идентифицировать вашу сессию и ничего более. Ознакомьтесь с нашей <a href='/privacy'>политикой конфиденциальности</a> для получения дополнительной информации.";
 "cookies_popup_agree" = "Согласен";
 
+/* Bugtracker */
+
+"bug_tracker_reports" = "Отчёты";
+"bug_tracker_products" = "Продукты";
+"bug_tracker_reporter_card" = "Карточка тестировщика";
+"bug_tracker_product" = "Продукт";
+"bug_tracker_sent_by" = "Отправил";
+"bug_tracker_reproduced" = "Воспроизвелось";
+"bug_tracker_priority" = "Приоритет";
+"bug_tracker_bug_description" = "Описание бага";
+"bug_tracker_priority_feature" = "Пожелание";
+"bug_tracker_priority_low" = "Низкий";
+"bug_tracker_priority_medium" = "Средний";
+"bug_tracker_priority_high" = "Высокий";
+"bug_tracker_priority_critical" = "Критический";
+"bug_tracker_priority_vulnerability" = "Уязвимость";
+"bug_tracker_device" = "Устройство";
+"bug_tracker_product_name" = "Название";
+"bug_tracker_product_is_closed" = "закрыт";
+"bug_tracker_product_created_by" = "Создал";
+"bug_tracker_product_creation_date" = "Дата создания";
+"bug_tracker_product_description" = "Описание продукта";
+"bug_tracker_reporter_card_text" = "тестировщик отправил $1 отчётов, из них $2 имеют положительный статус";
+"bug_tracker_change_status" = "Изменить статус";
+"bug_tracker_change_priority" = "Изменить приоритет";
+"bug_tracker_moderator" = "Модератор";
+"bug_tracker_hidden_comment_span" = "скрытый комментарий";
+"bug_tracker_comment_as_moderator" = "От лица модератора";
+"bug_tracker_hidden_comment" = "Скрытый комментарий";
+"bug_tracker_report_not_found" = "Отчёт не найден. Возможно, он был удалён.";
+"bug_tracker_status_open" = "Открыт";
+"bug_tracker_status_under_review" = "На рассмотрении";
+"bug_tracker_status_in_progress" = "В работе";
+"bug_tracker_status_fixed" = "Исправлен";
+"bug_tracker_status_closed" = "Закрыт";
+"bug_tracker_status_requires_adjustment" = "Требует корректировки";
+"bug_tracker_status_locked" = "Заблокирован";
+"bug_tracker_status_rejected" = "Отклонён";
+"bug_tracker_new_report_status" = "Новый статус отчёта";
+"bug_tracker_new_report_priority" = "Новый приоритет отчёта";
+"bug_tracker_empty_comment" = "Комментарий не может быть пустым.";
+"bug_tracker_success" = "Успех";
+"bug_tracker_comment_sent" = "Комментарий отправлен.";
+"bug_tracker_fields_error" = "Заполнены не все поля.";
+"bug_tracker_reproduced_text" = "Вы отметили, что у Вас получилось воспроизвести этот баг.";
+"bug_tracker_banned_1" = "Извините, <b>$1</b>, но Вы были исключены из программы <b>OVK Testers</b>.";
+"bug_tracker_banned_2" = "А причина этому проста: <b>$1</b>. К сожалению, на этот раз нам пришлось исключить Вас навсегда.";
+
 /* Away */
 
 "url_is_banned" = "Переход невозможен";

@@ -692,3 +692,256 @@ $(document).on("scroll", () => {
         }, 250);
     }
 })
+
+function showBtStatusChangeDialog(report, currentBalance, hash) {
+    MessageBox("Изменить статус", `<form action="/bug${report}/setStatus" method="post" id="status_change_dialog">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><input type="radio" name="status" value="0"></td>
+                        <td><label for="status_1">Открыт</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="1"></td>
+                        <td><label for="status_2">На рассмотрении</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="2"></td>
+                        <td><label for="status_3">В работе</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="3"></td>
+                        <td><label for="status_4">Исправлен</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="4"></td>
+                        <td><label for="status_5">Закрыт</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="5"></td>
+                        <td><label for="status_6">Требует корректировки</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="6"></td>
+                        <td><label for="status_7">Заблокирован</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="7"></td>
+                        <td><label for="status_8">Отклонён</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="status" value="8"></td>
+                        <td><label for="status_9">Переоткрыт</label></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h4>Вы можете прокомментировать изменение статуса</h4>
+            <textarea name="text" style="width: 100%;resize: vertical;"></textarea>
+            <br><br>
+            У тестировщика сейчас ${currentBalance} голосов.
+            <br>
+            <div style="display: inline;">
+                Вы можете начислить &nbsp;
+                <input style="width: 45px; height: 9px;" type="number" name="points-count" value="0" min="0">
+                &nbsp;голосов
+            </div>
+            <input type="hidden" name="hash" value="${hash}" />
+        </form>
+    `, ["Сохранить", "Отмена"], [
+        () => {
+            $("#status_change_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtPriorityChangeDialog(report, currentBalance, hash) {
+    MessageBox("Изменить приоритет", `<form action="/bug${report}/setPriority" method="post" id="priority_change_dialog">
+            <table>
+                <tbody>
+                    <tr>
+                        <td><input type="radio" name="priority" value="0"></td>
+                        <td><label for="priority_1">Пожелание</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="priority" value="1"></td>
+                        <td><label for="priority_2">Низкий</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="priority" value="2"></td>
+                        <td><label for="priority_3">Средний</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="priority" value="3"></td>
+                        <td><label for="priority_4">Высокий</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="priority" value="4"></td>
+                        <td><label for="priority_5">Критический</label></td>
+                    </tr>
+                    <tr>
+                        <td><input type="radio" name="priority" value="5"></td>
+                        <td><label for="priority_6">Уязвимость</label></td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <h4>Вы можете прокомментировать изменение приоритета</h4>
+            <textarea name="text" style="width: 100%;resize: vertical;"></textarea>
+            <br><br>
+            У тестировщика сейчас ${currentBalance} голосов.
+            <br>
+            <div style="display: inline;">
+                Вы можете начислить &nbsp;
+                <input style="width: 45px; height: 9px;" type="number" name="points-count" value="0" min="0">
+                &nbsp;голосов
+            </div>
+            <input type="hidden" name="hash" value="${hash}" />
+        </form>
+    `, ["Сохранить", "Отмена"], [
+        () => {
+            $("#priority_change_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtGiveProductAccessDialog(product, hash) {
+    MessageBox("Выдать доступ", `<form action="/bt_product${product[0]}/giveAccess" method="post" id="give_product_access_dialog">
+        <div>
+            Выдать пользователю <b>ID</b>&nbsp
+            <input style="width: 45px; height: 9px;" type="number" name="uid" value="1" min="1">
+            &nbsp; доступ к продукту <b>${product[1]}</b> (#${product[0]}).
+        </div>
+        <input type="hidden" name="hash" value="${hash}" />
+    </form>`, ["Продолжить", tr("cancel")], [
+        () => {
+            $("#give_product_access_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtRevokeProductAccessDialog(product, hash) {
+    MessageBox("Забрать доступ", `<form action="/bt_product${product[0]}/revokeAccess" method="post" id="revoke_product_access_dialog">
+        <div>
+            Забрать у пользователя <b>ID</b>&nbsp
+            <input style="width: 45px; height: 9px;" type="number" name="uid" value="1" min="1">
+            &nbsp; доступ к продукту <b>${product[1]}</b> (#${product[0]}).
+        </div>
+        <input type="hidden" name="hash" value="${hash}" />
+    </form>`, ["Продолжить", tr("cancel")], [
+        () => {
+            $("#revoke_product_access_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtProductAccessDialog(product, hash) {
+    MessageBox(`Доступ к ${product[1]} (#${product[0]})`, `<form action="/bt_product${product[0]}/manageAccess" method="post" id="give_product_access_dialog">
+        <table>
+            <tbody>
+                <tr>
+                    <td><input type="radio" name="action" value="give"></td>
+                    <td><label for="priority_1">Выдать</label></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="action" value="revoke"></td>
+                    <td><label for="priority_2">Забрать</label></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <div>
+            <b>ID</b> пользователя&nbsp
+            <input style="width: 45px; height: 9px;" type="number" name="uid" value="1" min="1">
+        </div>
+        <input type="hidden" name="hash" value="${hash}" />
+    </form>`, ["Продолжить", tr("cancel")], [
+        () => {
+            $("#give_product_access_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtPrivateProductDialog(product, hash) {
+    MessageBox(`Настройки продукта ${product[1]} (#${product[0]})`, `<form action="/bt_product${product[0]}/managePrivacy" method="post" id="give_product_access_dialog">
+        <table>
+            <tbody>
+                <tr>
+                    <td><input type="radio" name="action" value="open"></td>
+                    <td><label for="priority_1">Открытый</label></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="action" value="private"></td>
+                    <td><label for="priority_2">Приватный</label></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="hash" value="${hash}" />
+    </form>`, ["Продолжить", tr("cancel")], [
+        () => {
+            $("#give_product_access_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtProductStatusDialog(product, hash) {
+    MessageBox(`Статус продукта ${product[1]} (#${product[0]})`, `<form action="/bt_product${product[0]}/manageStatus" method="post" id="give_product_access_dialog">
+        <table>
+            <tbody>
+                <tr>
+                    <td><input type="radio" name="action" value="open"></td>
+                    <td><label for="priority_1">Открытый</label></td>
+                </tr>
+                <tr>
+                    <td><input type="radio" name="action" value="closed"></td>
+                    <td><label for="priority_2">Закрытый</label></td>
+                </tr>
+            </tbody>
+        </table>
+        <input type="hidden" name="hash" value="${hash}" />
+    </form>`, ["Продолжить", tr("cancel")], [
+        () => {
+            $("#give_product_access_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtKickUserDialog(user, hash) {
+    MessageBox("Исключить из программы", `<form action="/bt_reporter${user[0]}/kick" method="post" id="kick_from_ovk_testers_dialog">
+    <div>Вы действительно хотите исключить тестировщика <b>${user[1]}</b> из программы OVK Testers?</div>
+    <br>
+    <h4>Комментарий модератора</h4>
+    <textarea name="comment" style="width: 100%;resize: vertical;"></textarea>
+    <input type="checkbox" name="ban_reports" id="ban_reports">
+    <label for="ban_reports">Заблокировать все его отчёты</label>
+    <input type="hidden" name="hash" value="${hash}" />
+`, ["Продолжить", tr("cancel")], [
+        () => {
+            $("#kick_from_ovk_testers_dialog").submit();
+        },
+        Function.noop
+    ]);
+}
+
+function showBtUnbanUserDialog(user, hash) {
+    MessageBox("Вернуть в программу", `<form action="/bt_reporter${user[0]}/unban" method="post" id="unban_ovk_testers_dialog">
+    <div>Вы действительно хотите вернуть тестировщика <b>${user[1]}</b> в программу OVK Testers?</div>
+    <br>
+    <div>Он был исключён по причине: <b>${user[2]}</b></div>
+     <input type="checkbox" name="unban_reports" id="unban_reports">
+    <label for="ban_reports">Переоткрыть все его отчёты</label>
+    <input type="hidden" name="hash" value="${hash}" />
+`, ["Вернуть", tr("cancel")], [
+        () => {
+            $("#unban_ovk_testers_dialog").submit();
+        },
+        Function.noop
+    ]);
+}

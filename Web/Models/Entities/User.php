@@ -1091,27 +1091,42 @@ class User extends RowModel
 		return $this->getRecord()->website;
 	}
 
-    # ты устрица
-    function isActivated(): bool
-    {
-        return (bool) $this->getRecord()->activated;
-    }
+  # ты устрица
+  function isActivated(): bool
+  {
+      return (bool) $this->getRecord()->activated;
+  }
 
-    function getUnbanTime(): ?string
-    {
-        return !is_null($this->getRecord()->unblock_time) ? date('d.m.Y', $this->getRecord()->unblock_time) : NULL;
-    }
+  function isBtModerator(): bool
+  {
+      return $this->getChandlerUser()->can("admin")->model('openvk\Web\Models\Repositories\BugtrackerReports')->whichBelongsTo(NULL);
+  }
 
-    function canUnbanThemself(): bool
-    {
-        if (!$this->isBanned())
-            return false;
+  function getBanInBtReason(): ?string
+  {
+      return $this->getRecord()->block_in_bt_reason;
+  }
 
-        if ($this->getRecord()->unblock_time > time() || $this->getRecord()->unblock_time == 0)
-            return false;
+  function isBannedInBt(): bool
+  {
+      return !is_null($this->getBanInBtReason());
+  }
 
-        return true;
-    }
+  function getUnbanTime(): ?string
+  {
+      return !is_null($this->getRecord()->unblock_time) ? date('d.m.Y', $this->getRecord()->unblock_time) : NULL;
+  }
+
+  function canUnbanThemself(): bool
+  {
+      if (!$this->isBanned())
+          return false;
+
+      if ($this->getRecord()->unblock_time > time() || $this->getRecord()->unblock_time == 0)
+          return false;
+
+      return true;
+  }
 
     function toVkApiStruct(): object
     {

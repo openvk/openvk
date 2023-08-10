@@ -201,6 +201,7 @@
                             
                             {var $canAccessAdminPanel = $thisUser->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL)}
                             {var $canAccessHelpdesk   = $thisUser->getChandlerUser()->can("write")->model('openvk\Web\Models\Entities\TicketReply')->whichBelongsTo(0)}
+                            {var $canAccessBt         = !$thisUser->isBannedInBt()}
                             {var $menuLinksAvaiable   = sizeof(OPENVK_ROOT_CONF['openvk']['preferences']['menu']['links']) > 0 && $thisUser->getLeftMenuItemStatus('links')}
                             <div n:if="$canAccessAdminPanel || $canAccessHelpdesk || $menuLinksAvaiable" class="menu_divider"></div>
                             <a href="/admin" class="link" n:if="$canAccessAdminPanel" title="{_admin} [Alt+Shift+A]" accesskey="a">{_admin}</a>
@@ -208,6 +209,9 @@
                                 {if $helpdeskTicketNotAnsweredCount > 0}
                                     (<b>{$helpdeskTicketNotAnsweredCount}</b>)
                                 {/if}
+                            </a>
+                            <a href="/bugtracker" class="link" n:if="$canAccessBt">
+                                {tr("bug_tracker")}
                             </a>
 
                             <a n:if="$thisUser->getLeftMenuItemStatus('links')" n:foreach="OPENVK_ROOT_CONF['openvk']['preferences']['menu']['links'] as $menuItem" href="{$menuItem['url']}" target="_blank" class="link">{strpos($menuItem["name"], "@") === 0 ? tr(substr($menuItem["name"], 1)) : $menuItem["name"]}</a>

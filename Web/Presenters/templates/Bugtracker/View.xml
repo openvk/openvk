@@ -1,0 +1,126 @@
+{extends "../@layout.xml"}
+
+{block title}Отчёт #{$bug->getId()}{/block}
+
+{block header}
+<a href="/bugtracker">Баг-трекер</a>
+» <a href="/bugtracker?product={$bug->getProduct()->getId()}">{$bug->getProduct()->getCanonicalName()}</a>
+» Отчёт #{$bug->getId()}
+{/block}
+
+{block content}
+{if $bug AND !$bug->isDeleted()}
+<div n:if="in_array($bug->getRawStatus(), [4, 6]) AND $isModerator" class="user-alert">
+    Этот отчёт закрыт, и пользователь не может оставлять к нему комментарии. При необходимости Вы можете изменить его статус.
+</div>
+<div n:if="in_array($bug->getRawStatus(), [4, 6]) AND !$isModerator" class="user-alert">
+    Этот отчёт закрыт, и Вы больше не можете оставлять к нему комментарии.
+</div>
+<h4>{$bug->getCanonicalName()}</h4>
+
+<div class="avatar-list-item" style="padding: 8px;">
+    <div class="avatar">
+        <a href="/bugtracker?act=reporter&id={$reporter->getId()}">
+            <img class="ava" src="{$reporter->getAvatarURL()}">
+        </a>
+    </div>
+    <div class="info" style="width: 92%">
+        <a href="/bugtracker?act=reporter&id={$reporter->getId()}" class="title">{$reporter->getCanonicalName()}</a>
+        <div class="subtitle">{_created}: {$bug->getCreationTime()}</div>
+    </div>
+</div>
+<hr color="#DAE1E8" size="1">
+{$bug->getText()}
+<hr color="#DAE1E8" size="1">
+<table id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0" style="width: 100%;">
+    <tbody>
+        <tr>
+            <td class="label"><span class="nobold">{_bug_tracker_product}:</span></td>
+            <td class="data"><a href="/bugtracker?product={$bug->getProduct()->getId()}">{$bug->getProduct()->getCanonicalName()}</a></td>
+        </tr>
+        <tr>
+            <td class="label"><span class="nobold">{_bug_tracker_sent_by}: </span></td>
+            <td class="data">
+                <a href="/bugtracker?act=reporter&id={$bug->getReporter()->getId()}">{$bug->getReporter()->getCanonicalName()}</a>
+            </td>
+        </tr>
+        <tr>
+            <td class="label"><span class="nobold">{_bug_tracker_reproduced}:</span></td>
+            <td class="data"><a href="#">{tr("participants", $bug->getReproducedCount())}</a></td>
+        </tr>
+        <tr>
+            <td class="label"><span class="nobold">{_status}:</span></td>
+            <td class="data"><a href="#" n:attr='onClick => $isModerator ? "showBtStatusChangeDialog({$bug->getId()}, {$reporter->getCoins()}, \"{$csrfToken}\");" : false'>{$bug->getStatus()}</a></td>
+        </tr>
+        <tr>
+            <td class="label"><span class="nobold">{_bug_tracker_priority}:</span></td>
+            <td class="data"><a href="#" n:attr='onClick => $isModerator ? "showBtPriorityChangeDialog({$bug->getId()}, {$reporter->getCoins()}, \"{$csrfToken}\");" : false'>{$bug->getPriority()}</a></td>
+        </tr>
+        <tr>
+            <td class="label"><span class="nobold">{_bug_tracker_device}:</span></td>
+            <td class="data"><a href="#">{$bug->getDevice()}</a></td>
+        </tr>
+    </tbody>
+</table>
+<hr color="#DAE1E8" size="1">
+<button n:if="$isModerator" class="button" onClick="showBtStatusChangeDialog({$bug->getId()}, {$reporter->getCoins()}, {$csrfToken})">{_bug_tracker_change_status}</button>
+<button n:if="$isModerator" class="button" onClick="showBtPriorityChangeDialog({$bug->getId()}, {$reporter->getCoins()}, {$csrfToken})">{_bug_tracker_change_priority}</button>
+<a n:if="$bug->getReporter()->getId() !== $user->identity->getId()" class="button" href="/bug{$bug->getId()}/reproduce">
+    {_bug_tracker_reproduced}
+    <span n:if="$bug->getReproducedCount() > 0" class="nobold">({$bug->getReproducedCount()})</span>
+</a>
+{if sizeof($comments) > 0}
+<hr color="#DAE1E8" size="1">
+<div n:foreach="$comments as $comment">
+    <div n:if="!$comment->isHidden() OR $comment->isHidden() AND $isModerator" class="avatar-list-item" style="padding: 8px;">
+        <div class="avatar">
+            <a href="/bugtracker?act=reporter&id={$comment->getAuthor()->getId()}">
+                <img class="ava" src="{$comment->isModer() ? 'https://vk.com/images/support15_specagent.png' : $comment->getAuthor()->getAvatarURL()}">
+            </a>
+        </div>
+        <div class="info" style="width: 90%;">
+            <a n:attr='href => $comment->isModer() ? false : "/bugtracker?act=reporter&id={$comment->getAuthor()->getId()}"' class="title">
+                {$comment->isModer() ? tr("bug_tracker_moderator") : $comment->getAuthor()->getCanonicalName()}
+                <a n:if="$comment->isModer() AND $isModerator" href="{$comment->getAuthor()->getURL()}">
+                    (<b>{$comment->getAuthor()->getCanonicalName()}</b>)
+                </a>
+            </a>
+            <b n:if="$comment->isHidden() AND $isModerator">({_bug_tracker_hidden_comment_span})</b>
+            <br>
+            <b n:if="$comment->getLabel()" class="post-author" style="display: inline-block; border-top: 0;">{$comment->getLabel()}</b>
+            <div>
+                {$comment->getText()}
+            </div>
+            <div n:if="$isModerator AND $comment->getBalanceChanges()">
+                <b>(действия с балансом: {$comment->getBalanceChanges() > 0 ? "+" : false}{$comment->getBalanceChanges()})</b>
+            </div>
+            
+            <span class="nobold">{$comment->getCreationTime()}</span>
+        </div>
+    </div>
+    <hr color="#DAE1E8" size="1">
+</div>
+{/if}
+<form n:if="!in_array($bug->getRawStatus(), [4, 6]) OR in_array($bug->getRawStatus(), [4, 6]) AND $isModerator" method="post" action="/bug{$bug->getId()}/addComment">
+    <textarea name="text" style="width: 100%; resize: vertical;"></textarea><br />
+    <div style="float: right;">
+        <div n:if="$isModerator" style="display: inline;">
+            <input id="is_moder" type="checkbox" name="is_moder">
+            <label for="is_moder">{_bug_tracker_comment_as_moderator}</label>
+
+            <input id="is_hidden" type="checkbox" name="is_hidden">
+            <label for="is_hidden">{_bug_tracker_hidden_comment}</label>
+        </div>
+
+        <input type="hidden" name="hash" value="{$csrfToken}" />
+
+        <input type="submit" value="{_write}" class="button" />
+    </div>
+</form>
+{else}
+<div>
+    {_bug_tracker_report_not_found}
+</div>
+{/if}
+
+{/block}

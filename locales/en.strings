@@ -434,7 +434,7 @@
 "my_feed" = "My Feed";
 "my_feedback" = "My Feedback";
 "my_settings" = "My Settings";
-"bug_tracker" = "Bug-tracker";
+"bug_tracker" = "Bug tracker";
 
 "menu_settings" = "Settings";
 "menu_login" = "Login";
@@ -1259,6 +1259,53 @@
 
 "cookies_popup_content" = "All kids love cookie, so this website uses Cookies to identify your session and nothing more. Check <a href='/privacy'>our privacy policy</a> for more information.";
 "cookies_popup_agree" = "Accept";
+
+/* Bugtracker */
+
+"bug_tracker_reports" = "Reports";
+"bug_tracker_products" = "Products";
+"bug_tracker_reporter_card" = "Tester Card";
+"bug_tracker_product" = "Product";
+"bug_tracker_sent_by" = "Author";
+"bug_tracker_reproduced" = "Reproduced for";
+"bug_tracker_priority" = "Priority";
+"bug_tracker_bug_description" = "Bug description";
+"bug_tracker_priority_feature" = "Feature request";
+"bug_tracker_priority_low" = "Low";
+"bug_tracker_priority_medium" = "Medium";
+"bug_tracker_priority_high" = "High";
+"bug_tracker_priority_critical" = "Critical";
+"bug_tracker_priority_vulnerability" = "Vulnerability";
+"bug_tracker_device" = "Device";
+"bug_tracker_product_name" = "Title";
+"bug_tracker_product_is_closed" = "closed";
+"bug_tracker_product_created_by" = "Created by";
+"bug_tracker_product_creation_date" = "Creation date";
+"bug_tracker_product_description" = "Product description";
+"bug_tracker_reporter_card_text" = "the tester has sent $1 reports, of which $2 have a positive status";
+"bug_tracker_change_status" = "Change Status";
+"bug_tracker_change_priority" = "Change Priority";
+"bug_tracker_moderator" = "Moderator";
+"bug_tracker_hidden_comment_span" = "hidden comment";
+"bug_tracker_comment_as_moderator" = "On behalf of the moderator";
+"bug_tracker_hidden_comment" = "Hidden comment";
+"bug_tracker_report_not_found" = "The report was not found. It may have been deleted.";
+"bug_tracker_status_open" = "Open";
+"bug_tracker_status_under_review" = "Under review";
+"bug_tracker_status_in_progress" = "In progress";
+"bug_tracker_status_fixed" = "Fixed";
+"bug_tracker_status_closed" = "Closed";
+"bug_tracker_status_requires_adjustment" = "Requires adjustment";
+"bug_tracker_status_locked" = "Blocked";
+"bug_tracker_status_rejected" = "Rejected";
+"bug_tracker_new_report_status" = "New report status";
+"bug_tracker_new_report_priority" = "New report priority";
+"bug_tracker_empty_comment" = "The comment cannot be empty.";
+"bug_tracker_success" = "Success";
+"bug_tracker_comment_sent" = "The comment has been sent.";
+"bug_tracker_fields_error" = "Not all fields are filled in.";
+"bug_tracker_reproduced_text" = "You have indicated that this bug is reproducible for you";
+
 
 /* Away */
 

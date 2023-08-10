@@ -1,0 +1,429 @@
+{extends "../@layout.xml"}
+
+{block title}{_bug_tracker}{/block}
+
+{block header}
+    {_bug_tracker}
+{/block}
+
+{block content}
+<div class="tabs">
+        <div n:attr='id => $mode === "list" ? "activetabs" : false' class="tab">
+            <a n:attr='id => $mode === "list" ? "act_tab_a" : false' href="/bugtracker">
+                {_bug_tracker_reports}
+            </a>
+        </div>
+        <div n:attr='id => $mode === "products" ? "activetabs" : false' class="tab">
+            <a n:attr='id => $mode === "products" ? "act_tab_a" : false' href="/bugtracker?act=products">
+                {_bug_tracker_products}
+            </a>
+        </div>
+        <div n:attr='id => $mode === "reporter" ? "activetabs" : false' class="tab">
+            <a n:attr='id => $mode === "reporter" ? "act_tab_a" : false' href="/bugtracker?act=reporter&id={$user->id}">
+                {_bug_tracker_reporter_card}
+            </a>
+        </div>
+        <div n:if='in_array($mode, ["list", "new"])' n:attr='id => $mode === "new" ? "activetabs" : false' class="tab" style="float: right;">
+            <a n:attr='id => $mode === "new" ? "act_tab_a" : false' href="/bugtracker?act=new">
+                {_create}
+            </a>
+        </div>
+        <div n:if='in_array($mode, ["products", "new_product"]) AND $isModerator' n:attr='id => $mode === "new_product" ? "activetabs" : false' class="tab" style="float: right;">
+            <a n:attr='id => $mode === "new_product" ? "act_tab_a" : false' href="/bugtracker?act=new_product">
+                {_create}
+            </a>
+        </div>
+    </div>
+</div>
+<br><br>
+{if $user->identity->isBannedInBt()}
+    <center>
+        <img src="/assets/packages/static/openvk/img/oof.apng" alt="{_banned_alt}" style="width: 20%;" />
+    </center>
+    <p>
+        {tr("bug_tracker_banned_1", htmlentities($thisUser->getCanonicalName()))|noescape}<br/>
+        {tr("bug_tracker_banned_2", htmlentities($user->identity->getBanInBtReason()))|noescape}
+    </p>
+{else}
+{if $mode === "list"}
+{if $count < 1}
+    {include "../components/nothing.xml"}
+{/if}
+<table border="0" style="font-size: 11px; width: 100%;" class="post">
+    <tbody>
+        <tr n:foreach="$iterator as $bug">
+            {var $isHidden = !$bug->getProduct()->hasAccess($user->identity)}
+            <td width="54">
+                <center>
+                    <img src="/assets/packages/static/openvk/img/note_icon.png">
+                </center>
+            </td>
+            <td width="92%" valign="top">
+                <div class="post-author" href="#">
+                    <a n:attr="href => !$isHidden ? '/bug' . $bug->getId() : false">
+                        <b>
+                            {!$isHidden ? $bug->getCanonicalName() : "Скрытый отчёт"}
+                        </b>
+                         <span n:if="!$isHidden">#{$bug->getId()}</span>
+                    </a>
+                </div>
+                <div class="post-content" style="padding: 4px 0; font-size: 11px;">
+                    <table n:if="!$isHidden" id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td class="label"><span class="nobold">{_bug_tracker_product}:</span></td>
+                                <td class="data"><a href="/bugtracker?act=products">{$bug->getProduct()->getCanonicalName()}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="label"><span class="nobold">{_bug_tracker_sent_by}: </span></td>
+                                <td class="data">
+                                    <a href="/bugtracker?act=reporter&id={$bug->getReporter()->getId()}">{$bug->getReporter()->getCanonicalName()}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><span class="nobold">{_bug_tracker_reproduced}:</span></td>
+                                <td class="data"><a href="#">{tr("participants", $bug->getReproducedCount())}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="label"><span class="nobold">{_status}:</span></td>
+                                <td class="data"><a href="#">{$bug->getStatus()}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="label"><span class="nobold">{_bug_tracker_priority}:</span></td>
+                                <td class="data"><a href="/bugtracker?priority={$bug->getRawPriority()}" n:attr="style => $bug->getRawPriority() === 5 ? 'color: red; font-weight: 700;' : false">{$bug->getPriority()}</a></td>
+                            </tr>
+                            <tr>
+                                <td class="label"><span class="nobold">{_created}:</span></td>
+                                <td class="data"><a href="#">{$bug->getCreationTime()}</a></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <table n:if="$isHidden" id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0" style="filter: blur(3px)">
+                        <tbody>
+                            <tr>
+                                <td class="label">
+                                    <span class="nobold">{_bug_tracker_product}:</span>
+                                </td>
+                                <td class="data">
+                                    <a>AbcdEFGH</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <span class="nobold">{_bug_tracker_sent_by}: </span>
+                                </td>
+                                <td class="data">
+                                    <a>John Doe</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <span class="nobold">{_bug_tracker_reproduced}:</span>
+                                </td>
+                                <td class="data">
+                                    <a>...</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <span class="nobold">{_status}:</span>
+                                </td>
+                                <td class="data">
+                                    <a href="#">...</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <span class="nobold">{_bug_tracker_priority}:</span>
+                                </td>
+                                <td class="data">
+                                    <a>...</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label">
+                                    <span class="nobold">{_created}:</span>
+                                </td>
+                                <td class="data">
+                                    <a>...</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div style="padding: 8px;">
+    {include "../components/paginator.xml", conf => (object) [
+        "page"     => $page,
+        "count"    => $count,
+        "amount"   => sizeof($iterator),
+        "perPage"  => 5,
+        "atBottom" => true,
+    ]}
+</div>
+
+{elseif $mode === "new"}
+<form method="post" action="/bugtracker/create">
+    <input name="title" type="text" placeholder="Название отчёта">
+    <br><br>
+    <textarea placeholder="{_bug_tracker_bug_description}" name="text" style="width: 100%; resize: vertical;"></textarea>
+    <br><br>
+    <select name="product">
+        <option disabled>{_bug_tracker_product}</option>
+        <option n:foreach="$open_products as $product" value="{$product->getId()}">{$product->getCanonicalName()}</option>
+    </select>
+    <br><br>
+    <h4>{_bug_tracker_priority}</h4>
+    <table>
+        <tbody>
+            <tr>
+                <td><input type="radio" name="priority" value="0"></td>
+                <td><label for="priority_1">{_bug_tracker_priority_feature}</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="priority" value="1"></td>
+                <td><label for="priority_2">{_bug_tracker_priority_low}</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="priority" value="2"></td>
+                <td><label for="priority_3">{_bug_tracker_priority_medium}</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="priority" value="3"></td>
+                <td><label for="priority_4">{_bug_tracker_priority_high}</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="priority" value="4"></td>
+                <td><label for="priority_5">{_bug_tracker_priority_critical}</label></td>
+            </tr>
+            <tr>
+                <td><input type="radio" name="priority" value="5"></td>
+                <td><label for="priority_6">{_bug_tracker_priority_vulnerability}</label></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <input type="text" name="device" placeholder="{_bug_tracker_device}">
+    <br>
+    <br>
+    <input type="hidden" name="hash" value="{$csrfToken}" />
+    <input type="submit" value="{_write}" class="button" style="float: right;" />
+    <br><br>
+</form>
+
+{elseif $mode === "products"}
+<div>
+    <div n:attr='id => $filter === "all" ? "activetabs" : false' class="tab">
+        <a n:attr='id => $filter === "all" ? "act_tab_a" : false' href="/bugtracker?act=products">
+            Все
+        </a>
+    </div>
+    <div n:attr='id => $filter === "open" ? "activetabs" : false' class="tab">
+        <a n:attr='id => $filter === "open" ? "act_tab_a" : false' href="/bugtracker?act=products&filter=open">
+            Открытые
+        </a>
+    </div>
+    <div n:attr='id => $filter === "closed" ? "activetabs" : false' class="tab">
+        <a n:attr='id => $filter === "closed" ? "act_tab_a" : false' href="/bugtracker?act=products&filter=closed">
+            Закрытые
+        </a>
+    </div>
+    <div n:attr='id => $filter === "private" ? "activetabs" : false' class="tab">
+        <a n:attr='id => $filter === "private" ? "act_tab_a" : false' href="/bugtracker?act=products&filter=private">
+            Приватные
+        </a>
+    </div>
+</div>
+<br>
+{if $count < 1}
+    {include "../components/nothing.xml"}
+{/if}
+<table border="0" style="font-size: 11px; width: 100%;" class="post">
+    <tbody>
+        <tr n:foreach="$iterator as $product">
+            <td width="54">
+                <center>
+                    <img src="/assets/packages/static/openvk/img/note_icon.png">
+                </center>
+            </td>
+            <td width="92%" valign="top">
+                <div class="post-author" href="#">
+                    <a href="/bugtracker?product={$product->getId()}">
+                        <b>{$product->getCanonicalName()}</b>
+                         <span>#{$product->getId()}</span>
+                    </a>
+                </div>
+                <div class="post-content" style="padding: 4px 0; font-size: 11px;">
+                    <div n:if="$product->getDescription()" style="padding: 4px; font-size: 11px;">
+                        {$product->getDescription()}
+                        <hr color="#DAE1E8" size="1">
+                    </div>
+                    <table id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0">
+                        <tbody>
+                            <tr>
+                                <td class="label"><span class="nobold">{_bug_tracker_product}:</span></td>
+                                <td class="data">
+                                    <a href="/bugtracker?product={$product->getId()}">{$product->getCanonicalName()}</a>
+                                    <b n:if="$product->isClosed()">({_bug_tracker_product_is_closed})</b>
+                                </td>
+                            </tr>
+                            <tr n:if="$isModerator">
+                                <td class="label"><span class="nobold">{_bug_tracker_product_created_by}: </span></td>
+                                <td class="data">
+                                    <a href="/bugtracker?act=reporter&id={$product->getCreator()->getId()}">{$product->getCreator()->getCanonicalName()}</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="label"><span class="nobold">{_bug_tracker_product_creation_date}:</span></td>
+                                <td class="data"><a href="#">{$product->getCreationTime()}</a></td>
+                            </tr>
+                            <tr n:if="$isModerator">
+                                <td class="label"><span class="nobold">действия:</span></td>
+                                <td class="data" style="width: 100% !important;">
+                                    <span>
+                                        <a
+                                            onClick="showBtProductStatusDialog([{$product->getId()}, {$product->getCanonicalName()}], {$csrfToken})"
+                                        >
+                                            закрытый
+                                        </a>
+                                        ・
+                                        <a
+                                            onClick="showBtPrivateProductDialog([{$product->getId()}, {$product->getCanonicalName()}], {$csrfToken})"
+                                        >
+                                            приватный
+                                        </a>
+                                        ・
+                                        <a onClick="showBtProductAccessDialog([{$product->getId()}, {$product->getCanonicalName()}], {$csrfToken})">
+                                            доступ
+                                        </a>
+                                    </span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div style="padding: 8px;">
+    {include "../components/paginator.xml", conf => (object) [
+        "page"     => $page,
+        "count"    => $count,
+        "amount"   => sizeof($iterator),
+        "perPage"  => 5,
+        "atBottom" => true,
+    ]}
+</div>
+
+{elseif $mode === "new_product"}
+<form method="post" action="/bugtracker/createProduct">
+    <input type="text" name="title" placeholder="{_bug_tracker_product_name}">
+    <br><br>
+    <textarea placeholder="{_bug_tracker_product_description}" name="description" style="width: 100%; resize: vertical;"></textarea>
+    <div style="display: inline;">
+        <input id="is_closed" type="checkbox" name="is_closed">
+        <label for="is_closed">Закрытый</label>
+
+        <input id="is_private" type="checkbox" name="is_private">
+        <label for="is_private">Приватный</label>
+    </div>
+    <input type="hidden" name="hash" value="{$csrfToken}" />
+    <br><br>
+    <input type="submit" value="{_create}" class="button" style="float: right;" />
+    <br><br>
+</form>
+
+{elseif $mode === "reporter"}
+<div n:if="$reporter">
+    <div class="avatar-list-item" style="padding: 8px;">
+        <div class="avatar">
+            <a href="{$reporter->getURL()}">
+                <img class="ava" src="{$reporter->getAvatarURL()}">
+            </a>
+        </div>
+        <div class="info" style="width: 92%">
+            <a href="{$reporter->getURL()}" class="title">{$reporter->getCanonicalName()}</a>
+            <b n:if="$reporter->isBtModerator() AND $isModerator">[Модератор]</b>
+            <a n:if="!$reporter->isBannedInBt() AND $isModerator" onClick="showBtKickUserDialog([{$reporter->getId()}, {$reporter->getCanonicalName()}], {$csrfToken})">
+                <b>[заблокировать]</b>
+            </a>
+            <a n:if="$reporter->isBannedInBt() AND $isModerator" onClick="showBtUnbanUserDialog([{$reporter->getId()}, {$reporter->getCanonicalName()}, {$reporter->getBanInBtReason()}], {$csrfToken})">
+                <b>[разблокировать]</b>
+            </a>
+            <div>{tr("bug_tracker_reporter_card_text", $reporter_stats[0], $reporter_stats[1])}</div>
+            <div n:if="$reporter->isBannedInBt()">
+                <hr color="#DAE1E8" size="1">
+                <div>
+                    Исключён из программы <b>OVK Testers</b>
+                    <span n:if="$isModerator">: <b>{$reporter->getBanInBtReason() ?? "причина не указана."}</b></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <table border="0" style="font-size: 11px; width: 100%;" class="post">
+        <tbody>
+            <tr n:foreach="$iterator as $bug">
+                <td width="54" >
+                    <center>
+                        <img src="/assets/packages/static/openvk/img/note_icon.png">
+                    </center>
+                </td>
+                <td width="92%" valign="top">
+                    <div class="post-author" href="#">
+                        <a href="/bug{$bug->getId()}">
+                            <b>{$bug->getCanonicalName()}</b>
+                            <span>#{$bug->getId()}</span>
+                        </a>
+                    </div>
+                    <div class="post-content" style="padding: 4px 0; font-size: 11px;">
+                        <table id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr>
+                                    <td class="label"><span class="nobold">{_bug_tracker_product}:</span></td>
+                                    <td class="data"><a href="#">{$bug->getProduct()->getCanonicalName()}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><span class="nobold">{_bug_tracker_sent_by}: </span></td>
+                                    <td class="data">
+                                        <a href="/bugtracker?act=reporter&id={$bug->getReporter()->getId()}">{$bug->getReporter()->getCanonicalName()}</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><span class="nobold">{_bug_tracker_reproduced}:</span></td>
+                                    <td class="data"><a href="#">{tr("participants", $bug->getReproducedCount())}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><span class="nobold">{_status}:</span></td>
+                                    <td class="data"><a href="#">{$bug->getStatus()}</a></td>
+                                </tr>
+                                <tr>
+                                    <td class="label"><span class="nobold">{_bug_tracker_priority}:</span></td>
+                                    <td class="data"><a href="#">{$bug->getPriority()}</a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div style="padding: 8px;">
+        {include "../components/paginator.xml", conf => (object) [
+            "page"     => $page,
+            "count"    => $count,
+            "amount"   => sizeof($iterator),
+            "perPage"  => 5,
+            "atBottom" => true,
+        ]}
+    </div>
+</div>
+<div n:if="!$reporter">
+    <center>{_profile_not_found}</center>
+</div>
+{/if}
+{/if}
+{/block}
