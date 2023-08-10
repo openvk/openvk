@@ -1,0 +1,212 @@
+{extends "@layout.xml"}
+
+{block title}
+    {_translations}
+{/block}
+
+{block heading}
+    {include title}
+{/block}
+
+{block content}
+<form class="aui">
+    <div class="field-group">
+        <label>{_language}</label>
+        <select n:attr="style => $langs ? 'display: none;' : ''" id="lang-select" name="lang" class="select" onchange="onLanguageSelectChanged(this)">
+            <option value="any" n:attr="selected => $activeLang === 'any'">{_s_any|firstUpper}</option>
+            <option value="comma-separated">{_translation_comma_separated}</option>
+            <option
+                    n:foreach="$languages as $language"
+                    n:attr="selected => $activeLang === $language['code']"
+                    value="{$language['code']}"
+            >[{$language["code"]}] {$language["native_name"]}</option>
+        </select>
+        <form class="aui" style="display: flex;">
+            <input value="{$langs}" n:attr="style => $langs ? '' : 'display: none;'" id="langs-comma-separated" autocomplete="off" class="text long-field" type="text" placeholder="{_translation_comma_separated_langs_placeholder}" name="langs"/>
+            <input n:attr="value => $q" id="quickSearchInput" autocomplete="off" class="text long-field" type="text" placeholder="{_translation_search}" name="q" accesskey="Q"/>
+            <button class="aui-button aui-button-primary" type="submit">
+                <span class="aui-icon aui-icon-small aui-iconfont-search">{_header_search}</span>
+            </button>
+            <a n:attr="style => $langs ? '' : 'display: none;'" id="back-to-lang-select-btn" class="aui-button aui-button-primary" onclick="backToLangSelect(this)">
+              <span class="aui-icon aui-icon-small aui-iconfont-arrow-left">{_select_language}</span>
+            </a>
+        </form>
+    </div>
+</form>
+<hr/>
+<form class="aui" style="margin: 0;" method="post" onsubmit="onKeyValueFormSubmit(this, 'new')">
+<div class="field-group">
+    <select id="lang-new" name="lang" class="select">
+        <option
+                n:foreach="$languages as $language"
+                n:attr="selected => $activeLang === $language['code']"
+                value="{$language['code']}"
+        >[{$language["code"]}] {$language["native_name"]}</option>
+    </select>
+    <input class="text long-field" type="text" id="key-new" name="key" value="" placeholder="{_translation_key}"/>
+    <input class="text long-field" type="text" id="value-new" name="value" value="" placeholder="{_translation_value}"/>
+    <button class="aui-button aui-button-primary" type="submit">
+        <span class="aui-icon aui-icon-small aui-iconfont-add">{_save}</span>
+    </button>
+</div>
+</form>
+<hr/>
+<form n:attr="id => $new_key ? ('key-l-' . $key['lang']) : ''" class="aui" n:foreach="$keys as $key" style="margin: 0;" method="post" onsubmit="onKeyValueFormSubmit(this, {$key['index']})">
+    <div class="field-group" style="display: flex; gap: 8px;">
+        <div style="width: 3em;">
+            <img src="/assets/packages/static/openvk/img/flags/{$key['lang']}.gif" alt="{$key['lang']}" style="margin: 25% 0 0 50%;"/>
+        </div>
+        <input n:attr="lang => $new_key ? $key['lang'] : ''" class="text long-field {=$new_key ? 'key-l-name' : ''}" type="text" id="key-{$key['index']}" name="key" value="{$key['key']}" placeholder="{_translation_key}"/>
+        <input n:attr="lang => $new_key ? $key['lang'] : ''" class="text long-field {=$new_key ? 'key-l-value' : ''}" type="text" id="value-{$key['index']}" name="value" value="{$key['value']}" placeholder="{_translation_value}"/>
+        <input type="hidden" id="lang-{$key['index']}" value="{$key['lang']}" />
+        <button class="aui-button aui-button-primary" type="submit">
+            <span class="aui-icon aui-icon-small aui-iconfont-export">{_save}</span>
+        </button>
+        <a class="aui-button aui-button-primary" onclick="copyKey({$key['index']})">
+            <span class="aui-icon aui-icon-small aui-iconfont-copy">{_copy}</span>
+        </a>
+        <a class="aui-button aui-button-primary" onclick="openKeyInNewTab({$key['key']})">
+            <span class="aui-icon aui-icon-small aui-iconfont-world">{_translate}</span>
+        </a>
+        <a class="aui-button aui-button-primary" onclick="deleteKey({$key['index']})" style="background-color: red;">
+            <span class="aui-icon aui-icon-small aui-iconfont-delete">{_delete}</span>
+        </a>
+    </div>
+</form>
+<center n:if="sizeof($keys) === 0" style="font-size: 24px;">
+    <div>{_translation_nothing_found}. :(</div>
+    <a onclick="openKeyInNewTab({str_replace('key:', '', $q)})">{tr("translation_start_translate_key", $q)}</a>
+</center>
+<button class="aui-button aui-button-primary" n:if="$new_key" onclick="saveAllKeys()">{_save_all}</button>
+<script>
+function onLanguageSelectChanged(e) {
+if (e.value !== 'comma-separated') {
+    let q = {=urlencode($q)};
+    window.location.href = "/admin/translation?lang=" + e.value + (q ? ("&q=" + q) : "");
+} else {
+    document.getElementById('back-to-lang-select-btn').style.display = '';
+    document.getElementById('langs-comma-separated').style.display = '';
+    document.getElementById('lang-select').style.display = 'none';
+}
+}
+
+function onKeyValueFormSubmit(e, index) {
+if (event.preventDefault) {
+event.preventDefault();
+}
+
+const key = document.getElementById('key-' + index).value;
+const value = document.getElementById('value-' + index).value;
+const lang = document.getElementById('lang-' + index).value;
+
+$.ajax({
+    type: "POST",
+    url: "/admin/translate",
+    data: {
+        lang: lang,
+        key: key,
+        value: value,
+        hash: {$csrfToken}
+    },
+    success: (response) => {
+        if (response.success) {
+            window.location.href = window.location.pathname + window.location.search + {$scrollTo ? '"&s=" + window.scrollY' : ''};
+        } else {
+            alert(tr("error") + ": " + response.error);
+        }
+    }
+})
+}
+
+function copyKey(index) {
+const key = document.getElementById('key-' + index).value;
+const value = document.getElementById('value-' + index).value;
+document.getElementById('key-new').value = key;
+document.getElementById('value-new').value = value;
+}
+
+function deleteKey(index) {
+const key = document.getElementById('key-' + index).value;
+const value = document.getElementById('value-' + index).value;
+const lang = document.getElementById('lang-' + index).value;
+
+$.ajax({
+    type: "POST",
+    url: "/admin/translate",
+    data: {
+        act: "delete",
+        lang: lang,
+        key: key,
+        value: value,
+        hash: {$csrfToken}
+    },
+    success: (response) => {
+        if (response.success) {
+            window.location.href = window.location.pathname + window.location.search + {$scrollTo ? '"&s=" + window.scrollY' : ''};
+        } else {
+            alert(tr("error") + ": " + response.error);
+        }
+    }
+})
+}
+
+function backToLangSelect(e) {
+if (e.preventDefault) {
+    e.preventDefault();
+}
+
+document.getElementById('back-to-lang-select-btn').style.display = 'none';
+document.getElementById('langs-comma-separated').style.display = 'none';
+
+const langSelect = document.getElementById('lang-select');
+langSelect.value = 'ru';
+langSelect.style.display = '';
+}
+
+window.scrollTo(window.scrollX, {=$scrollTo});
+
+function saveAllKeys() {
+    if (!{=$new_key}) return false;
+
+    let keys = [];
+    let values = [];
+    let objects = [];
+
+    let _names = $(".key-l-name").map(function() {
+        keys[$(this).attr('lang')] = this.value;
+    }).get();
+
+    let _values = $(".key-l-value").map(function() {
+            values[$(this).attr('lang')] = this.value;
+        }).get();
+
+    let _languages = Object.keys(keys);
+    _languages.map((language) => {
+        if (language && keys[language] && values[language])
+            objects.push(`${ language}:${ keys[language]}:${ values[language]}`);
+    });
+
+    console.log(objects.join(";"));
+
+    $.ajax({
+        type: "POST",
+        url: "/admin/translate",
+        data: {
+            strings: objects.join(";"),
+            hash: {$csrfToken}
+        },
+        success: (response) => {
+            if (response.success) {
+                window.location.reload();
+            } else {
+                alert(tr("error") + ": " + response.error);
+            }
+        }
+    })
+}
+
+function openKeyInNewTab(keyName) {
+    window.location.href = '/admin/translation?lang=any&q=key:' + keyName;
+}
+</script>
+{/block}

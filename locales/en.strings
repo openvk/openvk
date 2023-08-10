@@ -1539,3 +1539,23 @@
 "mobile_like" = "Like";
 "mobile_user_info_hide" = "Hide";
 "mobile_user_info_show_details" = "Show details";
+
+"translation_enter_query_first" = "First enter the query";
+"translation_locale_file_not_found" = "Locale file not found";
+"translation_file_writing_error" = "Error when writing to a file";
+"translation_file_reading_error" = "Error when reading a file";
+"translation_enter_at_least_two_values" = "Enter values for at least two locales";
+"translations" = "Translations";
+"translation_you_are_creating_a_new_key" = "You are creating a new key";
+"translation_you_are_creating_a_new_key_description" = "Set a value for at least two languages and click \"Save All\"";
+"language" = "Language";
+"translation_comma_separated" = "Comma-separated";
+"translation_comma_separated_langs_placeholder" = "Language codes separated by commas (ru,en,...)";
+"translation_search" = "Search (key:NAME) to create a key";
+"translation_key" = "Key";
+"translation_value" = "Value";
+"copy" = "Copy";
+"translate" = "Translate";
+"translation_nothing_found" = "Nothing was found";
+"translation_start_translate_key" = "Start key $1 translation";
+"save_all" = "Save all";

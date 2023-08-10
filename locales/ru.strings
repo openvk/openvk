@@ -1431,3 +1431,23 @@
 "mobile_like" = "Нравится";
 "mobile_user_info_hide" = "Скрыть";
 "mobile_user_info_show_details" = "Показать подробнее";
+
+"translation_enter_query_first" = "Сначала введите запрос";
+"translation_locale_file_not_found" = "Файл с локалью не найден";
+"translation_file_writing_error" = "Ошибка при записи в файл";
+"translation_file_reading_error" = "Ошибка при чтении файла";
+"translation_enter_at_least_two_values" = "Введите значения хотя бы для двух локалей";
+"translations" = "Переводы";
+"translation_you_are_creating_a_new_key" = "Вы создаете новый ключ";
+"translation_you_are_creating_a_new_key_description" = "Задайте значение как минимум для двух языков и нажмите \"Сохранить все\"";
+"language" = "Язык";
+"translation_comma_separated" = "Через запятую";
+"translation_comma_separated_langs_placeholder" = "Коды языков через запятую (ru,en,...)";
+"translation_search" = "Поиск (key:ИМЯ чтобы создать ключ)";
+"translation_key" = "Ключ";
+"translation_value" = "Значение";
+"copy" = "Скопировать";
+"translate" = "Перевести";
+"translation_nothing_found" = "Ничего не нашлось";
+"translation_start_translate_key" = "Начать перевод ключа $1";
+"save_all" = "Сохранить все";
