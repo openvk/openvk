@@ -98,7 +98,7 @@
                             
                         </a>
                         <span n:if="isset($thisUser) && $thisUser->getId() === $dat->getOwner()->getId()">&nbsp;|&nbsp;
-                            <a id="_noteDelete" href="/note{$dat->getOwner()->getId()}_{$dat->getId()}/delete">{_delete}</a>
+                            <a id="_noteDelete" href="/note{$dat->getOwner()->getId()}_{$dat->getId()}/delete?hash={urlencode($csrfToken)}">{_delete}</a>
                             &nbsp;|&nbsp;
                             <a href="/note{$dat->getOwner()->getId()}_{$dat->getVirtualId()}/edit">{_edit}</a>
                         </span>

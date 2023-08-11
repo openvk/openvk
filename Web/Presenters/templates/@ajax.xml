@@ -1,51 +1,27 @@
-{if $__isAjax}
-    {include "@ajax.xml" with blocks}
-{else}
-    {var $instance_name = OPENVK_ROOT_CONF['openvk']['appearance']['name']}
+{var $instance_name = OPENVK_ROOT_CONF['openvk']['appearance']['name']}
     {if !isset($parentModule) || substr($parentModule, 0, 21) === 'libchandler:absolute.'}
     <!DOCTYPE html>
     <html>
         <head>
-            <title>
-                {ifset title}{include title} - {/ifset}{$instance_name}
-            </title>
-            <meta charset="utf-8" />
-            <link rel="shortcut icon" href="/assets/packages/static/openvk/img/icon.ico" />
-            <meta name="application-name" content="{$instance_name}" />
             <meta n:ifset="$csrfToken" name="csrf" value="{$csrfToken}" />
-
-            <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
-            {script "js/node_modules/jquery/dist/jquery.min.js"}
-            {script "js/node_modules/umbrellajs/umbrella.min.js"}
-            {script "js/l10n.js"}
-            {script "js/openvk.cls.js"}
-            {script "js/st_manager.js"}
-
-            {css "js/node_modules/tippy.js/dist/backdrop.css"}
-            {css "js/node_modules/tippy.js/dist/border.css"}
-            {css "js/node_modules/tippy.js/dist/svg-arrow.css"}
-            {css "js/node_modules/tippy.js/themes/light.css"}
-            {script "js/node_modules/@popperjs/core/dist/umd/popper.min.js"}
-            {script "js/node_modules/tippy.js/dist/tippy-bundle.umd.min.js"}
-            {script "js/node_modules/handlebars/dist/handlebars.min.js"}
+            <title>{include title}</title>
 
             {if $isTimezoned == NULL}
                 {script "js/timezone.js"}
             {/if}
-
-            {include "_includeCSS.xml"}
 
             {ifset headIncludes}
                 {include headIncludes}
             {/ifset}
         </head>
         <body>
-            <div id="bodyContent">
-                <div id="ajaxLoader"
-                     style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; z-index: 9999;">
-                    <img id="ajaxLoaderImg" src="/assets/packages/static/openvk/img/loading_mini.gif"
-                         style="position: absolute; top: 40%; left: 50%; background: #4C4C4C; padding: 20px 30px; border-radius: 3px; opacity: 0.8;"/>
-                </div>
+            <div id="ajaxLoader"
+                 style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 9999;">
+                <img id="ajaxLoaderImg" src="/assets/packages/static/openvk/img/loading_mini.gif"
+                     style="position: absolute; top: 40%; left: 50%; background: #4C4C4C; padding: 20px 30px; border-radius: 3px; opacity: 0.8;"/>
+            </div>
+
+            <input type="hidden" id="__current_url" value="{=$_SERVER[REQUEST_URI]}" />
             <div id="sudo-banner" n:if="isset($thisUser) && $userTainted">
                 <p>
                     Вы вошли как <b>{$thisUser->getCanonicalName()}</b>. Пожалуйста, уважайте
@@ -357,24 +333,6 @@
                 </p>
             </div>
 
-            {include "components/cookies.xml"}
-
-            {script "js/node_modules/msgpack-lite/dist/msgpack.min.js"}
-            {script "js/node_modules/soundjs/lib/soundjs.min.js"}
-            {script "js/node_modules/ky/umd.js"}
-            {script "js/messagebox.js"}
-            {script "js/notifications.js"}
-            {script "js/scroll.js"}
-            {script "js/player.js"}
-            {script "js/al_wall.js"}
-            {script "js/al_api.js"}
-            {script "js/al_mentions.js"}
-            {script "js/al_polls.js"}
-
-            {ifset $thisUser}
-                {script "js/al_notifs.js"}
-            {/ifset}
-
             {if OPENVK_ROOT_CONF['openvk']['preferences']['bellsAndWhistles']['fartscroll']}
                 <script src="https://unpkg.com/fartscroll@1.0.0/fartscroll.js"></script>
                 <script>
@@ -417,13 +375,7 @@
                 //]]>
             </script>
 
-            {ifset bodyScripts}
-                {include bodyScripts}
-            {/ifset}
-
-            {script "js/node_modules/requirejs/bin/r.js"}
             <script>initForms();</script>
-            </div>
         </body>
     </html>
     {/if}
@@ -433,4 +385,3 @@
 
         {include content}
     {/if}
-{/if}

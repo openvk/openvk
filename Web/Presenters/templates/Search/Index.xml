@@ -2,8 +2,8 @@
 
 {block title}
     {tr("search_for_$type")}
-    {if $_GET['query']}
-        - {$_GET['query']}
+    {if $_REQUEST['query']}
+        - {$_REQUEST['query']}
     {/if}
 {/block}
 
@@ -29,8 +29,8 @@
 {block name}
     {if $type != "apps"}
         <text style="overflow: hidden;">&nbsp;{$x->getCanonicalName()}        
-        {if $_GET['sort'] == "rating"}({$x->getRating()}%)
-        {elseif $_GET['sort'] == "id"}(id{$x->getId()}){/if}</text>
+        {if $_REQUEST['sort'] == "rating"}({$x->getRating()}%)
+        {elseif $_REQUEST['sort'] == "id"}(id{$x->getId()}){/if}</text>
         <img n:if="$x->isVerified()" 
             class="name-checkmark"
             src="/assets/packages/static/openvk/img/checkmark.png"
@@ -44,49 +44,49 @@
     <table class="ugc-table">
         <tbody>
             {if $type === "users"}
-                {if !is_null($_GET['status']) && $_GET['status'] != ""}
+                {if !is_null($_REQUEST['status']) && $_REQUEST['status'] != ""}
                     <tr>
                         <td><span class="nobold">{_status}:</span></td>
                         <td>{$x->getStatus()}</td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['city']) && $_GET['city'] != "" && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['city']) && $_REQUEST['city'] != "" && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_city}:</span></td>
                         <td>{$x->getCity()}</td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['city']) && $_GET['hometown'] != "" && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['city']) && $_REQUEST['hometown'] != "" && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_hometown}:</span></td>
                         <td>{$x->getHometown()}</td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['politViews']) && $_GET['politViews'] != 0 && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['politViews']) && $_REQUEST['politViews'] != 0 && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_politViews}:</span></td>
                         <td>{tr("politViews_".$x->getPoliticalViews())}</td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['email']) && $_GET['email'] != "" && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['email']) && $_REQUEST['email'] != "" && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_email}:</span></td>
                         <td>{$x->getContactEmail()}</td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['telegram']) && $_GET['telegram'] != "" && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['telegram']) && $_REQUEST['telegram'] != "" && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_telegram}:</span></td>
                         <td><a href="tg://resolve?domain={$x->getTelegram()}">@{$x->getTelegram()}</a></td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['site']) && $_GET['site'] != "" && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['site']) && $_REQUEST['site'] != "" && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_personal_website}:</span></td>
                         <td><a href="{$x->getWebsite()}">{$x->getWebsite()}</a></td>
                     </tr>
                 {/if}
-                {if !is_null($_GET['address']) && $_GET['address'] != "" && $x->getPrivacySetting("page.info.read") > 1}
+                {if !is_null($_REQUEST['address']) && $_REQUEST['address'] != "" && $x->getPrivacySetting("page.info.read") > 1}
                     <tr>
                         <td><span class="nobold">{_address}:</span></td>
                         <td>{$x->getPhysicalAddress()}</td>
@@ -230,28 +230,28 @@
 {block searchOptions}
     <div class="searchOptions">
         <ul class="searchList">
-            <li {if $type === "users"}   id="used"{/if}><a href="/search?type=users{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">   {_s_people}   {if $type === "users"}   ({$count}){/if}</a></li>
-            <li {if $type === "groups"}  id="used"{/if}><a href="/search?type=groups{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_groups}   {if $type === "groups"}  ({$count}){/if}</a></li>
-            <li {if $type === "comments"}id="used"{/if}><a href="/search?type=comments{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">{_s_comments} {if $type === "comments"}({$count}){/if}</a></li>
-            <li {if $type === "posts"}   id="used"{/if}><a href="/search?type=posts{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">   {_s_posts}    {if $type === "posts"}   ({$count}){/if}</a></li>
-            <li {if $type === "videos"}  id="used"{/if}><a href="/search?type=videos{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_videos}   {if $type === "videos"}  ({$count}){/if}</a></li>
-            <li {if $type === "apps"}    id="used"{/if}><a href="/search?type=apps{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">    {_s_apps}     {if $type === "apps"}    ({$count}){/if}</a></li>
+            <li {if $type === "users"}   id="used"{/if}><a href="/search?type=users{if $_REQUEST['query']}&query={urlencode($_REQUEST['query'])}{/if}&sort=id">   {_s_people}   {if $type === "users"}   ({$count}){/if}</a></li>
+            <li {if $type === "groups"}  id="used"{/if}><a href="/search?type=groups{if $_REQUEST['query']}&query={urlencode($_REQUEST['query'])}{/if}&sort=id">  {_s_groups}   {if $type === "groups"}  ({$count}){/if}</a></li>
+            <li {if $type === "comments"}id="used"{/if}><a href="/search?type=comments{if $_REQUEST['query']}&query={urlencode($_REQUEST['query'])}{/if}&sort=id">{_s_comments} {if $type === "comments"}({$count}){/if}</a></li>
+            <li {if $type === "posts"}   id="used"{/if}><a href="/search?type=posts{if $_REQUEST['query']}&query={urlencode($_REQUEST['query'])}{/if}&sort=id">   {_s_posts}    {if $type === "posts"}   ({$count}){/if}</a></li>
+            <li {if $type === "videos"}  id="used"{/if}><a href="/search?type=videos{if $_REQUEST['query']}&query={urlencode($_REQUEST['query'])}{/if}&sort=id">  {_s_videos}   {if $type === "videos"}  ({$count}){/if}</a></li>
+            <li {if $type === "apps"}    id="used"{/if}><a href="/search?type=apps{if $_REQUEST['query']}&query={urlencode($_REQUEST['query'])}{/if}&sort=id">    {_s_apps}     {if $type === "apps"}    ({$count}){/if}</a></li>
         </ul>
 
         <div class="searchOption">
             <div class="searchOptionName" id="n_sort" onclick="hideParams('sort')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_s_order_by}</div>
             <div class="searchOptionBlock" id="s_sort">
                 <select name="sort" form="searcher" id="sortyor">
-                    <option value="id" {if $_GET["sort"] == "name"}selected{/if}>{_s_order_by_id}</option>
+                    <option value="id" {if $_REQUEST["sort"] == "name"}selected{/if}>{_s_order_by_id}</option>
                     {if $type == "users"}
-                        <option value="name" {if $_GET["sort"] == "name"}selected{/if}>{_s_order_by_name}</option>
+                        <option value="name" {if $_REQUEST["sort"] == "name"}selected{/if}>{_s_order_by_name}</option>
                         {if OPENVK_ROOT_CONF["openvk"]["preferences"]["commerce"]}
-                            <option value="rating" {if $_GET["sort"] == "rating"}selected{/if}>{_s_order_by_rating}</option>
+                            <option value="rating" {if $_REQUEST["sort"] == "rating"}selected{/if}>{_s_order_by_rating}</option>
                         {/if}
                     {/if}
                 </select>
                 <div id="invertor">
-                <input type="checkbox" name="invert" value="1" form="searcher" {if !is_null($_GET['invert']) && $_GET['invert'] == "1"}checked{/if}>{_s_order_invert}
+                <input type="checkbox" name="invert" value="1" form="searcher" {if !is_null($_REQUEST['invert']) && $_REQUEST['invert'] == "1"}checked{/if}>{_s_order_invert}
                 </div>
             </div>
         </div>
@@ -269,7 +269,7 @@
                     form="searcher"
                     id="bydate"
                     style="width:100%"
-                    value="{if !is_null($_GET['datebefore'])}{$_GET['datebefore']}{/if}"
+                    value="{if !is_null($_REQUEST['datebefore'])}{$_REQUEST['datebefore']}{/if}"
                     min="2019-11-19"
                     max={date('Y-m-d')}></p>
                 {if $type != "users"}
@@ -281,7 +281,7 @@
                     form="searcher"
                     style="width:100%"
                     id="bydate"
-                    value="{if !is_null($_GET['dateafter'])}{$_GET['dateafter']}{/if}"
+                    value="{if !is_null($_REQUEST['dateafter'])}{$_REQUEST['dateafter']}{/if}"
                     min="2019-11-18"
                     max={date('Y-m-d')}></p>
             </div>
@@ -292,19 +292,19 @@
         <div class="searchOption">
             <div class="searchOptionName" id="n_main" onclick="hideParams('main')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_main}</div>
             <div class="searchOptionBlock" id="s_main">
-                <input type="text" value="{if !is_null($_GET['status'])}{$_GET['status']}{/if}" form="searcher" placeholder="{_status}" name="status">
-                <input type="text" value="{if !is_null($_GET['city'])}{$_GET['city']}{/if}" form="searcher" placeholder="{_city}" name="city">
-                <input type="text" value="{if !is_null($_GET['hometown'])}{$_GET['hometown']}{/if}" form="searcher" placeholder="{_hometown}" name="hometown">
-                <input name="is_online" type="checkbox" {if !is_null($_GET['is_online']) && $_GET['is_online'] == "1"}checked{/if} form="searcher" value="1">{_s_now_on_site}
+                <input type="text" value="{if !is_null($_REQUEST['status'])}{$_REQUEST['status']}{/if}" form="searcher" placeholder="{_status}" name="status">
+                <input type="text" value="{if !is_null($_REQUEST['city'])}{$_REQUEST['city']}{/if}" form="searcher" placeholder="{_city}" name="city">
+                <input type="text" value="{if !is_null($_REQUEST['hometown'])}{$_REQUEST['hometown']}{/if}" form="searcher" placeholder="{_hometown}" name="hometown">
+                <input name="is_online" type="checkbox" {if !is_null($_REQUEST['is_online']) && $_REQUEST['is_online'] == "1"}checked{/if} form="searcher" value="1">{_s_now_on_site}
             </div>
         </div>
 
         <div class="searchOption">
             <div class="searchOptionName" id="n_gender" onclick="hideParams('gender')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_gender}</div>
             <div class="searchOptionBlock" id="s_gender">
-                <p><input type="radio" form="searcher" id="gend" {if $_GET['gender'] == 0}checked{/if} name="gender" value="0">{_male}</p>
-                <p><input type="radio" form="searcher" id="gend1"{if $_GET['gender'] == 1}checked{/if} name="gender" value="1">{_female}</p>
-                <p><input type="radio" form="searcher" id="gend2"{if $_GET['gender'] == 2 || is_null($_GET['gender'])}checked{/if} name="gender" value="2">{_s_any}</p>
+                <p><input type="radio" form="searcher" id="gend" {if $_REQUEST['gender'] == 0}checked{/if} name="gender" value="0">{_male}</p>
+                <p><input type="radio" form="searcher" id="gend1"{if $_REQUEST['gender'] == 1}checked{/if} name="gender" value="1">{_female}</p>
+                <p><input type="radio" form="searcher" id="gend2"{if $_REQUEST['gender'] == 2 || is_null($_REQUEST['gender'])}checked{/if} name="gender" value="2">{_s_any}</p>
             </div>
         </div>
 
@@ -312,7 +312,7 @@
             <div class="searchOptionName" id="n_relationship" onclick="hideParams('relationship')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{ovk_proc_strtr(tr("relationship"), 14)}</div>
             <div class="searchOptionBlock" id="s_relationship">
                 <select name="maritalstatus" form="searcher">
-                    <option n:foreach="range(0, 8) as $i" value="{$i}" {if $_GET['maritalstatus'] == $i}selected{/if} form="searcher">
+                    <option n:foreach="range(0, 8) as $i" value="{$i}" {if $_REQUEST['maritalstatus'] == $i}selected{/if} form="searcher">
                         {tr("relationship_".$i)}
                     </option>
                 </select>
@@ -323,7 +323,7 @@
             <div class="searchOptionName" id="n_politViews" onclick="hideParams('politViews')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_politViews}</div>
             <div class="searchOptionBlock" id="s_politViews">
                 <select name="politViews" form="searcher">
-                    <option n:foreach="range(0, 9) as $i" value="{$i}" {if $_GET['politViews'] == $i}selected{/if} form="searcher">
+                    <option n:foreach="range(0, 9) as $i" value="{$i}" {if $_REQUEST['politViews'] == $i}selected{/if} form="searcher">
                         {tr("politViews_".$i)}
                     </option>
                 </select>
@@ -333,25 +333,25 @@
         <div class="searchOption">
             <div class="searchOptionName" id="n_contacts" onclick="hideParams('contacts')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_contacts}</div>
             <div class="searchOptionBlock" id="s_contacts">
-                <input type="text" name="email"    value="{if !is_null($_GET['email'])}{$_GET['email']}{/if}" form="searcher" placeholder="{_email}">
-                <input type="text" name="telegram" value="{if !is_null($_GET['telegram'])}{$_GET['telegram']}{/if}" form="searcher" placeholder="{_telegram}"><br id="contacts">
-                <input type="text" name="site"     value="{if !is_null($_GET['site'])}{$_GET['site']}{/if}" form="searcher" placeholder="{_personal_website}"><br id="contacts">
-                <input type="text" name="address"  value="{if !is_null($_GET['address'])}{$_GET['address']}{/if}" form="searcher" placeholder="{_address}">
+                <input type="text" name="email"    value="{if !is_null($_REQUEST['email'])}{$_REQUEST['email']}{/if}" form="searcher" placeholder="{_email}">
+                <input type="text" name="telegram" value="{if !is_null($_REQUEST['telegram'])}{$_REQUEST['telegram']}{/if}" form="searcher" placeholder="{_telegram}"><br id="contacts">
+                <input type="text" name="site"     value="{if !is_null($_REQUEST['site'])}{$_REQUEST['site']}{/if}" form="searcher" placeholder="{_personal_website}"><br id="contacts">
+                <input type="text" name="address"  value="{if !is_null($_REQUEST['address'])}{$_REQUEST['address']}{/if}" form="searcher" placeholder="{_address}">
             </div>
         </div>
 
         <div class="searchOption">
             <div class="searchOptionName" id="n_interests" onclick="hideParams('interests')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_interests}</div>
             <div class="searchOptionBlock" id="s_interests">
-                <input type="text" value="{if !is_null($_GET['interests'])}{$_GET['interests']}{/if}" form="searcher" placeholder="{_interests}" name="interests">
-                <input type="text" value="{if !is_null($_GET['fav_mus'])}{$_GET['fav_mus']}{/if}"     form="searcher" placeholder="{_favorite_music}" name="fav_mus">
-                <input type="text" value="{if !is_null($_GET['fav_films'])}{$_GET['fav_films']}{/if}" form="searcher" placeholder="{_favorite_films}" name="fav_films">
-                <input type="text" value="{if !is_null($_GET['fav_shows'])}{$_GET['fav_shows']}{/if}" form="searcher" placeholder="{_favorite_shows}" name="fav_shows">
-                <input type="text" value="{if !is_null($_GET['fav_books'])}{$_GET['fav_books']}{/if}" form="searcher" placeholder="{_favorite_books}" name="fav_books">
-                <input type="text" value="{if !is_null($_GET['fav_quote'])}{$_GET['fav_quote']}{/if}" form="searcher" placeholder="{_favorite_quotes}"  name="fav_quote">
+                <input type="text" value="{if !is_null($_REQUEST['interests'])}{$_REQUEST['interests']}{/if}" form="searcher" placeholder="{_interests}" name="interests">
+                <input type="text" value="{if !is_null($_REQUEST['fav_mus'])}{$_REQUEST['fav_mus']}{/if}"     form="searcher" placeholder="{_favorite_music}" name="fav_mus">
+                <input type="text" value="{if !is_null($_REQUEST['fav_films'])}{$_REQUEST['fav_films']}{/if}" form="searcher" placeholder="{_favorite_films}" name="fav_films">
+                <input type="text" value="{if !is_null($_REQUEST['fav_shows'])}{$_REQUEST['fav_shows']}{/if}" form="searcher" placeholder="{_favorite_shows}" name="fav_shows">
+                <input type="text" value="{if !is_null($_REQUEST['fav_books'])}{$_REQUEST['fav_books']}{/if}" form="searcher" placeholder="{_favorite_books}" name="fav_books">
+                <input type="text" value="{if !is_null($_REQUEST['fav_quote'])}{$_REQUEST['fav_quote']}{/if}" form="searcher" placeholder="{_favorite_quotes}"  name="fav_quote">
             </div>
         </div>
-        <!--<input name="with_photo" type="checkbox" {if !is_null($_GET['with_photo']) && $_GET['with_photo'] == "on"}checked{/if} form="searcher">{_s_with_photo}-->
+        <!--<input name="with_photo" type="checkbox" {if !is_null($_REQUEST['with_photo']) && $_REQUEST['with_photo'] == "on"}checked{/if} form="searcher">{_s_with_photo}-->
     {/if}
         <input class="button" type="button" id="dnt" value="{_reset}" onclick="resetSearch()">
     </div>

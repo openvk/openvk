@@ -61,7 +61,6 @@ abstract class OpenVKPresenter extends SimplePresenter
         } else {
             $this->flash($type, $title, $message, $code);
             $referer = $_SERVER["HTTP_REFERER"] ?? "/";
-            
             $this->redirect($referer);
         }
     }
@@ -277,6 +276,7 @@ abstract class OpenVKPresenter extends SimplePresenter
             }
         }
 
+        $this->template->__isAjax= $this->requestParam("al");
         parent::onStartup();
     }
     

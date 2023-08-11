@@ -93,7 +93,7 @@ final class NotesPresenter extends OpenVKPresenter
             $note->setEdited(time());
             $note->save();
             
-            $this->redirect("/note" . $this->user->id . "_" . $note->getVirtualId());
+            $this->redirect("/note" . $this->user->id . "_" . $note->getVirtualId() . "?al=1");
         }
     }
 
@@ -120,8 +120,8 @@ final class NotesPresenter extends OpenVKPresenter
             $note->setCached_Content(NULL);
             $note->setEdited(time());
             $note->save();
-            
-            $this->redirect("/note" . $this->user->id . "_" . $note->getVirtualId());
+
+            $this->redirect("/note" . $this->user->id . "_" . $note->getVirtualId() . "?al=1");
         }
     }
     
@@ -140,6 +140,6 @@ final class NotesPresenter extends OpenVKPresenter
         $name = $note->getName();
         $note->delete();
         $this->flash("succ", "Заметка удалена", "Заметка \"$name\" была успешно удалена.");
-        $this->redirect("/notes" . $this->user->id);
+        $this->redirect("/notes" . $this->user->id . "?al=1");
     }
 }

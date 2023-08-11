@@ -64,7 +64,7 @@
                 {_no_comments}
             {/if}
             <span n:if="isset($thisUser) && $thisUser->getId() === $note->getOwner()->getId()">&nbsp;|&nbsp;
-                <a id="_noteDelete" href="/note{$note->getOwner()->getId()}_{$note->getId()}/delete">{_delete}</a>
+                <a id="_noteDelete" href="/note{$note->getOwner()->getId()}_{$note->getId()}/delete?hash={urlencode($csrfToken)}">{_delete}</a>
                 &nbsp;|&nbsp;
                 <a href="/note{$note->getOwner()->getId()}_{$note->getVirtualId()}/edit">{_edit}</a>
             </span>

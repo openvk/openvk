@@ -120,7 +120,7 @@
     <div n:ifset="$thisUser" id="profile_links">
         {if $club->canBeModifiedBy($thisUser)}
             <a href="/club{$club->getId()}/edit" id="profile_link">{_edit_group}</a>
-            <a href="/club{$club->getId()}/stats" id="profile_link">{_statistics}</a>
+            <a href="/club{$club->getId()}/stats" target="_blank" id="profile_link">{_statistics}</a>
         {/if}
         {if $thisUser->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL)}
             <a href="/admin/clubs/id{$club->getId()}" id="profile_link">{_manage_group_action}</a>

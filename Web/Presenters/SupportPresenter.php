@@ -191,7 +191,7 @@ final class SupportPresenter extends OpenVKPresenter
                 $comment->setCreated(time());
                 $comment->save();
                 
-                $this->redirect("/support/view/" . $id);
+                $this->redirect("/support/view/" . $id . "?al=1");
             } else {
                 $this->flashFail("err", tr("error"), tr("you_have_not_entered_text"));
             }
@@ -282,13 +282,21 @@ final class SupportPresenter extends OpenVKPresenter
         if($ticket->isDeleted())
             $this->notFound();
 
-        if(!($ticket->getUserId() === $this->user->id && $comment->getUType() === 0))
+        $mode = "view";
+
+        if(!($ticket->getUserId() === $this->user->id && $comment->getUType() === 0)) {
             $this->assertPermission("openvk\Web\Models\Entities\TicketReply", "write", 0);
+            $mode = "reply";
+        }
 
         $this->willExecuteWriteAction();
+
+        // $url = "/support/" . !($ticket->getUserId() === $this->user->id && $comment->getUType() === 0) ? "reply" : "view" . "/" . $comment->getTicket()->getId() . "?al=1";
+        $url = "/support/$mode/" . $comment->getTicket()->getId() . "?al=1";
         $comment->delete();
 
-        $this->flashFail("succ", tr("ticket_changed"), tr("ticket_changed_comment"));
+        $this->flash("succ", tr("ticket_changed"), tr("ticket_changed_comment"));
+        $this->redirect($url);
     }
 
     function renderRateAnswer(int $id, int $mark): void

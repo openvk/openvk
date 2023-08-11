@@ -381,8 +381,13 @@ final class WallPresenter extends OpenVKPresenter
         if(!is_null($this->user)) {
             $post->toggleLike($this->user->identity);
         }
-        
-        $this->redirect("$_SERVER[HTTP_REFERER]#postGarter=" . $post->getId());
+
+        $currentUrl = $_SERVER["HTTP_REFERER"] ?? "/";
+        $queryParams = [];
+        parse_str(parse_url($currentUrl, PHP_URL_QUERY) ?? "", $queryParams);
+        $queryParams['al'] = '1';
+        $updatedUrl = strtok($currentUrl, '?') . '?' . http_build_query($queryParams);
+        $this->redirect($updatedUrl);
     }
     
     function renderShare(int $wall, int $post_id): void

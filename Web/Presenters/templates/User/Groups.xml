@@ -113,9 +113,7 @@
             <div id="gp_container" style="width: 200px; margin-right: 39px;">
                 <h4>{_open_new_group}</h4>
                 <span>{_open_group_desc}</span>
-                <form action="/groups_create">
-                    <button class="button">{_create_group}</button>
-                </form>
+                <a href="/groups_create" class="button">{_create_group}</a>
             </div>
             <div id="gp_container" style="width: 344px;">
                 <h4>{_search_group}</h4>

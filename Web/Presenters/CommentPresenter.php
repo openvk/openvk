@@ -27,8 +27,13 @@ final class CommentPresenter extends OpenVKPresenter
             $this->flashFail("err", tr("error"), tr("forbidden"));
         
         if(!is_null($this->user)) $comment->toggleLike($this->user->identity);
-        
-        $this->redirect($_SERVER["HTTP_REFERER"]);
+
+        $currentUrl = $_SERVER["HTTP_REFERER"] ?? "/";
+        $parsedUrl = parse_url($currentUrl);
+        $queryParams = [];
+        parse_str($parsedUrl['query'] ?? '', $queryParams);
+        $queryParams['al'] = '1';
+        $this->redirect("{$parsedUrl['scheme']}://{$parsedUrl['host']}{$parsedUrl['path']}?" . http_build_query($queryParams));
     }
     
     function renderMakeComment(string $repo, int $eId): void

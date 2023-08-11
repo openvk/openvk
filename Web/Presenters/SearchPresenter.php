@@ -29,11 +29,11 @@ final class SearchPresenter extends OpenVKPresenter
     
     function renderIndex(): void
     {
-        $query = $this->queryParam("query") ?? "";
-        $type  = $this->queryParam("type") ?? "users";
-        $sorter = $this->queryParam("sort") ?? "id";
-        $invert = $this->queryParam("invert") == 1 ? "ASC" : "DESC";
-        $page  = (int) ($this->queryParam("p") ?? 1);
+        $query = $this->requestParam("query") ?? "";
+        $type  = $this->requestParam("type") ?? "users";
+        $sorter = $this->requestParam("sort") ?? "id";
+        $invert = $this->requestParam("invert") == 1 ? "ASC" : "DESC";
+        $page  = (int) ($this->requestParam("p") ?? 1);
         
         $this->willExecuteWriteAction();
         if($query != "")
@@ -66,27 +66,27 @@ final class SearchPresenter extends OpenVKPresenter
         }
 
         $parameters = [
-            "type"          => $this->queryParam("type"),
-            "city"          => $this->queryParam("city") != "" ? $this->queryParam("city") : NULL,
-            "maritalstatus" => $this->queryParam("maritalstatus") != 0 ? $this->queryParam("maritalstatus") : NULL,
-            "with_photo"    => $this->queryParam("with_photo"),
-            "status"        => $this->queryParam("status")     != "" ? $this->queryParam("status") : NULL,
-            "politViews"    => $this->queryParam("politViews") != 0 ? $this->queryParam("politViews") : NULL,
-            "email"         => $this->queryParam("email"),
-            "telegram"      => $this->queryParam("telegram"),
-            "site"          => $this->queryParam("site")      != "" ? "https://".$this->queryParam("site") : NULL,
-            "address"       => $this->queryParam("address"),
-            "is_online"     => $this->queryParam("is_online") == 1 ? 1 : NULL,
-            "interests"     => $this->queryParam("interests")  != "" ? $this->queryParam("interests") : NULL,
-            "fav_mus"       => $this->queryParam("fav_mus")    != "" ? $this->queryParam("fav_mus") : NULL,
-            "fav_films"     => $this->queryParam("fav_films")  != "" ? $this->queryParam("fav_films") : NULL,
-            "fav_shows"     => $this->queryParam("fav_shows")  != "" ? $this->queryParam("fav_shows") : NULL,
-            "fav_books"     => $this->queryParam("fav_books")  != "" ? $this->queryParam("fav_books") : NULL,
-            "fav_quote"     => $this->queryParam("fav_quote")  != "" ? $this->queryParam("fav_quote") : NULL,
-            "hometown"      => $this->queryParam("hometown")   != "" ? $this->queryParam("hometown") : NULL,
-            "before"        => $this->queryParam("datebefore") != "" ? strtotime($this->queryParam("datebefore")) : NULL,
-            "after"         => $this->queryParam("dateafter")  != "" ? strtotime($this->queryParam("dateafter")) : NULL,
-            "gender"        => $this->queryParam("gender")     != "" && $this->queryParam("gender") != 2 ? $this->queryParam("gender") : NULL
+            "type"          => $this->requestParam("type"),
+            "city"          => $this->requestParam("city") != "" ? $this->requestParam("city") : NULL,
+            "maritalstatus" => $this->requestParam("maritalstatus") != 0 ? $this->requestParam("maritalstatus") : NULL,
+            "with_photo"    => $this->requestParam("with_photo"),
+            "status"        => $this->requestParam("status")     != "" ? $this->requestParam("status") : NULL,
+            "politViews"    => $this->requestParam("politViews") != 0 ? $this->requestParam("politViews") : NULL,
+            "email"         => $this->requestParam("email"),
+            "telegram"      => $this->requestParam("telegram"),
+            "site"          => $this->requestParam("site")      != "" ? "https://".$this->requestParam("site") : NULL,
+            "address"       => $this->requestParam("address"),
+            "is_online"     => $this->requestParam("is_online") == 1 ? 1 : NULL,
+            "interests"     => $this->requestParam("interests")  != "" ? $this->requestParam("interests") : NULL,
+            "fav_mus"       => $this->requestParam("fav_mus")    != "" ? $this->requestParam("fav_mus") : NULL,
+            "fav_films"     => $this->requestParam("fav_films")  != "" ? $this->requestParam("fav_films") : NULL,
+            "fav_shows"     => $this->requestParam("fav_shows")  != "" ? $this->requestParam("fav_shows") : NULL,
+            "fav_books"     => $this->requestParam("fav_books")  != "" ? $this->requestParam("fav_books") : NULL,
+            "fav_quote"     => $this->requestParam("fav_quote")  != "" ? $this->requestParam("fav_quote") : NULL,
+            "hometown"      => $this->requestParam("hometown")   != "" ? $this->requestParam("hometown") : NULL,
+            "before"        => $this->requestParam("datebefore") != "" ? strtotime($this->requestParam("datebefore")) : NULL,
+            "after"         => $this->requestParam("dateafter")  != "" ? strtotime($this->requestParam("dateafter")) : NULL,
+            "gender"        => $this->requestParam("gender")     != "" && $this->requestParam("gender") != 2 ? $this->requestParam("gender") : NULL
         ];
 
         $repo  = $repos[$type] or $this->throwError(400, "Bad Request", "Invalid search entity $type.");
