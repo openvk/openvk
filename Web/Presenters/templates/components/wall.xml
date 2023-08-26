@@ -11,12 +11,14 @@
             {include "../components/textArea.xml", route => "/wall$owner/makePost", graffiti => true, polls => true, notes => true}
         </div>
         
-        <div class="content">
+        <div class="content infContainer">
             {if sizeof($posts) > 0}
                 {foreach $posts as $post}
-                    <a name="postGarter={$post->getId()}"></a>
-                    
-                    {include "../components/post.xml", post => $post, commentSection => true}
+                    <div class="infObj">
+                        <a name="postGarter={$post->getId()}"></a>
+                        
+                        {include "../components/post.xml", post => $post, commentSection => true}
+                    </div>
                 {/foreach}
                 {include "../components/paginator.xml", conf => $paginatorConf}
             {else}

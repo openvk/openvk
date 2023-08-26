@@ -1,4 +1,4 @@
-u(".comment-reply").on("click", function(e) {
+$(document).on("click", ".comment-reply", function(e) {
     let comment   = u(e.target).closest(".post");
     let authorId  = comment.data("owner-id");
     let authorNm  = u(".post-author > a > b", comment.first()).text().trim();

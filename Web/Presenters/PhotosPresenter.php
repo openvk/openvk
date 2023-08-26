@@ -27,7 +27,7 @@ final class PhotosPresenter extends OpenVKPresenter
             if(!$user) $this->notFound();
             if (!$user->getPrivacyPermission('photos.read', $this->user->identity ?? NULL))
                 $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
-            $this->template->albums  = $this->albums->getUserAlbums($user, $this->queryParam("p") ?? 1);
+            $this->template->albums  = $this->albums->getUserAlbums($user, (int)($this->queryParam("p") ?? 1));
             $this->template->count   = $this->albums->getUserAlbumsCount($user);
             $this->template->owner   = $user;
             $this->template->canEdit = false;
@@ -36,7 +36,7 @@ final class PhotosPresenter extends OpenVKPresenter
         } else {
             $club = (new Clubs)->get(abs($owner));
             if(!$club) $this->notFound();
-            $this->template->albums  = $this->albums->getClubAlbums($club, $this->queryParam("p") ?? 1);
+            $this->template->albums  = $this->albums->getClubAlbums($club, (int)($this->queryParam("p") ?? 1));
             $this->template->count   = $this->albums->getClubAlbumsCount($club);
             $this->template->owner   = $club;
             $this->template->canEdit = false;

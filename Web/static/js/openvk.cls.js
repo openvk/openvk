@@ -68,7 +68,7 @@ function toggleMenu(id) {
 }
 document.addEventListener("DOMContentLoaded", function() { //BEGIN
 
-    u("#_photoDelete").on("click", function(e) {
+    $(document).on("click", "#_photoDelete", function(e) {
         var formHtml = "<form id='tmpPhDelF' action='" + u(this).attr("href") + "' >";
         formHtml    += "<input type='hidden' name='hash' value='" + u("meta[name=csrf]").attr("value") + "' />";
         formHtml    += "</form>";
@@ -90,7 +90,7 @@ document.addEventListener("DOMContentLoaded", function() { //BEGIN
     });
     /* @rem-pai why this func wasn't named as "#_deleteDialog"? It looks universal IMO */
 
-    u("#_noteDelete").on("click", function(e) {
+    $(document).on("click", "#_noteDelete", function(e) {
         var formHtml = "<form id='tmpPhDelF' action='" + u(this).attr("href") + "' >";
         formHtml    += "<input type='hidden' name='hash' value='" + u("meta[name=csrf]").attr("value") + "' />";
         formHtml    += "</form>";
@@ -111,7 +111,7 @@ document.addEventListener("DOMContentLoaded", function() { //BEGIN
         return e.preventDefault();
     });
 
-    u("#_pinGroup").on("click", async function(e) {
+    $(document).on("click", "#_pinGroup", async function(e) {
         e.preventDefault();
 
         let link = u(this).attr("href");

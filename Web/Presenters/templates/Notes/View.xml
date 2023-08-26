@@ -77,6 +77,7 @@
             page => $cPage,
             model => "notes",
             parent => $note,
-            showTitle => false}
+            showTitle => false,
+            fromPost => true}
     </div>
 {/block}

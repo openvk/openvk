@@ -1,0 +1,5 @@
+{var $pageCount = ceil($conf->count / $conf->perPage)}
+
+<div n:if="!($conf->page === 1 && $conf->count <= $conf->perPage) && $conf->page < $pageCount" class="showMore" data-pageсount="{$pageCount}" data-page="{$conf->page}">
+    {_show_more}
+</div>

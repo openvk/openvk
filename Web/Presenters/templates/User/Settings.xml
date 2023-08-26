@@ -563,6 +563,17 @@
                         </td>
                     </tr>
                     <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_ui_settings_paginator}</span>
+                        </td>
+                        <td>
+                            <select name="paginator">
+                                <option value="0" {if $user->getPaginatorType() == 0}selected{/if}>{_ui_settings_paginator_old}</option>
+                                <option value="1" {if $user->getPaginatorType() == 1}selected{/if}>{_ui_settings_paginator_new}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
                         <td width="120" valign="top" align="right">
                             <input type="checkbox" name="theme_for_session" value="1">
                         </td>

@@ -139,25 +139,26 @@
     }
     </style>
     <div style="margin-top:-7px">
-    {include "../components/paginator.xml", conf => (object) [
-        "page"     => $page,
-        "count"    => $count,
-        "amount"   => sizeof($data),
-        "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
-        "atBottom" => false,
-    ]}
+        {if isset($thisUser) && $thisUser->getPaginatorType() == 0}
+            {include "../components/paginator.xml", conf => (object) [
+                "page"     => $page,
+                "count"    => $count,
+                "amount"   => sizeof($data),
+                "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                "atBottom" => false,
+            ]}
+        {/if}
     </div>
-    <p style="margin-left: 15px; margin-top: 0;">
+    <p style="margin-left: 15px; {if $thisUser->getPaginatorType() == 1}margin-top: 14px;{/if}">
         <b>{tr("results", $count)}</b>
     </p>
-    <div>
-    {include searchOptions}
+    <div style="display: flex;flex-direction: row;">
 
     {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
-    <div class="container_gray borderup" style="float:left;width:73.3%;">
+    <div class="container_gray borderup infContainer" style="float:left;width:73.3%;">
         {if sizeof($data) > 0}
             {if $type == "users" || $type == "groups" || $type == "apps"}
-                <div class="content" n:foreach="$data as $dat">
+                <div class="content infObj" n:foreach="$data as $dat">
                     <table>
                     <tbody>
                         <tr>
@@ -187,7 +188,7 @@
                     </table>
                 </div>
             {elseif $type == "posts"}
-                <div n:foreach="$data as $dat" class="content">
+                <div n:foreach="$data as $dat" class="content infObj">
                     {if !$dat || $dat->getTargetWall() < 0 && $dat->getWallOwner()->isHideFromGlobalFeedEnabled()}
                         {_closed_group_post}.
                     {else}
@@ -195,7 +196,7 @@
                     {/if}
                 </div>
             {elseif $type == "comments"}
-                <div n:foreach="$data as $dat" class="content">
+                <div n:foreach="$data as $dat" class="content infObj">
                     {if !$dat->getTarget() || $dat->getTarget()->isDeleted()}
                         {_deleted_target_comment}.
                     {else}
@@ -204,9 +205,9 @@
                 </div>
             {elseif $type == "videos"}
                 {foreach $data as $dat}
-                        <div class="content">
-                            {include "../components/video.xml", video => $dat}
-                        </div>
+                    <div class="content infObj">
+                        {include "../components/video.xml", video => $dat}
+                    </div>
                 {/foreach}
             {elseif $type == "audios"}
                 хуй
@@ -218,13 +219,18 @@
                 {include "../components/nothing.xml"}
             {/ifset}
         {/if}
+
+        {if isset($thisUser) && $thisUser->getPaginatorType() == 1}
+            {include "../components/paginator.xml", conf => (object) [
+                "page"     => $page,
+                "count"    => $count,
+                "amount"   => sizeof($data),
+                "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                "atBottom" => false,
+            ]}
+        {/if}
     </div>
-    <script>
-        window.addEventListener("load", (event) => {
-        document.getElementsByClassName("container_gray")[0].style.minHeight = document.getElementsByClassName("searchOptions")[0].clientHeight+"px";
-        document.getElementsByClassName("searchOptions")[0].style.minHeight = document.getElementsByClassName("container_gray")[0].clientHeight-3+"px";
-        })
-    </script>
+    {include searchOptions}
 {/block}
 
 {block searchOptions}

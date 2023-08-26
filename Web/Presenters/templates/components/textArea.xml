@@ -3,7 +3,7 @@
 
 <div id="write" style="padding: 5px 0;" onfocusin="expand_wall_textarea({$textAreaId});">
     <form action="{$route}" method="post" enctype="multipart/form-data" style="margin:0;">
-        <textarea id="wall-post-input{$textAreaId}" placeholder="{_write}" name="text" style="width: 100%;resize: none;" class="small-textarea"></textarea>
+        <textarea id="wall-post-input{$textAreaId}" data-id="{$textAreaId}" placeholder="{_write}" name="text" style="width: 100%;resize: none;" class="small-textarea"></textarea>
         <div>
             <!-- padding to fix <br/> bug -->
         </div>

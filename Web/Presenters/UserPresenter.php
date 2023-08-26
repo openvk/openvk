@@ -471,6 +471,9 @@ final class UserPresenter extends OpenVKPresenter
 
                 if(in_array($this->postParam("main_page"), [0, 1]))
                     $user->setMain_Page((int) $this->postParam("main_page"));
+
+                if(in_array($this->postParam("paginator"), [0, 1]))
+                    $user->setPaginator_type((int) $this->postParam("paginator"));
             } else if($_GET['act'] === "lMenu") {
                 $settings = [
                     "menu_bildoj"    => "photos",

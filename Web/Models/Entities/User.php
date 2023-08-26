@@ -1221,6 +1221,11 @@ class User extends RowModel
         return $response;
     }
 
+    function getPaginatorType()
+    {
+        return $this->getRecord()->paginator_type;
+    }
+
     function toVkApiStruct(): object
     {
         $res = (object) [];

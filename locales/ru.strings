@@ -523,6 +523,9 @@
 "ui_settings_view_of_posts_old" = "Старый";
 "ui_settings_view_of_posts_microblog" = "Микроблог";
 "ui_settings_main_page" = "Главная страница";
+"ui_settings_paginator" = "Пагинатор";
+"ui_settings_paginator_old" = "Старый (постраничный)";
+"ui_settings_paginator_new" = "Новый (бесконечная прокрутка)";
 "ui_settings_sessions" = "Сессии";
 "additional_links" = "Дополнительные ссылки";
 "ad_poster" = "Рекламный плакат";
@@ -1120,6 +1123,11 @@
 "paginator_back" = "Назад";
 "paginator_page" = "Страница $1";
 "paginator_next" = "Дальше";
+
+/* Paginator (new) */
+
+"show_more" = "показать больше";
+"error_loading_objects" = "Не удалось загрузить новые объекты. Попробуйте обновить страницу";
 
 /* About */
 

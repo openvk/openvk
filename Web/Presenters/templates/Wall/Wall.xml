@@ -19,7 +19,7 @@
                 {include "../components/textArea.xml", route => "/wall$owner/makePost"}
             </div>
             
-            <div class="content">
+            <div class="content infContainer">
                 {if sizeof($posts) > 0}
                     {foreach $posts as $post}
                         <a name="postGarter={$post->getId()}"></a>

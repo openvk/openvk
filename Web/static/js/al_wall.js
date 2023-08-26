@@ -75,7 +75,7 @@ function initGraffiti(id) {
     });
 }
 
-u(".post-like-button").on("click", function(e) {
+$(document).on("click", ".post-like-button", function(e) {
     e.preventDefault();
     
     var thisBtn = u(this).first();
@@ -118,7 +118,7 @@ function setupWallPostInputHandlers(id) {
     });
 }
 
-u("#write > form").on("keydown", function(event) {
+$(document).on("keydown", "#write > form", function(event) {
     if(event.ctrlKey && event.keyCode === 13)
         this.submit();
 });
@@ -151,6 +151,8 @@ var tooltipClientNoInfoTemplate = Handlebars.compile(`
         </tr>
     </table>
 `);
+
+function initTooltips() {
 
 tippy(".client_app", {
     theme: "light vk",
@@ -188,6 +190,10 @@ tippy(".client_app", {
         }
     }
 });
+
+}
+
+initTooltips()
 
 function addNote(textareaId, nid)
 {
@@ -263,3 +269,81 @@ async function showArticle(note_id) {
     u("body").removeClass("dimmed");
     u("body").addClass("article");
 }
+
+$(document).on("click", ".showMore", async (e) => {
+    e.currentTarget.innerHTML = `<img id="loader" src="/assets/packages/static/openvk/img/loading_mini.gif">`
+
+    let url = new URL(location.href)
+    let newPage = Number(e.currentTarget.dataset.page) + 1
+    url.searchParams.set("p", newPage)
+    url.searchParams.set("posts", 10)
+
+    let xhr = new XMLHttpRequest
+    xhr.open("GET", url)
+
+    let container = document.querySelector(".infContainer")
+
+    function _errorWhenLoading() {
+        e.currentTarget.innerHTML = tr("error_loading_objects")
+    }
+
+    function _updateButton() {
+        e.currentTarget.setAttribute("data-page", newPage)
+        e.currentTarget.innerHTML = tr("show_more")
+
+        container.append(e.currentTarget)
+
+        console.info("Page " + newPage + " of " + e.currentTarget.dataset.pageсount)
+        if(Number(e.currentTarget.dataset.pageсount) == newPage) {
+            e.currentTarget.remove()
+        }
+    }
+
+    xhr.onload = () => {
+        let parser = new DOMParser
+        let result = parser.parseFromString(xhr.responseText, "text/html");
+        let objects = result.querySelectorAll(".infObj")
+
+        for(const obj of objects) {
+            container.insertAdjacentHTML("beforeend", obj.outerHTML)
+        }
+        
+        if(result.querySelectorAll("textarea").length > 0) {
+            for(const trea of result.querySelectorAll("textarea")) {
+                setupWallPostInputHandlers(trea.dataset.id)
+
+                u("#post-buttons" + trea.dataset.id + " .postFileSel").on("change", function() {
+                    handleUpload.bind(this, trea.dataset.id)();
+                });
+            }
+        }
+
+        bsdnHydrate()
+
+        initMentions()
+        initTooltips()
+        _updateButton()
+    }
+
+    xhr.onerror = () => {_errorWhenLoading()}
+    xhr.ontimeout = () => {_errorWhenLoading()}
+
+    xhr.send()
+})
+
+let showMoreObserver = new IntersectionObserver(entries => {
+    entries.forEach(x => {
+        if(x.isIntersecting) {
+            $(".showMore").click()
+        }
+    })
+}, {
+    root: null,
+    rootMargin: "0px",
+    threshold: 0
+})
+
+let showMore = document.querySelector('.showMore');
+
+if(showMore != null)
+    showMoreObserver.observe(showMore);

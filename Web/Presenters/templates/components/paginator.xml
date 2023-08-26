@@ -1,12 +1,7 @@
-{var $space = 3}
-{var $pageCount = ceil($conf->count / $conf->perPage)}
+{var $isNewPaginator = isset($thisUser) && (bool)$thisUser->getPaginatorType()}
 
-<div n:if="!($conf->page === 1 && $conf->count <= $conf->perPage)" style="padding: 8px;">
-    <div n:class="paginator, ($conf->atBottom ?? false) ? paginator-at-bottom">
-        <a n:if="$conf->page > $space" n:attr="class => ($conf->page === 1 ? 'active')" href="?{http_build_query(array_merge($_GET, ['p' => 1]), 'k', '&', PHP_QUERY_RFC3986)}">&laquo;</a>
-        {for $j = $conf->page - ($space-1); $j <= $conf->page + ($space-1); $j++}
-            <a n:if="$j > 0 && $j <= $pageCount" n:attr="class => ($conf->page === $j ? 'active')" href="?{http_build_query(array_merge($_GET, ['p' => $j]), 'k', '&', PHP_QUERY_RFC3986)}">{$j}</a>
-        {/for}
-        <a n:if="$conf->page <= $pageCount-$space" n:attr="class => ($conf->page === $pageCount ? 'active')" href="?{http_build_query(array_merge($_GET, ['p' => $pageCount]), 'k', '&', PHP_QUERY_RFC3986)}">&raquo;</a>
-    </div>
-</div>
+{if $isNewPaginator}
+    {include "paginators/new.xml", conf => $conf}
+{else}
+    {include "paginators/old.xml", conf => $conf}
+{/if}

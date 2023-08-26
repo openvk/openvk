@@ -2324,7 +2324,7 @@ a.poll-retract-vote {
     float:right;
     scrollbar-width: none;
     font-size:12px;
-    background-color:#f7f7f7;
+    background-color:#F6F6F6;
     margin-right: -7px;
 }
 
@@ -2700,4 +2700,11 @@ body.article .floating_sidebar, body.article .page_content {
     position: absolute;
     right: 22px;
     font-size: 12px;
+}
+
+.showMore {
+    text-align: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    cursor: pointer;
 }

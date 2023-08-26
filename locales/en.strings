@@ -552,6 +552,10 @@
 "ui_settings_view_of_posts_old" = "Old";
 "ui_settings_view_of_posts_microblog" = "Microblog";
 "ui_settings_main_page" = "Main page";
+"ui_settings_paginator" = "Paginator";
+"ui_settings_paginator_old" = "Old (pages)";
+"ui_settings_paginator_new" = "New (infinite scroll)";
+
 "ui_settings_sessions" = "Sessions";
 
 "additional_links" = "Additional links";
@@ -1232,6 +1236,11 @@
 "paginator_back" = "Back";
 "paginator_page" = "Page $1";
 "paginator_next" = "Next";
+
+/* Paginator (new) */
+
+"show_more" = "show more";
+"error_loading_objects" = "Error when loading new objects. Try to reload page";
 
 /* About */
 

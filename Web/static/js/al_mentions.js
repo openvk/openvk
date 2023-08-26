@@ -19,6 +19,8 @@ var tooltipTemplate = Handlebars.compile(`
     </table>
 `);
 
+function initMentions() {
+
 tippy(".mention", {
     theme: "light vk",
     content: "⌛",
@@ -40,3 +42,6 @@ tippy(".mention", {
         that.setContent(tooltipTemplate(res));
     }
 });
+}
+
+initMentions()

@@ -35,7 +35,8 @@
                      count => $cCount,
                      page => $cPage,
                      model => "videos",
-                     parent => $video}
+                     parent => $video,
+                     fromPost => true}
         </div>
         <div style="float: left; min-height: 100px; width: 30%; overflow: hidden; overflow-wrap: break-word;">
             <div>

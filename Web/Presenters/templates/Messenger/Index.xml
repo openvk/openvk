@@ -17,9 +17,9 @@
     </div>
     
     {if sizeof($corresps) > 0}
-        <div class="crp-list">
+        <div class="crp-list infContainer">
             <div n:foreach="$corresps as $coresp"
-                 class="crp-entry"
+                 class="crp-entry infObj"
                  onmousedown="window.location.href = {$coresp->getURL()};" >
                 {var $recipient = $coresp->getCorrespondents()[1]}
                 {var $lastMsg   = $coresp->getPreviewMessage()}

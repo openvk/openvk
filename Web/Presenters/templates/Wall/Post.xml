@@ -22,7 +22,8 @@
                  count => $cCount,
                  page => $cPage,
                  model => "posts",
-                 parent => $post }
+                 parent => $post,
+                 fromPost => true }
     </div>
     <div style="float: left; min-height: 100px; width: 32%;">
         <h4>{_actions}</h4>

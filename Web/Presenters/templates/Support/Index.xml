@@ -57,7 +57,8 @@
     {/if}
 
     {if $isList}
-        <table n:foreach="$tickets as $ticket" border="0" style="font-size: 11px; width: 610px;" class="post">
+        <div class="infContainer">
+        <table n:foreach="$tickets as $ticket" border="0" style="font-size: 11px; width: 610px;" class="post infObj">
             <tbody>
                 <tr>
                     <td width="54" valign="top">
@@ -78,6 +79,7 @@
                 </tr>
             </tbody>
         </table>
+        </div>
 
         {if $count < 1}
             {include "../components/nothing.xml"}

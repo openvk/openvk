@@ -19,7 +19,7 @@
             {ifset specpage}
                 {include specpage, x => $dat}
             {else}
-                <div class="container_gray">
+                <div class="container_gray infContainer">
                     {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
 
                     {ifset top}
@@ -27,7 +27,7 @@
                     {/ifset}
 
                     {if sizeof($data) > 0}
-                        <div class="content" n:foreach="$data as $dat">
+                        <div class="content infObj" n:foreach="$data as $dat">
                             <table>
                                 <tbody n:attr="id => is_null($table_body_id) ? NULL : $table_body_id">
                                     <tr>

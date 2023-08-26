@@ -29,10 +29,10 @@
     {/if}
     <br/><br/>
     {if $album->getPhotosCount() > 0}
-        <div class="container_gray album-flex">
+        <div class="container_gray album-flex infContainer">
             {foreach $photos as $photo}
                 {php if($photo->isDeleted()) continue; }
-                <div class="album-photo">
+                <div class="album-photo infObj">
                     <a
                     n:if="!is_null($thisUser) && $album->canBeModifiedBy($thisUser)"
                     href="/album{$album->getPrettyId()}/remove_photo/{$photo->getId()}" class="album-photo--delete">

@@ -28,7 +28,7 @@
     
     <div style="width: 100%; min-height: 100px;">
         <div style="float: left; min-height: 100px; width: 70%;">
-            {include "../components/comments.xml", comments => $comments, count => $cCount, page => $cPage, model => "photos", parent => $photo}
+            {include "../components/comments.xml", comments => $comments, count => $cCount, page => $cPage, model => "photos", parent => $photo, fromPost => true}
         </div>
         <div style="float: left; min-height: 100px; width: 30%;">
             <div>

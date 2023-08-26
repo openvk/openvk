@@ -6,7 +6,7 @@
 {/block}
 
 {block content}
-    <center>
+    <center class="infContainer">
         {foreach $posts as $post}
             <a name="postGarter={$post->getId()}"></a>
             

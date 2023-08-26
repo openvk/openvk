@@ -60,12 +60,12 @@
         }
     </style>
 
-    <div class="container_gray" style="background: white; border-top: none;">
+    <div class="container_gray infContainer" style="background: white; border-top: none;">
 
         {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
         {if sizeof($data) > 0}
 
-        <div n:foreach="$data as $dat">
+        <div n:foreach="$data as $dat" class="infObj">
             <div class="profile_thumb">
                 <a href="{$owner->getURL()}">
                 <img src="{$owner->getAvatarUrl('miniscule')}" style="width: 50px;">
@@ -105,7 +105,15 @@
                     </div>
                 </div>
             </article>    
-        </div>      
+        </div>
+
+        {include "../components/paginator.xml", conf => (object) [
+            "page"     => $page,
+            "count"    => $count,
+            "amount"   => sizeof($data),
+            "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+            "atBottom" => true,
+        ]}
 
         {else}
             {if isset($thisUser) && $thisUser->getId() == $owner->getId()}
