@@ -49,7 +49,6 @@
                 <a href="/photo{$photo->getPrettyId()}/edit" class="profile_link" style="display:block;width:96%;">{_edit}</a>
                 <a id="_photoDelete" href="/photo{$photo->getPrettyId()}/delete" class="profile_link" style="display:block;width:96%;">{_delete}</a>
             </div>
-            <a href="{$photo->getURL()}" class="profile_link" target="_blank" style="display:block;width:96%;">{_"open_original"}</a>
             <a n:if="$canReport ?? false" class="profile_link" style="display:block;width:96%;" href="javascript:reportPhoto()">{_report}</a>
             <script n:if="$canReport ?? false">
                 function reportPhoto() {

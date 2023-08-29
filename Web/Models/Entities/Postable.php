@@ -1,5 +1,6 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Models\Entities;
+use openvk\Web\Models\Repositories\Posts;
 use openvk\Web\Util\DateTime;
 use openvk\Web\Models\RowModel;
 use openvk\Web\Models\Entities\User;
@@ -98,6 +99,24 @@ abstract class Postable extends Attachable
         
         foreach($sel as $like)
             yield (new Users)->get($like->origin);
+    }
+
+    function getReposters(): \Traversable
+    {
+        $sel = $this->getRecord()
+            ->related("attachments.attachable_id")
+            ->where([
+                "attachable_type" => get_class($this),
+                "attachable_id" => $this->getId(),
+                "target_type" => get_class(new Post),
+            ]);
+
+        foreach ($sel as $repost) {
+            $post = (new Posts)->get($repost->target_id);
+            if ($post && !$post->isDeleted()) {
+                yield $post->getOwner();
+            }
+        }
     }
     
     function isAnonymous(): bool

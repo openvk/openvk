@@ -114,7 +114,7 @@
                     <a n:if="!($forceNoShareLink ?? false)" id="reposts{$post->getPrettyId()}" class="post-share-button" {ifset $thisUser} href="javascript:repostPost('{$post->getPrettyId()}', '{rawurlencode($csrfToken)}')"{/ifset}>
                         {_share}
                         {if $post->getRepostCount() > 0}
-                            (<b id="repostsCount{$post->getPrettyId()}">{$post->getRepostCount()}</b>)
+                            (<b id="repostsCount{$post->getPrettyId()}" onClick="openCounter({$post->getPrettyId()}, 'reposts'); event.preventDefault(); event.stopPropagation();">{$post->getRepostCount()}</b>)
                         {/if}
                     </a>
 
@@ -123,12 +123,12 @@
                             {var $liked = $post->hasLikeFrom($thisUser)}
                             <a href="/wall{$post->getPrettyId()}/like?hash={rawurlencode($csrfToken)}" class="post-like-button" data-liked="{(int) $liked}" data-likes="{$post->getLikesCount()}">
                                 <div class="heart" id="{if $liked}liked{/if}"></div>
-                                <span class="likeCnt">{if $post->getLikesCount() > 0}{$post->getLikesCount()}{/if}</span>
+                                <span class="likeCnt" onClick="openCounter({$post->getPrettyId()}, 'likers'); event.preventDefault(); event.stopPropagation();">{if $post->getLikesCount() > 0}{$post->getLikesCount()}{/if}</span>
                             </a>
                         {else}
                             <a n:if="$post->getLikesCount() > 0" class="post-like-button">
                                 <div class="heart"></div>
-                                <span class="likeCnt">{$post->getLikesCount()}</span>
+                                <span class="likeCnt" onClick="openCounter({$post->getPrettyId()}, 'likers'); event.preventDefault(); event.stopPropagation();">{$post->getLikesCount()}</span>
                             </a>
                         {/ifset}
                     </div>

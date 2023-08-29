@@ -3,7 +3,7 @@ namespace openvk\Web\Presenters;
 use openvk\Web\Models\Exceptions\TooMuchOptionsException;
 use openvk\Web\Models\Entities\{Poll, Post, Photo, Video, Club, User};
 use openvk\Web\Models\Entities\Notifications\{MentionNotification, RepostNotification, WallPostNotification};
-use openvk\Web\Models\Repositories\{Posts, Users, Clubs, Albums, Notes};
+use openvk\Web\Models\Repositories\{Comments, Posts, Users, Clubs, Albums, Notes};
 use Chandler\Database\DatabaseConnection;
 use Nette\InvalidStateException as ISE;
 use Bhaktaraz\RSSGenerator\Item;
@@ -497,5 +497,65 @@ final class WallPresenter extends OpenVKPresenter
         
         # TODO localize message based on language and ?act=(un)pin
         $this->flashFail("succ", tr("information_-1"), tr("changes_saved_comment"));
+    }
+
+    private function fetchLikers($object): array
+    {
+        if (!$object || $object->isDeleted())
+            return ["success" => false, "error" => "Объект не найден"];
+
+        $response = [];
+        foreach ($object->getLikers() as $liker) {
+            $liker = [
+                "url" => $liker->getURL(),
+                "fname" => $liker->getFirstName(),
+                "lname" => $liker->getLastName(),
+                "avatar" => $liker->getAvatarURL()
+            ];
+
+            if (!in_array($liker, $response)) {
+                $response[] = $liker;
+            }
+        }
+
+        return ["success" => true, "payload" => [count($response), $response]];
+    }
+
+    function renderLikers(int $wall, int $post_id): void
+    {
+        $this->returnJson($this->fetchLikers($this->posts->getPostById($wall, $post_id)));
+    }
+
+    function renderReposters(int $wall, int $post_id): void
+    {
+        $post = $this->posts->getPostById($wall, $post_id);
+        if (!$post || $post->isDeleted()) {
+            $this->returnJson(["success" => false, "error" => "Запись не найдена"]);
+        }
+
+        $response = [];
+        foreach ($post->getReposters() as $reposter) {
+            $_reposter = $reposter instanceof User ? [
+                "fname" => $reposter->getFirstName(),
+                "lname" => $reposter->getLastName()
+            ] : [
+                "fname" => $reposter->getCanonicalName(),
+                "lname" => ""
+            ];
+
+            $_reposter["url"] = $reposter->getURL();
+            $_reposter["avatar"] = $reposter->getAvatarURL();
+
+            if (!in_array($_reposter, $response)) {
+                $response[] = $_reposter;
+            }
+        }
+
+        $this->returnJson(["success" => true, "payload" => [count($response), $response]]);
+    }
+
+    function renderCommentLikers(int $comment_id): void
+    {
+        $this->returnJson($this->fetchLikers((new Comments)->get($comment_id)));
     }
 }

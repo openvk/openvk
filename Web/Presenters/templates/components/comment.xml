@@ -48,7 +48,7 @@
                             <div style="float: right; font-size: .7rem;">
                                 <a class="post-like-button" href="/comment{$comment->getId()}/like?hash={rawurlencode($csrfToken)}">
                                     <div class="heart" style="{if $comment->hasLikeFrom($thisUser)}opacity: 1;{else}opacity: 0.4;{/if}"></div>
-                                    <span class="likeCnt">{if $comment->getLikesCount() > 0}{$comment->getLikesCount()}{/if}</span>
+                                    <span class="likeCnt" onClick="openCounter({$comment->getId()}, 'likers', true); event.preventDefault(); event.stopPropagation();">{if $comment->getLikesCount() > 0}{$comment->getLikesCount()}{/if}</span>
                                 </a>
                             </div>
                         {/if}

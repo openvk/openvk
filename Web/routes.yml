@@ -139,6 +139,12 @@ routes:
       handler: "Wall->delete"
     - url: "/wall{num}_{num}/pin"
       handler: "Wall->pin"
+    - url: "/wall{num}_{num}/likers"
+      handler: "Wall->likers"
+    - url: "/wall{num}_{num}/reposts"
+      handler: "Wall->reposters"
+    - url: "/comment{num}/likers"
+      handler: "Wall->commentLikers"
     - url: "/blob_{text}/{?path}.{text}"
       handler: "Blob->file"
       placeholders:

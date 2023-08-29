@@ -263,3 +263,44 @@ async function showArticle(note_id) {
     u("body").removeClass("dimmed");
     u("body").addClass("article");
 }
+
+function getUserDiv(url, fname, lname, avatar) {
+    return `
+        <div class="cl_element" style="width: 20%">
+            <div class="cl_avatar">
+                <a href="${url}">
+                    <img class="ava" src="${avatar}"/>
+                </a>
+            </div>
+            <a href="${url}" class="cl_name">
+                <text class="cl_fname">${fname}</text>
+                <text class="cl_lname">${lname}</text>
+            </a>
+        </div>
+        `;
+}
+
+function openCounter(id, type, is_comment = false) {
+    $.ajax({
+        type: "POST",
+        url: `/${is_comment ? "comment" : "wall"}${id}/${type}`,
+        success: (response) => {
+            if (response.success) {
+                let html = "";
+                response.payload[1].forEach((user) => {
+                    html += getUserDiv(user.url, user.fname, user.lname, user.avatar);
+                });
+
+                MessageBox(
+                    (type === "likers" ? "Оценили" : "Поделились") + " (" + response.payload[0] + ")",
+                    "<div class='content_list' style='width: inherit;'>" + html + "</div>",
+                    ["ОК"],
+                    [Function.noop]
+                );
+            } else {
+                NewNotification(tr("error"), (response?.error ?? "Неизвестная ошибка"), "/assets/packages/static/openvk/img/error.png");
+            }
+        }
+    });
+}
+
