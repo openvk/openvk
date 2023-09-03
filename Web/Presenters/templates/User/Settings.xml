@@ -101,6 +101,15 @@
                             <input type="text" name="sc" value="{$user->getShortCode()}" style="width: 100%;" />
                         </td>
                     </tr>
+                    <br/>
+                    <tr>
+                        <td width="120" valign="top" align="right">
+                            <input n:attr="checked => $user->isAnonCommentsAllowed()" type="checkbox" name="allow_anon_comments">
+                        </td>
+                        <td>
+                            {_allow_anon_comments}
+                        </td>
+                    </tr>
                     <tr>
                         <td>
 

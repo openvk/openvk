@@ -57,6 +57,8 @@ final class CommentPresenter extends OpenVKPresenter
         if($_FILES["_vid_attachment"] && OPENVK_ROOT_CONF['openvk']['preferences']['videos']['disableUploading'])
             $this->flashFail("err", tr("error"), "Video uploads are disabled by the system administrator.");
         
+        $anon = OPENVK_ROOT_CONF["openvk"]["preferences"]["wall"]["anonymousPosting"]["enable"] && $this->postParam("anon") === "on" && $entity->getWallOwner()->isAnonCommentsAllowed();
+
         $flags = 0;
         if($this->postParam("as_group") === "on" && !is_null($club) && $club->canBeModifiedBy($this->user->identity))
             $flags |= 0b10000000;
@@ -98,9 +100,10 @@ final class CommentPresenter extends OpenVKPresenter
             $comment->setModel(get_class($entity));
             $comment->setTarget($entity->getId());
             $comment->setContent($this->postParam("text"));
+            $comment->setAnonymous($anon);
             $comment->setCreated(time());
             $comment->setFlags($flags);
-            $comment->save();
+            $comment->save(); 
         } catch (\LengthException $ex) {
             $this->flashFail("err", "Не удалось опубликовать комментарий", "Комментарий слишком большой.");
         }

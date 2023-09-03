@@ -401,6 +401,11 @@ class Club extends RowModel
         return (object) $res;
     }
 
+    function isAnonCommentsAllowed(): bool
+    {
+        return (bool) $this->getRecord()->allow_anon_comments;
+    }
+
     use Traits\TBackDrops;
     use Traits\TSubscribable;
 }

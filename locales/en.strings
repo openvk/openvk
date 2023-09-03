@@ -214,6 +214,8 @@
 
 "reply" = "Reply";
 
+"allow_anon_comments" = "Allow anonymous comments";
+
 /* Friends */
 
 "friends" = "Friends";

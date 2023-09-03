@@ -219,6 +219,7 @@ final class GroupPresenter extends OpenVKPresenter
 	    $club->setEveryone_Can_Create_Topics(empty($this->postParam("everyone_can_create_topics")) ? 0 : 1);
             $club->setDisplay_Topics_Above_Wall(empty($this->postParam("display_topics_above_wall")) ? 0 : 1);
             $club->setHide_From_Global_Feed(empty($this->postParam("hide_from_global_feed")) ? 0 : 1);
+            $club->setAllow_Anon_Comments(empty($this->postParam("allow_anon_comments")) ? 0 : 1);
             
             $website = $this->postParam("website") ?? "";
             if(empty($website))

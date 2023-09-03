@@ -418,6 +418,8 @@ final class UserPresenter extends OpenVKPresenter
                 
                 if(!$user->setShortCode(empty($this->postParam("sc")) ? NULL : $this->postParam("sc")))
                     $this->flashFail("err", tr("error"), tr("error_shorturl_incorrect"));
+
+                $user->setAllow_Anon_Comments(empty($this->postParam("allow_anon_comments")) ? 0 : 1);
             } else if($_GET['act'] === "privacy") {
                 $settings = [
                     "page.read",

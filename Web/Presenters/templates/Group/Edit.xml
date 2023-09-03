@@ -101,7 +101,14 @@
                             <input type="radio" name="administrators_list_display" value="2" n:attr="checked => $club->getAdministratorsListDisplay() == 2" /> {_group_dont_display_administrators_list}<br>
                         </td>
                     </tr>
-
+                    <tr>
+                        <td width="120" valign="top" align="right">
+                            <input n:attr="checked => $club->isAnonCommentsAllowed()" type="checkbox" name="allow_anon_comments">
+                        </td>
+                        <td>
+                            {_allow_anon_comments}
+                        </td>
+                    </tr>
                     <tr>
                         <td>
                             

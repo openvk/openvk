@@ -17,8 +17,8 @@
             <div class="post-has-note">
                 
             </div>
+            {var $anonEnabled = OPENVK_ROOT_CONF['openvk']['preferences']['wall']['anonymousPosting']['enable'] && $oObj->isAnonCommentsAllowed()}
             <div n:if="$postOpts ?? true" class="post-opts">
-                {var $anonEnabled = OPENVK_ROOT_CONF['openvk']['preferences']['wall']['anonymousPosting']['enable']}
                 {if !is_null($thisUser) && !is_null($club ?? NULL) && $owner < 0}
                     {if $club->canBeModifiedBy($thisUser)}
                         <script>
@@ -48,6 +48,10 @@
                     <input type="checkbox" name="nsfw" /> {_contains_nsfw}
                 </label>
             </div>
+
+            <label n:if="$isComment && $anonEnabled" id="octoberAnonOpt">
+                <input type="checkbox" name="anon" /> {_as_anonymous}
+            </label>
 
             <div n:if="!($postOpts ?? true) && !is_null($thisUser) && !is_null($club ?? NULL) && $club->canBeModifiedBy($thisUser)" class="post-opts">
                 <label>
