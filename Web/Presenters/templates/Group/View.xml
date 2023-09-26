@@ -144,6 +144,9 @@
         {var $canReport = $thisUser->getId() != $club->getOwner()->getId()}
         {if $canReport}
         <a class="profile_link" style="display:block;" href="javascript:reportVideo()">{_report}</a>
+        <a class="profile_link" style="display:block;" id="ignoreSomeone" data-id="-{$club->getId()}">
+            {if !$club->isIgnoredBy($thisUser)}{_ignore_club}{else}{_unignore_club}{/if}
+        </a>
 
         <script>
             function reportVideo() {

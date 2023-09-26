@@ -2761,7 +2761,7 @@ body.article .floating_sidebar, body.article .page_content {
     pointer-events: none;
 }
 
-.lagged * {
+.lagged *, .lagged {
     pointer-events: none;
 }
 
@@ -2846,3 +2846,30 @@ body.article .floating_sidebar, body.article .page_content {
     background: #E9F0F1 !important;
 }
 
+.ignoredSourcesLink {
+    float: right;
+    margin-right: 3px;
+    margin-top: 2px;
+    color: #2B587A;
+    cursor: pointer;
+}
+
+.ignoredSourcesLink:hover {
+    text-decoration: underline;
+}
+
+.ignorredList {
+    height: 87%;
+    border: 1px solid gray;
+    overflow-y: scroll;
+    margin-top: 4px;
+}
+
+.smolContent img {
+    width: 38px;
+}
+
+.smolContent {
+    height: 42px;
+    padding-bottom: 9px;
+}
