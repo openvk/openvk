@@ -594,21 +594,25 @@ final class WallPresenter extends OpenVKPresenter
         $ignoredSource = (int)$this->postParam("source");
 
         if($this->user->identity->getIgnoredSourcesCount() > 50)
-            $this->flashFail("err", "Error", "Max ignors count is 50", null, true);
+            $this->flashFail("err", "Error", tr("max_ignores", 50), null, true);
 
         if($ignoredSource > 0) {
             $ignoredSourceModel = (new Users)->get($ignoredSource);
 
             if(!$ignoredSourceModel)
-                $this->flashFail("err", "Error", "Invalid user", null, true);
+                $this->flashFail("err", "Error", tr("invalid_user"), null, true);
 
             if($ignoredSourceModel->getId() == $this->user->id)
-                $this->flashFail("err", "Error", "Can't ignore yourself", null, true);
+                $this->flashFail("err", "Error", tr("cant_ignore_self"), null, true);
         } else {
             $ignoredSourceModel = (new Clubs)->get(abs($ignoredSource));
 
             if(!$ignoredSourceModel)
-                $this->flashFail("err", "Error", "Invalid club", null, true);
+                $this->flashFail("err", "Error", tr("invalid_club"), null, true);
+
+            if($ignoredSourceModel->isHideFromGlobalFeedEnabled()) {
+                $this->flashFail("err", "Error", tr("no_sense"), null, true);
+            }
         }
 
         if($ignoredSourceModel->isIgnoredBy($this->user->identity)) {

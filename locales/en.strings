@@ -1285,6 +1285,11 @@
 "group_is_banned" = "Group was successfully banned";
 
 "description_too_long" = "Description is too long.";
+"invalid_club" = "This group does not exists.";
+"invalid_user" = "This user does not exists.";
+"no_sense" = "No sense.";
+"cant_ignore_self" = "Can't ignore urself.";
+"max_ignores" = "Max ignores — $1";
 
 /* Admin actions */
 
