@@ -20,7 +20,7 @@ $(document).on("click", ".ignoredSourcesLink", (e) => {
         for(const a of ar.items) {
             document.querySelector(".ignorredList .list").insertAdjacentHTML("beforeend", `
                 <div class="smolContent">
-                    <a href="${a.url}" target="_blank"><img style="float: left;" src="${a.avatar}"></a>
+                    <a href="${a.url}" target="_blank"><img style="float: left;width: 38px;height: 38px;object-fit: cover;" src="${a.avatar}"></a>
                     <div style="float: left;margin-left: 6px;">
                         <a href="${a.url}" target="_blank">${ovk_proc_strtr(escapeHtml(a.name), 12)}</a><br>
                         <span>${ovk_proc_strtr(escapeHtml(a.additional), 40)}</span>
