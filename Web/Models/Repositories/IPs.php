@@ -24,7 +24,7 @@ class IPs
         if(!$res) {
             $res = new IP;
             $res->setIp($ip);
-            $res->save();
+            $res->save(false);
             
             return $res;
         }

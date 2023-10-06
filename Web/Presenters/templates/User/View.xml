@@ -118,6 +118,12 @@
                     <a href="javascript:warnUser()" class="profile_link" style="width: 194px;">
                         {_warn_user_action}
                     </a>
+                    <a href="/admin/user{$user->getId()}/bans" class="profile_link">
+                        {_blocks}
+                    </a>
+                    <a href="/admin/logs?uid={$user->getId()}" class="profile_link" style="width: 194px;">
+                        {_last_actions}
+                    </a>
                 {/if}
 
                 {if $thisUser->getChandlerUser()->can('write')->model('openvk\Web\Models\Entities\TicketReply')->whichBelongsTo(0)}
@@ -163,6 +169,31 @@
                         <input type="submit" class="profile_link" value="{_friends_delete}" style="width: 194px;" />
                     </form>
                 {/if}
+
+                <a class="profile_link" style="display:block;width:96%;" href="javascript:reportUser()">{_report}</a>
+                <script>
+                    function reportUser() {
+                        uReportMsgTxt  = tr("going_to_report_user");
+                        uReportMsgTxt += "<br/>"+tr("report_question_text");
+                        uReportMsgTxt += "<br/><br/><b>"+tr("report_reason")+"</b>: <input type='text' id='uReportMsgInput' placeholder='" + tr("reason") + "' />"
+
+                        MessageBox(tr("report_question"), uReportMsgTxt, [tr("confirm_m"), tr("cancel")], [
+                            (function() {
+                                res = document.querySelector("#uReportMsgInput").value;
+                                xhr = new XMLHttpRequest();
+                                xhr.open("GET", "/report/" + {$user->getId()} + "?reason=" + res + "&type=user", true);
+                                xhr.onload = (function() {
+                                    if(xhr.responseText.indexOf("reason") === -1)
+                                        MessageBox(tr("error"), tr("error_sending_report"), ["OK"], [Function.noop]);
+                                    else
+                                        MessageBox(tr("action_successfully"), tr("will_be_watched"), ["OK"], [Function.noop]);
+                                });
+                                xhr.send(null);
+                            }),
+                            Function.noop
+                        ]);
+                    }
+                </script>
             {/if}
             <a style="width: 194px;" n:if="$user->getFollowersCount() > 0" href="/friends{$user->getId()}?act=incoming" class="profile_link">{tr("followers", $user->getFollowersCount())}</a>
         </div>
@@ -601,13 +632,15 @@
                 uBanMsgTxt += "<br/><b>Предупреждение</b>: Это действие удалит все подписки пользователя и отпишет всех от него.";
                 uBanMsgTxt += "<br/><br/><b>Причина бана</b>: <input type='text' id='uBanMsgInput' placeholder='придумайте что-нибудь крутое' />"
                 uBanMsgTxt += "<br/><br/><b>Заблокировать до</b>: <input type='date' id='uBanMsgDate' />";
+                uBanMsgTxt += "<br/><br/><input id='uBanMsgIncr' type='checkbox' checked='1'/>Автоматически <b>(до " + {date('d.m.Y H\h', time() + $user->getNewBanTime())} + ")</b>";
 
                 MessageBox("Забанить " + {$user->getFirstName()}, uBanMsgTxt, ["Подтвердить", "Отмена"], [
                     (function() {
                         res = document.querySelector("#uBanMsgInput").value;
                         date = document.querySelector("#uBanMsgDate").value;
+                        incr = document.querySelector("#uBanMsgIncr").checked ? '1' : '0';
                         xhr = new XMLHttpRequest();
-                        xhr.open("GET", "/admin/ban/" + {$user->getId()} + "?reason=" + res + "&date=" + date + "&hash=" + {rawurlencode($csrfToken)}, true);
+                        xhr.open("GET", "/admin/ban/" + {$user->getId()} + "?reason=" + res + "&incr=" + incr + "&date=" + date + "&hash=" + {rawurlencode($csrfToken)}, true);
                         xhr.onload = (function() {
                             if(xhr.responseText.indexOf("success") === -1)
                                 MessageBox("Ошибка", "Не удалось забанить пользователя...", ["OK"], [Function.noop]);

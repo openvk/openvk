@@ -211,7 +211,7 @@ final class Notes extends VKAPIRequestHandler
                 $items = [];
     
                 $note = (new NotesRepo)->getNoteById((int)$id[0], (int)$id[1]);
-                if($note) {
+                if($note && !$note->isDeleted()) {
                     $nodez->notes[] = $note->toVkApiStruct();
                 }
             }

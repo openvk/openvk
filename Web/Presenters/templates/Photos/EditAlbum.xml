@@ -1,5 +1,5 @@
 {extends "../@layout.xml"}
-{block title}Изменить альбом{/block}
+{block title}{_edit_album}{/block}
 
 {block header}
     <a href="{$album->getOwner()->getURL()}">{$album->getOwner()->getCanonicalName()}</a>
@@ -14,6 +14,15 @@
 {/block}
 
 {block content}
+    <div class="tabs">
+        <div id="activetabs" class="tab">
+            <a id="act_tab_a" href="/album{$album->getPrettyId()}/edit">{_edit_album}</a>
+        </div>
+        <div class="tab">
+            <a href="/photos/upload?album={$album->getPrettyId()}">{_add_photos}</a>
+        </div>
+    </div>
+
     <form method="post" enctype="multipart/form-data">
       <table cellspacing="6">
         <tbody>

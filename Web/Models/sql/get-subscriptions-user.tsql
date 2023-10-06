@@ -1,4 +1,4 @@
-  (SELECT target AS __id FROM
+  (SELECT DISTINCT(target) AS __id FROM
     (SELECT follower FROM subscriptions WHERE target=? AND model="openvk\\Web\\Models\\Entities\\User") u0
     RIGHT JOIN
     (SELECT target FROM subscriptions WHERE follower=? AND model="openvk\\Web\\Models\\Entities\\User") u1

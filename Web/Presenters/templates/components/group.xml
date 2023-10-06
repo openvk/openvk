@@ -1,0 +1,43 @@
+{block content}
+    <div class="content">
+        <table>
+            <tbody>
+                <tr>
+                    <td valign="top">
+                        <a href="{$group->getURL()}">
+                            <img src="{$group->getAvatarURL('normal')}" width="75" alt="Фотография">
+                        </a>
+                    </td>
+                    <td valign="top" style="width: 100%">
+                        <table id="basicInfo" class="ugc-table group_info" cellspacing="0" cellpadding="0" border="0">
+                            <tbody>
+                                <tr>
+                                    <td class="label">
+                                        <span class="nobold">{_name}:</span>
+                                    </td>
+                                    <td class="data">
+                                        <a href="{$group->getURL()}">{!$isUser ? $group->getName() : $group->getCanonicalName()}</a>
+                                        <img n:if="$group->isVerified()"
+                                             class="name-checkmark"
+                                             src="/assets/packages/static/openvk/img/checkmark.png"
+                                        />
+                                    </td>
+                                </tr>
+                                <tr n:if="!$isUser">
+                                    <td class="label">
+                                        <span class="nobold">{_size}:</span>
+                                    </td>
+                                    <td class="data">
+                                        <a href="/club{$group->getId()}/followers">{tr("participants",
+                                            $group->getFollowersCount())}
+                                        </a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{/block}

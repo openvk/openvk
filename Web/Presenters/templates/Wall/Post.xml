@@ -28,8 +28,43 @@
         <h4>{_actions}</h4>
         {if isset($thisUser)}
             {var $canDelete = $post->canBeDeletedBy($thisUser)}
+            {if $thisUser->getId() != $post->getOwner()->getId()}
+                {var $canReport = true}
+            {/if}
         {/if}
         
         <a n:if="$canDelete ?? false" class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/delete">{_delete}</a>
+        <a
+            n:if="isset($thisUser) && $thisUser->getChandlerUser()->can('access')->model('admin')->whichBelongsTo(NULL) AND $post->getEditTime()"
+            style="display:block;width:96%;"
+            class="profile_link"
+            href="/admin/logs?type=1&obj_type=Post&obj_id={$post->getId()}"
+        >
+            {_changes_history}
+        </a>
+        <a n:if="$canReport ?? false" class="profile_link" style="display:block;width:96%;" href="javascript:reportPost()">{_report}</a>
     </div>
+    <script n:if="$canReport ?? false">
+        function reportPost() {
+            uReportMsgTxt  = tr("going_to_report_post");
+            uReportMsgTxt += "<br/>"+tr("report_question_text");
+            uReportMsgTxt += "<br/><br/><b>"+tr("report_reason")+"</b>: <input type='text' id='uReportMsgInput' placeholder='" + tr("reason") + "' />"
+
+            MessageBox(tr("report_question"), uReportMsgTxt, [tr("confirm_m"), tr("cancel")], [
+                (function() {
+                    res = document.querySelector("#uReportMsgInput").value;
+                    xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/report/" + {$post->getId()} + "?reason=" + res + "&type=post", true);
+                    xhr.onload = (function() {
+                        if(xhr.responseText.indexOf("reason") === -1)
+                            MessageBox(tr("error"), tr("error_sending_report"), ["OK"], [Function.noop]);
+                        else
+                            MessageBox(tr("action_successfully"), tr("will_be_watched"), ["OK"], [Function.noop]);
+                    });
+                    xhr.send(null);
+                }),
+                Function.noop
+            ]);
+        }
+    </script>
 {/block}

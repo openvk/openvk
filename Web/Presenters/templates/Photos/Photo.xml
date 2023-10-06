@@ -26,11 +26,11 @@
     
     <hr/>
     
-    <div style="width: 100%; min-height: 100px;">
-        <div style="float: left; min-height: 100px; width: 70%;">
-            {include "../components/comments.xml", comments => $comments, count => $cCount, page => $cPage, model => "photos", parent => $photo}
+    <div style="width: 100%; min-height: 100px;" class="ovk-photo-details">
+        <div style="float: left; min-height: 100px; width: 68%;margin-left: 3px;">
+            {include "../components/comments.xml", comments => $comments, count => $cCount, page => $cPage, model => "photos", parent => $photo, custom_id => 999}
         </div>
-        <div style="float: left; min-height: 100px; width: 30%;">
+        <div style="float:right;min-height: 100px;width: 30%;margin-left: 1px;">
             <div>
                 <h4>{_information}</h4>
                 <span style="color: grey;">{_info_description}:</span>
@@ -42,11 +42,38 @@
             </div>
             <br/>
             <h4>{_actions}</h4>
+            {if isset($thisUser) && $thisUser->getId() != $photo->getOwner()->getId()}
+                {var canReport = true}
+            {/if}
             <div n:if="isset($thisUser) && $thisUser->getId() === $photo->getOwner()->getId()">
                 <a href="/photo{$photo->getPrettyId()}/edit" class="profile_link" style="display:block;width:96%;">{_edit}</a>
                 <a id="_photoDelete" href="/photo{$photo->getPrettyId()}/delete" class="profile_link" style="display:block;width:96%;">{_delete}</a>
             </div>
-            <a href="{$photo->getURL()}" class="profile_link" target="_blank" style="display:block;width:96%;">{_open_original}</a>
+            <a href="{$photo->getURL()}" class="profile_link" target="_blank" style="display:block;width:96%;">{_"open_original"}</a>
+            <a n:if="$canReport ?? false" class="profile_link" style="display:block;width:96%;" href="javascript:reportPhoto()">{_report}</a>
+            <script n:if="$canReport ?? false">
+                function reportPhoto() {
+                uReportMsgTxt  = tr("going_to_report_photo");
+                uReportMsgTxt += "<br/>"+tr("report_question_text");
+                uReportMsgTxt += "<br/><br/><b>"+tr("report_reason")+"</b>: <input type='text' id='uReportMsgInput' placeholder='" + tr("reason") + "' />"
+
+                MessageBox(tr("report_question"), uReportMsgTxt, [tr("confirm_m"), tr("cancel")], [
+                    (function() {
+                        res = document.querySelector("#uReportMsgInput").value;
+                        xhr = new XMLHttpRequest();
+                        xhr.open("GET", "/report/" + {$photo->getId()} + "?reason=" + res + "&type=photo", true);
+                        xhr.onload = (function() {
+                        if(xhr.responseText.indexOf("reason") === -1)
+                            MessageBox(tr("error"), tr("error_sending_report"), ["OK"], [Function.noop]);
+                        else
+                            MessageBox(tr("action_successfully"), tr("will_be_watched"), ["OK"], [Function.noop]);
+                        });
+                        xhr.send(null);
+                        }),
+                    Function.noop
+                ]);
+                }
+            </script>
         </div>
     </div>
 {/block}

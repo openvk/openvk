@@ -132,6 +132,10 @@
 "updated_at" = "Обновлено $1";
 "user_banned" = "К сожалению, нам пришлось заблокировать страницу пользователя <b>$1</b>.";
 "user_banned_comment" = "Комментарий модератора:";
+"verified_page" = "Подтверждённая страница";
+"user_is_blocked" = "Пользователь заблокирован";
+"before" = "до";
+"forever" = "навсегда";
 
 /* Wall */
 
@@ -184,6 +188,7 @@
 "nsfw_warning" = "Данный пост может содержать 18+ контент";
 "report" = "Пожаловаться";
 "attach" = "Прикрепить";
+"detach" = "Открепить";
 "attach_photo" = "Прикрепить фото";
 "attach_video" = "Прикрепить видео";
 "draw_graffiti" = "Нарисовать граффити";
@@ -193,6 +198,8 @@
 "version_incompatibility" = "Не удалось отобразить это вложение. Возможно, база данных несовместима с текущей версией OpenVK.";
 "graffiti" = "Граффити";
 "reply" = "Ответить";
+"post_is_ad" = "Этот пост был размещён за взятку.";
+"edited_short" = "ред.";
 
 /* Friends */
 
@@ -316,14 +323,21 @@
 "search_group" = "Поиск группы";
 "search_by_groups" = "Поиск по группам";
 "search_group_desc" = "Здесь Вы можете просмотреть существующие группы и выбрать группу себе по вкусу...";
+"group_banned" = "К сожалению, нам пришлось заблокировать сообщество <b>$1</b>.";
 
 /* Albums */
 
 "create" = "Создать";
+"album" = "Альбом";
 "albums" = "Альбомы";
+"photos" = "фотографий";
+"photo" = "Фотография";
 "create_album" = "Создать альбом";
 "edit_album" = "Редактировать альбом";
+"edit_photo" = "Изменить фотографию";
 "creating_album" = "Создание альбома";
+"delete_photo" = "Удалить фотографию";
+"sure_deleting_photo" = "Вы уверены, что хотите удалить эту фотографию?";
 "upload_photo" = "Загрузить фотографию";
 "photo" = "Фотография";
 "upload_button" = "Загрузить";
@@ -365,6 +379,39 @@
 "upd_f" = "обновила фотографию на своей странице";
 "upd_g" = "обновило фотографию группы";
 
+"add_photos" = "Добавить фотографии";
+"upload_picts" = "Загрузить фотографии";
+"end_uploading" = "Завершить загрузку";
+"photos_successfully_uploaded" = "Фотографии успешно загружены";
+"click_to_go_to_album" = "Нажмите, чтобы перейти к альбому.";
+"error_uploading_photo" = "Не удалось загрузить фотографию";
+"too_many_pictures" = "Не больше 10 фотографий";
+
+"drag_files_here" = "Перетащите файлы сюда";
+"only_images_accepted" = "Файл \"$1\" не является изображением";
+"max_filesize" = "Максимальный размер файла — $1 мегабайт";
+
+"uploading_photos_from_computer" = "Загрузка фотографий с Вашего компьютера";
+"supported_formats" = "Поддерживаемые форматы файлов: JPG, PNG и GIF.";
+"max_load_photos" = "Вы можете загружать до 10 фотографий за один раз.";
+"tip" = "Подсказка";
+"tip_ctrl" = "для того, чтобы выбрать сразу несколько фотографий, удерживайте клавишу Ctrl при выборе файлов в ОС Windows или клавишу CMD в Mac OS.";
+"album_poster" = "Обложка альбома";
+"select_photo" = "Выберите фотографию";
+"upload_new_photo" = "Загрузить новую фотографию";
+
+"is_x_photos_zero" = "Всего ноль фотографий.";
+"is_x_photos_one" = "Всего одна фотография.";
+"is_x_photos_few" = "Всего $1 фотографии.";
+"is_x_photos_many" = "Всего $1 фотографий.";
+"is_x_photos_other" = "Всего $1 фотографий.";
+
+"all_photos" = "Все фотографии";
+"error_uploading_photo" = "Не удалось загрузить фотографию. Текст ошибки: ";
+"too_many_photos" = "Слишком много фотографий.";
+
+"photo_x_from_y" = "Фотография $1 из $2";
+
 /* Notes */
 
 "notes" = "Заметки";
@@ -400,6 +447,8 @@
 
 "notes_closed" = "Вы не можете прикрепить заметку к записи, так как ваши заметки видны только вам.<br><br> Вы можете поменять это в <a href=\"/settings?act=privacy\">настройках</a>.";
 "do_not_attach_note" = "Не прикреплять заметку";
+"something" = "Кое-что";
+"supports_xhtml" = "из (X)HTML поддерживается.";
 
 /* Notes: Article Viewer */
 "aw_legacy_ui" = "Старый интерфейс";
@@ -590,6 +639,9 @@
 "two_factor_authentication_backup_codes_1" = "Резервные коды позволяют подтверждать вход, когда у вас нет доступа к телефону, например, в путешествии.";
 "two_factor_authentication_backup_codes_2" = "У вас есть ещё <b>10 кодов</b>, каждым кодом можно воспользоваться только один раз. Распечатайте их, уберите в надежное место и используйте, когда потребуются коды для подтверждения входа.";
 "two_factor_authentication_backup_codes_3" = "Вы можете получить новые коды, если они заканчиваются. Действительны только последние созданные резервные коды.";
+"viewing_backup_codes" = "Просмотр резервных кодов";
+"disable_2fa" = "Отключить 2FA";
+"viewing" = "Просмотреть";
 
 /* Sorting */
 
@@ -615,6 +667,15 @@
 "videos_many" = "$1 видеозаписей";
 "videos_other" = "$1 видеозаписей";
 "view_video" = "Просмотр";
+"change_video" = "Изменить видеозапись";
+"unknown_video" = "Эта видеозапись не поддерживается в вашей версии OpenVK.";
+
+"selecting_video" = "Выбор видеозаписей";
+"upload_new_video" = "Загрузить новое видео";
+"max_attached_videos" = "Максимум 10 видеозаписей";
+"max_attached_photos" = "Максимум 10 фотографий";
+"no_videos" = "У вас нет видео.";
+"no_videos_results" = "Нет результатов.";
 
 /* Notifications */
 
@@ -651,6 +712,7 @@
 "nt_mention_in_video" = "в обсуждении видеозаписи";
 "nt_mention_in_note" = "в обсуждении заметки";
 "nt_mention_in_topic" = "в обсуждении";
+"nt_sent_gift" = "отправил вам подарок";
 
 /* Time */
 
@@ -824,6 +886,8 @@
 "support_new" = "Новое обращение";
 "support_new_title" = "Введите тему вашего обращения";
 "support_new_content" = "Опишите проблему или предложение";
+
+
 "support_rate_good_answer" = "Это хороший ответ";
 "support_rate_bad_answer" = "Это плохой ответ";
 "support_good_answer_user" = "Вы оставили положительный отзыв.";
@@ -834,6 +898,28 @@
 "support_rated_bad" = "Вы оставили негативный отзыв об ответе.";
 "wrong_parameters" = "Неверные параметры запроса.";
 "fast_answers" = "Быстрые ответы";
+
+"reports" = "Жалобы";
+"ignore_report" = "Игнорировать жалобу";
+"report_number" = "Жалоба №";
+"list_of_reports" = "Список жалоб";
+"text_of_the_post" = "Текст записи";
+"today" = "сегодня";
+
+"will_be_watched" = "Скоро её рассмотрят модераторы";
+
+"report_question" = "Пожаловаться?";
+"report_question_text" = "Что именно вам кажется недопустимым в этом материале?";
+"report_reason" = "Причина жалобы";
+"reason" = "Причина";
+"going_to_report_app" = "Вы собираетесь пожаловаться на данное приложение.";
+"going_to_report_club" = "Вы собираетесь пожаловаться на данное сообщество.";
+"going_to_report_photo" = "Вы собираетесь пожаловаться на данную фотографию.";
+"going_to_report_user" = "Вы собираетесь пожаловаться на данного пользователя.";
+"going_to_report_video" = "Вы собираетесь пожаловаться на данную видеозапись.";
+"going_to_report_post" = "Вы собираетесь пожаловаться на данную запись.";
+"going_to_report_comment" = "Вы собираетесь пожаловаться на данный комментарий.";
+
 "comment" = "Комментарий";
 "sender" = "Отправитель";
 "author" = "Автор";
@@ -843,6 +929,12 @@
 "ticket_changed_comment" = "Изменения вступят силу через несколько секунд.";
 "banned_in_support_1" = "Извините, <b>$1</b>, но теперь вам нельзя создавать обращения.";
 "banned_in_support_2" = "А причина этому проста: <b>$1</b>. К сожалению, на этот раз нам пришлось отобрать у вас эту возможность навсегда.";
+"you_can_close_this_ticket_1" = "Если у Вас больше нет вопросов, Вы можете ";
+"you_can_close_this_ticket_2" = "закрыть этот тикет";
+"agent_profile_created_1" = "Профиль создан";
+"agent_profile_created_2" = "Теперь пользователи видят Ваши псевдоним и аватарку вместо стандартных аватарки и номера.";
+"agent_profile_edited" = "Профиль отредактирован";
+"agent_profile" = "Карточка агента";
 
 /* Invite */
 
@@ -967,6 +1059,7 @@
 "error_repost_fail" = "Не удалось поделиться записью";
 "error_data_too_big" = "Аттрибут '$1' не может быть длиннее $2 $3";
 "forbidden" = "Ошибка доступа";
+"unknown_error" = "Неизвестная ошибка";
 "forbidden_comment" = "Настройки приватности этого пользователя не разрешают вам смотреть на его страницу.";
 "changes_saved" = "Изменения сохранены";
 "changes_saved_comment" = "Новые данные появятся на вашей странице";
@@ -1002,6 +1095,94 @@
 "media_file_corrupted_or_too_large" = "Файл медиаконтента повреждён или слишком велик.";
 "post_is_empty_or_too_big" = "Пост пустой или слишком большой.";
 "post_is_too_big" = "Пост слишком большой.";
+"error_sending_report" = "Не удалось подать жалобу...";
+"error_when_saving_gift" = "Не удалось сохранить подарок";
+"error_when_saving_gift_bad_image" = "Изображение подарка кривое.";
+"error_when_saving_gift_no_image" = "Пожалуйста, загрузите изображение подарка.";
+"video_uploads_disabled" = "Загрузки видео отключены администратором.";
+
+"error_when_publishing_comment" = "Не удалось опубликовать комментарий";
+"error_when_publishing_comment_description" = "Файл изображения повреждён, слишком велик или одна сторона изображения в разы больше другой.";
+"error_comment_empty" = "Комментарий пустой или слишком большой.";
+"error_comment_too_big" = "Комментарий слишком большой.";
+"error_comment_file_too_big" = "Файл медиаконтента повреждён или слишком велик.";
+
+"comment_is_added" = "Комментарий добавлен";
+"comment_is_added_desc" = "Ваш комментарий появится на странице.";
+
+"error_access_denied_short" = "Ошибка доступа";
+"error_access_denied" = "У вас недостаточно прав, чтобы редактировать этот ресурс";
+"success" = "Успешно";
+"comment_will_not_appear" = "Этот комментарий больше не будет показыватся.";
+
+"error_when_gifting" = "Не удалось подарить";
+"error_user_not_exists" = "Пользователь или набор не существуют.";
+"error_no_rights_gifts" = "Не удалось подтвердить права на подарок.";
+"error_no_more_gifts" = "У вас больше не осталось таких подарков.";
+"error_no_money" = "Ору нищ не пук.";
+
+"gift_sent" = "Подарок отправлен";
+"gift_sent_desc" = "Вы отправили подарок <b>$1</b> за $2 голосов";
+
+"error_on_server_side" = "Произошла ошибка на стороне сервера. Обратитесь к системному администратору.";
+"error_no_group_name" = "Вы не ввели название группы.";
+
+"success_action" = "Операция успешна";
+"connection_error" = "Ошибка подключения";
+"connection_error_desc" = "Не удалось подключится к службе телеметрии.";
+
+"error_when_uploading_photo" = "Не удалось сохранить фотографию.";
+
+"new_changes_desc" = "Новые данные появятся в вашей группе.";
+"comment_is_changed" = "Комментарий к администратору изменён";
+"comment_is_deleted" = "Комментарий к администратору удален";
+"comment_is_too_long" = "Комментарий слишком длинный ($1 символов вместо 36 символов)";
+"x_no_more_admin" = "$1 больше не администратор.";
+"x_is_admin" = "$1 назначен(а) администратором.";
+
+"x_is_now_hidden" = "Теперь $1 будет показываться как обычный подписчик всем, кроме других администраторов";
+"x_is_now_showed" = "Теперь все будут знать, что $1 — администратор.";
+
+"note_is_deleted" = "Заметка удалена";
+"note_x_is_now_deleted" = "Заметка \"$1\" была успешно удалена.";
+"new_data_accepted" = "Новые данные приняты.";
+
+"album_is_deleted" = "Альбом удалён";
+"album_x_is_deleted" = "Альбом $1 был успешно удалён.";
+
+"error_adding_to_deleted" = "Не удалось сохранить фотографию в <b>DELETED</b>.";
+"error_adding_to_x" = "Не удалось сохранить фотографию в <b>$1</b>.";
+"no_photo" = "Нету фотографии";
+
+"select_file" = "Выберите файл";
+"new_description_will_appear" = "Обновлённое описание появится на странице с фоткой.";
+"photo_is_deleted" = "Фотография удалена";
+"photo_is_deleted_desc" = "Эта фотография была успешно удалена.";
+
+"no_video" = "Нет видеозаписи";
+"no_video_desc" = "Выберите файл или укажите ссылку.";
+"error_occured" = "Произошла ошибка";
+"error_video_damaged_file" = "Файл повреждён или не содержит видео.";
+"error_video_incorrect_link" = "Возможно, ссылка некорректна.";
+"error_video_no_title" = "Видео не может быть опубликовано без названия.";
+
+"new_data_video" = "Обновлённое описание появится на странице с видео.";
+"error_deleting_video" = "Не удалось удалить видео";
+"login_please" = "Вы не вошли в аккаунт.";
+"invalid_code" = "Не удалось подтвердить номер телефона: неверный код.";
+
+"error_max_pinned_clubs" = "Находится в левом меню могут максимум 10 групп";
+"error_viewing_subs" = "Вы не можете просматривать полный список подписок $1.";
+"error_status_too_long" = "Статус слишком длинный ($1 символов вместо 255 символов)";
+"death" = "Смэрть...";
+"nehay" = "Нехай живе!";
+"user_successfully_banned" = "Пользователь успешно забанен.";
+
+"content_is_deleted" = "Контент удалён, а пользователю прилетело предупреждение.";
+"report_is_ignored" = "Жалоба проигнорирована.";
+"group_owner_is_banned" = "Создатель сообщества успешно забанен.";
+"group_is_banned" = "Сообщество успешно забанено";
+"description_too_long" = "Описание слишком длинное.";
 
 /* Admin actions */
 
@@ -1009,14 +1190,18 @@
 "manage_user_action" = "Управление пользователем";
 "manage_group_action" = "Управление группой";
 "ban_user_action" = "Заблокировать пользователя";
+"blocks" = "Блокировки";
+"last_actions" = "Последние действия";
 "unban_user_action" = "Разблокировать пользователя";
 "warn_user_action" = "Предупредить пользователя";
 "ban_in_support_user_action" = "Заблокировать в поддержке";
 "unban_in_support_user_action" = "Разблокировать в поддержке";
+"changes_history" = "История редактирования";
 
 /* Admin panel */
 
 "admin" = "Админ-панель";
+"sandbox_for_developers" = "Sandbox для разработчиков";
 "admin_ownerid" = "ID владельца";
 "admin_author" = "Автор";
 "admin_name" = "Имя";
@@ -1092,6 +1277,42 @@
 "admin_banned_link_not_specified" = "Ссылка не указана";
 "admin_banned_link_not_found" = "Ссылка не найдена";
 
+"admin_gift_moved_successfully" = "Подарок успешно перемещён";
+"admin_gift_moved_to_recycle" = "Теперь подарок находится в <b>корзине</b>.";
+
+"logs" = "Логи";
+"logs_anything" = "Любое";
+"logs_adding" = "Создание";
+"logs_editing" = "Редактирование";
+"logs_removing" = "Удаление";
+"logs_restoring" = "Восстановление";
+"logs_added" = "добавил";
+"logs_edited" = "отредактировал";
+"logs_removed" = "удалил";
+"logs_restored" = "восстановил";
+"logs_id_post" = "ID записи";
+"logs_id_object" = "ID объекта";
+"logs_uuid_user" = "UUID пользователя";
+"logs_change_type" = "Тип изменения";
+"logs_change_object" = "Тип объекта";
+
+"logs_user" = "Пользователь";
+"logs_object" = "Объект";
+"logs_type" = "Тип";
+"logs_changes" = "Изменения";
+"logs_time" = "Время";
+
+"bans_history" = "История блокировок";
+"bans_history_blocked" = "Забаненный";
+"bans_history_initiator" = "Инициатор";
+"bans_history_start" = "Начало";
+"bans_history_end" = "Конец";
+"bans_history_time" = "Время";
+"bans_history_reason" = "Причина";
+"bans_history_start" = "Начало";
+"bans_history_removed" = "Снята";
+"bans_history_active" = "Активная блокировка";
+
 /* Paginator (deprecated) */
 
 "paginator_back" = "Назад";
@@ -1140,6 +1361,8 @@
 "close" = "Закрыть";
 "warning" = "Внимание";
 "question_confirm" = "Это действие нельзя отменить. Вы действительно уверены в том что хотите сделать?";
+"confirm_m" = "Подтвердить";
+"action_successfully" = "Операция успешна";
 
 /* User alerts */
 
@@ -1153,12 +1376,16 @@
 
 /* Away */
 
+"transition_is_blocked" = "Переход по ссылке заблокирован";
+"caution" = "Предупреждение";
 "url_is_banned" = "Переход невозможен";
 "url_is_banned_comment" = "Администрация <b>$1</b> не рекомендует переходить по этой ссылке.";
 "url_is_banned_comment_r" = "Администрация <b>$1</b> не рекомендует переходить по этой ссылке.<br><br>Причина: <b>$2</b>";
 "url_is_banned_default_reason" = "Ссылка, по которой вы попытались перейти, может вести на сайт, который был создан с целью обмана пользователей и получения за счёт этого прибыли.";
 "url_is_banned_title" = "Ссылка на подозрительный сайт";
 "url_is_banned_proceed" = "Перейти по ссылке";
+
+"recently" = "Недавно";
 
 /* Helpdesk */
 "helpdesk" = "Поддержка";
@@ -1417,6 +1644,41 @@
 
 "no_results" = "Результатов нет";
 
+/* BadBrowser */
+
+"deprecated_browser" = "Устаревший браузер";
+"deprecated_browser_description" = "Для просмотра этого контента вам понадобится Firefox ESR 52+ или эквивалентный по функционалу навигатор по всемирной сети интернет. Сожалеем об этом.";
+
+/* Statistics */
+
+"coverage" = "Охват";
+"coverage_this_week" = "Этот график отображает охват за последние 7 дней.";
+"views" = "Просмотры";
+"views_this_week" = "Этот график отображает просмотры постов сообщества за последние 7 дней.";
+
+"full_coverage" = "Полный охват";
+"all_views" = "Все просмотры";
+
+"subs_coverage" = "Охват подписчиков";
+"subs_views" = "Просмотры подписчиков";
+
+"viral_coverage" = "Виральный охват";
+"viral_views" = "Виральные просмотры";
+
+/* Sudo */
+
+"you_entered_as" = "Вы вошли как";
+"please_rights" = "пожалуйста, уважайте право на тайну переписки других людей и не злоупотребляйте подменой пользователя.";
+"click_on" = "Нажмите";
+"there" = "здесь";
+"to_leave" = "чтобы выйти";
+
+/* Phone number */
+
+"verify_phone_number" = "Подтвердить номер телефона";
+"we_sended_first" = "Мы отправили SMS с кодом на номер";
+"we_sended_end" = "введите его сюда";
+
 /* Mobile */
 "mobile_friends" = "Друзья";
 "mobile_photos" = "Фотографии";
@@ -1432,3 +1694,40 @@
 "mobile_like" = "Нравится";
 "mobile_user_info_hide" = "Скрыть";
 "mobile_user_info_show_details" = "Показать подробнее";
+
+/* Moderation */
+
+"section" = "Раздел";
+"template_ban" = "Бан по шаблону";
+"active_templates" = "Действующие шаблоны";
+"users_reports" = "Жалобы пользователей";
+"substring" = "Подстрока";
+"n_user" = "Пользователь";
+"time_before" = "Время раньше, чем";
+"time_after" = "Время позже, чем";
+"where_for_search" = "WHERE для поиска по разделу";
+"block_params" = "Параметры блокировки";
+"only_rollback" = "Только откат";
+"only_block" = "Только блокировка";
+"rollback_and_block" = "Откат и блокировка";
+"subm" = "Применить";
+
+"select_section_for_start" = "Выберите раздел для начала работы";
+"results_will_be_there" = "Здесь будут отображаться результаты поиска";
+"search_results" = "Результаты поиска";
+"cnt" = "шт";
+
+"link_to_page" = "Ссылка на страницу";
+"or_subnet" = "или подсеть";
+"error_when_searching" = "Ошибка при выполнении запроса";
+"no_found" = "Ничего не найдено";
+"operation_successfully" = "Операция завершена успешно";
+
+"unknown_error" = "Неизвестная ошибка";
+"templates" = "Шаблоны";
+"type" = "Тип";
+"count" = "Количество";
+"time" = "Время";
+
+"roll_back" = "откатить";
+"roll_backed" = "откачено";

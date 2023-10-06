@@ -125,6 +125,9 @@
                                             <a href="/admin/settings/tuning">{_admin_settings_tuning}</a>
                                         </li>
                                         <li>
+                                            <a href="/admin/logs">Логи</a>
+                                        </li>
+                                        <li>
                                             <a href="/admin/settings/appearance">{_admin_settings_appearance}</a>
                                         </li>
                                         <li>

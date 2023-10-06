@@ -1,6 +1,6 @@
 {extends "../@layout.xml"}
 
-{block title}Альбом {$album->getName()}{/block}
+{block title}{_album} {$album->getName()}{/block}
 
 {block header}
     {var $isClub = ($album->getOwner() instanceof openvk\Web\Models\Entities\Club)}
@@ -18,7 +18,8 @@
 
 {block content}
     <a href="/album{$album->getPrettyId()}">
-        <b>{$album->getPhotosCount()} фотографий</b>
+        {* TODO: Добавить склонения *}
+        <b>{$album->getPhotosCount()} {_photos}</b>
     </a>
     
     {if !is_null($thisUser) && $album->canBeModifiedBy($thisUser) && !$album->isCreatedBySystem()}
@@ -40,7 +41,7 @@
                     </a>
                     
                     <a href="/photo{$photo->getPrettyId()}?from=album{$album->getId()}">
-                        <img class="album-photo--image" src="{$photo->getURL()}" alt="{$photo->getDescription()}" />
+                        <img class="album-photo--image" src="{$photo->getURLBySizeId('tinier')}" alt="{$photo->getDescription()}" />
                     </a>
                 </div>
             {/foreach}

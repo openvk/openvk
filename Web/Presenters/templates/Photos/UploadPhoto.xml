@@ -2,9 +2,13 @@
 {block title}{_upload_photo}{/block}
 
 {block header}
-    <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>
+    <a href="{$album->getOwner()->getURL()}">{$album->getOwner()->getCanonicalName()}</a>
     » 
-    <a href="/albums{$thisUser->getId()}">{_albums}</a>
+    {if $album->getOwner() instanceof openvk\Web\Models\Entities\Club}
+        <a href="/albums{$album->getOwner()->getId() * -1}">{_albums}</a>
+    {else}
+        <a href="/albums{$album->getOwner()->getId()}">{_albums}</a>
+    {/if}
     » 
     <a href="/album{$album->getPrettyId()}">{$album->getName()}</a>
     » 
@@ -12,32 +16,53 @@
 {/block}
 
 {block content}
-    <form action="/photos/upload?album={$album->getPrettyId()}" method="post" enctype="multipart/form-data">
-      <table cellspacing="6">
-        <tbody>
-          <tr>
-            <td width="120" valign="top"><span class="nobold">{_description}:</span></td>
-            <td><textarea style="margin: 0px; height: 50px; width: 159px; resize: none;" name="desc"></textarea></td>
-          </tr>
-          <tr>
-            <td width="120" valign="top"><span class="nobold">{_photo}:</span></td>
-            <td>
-              <label class="button" style="">{_browse}
-                <input type="file" id="blob" name="blob" style="display: none;" onchange="filename.innerHTML=blob.files[0].name" />
-              </label>
-              <div id="filename" style="margin-top: 10px;"></div>
-            </td>
-          </tr>
-          <tr>
-            <td width="120" valign="top"></td>
-            <td>
-                <input type="hidden" name="hash" value="{$csrfToken}" />
-                <input type="submit" class="button" name="submit" value="Загрузить" />
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      
-      <input n:ifset="$_GET['album']" type="hidden" name="album" value="{$_GET['album']}" />
-    </form>
+    <div class="tabs">
+        <div class="tab">
+            <a href="/album{$album->getPrettyId()}/edit">{_edit_album}</a>
+        </div>
+        <div id="activetabs" class="tab">
+            <a id="act_tab_a" href="#">{_add_photos}</a>
+        </div>
+    </div>
+
+    <input type="file" accept=".jpg,.png,.gif" name="files[]" multiple class="button" id="uploadButton" style="display:none">
+
+    <div class="container_gray" style="min-height: 344px;">
+        <div class="insertThere"></div>
+        <div class="whiteBox" style="display: block;">
+            <div class="boxContent">
+                <h4>{_uploading_photos_from_computer}</h4>
+
+                <div class="limits" style="margin-top:17px">
+                    <b style="color:#45688E">{_admin_limits}</b>
+                    <ul class="blueList" style="margin-left: -25px;margin-top: 1px;">
+                        <li>{_supported_formats}</li>
+                        <li>{_max_load_photos}</li>
+                    </ul>
+
+                    <div style="text-align: center;padding-top: 4px;" class="insertAgain">
+                        <input type="button" class="button" id="fakeButton" onclick="uploadButton.click()" value="{_upload_picts}">
+                    </div>
+
+                    <div class="tipping" style="margin-top: 19px;">
+                        <span style="line-height: 15px"><b>{_tip}</b>: {_tip_ctrl}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="insertPhotos" id="photos" style="margin-top: 9px;padding-bottom: 12px;"></div>
+
+        <input type="button" class="button" style="display:none;margin-left: auto;margin-right: auto;" id="endUploading" value="{_end_uploading}">
+    </div>
+
+    <input n:ifset="$_GET['album']" type="hidden" id="album" value="{$_GET['album']}" />
+
+    <script>
+        uploadButton.value = ''
+    </script>
+{/block}
+
+{block bodyScripts}
+    {script "js/al_photos.js"}
 {/block}

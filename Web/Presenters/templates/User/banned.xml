@@ -3,7 +3,9 @@
     <p>
         {tr("user_banned", htmlentities($user->getFirstName()))|noescape}<br/>
         {_user_banned_comment} <b>{$user->getBanReason()}</b>.<br/>
-        Пользователь заблокирован до: <b>{$user->getUnbanTime()}</b>
+        {_user_is_blocked}
+        <span n:if="$user->getUnbanTime() !== NULL">{_before}: <b>{$user->getUnbanTime()}</b></span>
+        <span n:if="$user->getUnbanTime() === NULL"><b>{_forever}</b></span>
     </p>
     {if isset($thisUser)}
         <p n:if="$thisUser->getChandlerUser()->can('access')->model('admin')->whichBelongsTo(NULL) || $thisUser->getChandlerUser()->can('write')->model('openvk\Web\Models\Entities\TicketReply')->whichBelongsTo(0)">

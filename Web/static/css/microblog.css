@@ -110,7 +110,21 @@
     transition-duration: 0.3s;
 }
 
+.post-author .edit {
+    float: right;
+    height: 16px;
+    width: 16px;
+    overflow: auto;
+    background: url("/assets/packages/static/openvk/img/edit.png") no-repeat 0 0;
+    opacity: 0.1;
+    transition-duration: 0.3s;
+}
+
 .post-author .pin:hover {
+    opacity: 0.4;
+}
+
+.post-author .edit:hover {
     opacity: 0.4;
 }
 

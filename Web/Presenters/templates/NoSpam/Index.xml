@@ -1,0 +1,350 @@
+{extends "../@layout.xml"}
+
+{block title}noSpam{/block}
+{block header}{include title}{/block}
+
+{block content}
+    <style>
+        .noSpamIcon {
+            width: 20px;
+            height: 20px;
+            background: url("/assets/packages/static/openvk/img/supp_icons.png");
+        }
+
+        .noSpamIcon-Add {
+            background-position: 0 0;
+        }
+
+        .noSpamIcon-Delete {
+            background-position: 0 -21px;
+        }
+    </style>
+    <div class="tabs">{include "Tabs.xml", mode => "form"}</div>
+    <br/>
+    <div style="display: flex; border: 1px solid #ECECEC; padding: 8px;">
+    <div id="noSpam-form" style="width: 50%; border-right: 1px solid #ECECEC;">
+        <table cellspacing="7" cellpadding="0" width="100%" border="0">
+            <tbody id="models-list">
+                <tr id="0-model">
+                    <td width="83px">
+                        <span class="nobold">{_section}:</span>
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 8px; justify-content: space-between;">
+                            <div id="add-model" class="noSpamIcon noSpamIcon-Add" style="display: none;" />
+                            <select name="model" id="model" class="model initialModel" style="margin-left: -2px;">
+                                <option selected value="none">{_relationship_0}</option>
+                                <option n:foreach="$models as $model" value="{$model}">{$model}</option>
+                            </select>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="border-top: 1px solid #ECECEC; margin: 8px 0;"/>
+        <div id="noSpam-fields" style="display: none;">
+            <table cellspacing="7" cellpadding="0" width="100%" border="0">
+                <tbody>
+                    <tr style="width: 129px; border-top: 1px solid #ECECEC;">
+                        <td>
+                            <span class="nobold">{_substring}:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="regex" placeholder="Regex" id="regex">
+                        </td>
+                    </tr>
+                    <tr style="width: 129px; border-top: 1px solid #ECECEC;">
+                        <td>
+                            <span class="nobold">{_n_user}:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="user" placeholder="{_link_to_page}" id="user">
+                        </td>
+                    </tr>
+                    <tr style="width: 129px">
+                        <td>
+                            <span class="nobold">IP:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="ip" id="ip" placeholder="{_or_subnet}">
+                        </td>
+                    </tr>
+                    <tr style="width: 129px">
+                        <td>
+                            <span class="nobold">User-Agent:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="useragent" id="useragent" placeholder="Mozila 1.0 Blablabla/test">
+                        </td>
+                    </tr>
+                    <tr style="width: 129px">
+                        <td>
+                            <span class="nobold">{_time_before}:</span>
+                        </td>
+                        <td>
+                            <input type="datetime-local" name="ts" id="ts">
+                        </td>
+                    </tr>
+                    <tr style="width: 129px">
+                        <td>
+                            <span class="nobold">{_time_after}:</span>
+                        </td>
+                        <td>
+                            <input type="datetime-local" name="te" id="te">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <textarea style="resize: vertical; width: calc(100% - 6px)" placeholder='city = "Воскресенск" && id = 1'
+                      name="where" id="where"/>
+            <span style="color: grey; font-size: 8px;">{_where_for_search}</span>
+            <div style="border-top: 1px solid #ECECEC; margin: 8px 0;"/>
+            <table cellspacing="7" cellpadding="0" width="100%" border="0">
+                <tbody>
+                    <tr style="width: 129px; border-top: 1px solid #ECECEC;">
+                        <td>
+                            <span class="nobold">{_block_params}:</span>
+                        </td>
+                        <td>
+                            <select name="ban_type" id="noSpam-ban-type" style="width: 140px;">
+                                <option value="1">{_only_rollback}</option>
+                                <option value="2">{_only_block}</option>
+                                <option value="3">{_rollback_and_block}</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr class="banSettings" style="width: 129px; border-top: 1px solid #ECECEC; display: none;">
+                        <td>
+                            <span class="nobold">Причина:</span>
+                        </td>
+                        <td>
+                            <input type="text" name="ban-reason" id="ban-reason" style="width: 140px;" />
+                        </td>
+                    </tr>
+                    <tr class="banSettings" style="width: 129px; border-top: 1px solid #ECECEC; display: none;">
+                        <td>
+                            <span class="nobold">До:</span>
+                        </td>
+                        <td>
+                            <input type="datetime-local" name="unban-time" id="unban-time" style="width: 140px;" />
+                            <br />
+                            <input type="checkbox" name="is_forever" id="is-forever" /> навсегда
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <div style="border-top: 1px solid #ECECEC; margin: 8px 0;"/>
+            <center>
+                <div id="noSpam-buttons">
+                    <input id="search" type="submit" value="{_header_search}" class="button"/>
+                    <input id="apply" type="submit" value="{_subm}" class="button" style="display: none;"/>
+                </div>
+                <div id="noSpam-loader" style="display: none;">
+                    <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px;">
+                </div>
+            </center>
+        </div>
+        <div id="noSpam-model-not-selected">
+            <center id="noSpam-model-not-selected-text" style="padding: 71px 25px;">{_select_section_for_start}</center>
+            <center id="noSpam-model-not-selected-loader" style="display: none;">
+                <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px; margin: 125px 0;">
+            </center>
+        </div>
+    </div>
+    <div style="width: 50%;">
+        <center id="noSpam-results-loader" style="display: none;">
+            <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px; margin: 125px 0;">
+        </center>
+        <center id="noSpam-results-text" style="margin: 125px 25px;">{_results_will_be_there}</center>
+        <div id="noSpam-results-block" style="display: none;">
+            <h4 style="padding: 8px;">{_search_results}
+                <span style="color: #a2a2a2; font-weight: inherit">
+                    (<span id="noSpam-results-count" style="color: #a2a2a2; font-weight: inherit;"></span> {_cnt}.)
+                </span>
+            </h4>
+            <ul style="padding-inline-start:18px;" id="noSpam-results-list"></ul>
+        </div>
+    </div>
+    </div>
+    <script>
+        async function search(ban = false) {
+            $("#noSpam-results-text").hide();
+            $("#noSpam-results-block").hide();
+            $("#apply").hide();
+            $("#noSpam-buttons").hide();
+
+            $("#noSpam-results-loader").show();
+            $("#noSpam-loader").show();
+
+            let models = [];
+            $(".model").each(function (i) {
+                let name = $(this).val();
+                if (!models.includes(name)) {
+                    if (name.length > 0 && name !== "none") {
+                        models.push(name);
+                    }
+                }
+            });
+            models = models.join(",");
+
+            let model = $("#model").val();
+            let regex = $("#regex").val();
+            let where = $("#where").val();
+            let ip = $("#ip").val();
+            let useragent = $("#useragent").val();
+            let ts = $("#ts").val() ? Math.floor(new Date($("#ts").val()).getTime() / 1000) : null;
+            let te = $("#te").val() ? Math.floor(new Date($("#te").val()).getTime() / 1000) : null;
+            let user = $("#user").val();
+            let ban_reason = $("#ban-reason").val();
+            let unban_time = $("#unban-time").val() ? Math.floor(new Date($("#unban-time").val()).getTime() / 1000) : null;
+            let is_forever = $("#is-forever").prop('checked');
+            console.log(ban_reason, unban_time, is_forever);
+
+            await $.ajax({
+                type: "POST",
+                url: "/al_abuse/search",
+                data: {
+                    models: models,
+                    model: model,
+                    q: regex,
+                    where: where,
+                    ban: ban,
+                    ip: ip,
+                    useragent: useragent,
+                    ts: ts,
+                    te: te,
+                    user: user,
+                    ban_reason: ban_reason,
+                    unban_time: unban_time,
+                    is_forever: is_forever,
+                    hash: {=$csrfToken}
+                },
+                success: (response) => {
+                    if (response.success) {
+                        console.log(response);
+                        if (response.count > 0) {
+                            $("#noSpam-results-list").empty();
+                            $("#noSpam-results-count").text(response.count);
+                            response.list.forEach((item) => {
+                                const HTML_TAGS_REGEX = /<\/?([^>]+)(>|$)/g;
+                                let fields = "";
+                                Object.entries(item).map(([key, value]) => {
+                                    fields += `<b>${ key}</b>: ${ value?.toString()?.replace(HTML_TAGS_REGEX, "[$1]")}<br />`;
+                                });
+
+                                $("#noSpam-results-list").append(`<li>
+                                    <a style="display: block;" onClick="$('#noSpam-result-fields-${ item.__model_name}-${ item.id}').toggle()">
+                                        <h4 style="display: inherit; padding: 8px;">${ item.__model_name} #${ item.id}</h4>
+                                    </a>
+                                    <div style="display: none;" id="noSpam-result-fields-${ item.__model_name}-${ item.id}">${ fields}</div>
+                                </li>`);
+                            });
+                            $("#noSpam-results-block").show();
+                            $("#apply").show();
+                        } else {
+                            $("#noSpam-results-text").text(ban ? tr("operation_successfully") : tr("no_found"));
+                            $("#noSpam-results-text").show();
+                        }
+                    } else {
+                        $("#noSpam-results-text").text(response?.error ?? tr("unknown_error"));
+                        $("#noSpam-results-text").show();
+                    }
+                },
+                error: (error) => {
+                    console.error("Error while searching noSpam:", error);
+                    $("#noSpam-results-text").text(tr("error_when_searching"));
+                    $("#noSpam-results-text").show();
+                }
+            });
+
+            $("#noSpam-buttons").show();
+            $("#noSpam-loader").hide();
+            $("#noSpam-results-loader").hide();
+        }
+
+        $("#search").on("click", () => { search(); });
+        $("input, textarea").keypress((e) => {
+            if (e.which === 13 && !e.shiftKey) {
+                e.preventDefault();
+                search();
+            }
+        });
+        $("#apply").on("click", () => { search(Number($("#noSpam-ban-type").val())); })
+
+        async function selectChange(value) {
+            console.log(value);
+            if (value !== "none") {
+                $("#noSpam-fields").hide();
+                $("#noSpam-model-not-selected").show();
+                $("#noSpam-model-not-selected-text").hide();
+                $("#noSpam-model-not-selected-loader").show();
+                setTimeout(() => {
+                    $("#noSpam-model-not-selected").hide();
+                    $("#noSpam-fields").show();
+                    $("#add-model").show();
+                    $("#noSpam-model-not-selected-loader").hide();
+                }, 100)
+            } else {
+                if ($(".model").not(".initialModel").length === 0) {
+                    $("#noSpam-fields").hide();
+                    $("#noSpam-model-not-selected").show();
+                    $("#noSpam-model-not-selected-loader").show();
+                    setTimeout(() => {
+                        $("#noSpam-model-not-selected-text").show();
+                        $("#noSpam-model-not-selected-loader").hide();
+                    }, 100)
+                }
+            }
+        }
+
+        $(".model").change(async (e) => {
+            selectChange(e.target.value);
+        })
+
+        $("#noSpam-ban-type").change(async (e) => {
+            if (e.target.value > 1) {
+                $(".banSettings").show();
+            } else {
+                $("#ban-reason").val(null);
+                $("#unban-time").val(null);
+                $("#is-forever").prop('checked', false);
+                $(".banSettings").hide();
+            }
+        });
+
+        $("#add-model").on("click", () => {
+            console.log($(".model").length);
+            $("#models-list").append(`
+                <tr id="${ $('.model').length}-model">
+                    <td width="83px">
+
+                    </td>
+                    <td>
+                        <div style="display: flex; gap: 8px; justify-content: space-between;">
+                            <div class="noSpamIcon noSpamIcon-Delete" onClick="deleteModelSelect(${ $('.model').length});"></div>
+                            <select name="model" class="model" style="margin-left: -2px;" onChange="selectChange($(this).val())">
+                                <option selected value="none">{_relationship_0}</option>
+                                {foreach $models as $model}
+                                    <option value={$model}>{$model|noescape}</option>
+                                {/foreach}
+                            </select>
+                        </div>
+                    </td>
+                </tr>`);
+        });
+
+        function deleteModelSelect(id) {
+            $(`#${ id}-model`).remove();
+            if ($(".model").length === 0) {
+                console.log("BLYAT", $(".model"));
+                $("#noSpam-fields").hide();
+                    $("#noSpam-model-not-selected").show();
+                    $("#noSpam-model-not-selected-loader").show();
+                    setTimeout(() => {
+                        $("#noSpam-model-not-selected-text").show();
+                        $("#noSpam-model-not-selected-loader").hide();
+                }, 100)
+            }
+        }
+    </script>
+{/block}

@@ -1,0 +1,86 @@
+{extends "./@layout.xml"}
+
+{block title}
+    {_bans_history}
+{/block}
+
+{block heading}
+    {include title}
+{/block}
+
+{block content}
+<table class="aui aui-table-list">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>{_bans_history_blocked}</th>
+            <th>{_bans_history_initiator}</th>
+            <th>{_bans_history_start}</th>
+            <th>{_bans_history_end}</th>
+            <th>{_bans_history_time}</th>
+            <th>{_bans_history_reason}</th>
+            <th>{_bans_history_removed}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr n:foreach="$bans as $ban">
+            <td>{$ban->getId()}</td>
+            <td>
+                <span class="aui-avatar aui-avatar-xsmall">
+                    <span class="aui-avatar-inner">
+                        <img src="{$ban->getUser()->getAvatarUrl('miniscule')}"
+                             alt="{$ban->getUser()->getCanonicalName()}" style="object-fit: cover;"
+                             role="presentation"/>
+                    </span>
+                </span>
+
+                <a href="{$ban->getUser()->getURL()}">{$ban->getUser()->getCanonicalName()}</a>
+
+                <span n:if="$ban->getUser()->isBanned()" class="aui-lozenge aui-lozenge-subtle aui-lozenge-removed">
+                    {_admin_banned}
+                </span>
+            </td>
+            <td>
+                <span class="aui-avatar aui-avatar-xsmall">
+                    <span class="aui-avatar-inner">
+                        <img src="{$ban->getInitiator()->getAvatarUrl('miniscule')}"
+                             alt="{$ban->getInitiator()->getCanonicalName()}" style="object-fit: cover;"
+                             role="presentation"/>
+                    </span>
+                </span>
+
+                <a href="{$ban->getInitiator()->getURL()}">{$ban->getInitiator()->getCanonicalName()}</a>
+
+                <span n:if="$ban->getInitiator()->isBanned()"
+                      class="aui-lozenge aui-lozenge-subtle aui-lozenge-removed">{_admin_banned}
+                </span>
+            </td>
+            <td>{date('d.m.Y в H:i:s', $ban->getStartTime())}</td>
+            <td>{date('d.m.Y в H:i:s', $ban->getEndTime())}</td>
+            <td>{$ban->getTime()}</td>
+            <td>
+                {$ban->getReason()}
+            </td>
+            <td>
+                {if $ban->isRemovedManually()}
+                    <span class="aui-avatar aui-avatar-xsmall">
+                        <span class="aui-avatar-inner">
+                            <img src="{$ban->whoRemoved()->getAvatarUrl('miniscule')}"
+                                 alt="{$ban->whoRemoved()->getCanonicalName()}" style="object-fit: cover;"
+                                 role="presentation"/>
+                        </span>
+                    </span>
+
+                    <a href="{$ban->whoRemoved()->getURL()}">{$ban->whoRemoved()->getCanonicalName()}</a>
+
+                    <span n:if="$ban->whoRemoved()->isBanned()" class="aui-lozenge aui-lozenge-subtle aui-lozenge-removed">
+                        {_admin_banned}
+                    </span>
+                {else}
+                    <b style="color: red;">{_bans_history_active}</b>
+                {/if}
+            </td>
+        </tr>
+    </tbody>
+</table>
+{/block}

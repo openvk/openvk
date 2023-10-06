@@ -1,5 +1,5 @@
 {extends "../@layout.xml"}
-{block title}Изменить видеозапись{/block}
+{block title}{_change_video}{/block}
 
 {block header}
     <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>
@@ -8,12 +8,12 @@
     »
     <a href="/video{$video->getPrettyId()}">{_video}</a>
     »
-    Изменить видеозапись
+    {_change_video}
 {/block}
 
 {block content}
 <div class="container_gray">
-    <h4>Изменить видеозапись</h4>
+    <h4>{_change_video}</h4>
     <form method="post" enctype="multipart/form-data">
       <table cellspacing="7" cellpadding="0" width="60%" border="0" align="center">
         <tbody>

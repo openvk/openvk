@@ -7,12 +7,12 @@
 
 {block content}
     <div>
-        <h4>Охват</h4>
-        <p>Этот график отображает охват за последние 7 дней.</p>
+        <h4>{_coverage}</h4>
+        <p>{_coverage_this_week}</p>
         <div id="reachChart" style="width: 100%; height: 280px;"></div>
         
-        <h4>Просмотры</h4>
-        <p>Этот график отображает просмотры постов сообщества за последние 7 дней.</p>
+        <h4>{_views}</h4>
+        <p>{_views_this_week}</p>
         <div id="viewsChart" style="width: 100%; height: 280px;"></div>
         
         <style>

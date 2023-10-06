@@ -18,13 +18,13 @@
         <tr>
             <td width="54" valign="top">
                 <a href="{$author->getURL()}">
-                    <img src="{$author->getAvatarURL('miniscule')}" width="{if $compact}25{else}50{/if}" {if $compact}class="cCompactAvatars"{/if} />
+                    <img src="{$author->getAvatarURL('miniscule')}" width="{if $compact}25{else}50{/if}" class="post-avatar {if $compact}cCompactAvatars{/if}" />
                     <span n:if="!$post->isPostedOnBehalfOfGroup() && !$compact && $author->isOnline()" class="post-online">{_online}</span>
                 </a>
             </td>
             <td width="100%" valign="top">
                 <div class="post-author">
-                    <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a>
+                    <a href="{$author->getURL()}"><b class="post-author-name">{$author->getCanonicalName()}</b></a>
                     <img n:if="$author->isVerified()" class="name-checkmark" src="/assets/packages/static/openvk/img/checkmark.png">
                     {$post->isDeactivationMessage() ? ($author->isFemale() ? tr($deac . "_f") : tr($deac . "_m"))}
                     {$post->isUpdateAvatarMessage() && !$post->isPostedOnBehalfOfGroup() ? ($author->isFemale() ? tr("upd_f") : tr("upd_m"))}
@@ -62,20 +62,38 @@
                             <a class="pin" href="/wall{$post->getPrettyId()}/pin?act=pin&hash={rawurlencode($csrfToken)}"></a>
                         {/if}
                     {/if}
+
+                    {if $post->canBeEditedBy($thisUser) && !($forceNoEditLink ?? false) && $compact == false}
+                        <a class="edit" id="editPost" 
+                                        data-id="{$post->getId()}" 
+                                        data-nsfw="{(int)$post->isExplicit()}"
+                                        {if $post->getTargetWall() < 0 && $post->getWallOwner()->canBeModifiedBy($thisUser)}data-fromgroup="{(int)$post->isPostedOnBehalfOfGroup()}"{/if}></a>
+                    {/if}
                 </div>
                 <div class="post-content" id="{$post->getPrettyId()}">
-                    <div class="text" id="text{$post->getPrettyId()}">
-                        {$post->getText()|noescape}
+                    <div class="text">
+                        <span data-text="{$post->getText(false)}" class="really_text">{$post->getText()|noescape}</span>
                         
-                        <div n:ifcontent class="attachments_b">
-                            <div class="attachment" n:foreach="$post->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
-                                {include "../attachment.xml", attachment => $attachment}
+                        {var $width = ($GLOBALS["_bigWall"] ?? false) ? 550 : 320}
+                        {if isset($GLOBALS["_nesAttGloCou"])}
+                            {var $width = $width - 70 * $GLOBALS["_nesAttGloCou"]}
+                        {/if}
+                        {var $attachmentsLayout = $post->getChildrenWithLayout($width)}
+                        <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
+                            <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
+                                {include "../attachment.xml", attachment => $attachment[2], parent => $post, parentType => "post"}
+                            </div>
+                        </div>
+
+                        <div n:ifcontent class="attachments attachments_m">
+                            <div class="attachment" n:foreach="$attachmentsLayout->extras as $attachment">
+                                {include "../attachment.xml", attachment => $attachment, post => $post}
                             </div>
                         </div>
                     </div>
                     <div n:if="$post->isAd()" style="color:grey;">
                         <br/>
-                        &nbsp;! Этот пост был размещён за взятку.
+                        &nbsp;! {_post_is_ad}
                     </div>
                     <div n:if="!is_null($post->getSource())" class="sourceDiv">
                         <span>{_source}: {$post->getSource(true)|noescape}</span>
@@ -91,13 +109,15 @@
                     </div>
                 </div>
                 <div class="post-menu" n:if="$compact == false">
-                    <a href="/wall{$post->getPrettyId()}" class="date">{$post->getPublicationTime()}</a>
+                    <a href="/wall{$post->getPrettyId()}" class="date">{$post->getPublicationTime()}
+                        <span n:if="$post->getEditTime()" class="edited editedMark">({_edited_short})</span>
+                    </a>
                     <a n:if="!empty($platform)" class="client_app" data-app-tag="{$platform}" data-app-name="{$platformDetails['name']}" data-app-url="{$platformDetails['url']}" data-app-img="{$platformDetails['img']}">
                         <img src="/assets/packages/static/openvk/img/app_icons_mini/{$post->getPlatform(this)}.svg">
                     </a>
                     {if isset($thisUser)}
                         &nbsp;
-                        
+
                         <a n:if="!($forceNoCommentsLink ?? false) && $commentsCount == 0" href="javascript:expand_comment_textarea({$commentTextAreaId})">{_comment}</a>
                         
                         <div class="like_wrap">

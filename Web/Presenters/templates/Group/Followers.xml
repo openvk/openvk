@@ -55,7 +55,7 @@
         <tbody>
             <tr>
                 <td width="120" valign="top"><span class="nobold">{_gender}: </span></td>
-                <td>{$user->isFemale() ? "женский" : "мужской"}</td>
+                <td>{$user->isFemale() ? tr("female"): tr("male")}</td>
             </tr>
             <tr>
                 <td width="120" valign="top"><span class="nobold">{_registration_date}: </span></td>
@@ -82,8 +82,6 @@
     </table>
 
     <script n:if="$club->getOwner()->getId() != $user->getId() && $manager && $thisUser->getId() == $club->getOwner()->getId()">
-        console.log("gayshit");
-        console.log("сам такой");
         function changeOwner(club, newOwner) {
             const action = "/groups/" + club + "/setNewOwner/" + newOwner;
 

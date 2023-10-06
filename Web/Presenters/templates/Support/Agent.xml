@@ -55,7 +55,6 @@
                 <input name="name" type="text" value="{$agent->getCanonicalName()}" placeholder="{_helpdesk_agent} #777" />
                 <br/><br/>
                 <label for="number">{_helpdesk_show_number}?</label>
-                {$agent->isShowNumber()}
                 <select name="number">
                     <option value="1" n:attr="selected => $agent->isShowNumber() === 1 ? true : false">{_yes}</option>
                     <option value="0" n:attr="selected => $agent->isShowNumber() === 0 ? true : false">{_no}</option>
@@ -71,7 +70,7 @@
     </div>
 </div>
 {else}
-    <h4>Создать</h4>
+    <h4>{_create}</h4>
     <br/>
         <form method="post" action="/support/agent{$agent_id}/edit">
             <label for="name">{_helpdesk_showing_name}</label>

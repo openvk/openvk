@@ -6,6 +6,8 @@
 {/block}
 
 {block content}
+    {php $GLOBALS["_bigWall"] = 1}
+
     <div class="tabs">
         <div n:attr="id => (isset($globalFeed) ? 'ki' : 'activetabs')" class="tab">
             <a n:attr="id => (isset($globalFeed) ? 'ki' : 'act_tab_a')" href="/feed">{_my_news}</a>

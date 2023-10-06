@@ -385,7 +385,7 @@ final class SupportPresenter extends OpenVKPresenter
             $agent->setNumerate((int) $this->postParam("number") ?? NULL);
             $agent->setIcon($this->postParam("avatar"));
             $agent->save();
-            $this->flashFail("succ", "Успех", "Профиль отредактирован.");
+            $this->flashFail("succ", tr("agent_profile_edited"));
         } else {
             $agent = new SupportAgent;
             $agent->setAgent($this->user->identity->getId());
@@ -393,7 +393,27 @@ final class SupportPresenter extends OpenVKPresenter
             $agent->setNumerate((int) $this->postParam("number") ?? NULL);
             $agent->setIcon($this->postParam("avatar"));
             $agent->save();
-            $this->flashFail("succ", "Успех", "Профиль создан. Теперь пользователи видят Ваши псевдоним и аватарку вместо стандартных аватарки и номера.");
+            $this->flashFail("succ", tr("agent_profile_created_1"), tr("agent_profile_created_2"));
         }
+    }
+
+    function renderCloseTicket(int $id): void
+    {
+        $this->assertUserLoggedIn();
+        $this->assertNoCSRF();
+        $this->willExecuteWriteAction();
+
+        $ticket = $this->tickets->get($id);
+
+        if($ticket->isDeleted() === 1 || $ticket->getType() === 2 || $ticket->getUserId() !== $this->user->id) {
+            header("HTTP/1.1 403 Forbidden");
+            header("Location: /support/view/" . $id);
+            exit;
+        }
+
+        $ticket->setType(2);
+        $ticket->save();
+
+        $this->flashFail("succ", tr("ticket_changed"), tr("ticket_changed_comment"));
     }
 }

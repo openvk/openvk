@@ -48,7 +48,6 @@ RUN ln -s /opt/chandler/extensions/available/commitcaptcha/ /opt/chandler/extens
     ln -s /opt/chandler/extensions/available/openvk/install/automated/common/10-openvk.conf /etc/apache2/sites-enabled/10-openvk.conf && \
     a2enmod rewrite
 
-VOLUME [ "/var/log/openvk" ]
 VOLUME [ "/opt/chandler/extensions/available/openvk/storage" ]
 VOLUME [ "/opt/chandler/extensions/available/openvk/tmp/api-storage/audios" ]
 VOLUME [ "/opt/chandler/extensions/available/openvk/tmp/api-storage/photos" ]

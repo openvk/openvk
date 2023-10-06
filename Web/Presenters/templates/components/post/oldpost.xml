@@ -7,18 +7,20 @@
     {var $deac = "post_deact_silent"}
 {/if}
 
+
+
 <table border="0" style="font-size: 11px;" n:class="post, $post->isExplicit() ? post-nsfw">
     <tbody>
         <tr>
             <td width="54" valign="top">
                 <a href="{$author->getURL()}">
-                    <img src="{$author->getAvatarURL('miniscule')}" width="50" />
+                    <img src="{$author->getAvatarURL('miniscule')}" class="post-avatar" width="50" />
                     <span n:if="!$post->isPostedOnBehalfOfGroup() && !($compact ?? false) && $author->isOnline()" class="post-online">{_online}</span>
                 </a>
             </td>
             <td width="100%" valign="top">
                 <div class="post-author">
-                    <a href="{$author->getURL()}"><b>{$author->getCanonicalName()}</b></a>
+                    <a href="{$author->getURL()}"><b class="post-author-name">{$author->getCanonicalName()}</b></a>
                     <img n:if="$author->isVerified()" class="name-checkmark" src="/assets/packages/static/openvk/img/checkmark.png">
                     {if $post->isDeactivationMessage()}
                         {$author->isFemale() ? tr($deac . "_f") : tr($deac . "_m")}
@@ -51,25 +53,38 @@
                     {/if}
                     <br/>
                     <a href="/wall{$post->getPrettyId()}" class="date">
-                        {$post->getPublicationTime()}{if $post->isPinned()}, {_pinned}{/if}
+                        {$post->getPublicationTime()} <span n:if="$post->getEditTime()" class="editedMark">({_edited_short})</span>{if $post->isPinned()}, {_pinned}{/if}
                         <a n:if="!empty($platform)" class="client_app" data-app-tag="{$platform}" data-app-name="{$platformDetails['name']}" data-app-url="{$platformDetails['url']}" data-app-img="{$platformDetails['img']}">
                             <img src="/assets/packages/static/openvk/img/app_icons_mini/{$post->getPlatform(this)}.svg">
                         </a>
                     </a>
                 </div>
                 <div class="post-content" id="{$post->getPrettyId()}">
-                    <div class="text" id="text{$post->getPrettyId()}">
-                        {$post->getText()|noescape}
-                        
-                        <div n:ifcontent class="attachments_b">
-                            <div class="attachment" n:foreach="$post->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
+                    <div class="text">
+                        {var $owner = $author->getId()}
+
+                        <span data-text="{$post->getText(false)}" class="really_text">{$post->getText()|noescape}</span>
+
+                        {var $width = ($GLOBALS["_bigWall"] ?? false) ? 550 : 320}
+                        {if isset($GLOBALS["_nesAttGloCou"])}
+                            {var $width = $width - 70 * $GLOBALS["_nesAttGloCou"]}
+                        {/if}
+                        {var $attachmentsLayout = $post->getChildrenWithLayout($width)}
+                        <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
+                            <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
+                                {include "../attachment.xml", attachment => $attachment[2], parent => $post, parentType => "post"}
+                            </div>
+                        </div>
+
+                        <div n:ifcontent class="attachments attachments_m">
+                            <div class="attachment" n:foreach="$attachmentsLayout->extras as $attachment">
                                 {include "../attachment.xml", attachment => $attachment}
                             </div>
                         </div>
                     </div>
                     <div n:if="$post->isAd()" style="color:grey;">
                         <br/>
-                        &nbsp;! Этот пост был размещён за взятку.
+                        &nbsp;! {_post_is_ad}
                     </div>
                     <div n:if="!is_null($post->getSource())" class="sourceDiv" style="margin-top:0px;">
                         <span>{_source}: {$post->getSource(true)|noescape}</span>
@@ -88,6 +103,13 @@
                     {if is_null($thisUser)}
                         {var $forceNoDeleteLink = true}
                         {var $forceNoPinLink = true}
+                    {/if}
+
+                    {if !($forceNoEditLink ?? false) && $post->canBeEditedBy($thisUser)}
+                        <a id="editPost" 
+                           data-id="{$post->getId()}"
+                           data-nsfw="{(int)$post->isExplicit()}"
+                           {if $post->getTargetWall() < 0 && $post->getWallOwner()->canBeModifiedBy($thisUser)}data-fromgroup="{(int)$post->isPostedOnBehalfOfGroup()}"{/if}>{_edit}</a> &nbsp;|&nbsp;
                     {/if}
 
                     {if !($forceNoDeleteLink ?? false) && $post->canBeDeletedBy($thisUser)}

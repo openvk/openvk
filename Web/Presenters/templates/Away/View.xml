@@ -1,9 +1,9 @@
 {extends "../@layout.xml"}
 
-{block title}Переход по ссылке заблокирован{/block}
+{block title}{_transition_is_blocked}{/block}
 
 {block header}
-Предупреждение
+{_caution}
 {/block}
 
 {block content}

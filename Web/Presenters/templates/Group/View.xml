@@ -9,7 +9,7 @@
     <img n:if="$club->isVerified()"
          class="name-checkmark"
          src="/assets/packages/static/openvk/img/checkmark.png"
-         alt="Подтверждённая страница"
+         alt="{_verified_page}"
          />
 {/block}
 
@@ -124,6 +124,7 @@
         {/if}
         {if $thisUser->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL)}
             <a href="/admin/clubs/id{$club->getId()}" id="profile_link">{_manage_group_action}</a>
+            <a href="/admin/logs?obj_id={$club->getId()}&obj_type=Club" class="profile_link">Последние действия</a>
         {/if}
         {if $club->getSubscriptionStatus($thisUser) == false}
             <form action="/setSub/club" method="post">
@@ -139,6 +140,34 @@
                 <input type="hidden" name="hash" value="{$csrfToken}" />
                 <input type="submit" id="profile_link" value="{_leave_community}" />
             </form>
+        {/if}
+        {var $canReport = $thisUser->getId() != $club->getOwner()->getId()}
+        {if $canReport}
+        <a class="profile_link" style="display:block;" href="javascript:reportVideo()">{_report}</a>
+
+        <script>
+            function reportVideo() {
+            uReportMsgTxt  = tr("going_to_report_club");
+            uReportMsgTxt += "<br/>"+tr("report_question_text");
+            uReportMsgTxt += "<br/><br/><b>"+tr("report_reason")+"</b>: <input type='text' id='uReportMsgInput' placeholder='" + tr("reason") + "' />"
+
+            MessageBox(tr("report_question"), uReportMsgTxt, [tr("confirm_m"), tr("cancel")], [
+                (function() {
+                    res = document.querySelector("#uReportMsgInput").value;
+                    xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/report/" + {$club->getId()} + "?reason=" + res + "&type=group", true);
+                    xhr.onload = (function() {
+                    if(xhr.responseText.indexOf("reason") === -1)
+                        MessageBox(tr("error"), tr("error_sending_report"), ["OK"], [Function.noop]);
+                    else
+                        MessageBox(tr("action_successfully"), tr("will_be_watched"), ["OK"], [Function.noop]);
+                    });
+                    xhr.send(null);
+                    }),
+                Function.noop
+                ]);
+            }
+        </script>
         {/if}
     </div>
     <div>

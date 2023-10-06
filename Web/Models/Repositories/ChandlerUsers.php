@@ -28,7 +28,8 @@ class ChandlerUsers
 
     function getById(string $UUID): ?ChandlerUser
     {
-        return new ChandlerUser($this->users->where("id", $UUID)->fetch());
+        $user = $this->users->where("id", $UUID)->fetch();
+        return $user ? new ChandlerUser($user) : NULL;
     }
 
     function getList(int $page = 1): \Traversable

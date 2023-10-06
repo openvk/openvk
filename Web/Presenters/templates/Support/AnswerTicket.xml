@@ -8,7 +8,42 @@
 {block content}
     <div class="post-author">
         <a href="#" style="font-size: 13px;"><b>{$ticket->getName()}</b></a><br />
-        {_author}: <a href="/id{$ticket->getUser()->getId()}">{$ticket->getUser()->getFullName()}</a> | {$ticket->getUser()->getRegistrationIP()} | {_status}: {$ticket->getStatus()}.
+        {_author}:
+            <a href="/id{$ticket->getUser()->getId()}">
+                {$ticket->getUser()->getFullName()}</a>
+                | {$ticket->getUser()->getRegistrationIP()}
+                | {_status}: {$ticket->getStatus()}.
+                | <b n:if="$ticket->getUser()->isBanned()" style="color: red; cursor: pointer;" onclick="$('#ban-reason').toggle();">Блокировка</b>
+            <div id="ban-reason" style="display: none; padding: 8px;">
+                <h4 style="padding: 8px;">Причина блокировки</h4>
+                <div style="padding: 8px;">Так пользователь видит экран с информацией о блокировке:</div>
+                <div style="padding: 16px; border: 1px solid #C4C4C4; margin: 8px;">
+                    {var $ban = $ticket->getUser()->getBanReason("banned")}
+                    <center>
+                        <img src="/assets/packages/static/openvk/img/oof.apng" alt="{_banned_alt}" style="width: 20%;" />
+                    </center>
+                    <p>
+                        {if is_string($ban)}
+                            {tr("banned_1", htmlentities($ticket->getUser()->getCanonicalName()))|noescape}<br/>
+                            {tr("banned_2", htmlentities($ban))|noescape}
+                        {else}
+                            {tr("banned_1", htmlentities($ticket->getUser()->getCanonicalName()))|noescape}
+                            <div>
+                                Эта страница была заморожена {$ban[0]|noescape}
+                                {if $ban[1] !== "app"}
+                                    {include "../Report/ViewContent.xml", type => $ban[1], object => $ban[2]}
+                                {/if}
+                            </div>
+                        {/if}
+
+                        {if !$ticket->getUser()->getUnbanTime()}
+                            {_banned_perm}
+                        {else}
+                            {tr("banned_until_time", $ticket->getUser()->getUnbanTime())|noescape}
+                        {/if}
+                    </p>
+                </div>
+            </div>
     </div>
     <div class="text" style="padding-top: 10px; border-bottom: #ECECEC solid 1px;">
         {$ticket->getText()|noescape}

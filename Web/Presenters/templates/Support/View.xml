@@ -27,6 +27,14 @@
         function errorHandler(id, mark) {
             document.getElementById("markText-" + id).innerHTML = {_error};
         }
+
+        function closeTicket() {
+            let url = `/support/ticket${{$ticket->getId()}}/close?hash=${{urlencode($csrfToken)}}`;
+            $.ajax(url, {
+                error: () => alert(tr("error")),
+                success: () => location.reload()
+            });
+        }
     </script>
 
     {if $ticket->isDeleted() == 0}
@@ -34,6 +42,11 @@
             <a href="#" style="font-size:13px;"><b>{$ticket->getName()}</b></a>
             <br />{_status}: {$ticket->getStatus()}
         </div>
+        {if $ticket->getType() === 1}
+            <div class="post-author" style="border-top: none; padding: 14px; margin-top: 14px;">
+                {_you_can_close_this_ticket_1} <a onClick="closeTicket()">{_you_can_close_this_ticket_2}</a>.
+            </div>
+        {/if}
         <div class="text" style="padding-top: 10px; border-bottom: #ECECEC solid 1px;">
             {$ticket->getText()|noescape}
             <br /></br>

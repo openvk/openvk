@@ -1,0 +1,131 @@
+{extends "../@layout.xml"}
+
+{block title}{_templates}{/block}
+{block header}{include title}{/block}
+
+{block content}
+    <div class="tabs">{include "Tabs.xml", mode => "templates"}</div>
+
+    <style>
+        table, th, td {
+            border: 1px solid #ECECEC;
+            border-collapse: collapse;
+            border-spacing: 0;
+            font-family: -apple-system, system-ui, "Helvetica Neue", Roboto, sans-serif;
+        }
+
+        table {
+            width: 100%;
+        }
+
+        td, th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 90px;
+        }
+
+        tr:nth-child(odd) {
+            background-color: #f0f2f5;
+        }
+
+        tr:hover, th:hover {
+            background-color: #E8EBEF;
+        }
+
+        th {
+            text-transform: uppercase;
+            font-size: 0.846em;
+            color: #626d7a;
+        }
+    </style>
+    <br />
+    <div>
+        <table n:if="count($templates) > 0" cellspacing="0" cellpadding="7" width="100%">
+            <tr>
+                <th style="text-align: center;">ID</th>
+                <th>{_n_user}</th>
+                <th style="text-align: center;">{_section}</th>
+                <th>{_substring}</th>
+                <th>Where</th>
+                <th style="text-align: center;">{_type}</th>
+                <th style="text-align: center;">{_count}</th>
+                <th>{_time}</th>
+                <th style="text-align: center;">{_actions}</th>
+            </tr>
+            <tr n:foreach="$templates as $template">
+                <td id="id-{$template->getId()}" onClick="openTableField('id', {$template->getId()})" style="text-align: center;"><b>{$template->getId()}</b></td>
+                <td id="user-{$template->getId()}" onClick="openTableField('user', {$template->getId()})">
+                    <a href="{$template->getUser()->getURL()}" target="_blank">{$template->getUser()->getCanonicalName()}</a>
+                </td>
+                <td id="model-{$template->getId()}" onClick="openTableField('model', {$template->getId()})" style="text-align: center;">{$template->getModel()}</td>
+                <td id="regex-{$template->getId()}" onClick="openTableField('regex', {$template->getId()})">
+                    <a>{$template->getRegex() ?? "-"}</a>
+                </td>
+                <td id="where-{$template->getId()}" onClick="openTableField('where', {$template->getId()})">
+                    <a>{$template->getRequest() ?? "-"}</a>
+                </td>
+                <td id="type-{$template->getId()}" onClick="openTableField('type', {$template->getId()})" style="text-align: center;">{$template->getType()}</td>
+                <td id="count-{$template->getId()}" onClick="openTableField('count', {$template->getId()})" style="text-align: center;">
+                    {$template->getCount()}
+                </td>
+                <td id="time-{$template->getId()}" onClick="openTableField('time', {$template->getId()})">{$template->getTime()}</td>
+                <td style="text-align: center;">
+                    <div id="noSpam-rollback-{$template->getId()}">
+                        <div id="noSpam-rollback-loader-{$template->getId()}" style="display: none;">
+                            <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px;">
+                        </div>
+                        <a n:if="!$template->isRollbacked()" id="noSpam-rollback-template-link-{$template->getId()}" onClick="rollbackTemplate({$template->getId()})">{_roll_back}</a>
+                        <span n:attr="style => $template->isRollbacked() ? '' : 'display: none;'" id="noSpam-rollback-template-rollbacked-{$template->getId()}">{_roll_backed}</span>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <div n:if="count($templates) <= 0">
+            {include "../components/nothing.xml"}
+        </div>
+    </div>
+    <script>
+        // Full width block
+        $(".navigation").hide();
+        $(".page_content").width("100%");
+        $(".page_body").width("100%").css("margin-right", 0).css("margin-top", "-2px");
+        $(".tabs").width("100%");
+        $(".sidebar").css("margin", 0);
+        $(".page_header").css("position", "initial");
+
+        function openTableField(name, id) {
+            MessageBox(name, $(`#${ name}-${ id}`).text(), ["OK"], [Function.noop]);
+        }
+
+        async function rollbackTemplate(id) {
+            $(`#noSpam-rollback-template-link-${ id}`).hide();
+            $(`#noSpam-rollback-template-rollbacked-${ id}`).hide();
+            $(`#noSpam-rollback-loader-${ id}`).show();
+
+            await $.ajax({
+                type: "POST",
+                url: "/noSpam?act=rollback",
+                data: {
+                    id: id,
+                    hash: {=$csrfToken}
+                },
+                success: (response) => {
+                    $(`#noSpam-rollback-loader-${ id}`).hide();
+                    if (response.success) {
+                        $(`#noSpam-rollback-template-rollbacked-${ id}`).show();
+                    } else {
+                        NewNotification("Ошибка", (response?.error ?? "Неизвестная ошибка"), "/assets/packages/static/openvk/img/error.png");
+                        $(`#noSpam-rollback-template-link-${ id}`).show();
+                    }
+                },
+                error: (error) => {
+                    console.error(error);
+                    NewNotification("Ошибка", "Ошибка при отправке запроса", "/assets/packages/static/openvk/img/error.png");
+                    $(`#noSpam-rollback-loader-${ id}`).hide();
+                    $(`#noSpam-rollback-template-link-${ id}`).show();
+                }
+            });
+        }
+    </script>
+{/block}

@@ -111,7 +111,7 @@ final class TopicsPresenter extends OpenVKPresenter
                     $video = Video::fastMake($this->user->id, $_FILES["_vid_attachment"]["name"], $this->postParam("text"), $_FILES["_vid_attachment"]);
                 }
             } catch(ISE $ex) {
-                $this->flash("err", "Не удалось опубликовать комментарий", "Файл медиаконтента повреждён или слишком велик.");
+                $this->flash("err", tr("error_when_publishing_comment"), tr("error_comment_file_too_big"));
                 $this->redirect("/topic" . $topic->getPrettyId());
             }
             
@@ -126,7 +126,7 @@ final class TopicsPresenter extends OpenVKPresenter
                     $comment->setFlags($flags);
                     $comment->save();
                 } catch (\LengthException $ex) {
-                    $this->flash("err", "Не удалось опубликовать комментарий", "Комментарий слишком большой.");
+                    $this->flash("err", tr("error_when_publishing_comment"), tr("error_comment_too_big"));
                     $this->redirect("/topic" . $topic->getPrettyId());
                 }
                 

@@ -1,0 +1,5 @@
+{block content}
+    <center style="margin-bottom: 8pt;">
+        <img src="{$photo->getURL()}" style="max-width: 80%; max-height: 60vh;" />
+    </center>
+{/block}

@@ -1,13 +1,13 @@
 {extends "../@layout.xml"}
-{block title}Подтвердить номер телефона{/block}
+{block title}{_verify_phone_number}{/block}
 
 {block header}
-    Подтвердить номер телефона
+    {_verify_phone_number}
 {/block}
 
 {block content}
     <center>
-        <p>Мы отправили SMS с кодом на номер <b>{substr_replace($change->number, "*****", 5, 5)}</b>, введите его сюда:</p>
+        <p>{_we_sended_first} <b>{substr_replace($change->number, "*****", 5, 5)}</b>, {_we_sended_end}:</p>
         
         <form method="POST">
             <input type="text" name="code" placeholder="34156, например" required />

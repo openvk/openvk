@@ -1,0 +1,18 @@
+{block content}
+<article id="userContent" style="margin: 10px 10px 0;">
+    <div class="note_header">
+        <div class="note_title">
+            <div class="note_title">
+                <a>{$note->getName()}</a>
+            </div>
+        </div>
+        <div class="byline">
+            <span><a href="{$note->getOwner()->getURL()}">{$note->getOwner()->getCanonicalName()}</a></span> {$note->getPublicationTime()}
+            <span n:if="$note->getEditTime() > $note->getPublicationTime()">({_edited} {$note->getEditTime()})</span>
+        </div>
+    </div>
+    <div style="margin-left: 6px; width: 535px;">
+        {$note->getText()|noescape}
+    </div>
+</article>
+{/block}

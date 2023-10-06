@@ -1,2 +1,0 @@
-ALTER TABLE `support_names`
-    ADD COLUMN `id` bigint(20) NOT NULL AUTO_INCREMENT UNIQUE FIRST;

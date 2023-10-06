@@ -1,0 +1,22 @@
+{block content}
+    <div class="content">
+        <table>
+            <tbody>
+                <tr>
+                    <td valign="top">
+                        <a href="/app{$app->getId()}">
+                            <img style="max-width: 75px;" src="{$app->getAvatarUrl()}" />
+                        </a>
+                    </td>
+                    <td valign="top" style="width: 100%">
+                        <a href="/app{$app->getId()}">
+                            <b>{$app->getName()}</b>
+                        </a>
+                        <br/>
+                        {$app->getDescription()}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{/block}

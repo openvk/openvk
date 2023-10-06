@@ -1,5 +1,5 @@
 {extends "../@layout.xml"}
-{block title}Изменить фотографию{/block}
+{block title}{_edit_photo}{/block}
 
 {block header}
     <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>

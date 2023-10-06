@@ -149,6 +149,10 @@
 
 "user_banned" = "Unfortunately, we had to block the <b>$1</b> user page.";
 "user_banned_comment" = "Moderator's comment:";
+"verified_page" = "Verified page";
+"user_is_blocked" = "User is blocked";
+"before" = "before";
+"forever" = "forever";
 
 /* Wall */
 
@@ -204,6 +208,7 @@
 "nsfw_warning" = "This post may have NSFW-content";
 "report" = "Report";
 "attach" = "Attach";
+"detach" = "Detach";
 "attach_photo" = "Attach photo";
 "attach_video" = "Attach video";
 "draw_graffiti" = "Draw graffiti";
@@ -215,6 +220,9 @@
 "graffiti" = "Graffiti";
 
 "reply" = "Reply";
+"post_is_ad" = "This post is sponsored.";
+
+"edited_short" = "edited";
 
 /* Friends */
 
@@ -333,13 +341,21 @@
 "search_by_groups" = "Search by groups";
 "search_group_desc" = "Here you can browse through the existing groups and choose a group to suit your needs...";
 
+"group_banned" = "Unfortunately, we had to block the <b>$1</b> group.";
+
 /* Albums */
 
 "create" = "Create";
 "albums" = "Albums";
+"album" = "Album";
+"photos" = "photos";
+"photo" = "Photo";
 "create_album" = "Create album";
 "edit_album" = "Edit album";
+"edit_photo" = "Edit photo";
 "creating_album" = "Creating album";
+"delete_photo" = "Delete photo";
+"sure_deleting_photo" = "Do you really want to delete this picture?";
 "upload_photo" = "Upload photo";
 "photo" = "Photo";
 "upload_button" = "Upload";
@@ -381,6 +397,39 @@
 "upd_f" = "updated her profile picture";
 "upd_g" = "updated group's picture";
 
+"add_photos" = "Add photos";
+"upload_picts" = "Upload photos";
+"end_uploading" = "Finish uploading";
+"photos_successfully_uploaded" = "Photos successfully uploaded";
+"click_to_go_to_album" = "Click here to go to album.";
+"error_uploading_photo" = "Error when uploading photo";
+"too_many_pictures" = "No more than 10 pictures";
+
+"drag_files_here" = "Drag files here";
+"only_images_accepted" = "File \"$1\" is not an image";
+"max_filesize" = "Max filesize is $1 MB";
+
+"uploading_photos_from_computer" = "Uploading photos from Your computer";
+"supported_formats" = "Supported file formats: JPG, PNG and GIF.";
+"max_load_photos" = "You can upload up to 10 photos at a time.";
+"tip" = "Tip";
+"tip_ctrl" = "to select multiple photos at once, hold down the Ctrl key when selecting files in Windows or the CMD key in Mac OS.";
+"album_poster" = "Album poster";
+"select_photo" = "Select photos";
+"upload_new_photo" = "Upload new photo";
+
+"is_x_photos_zero" = "Just zero photos.";
+"is_x_photos_one" = "Just one photo.";
+"is_x_photos_few" = "Just $1 photos.";
+"is_x_photos_many" = "Just $1 photos.";
+"is_x_photos_other" = "Just $1 photos.";
+
+"all_photos" = "All photos";
+"error_uploading_photo" = "Error when uploading photo. Error text: ";
+"too_many_photos" = "Too many photos.";
+
+"photo_x_from_y" = "Photo $1 from $2";
+
 /* Notes */
 
 "notes" = "Notes";
@@ -415,6 +464,8 @@
 
 "notes_closed" = "You can't attach note to post, because only you can see them.<br> You can change it in <a href=\"/settings?act=privacy\">settings</a>.";
 "do_not_attach_note" = "Do not attach note";
+"something" = "Something";
+"supports_xhtml" = "from (X)HTML supported.";
 
 /* Notes: Article Viewer */
 "aw_legacy_ui" = "Legacy interface";
@@ -630,6 +681,9 @@
 "two_factor_authentication_backup_codes_1" = "Backup codes allow you to validate your login when you don't have access to your phone, for example, while traveling.";
 "two_factor_authentication_backup_codes_2" = "You have <b>10 more codes</b>, each code can only be used once. Print them out, put them away in a safe place and use them when you need codes to validate your login.";
 "two_factor_authentication_backup_codes_3" = "You can get new codes if they run out. Only the last created backup codes are valid.";
+"viewing_backup_codes" = "View backup codes";
+"disable_2fa" = "Disable 2FA";
+"viewing" = "View";
 
 /* Sorting */
 
@@ -656,6 +710,16 @@
 "videos_other" = "$1 videos";
 
 "view_video" = "View";
+
+"selecting_video" = "Selecting videos";
+"upload_new_video" = "Upload new video";
+"max_attached_videos" = "Max is 10 videos";
+"max_attached_photos" = "Max is 10 photos";
+"no_videos" = "You don't have uploaded videos.";
+"no_videos_results" = "No results.";
+
+"change_video" = "Change video";
+"unknown_video" = "This video is not supported in your version of OpenVK.";
 
 /* Notifications */
 
@@ -695,6 +759,7 @@
 "nt_mention_in_video" = "in discussion of this video";
 "nt_mention_in_note" = "in discussion of this note";
 "nt_mention_in_topic" = "in the discussion";
+"nt_sent_gift" = "sent you a gift";
 
 /* Time */
 
@@ -889,6 +954,8 @@
 "support_new_title" = "Enter the topic of your ticket";
 "support_new_content" = "Describe the issue or suggestion";
 
+"reports" = "Reports";
+
 "support_rate_good_answer" = "This is good answer";
 "support_rate_bad_answer" = "This is bad answer";
 "support_good_answer_user" = "You left a positive feedback.";
@@ -900,6 +967,26 @@
 "wrong_parameters" = "Invalid request parameters.";
 
 "fast_answers" = "Fast answers";
+
+"ignore_report" = "Ignore report";
+"report_number" = "Report #";
+"list_of_reports" = "List of reports";
+"text_of_the_post" = "Text of the post";
+"today" = "today";
+
+"will_be_watched" = "It will be reviewed by the moderators soon";
+
+"report_question" = "Report?";
+"report_question_text" = "What exactly do you find unacceptable about this material?";
+"report_reason" = "Report reason";
+"reason" = "Reason";
+"going_to_report_app" = "You are about to report this application.";
+"going_to_report_club" = "You are about to report this club.";
+"going_to_report_photo" = "You are about to report this photo.";
+"going_to_report_user" = "You are about to report this user.";
+"going_to_report_video" = "You are about to report this video.";
+"going_to_report_post" = "You are about to report this post.";
+"going_to_report_comment" = "You are about to report this comment.";
 
 "comment" = "Comment";
 "sender" = "Sender";
@@ -914,6 +1001,13 @@
 
 "banned_in_support_1" = "Sorry, <b>$1</b>, but now you can't create tickets.";
 "banned_in_support_2" = "And the reason for this is simple: <b>$1</b>. Unfortunately, this time we had to take away this opportunity from you forever.";
+
+"you_can_close_this_ticket_1" = "If you have no more questions, you can ";
+"you_can_close_this_ticket_2" = "close this ticket";
+"agent_profile_created_1" = "Profile created";
+"agent_profile_created_2" = "Now users see your customized name and avatar instead of the default ones.";
+"agent_profile_edited" = "Profile edited";
+"agent_profile" = "My Agent Card";
 
 /* Invite */
 
@@ -1051,6 +1145,7 @@
 "error_data_too_big" = "Attribute '$1' must be at most $2 $3 long";
 
 "forbidden" = "Access error";
+"unknown_error" = "Unknown error";
 "forbidden_comment" = "This user's privacy settings do not allow you to look at his page.";
 
 "changes_saved" = "Changes saved";
@@ -1103,21 +1198,116 @@
 "post_is_empty_or_too_big" = "The post is empty or too big.";
 "post_is_too_big" = "The post is too big.";
 
+"error_sending_report" = "Failed to make a report...";
+
+"error_when_saving_gift" = "Error when saving gift";
+"error_when_saving_gift_bad_image" = "Gift image is crooked.";
+"error_when_saving_gift_no_image" = "Please, upload gift's image.";
+"video_uploads_disabled" = "Video uploads are disabled by the system administrator.";
+
+"error_when_publishing_comment" = "Error when publishing comment";
+"error_when_publishing_comment_description" = "Image is corrupted, too big or one side is many times larger than the other.";
+"error_comment_empty" = "Comment is empty or too big.";
+"error_comment_too_big" = "Comment is too big.";
+"error_comment_file_too_big" = "Media file is corrupted or too big.";
+
+"comment_is_added" = "Comment has been added";
+"comment_is_added_desc" = "Your comment will appear on page.";
+
+"error_access_denied_short" = "Access denied";
+"error_access_denied" = "You don't have rights to edit this resource";
+"success" = "Success";
+"comment_will_not_appear" = "This comment will no longer appear.";
+
+"error_when_gifting" = "Failed to gift";
+"error_user_not_exists" = "User or pack does not exist.";
+"error_no_rights_gifts" = "Failed to check rights on gift.";
+"error_no_more_gifts" = "You no longer have such gifts.";
+"error_no_money" = "Shout out to a beggar.";
+
+"gift_sent" = "Gift sent";
+"gift_sent_desc" = "You sent a gift to $1 for $2 votes";
+
+"error_on_server_side" = "An error occurred on the server side. Contact your system administrator.";
+"error_no_group_name" = "You did not enter a group name.";
+
+"success_action" = "Action successful";
+"connection_error" = "Connection error";
+"connection_error_desc" = "Failed to connect to telemetry service.";
+
+"error_when_uploading_photo" = "Failed to save photo";
+
+"new_changes_desc" = "New data will appear in your group.";
+"comment_is_changed" = "Admin comment changed";
+"comment_is_deleted" = "Admin comment deleted";
+"comment_is_too_long" = "Comment is too long ($1 symbols instead 36)";
+"x_no_more_admin" = "$1 no longer an administrator.";
+"x_is_admin" = "$1 appointed as an administrator.";
+
+"x_is_now_hidden" = "Now $1 will be shown as a normal subscriber to everyone except other admins";
+"x_is_now_showed" = "Now everyone will know that $1 is an administrator.";
+
+"note_is_deleted" = "Note was deleted";
+"note_x_is_now_deleted" = "Note \"$1\" was successfully deleted.";
+"new_data_accepted" = "New data accepted.";
+
+"album_is_deleted" = "Album was deleted";
+"album_x_is_deleted" = "Album $1 was successfully deleted.";
+
+"error_adding_to_deleted" = "Failed to save photo to <b>DELETED</b>.";
+"error_adding_to_x" = "Failed to save photo to <b>$1</b>.";
+"no_photo" = "No photo";
+
+"select_file" = "Select file";
+"new_description_will_appear" = "The updated description will appear on the photo page..";
+"photo_is_deleted" = "Photo was deleted";
+"photo_is_deleted_desc" = "This photo has been successfully deleted.";
+
+"no_video" = "No video";
+"no_video_desc" = "Select a file or provide a link.";
+"error_occured" = "Error occured";
+"error_video_damaged_file" = "The file is corrupted or does not contain video.";
+"error_video_incorrect_link" = "Perhaps the link is incorrect.";
+"error_video_no_title" = "Video can't be published without title.";
+
+"new_data_video" = "The updated description will appear on the video page.";
+"error_deleting_video" = "Failed to delete video";
+"login_please" = "You are not signed in.";
+"invalid_code" = "Failed to verify phone number: Invalid code.";
+
+"error_max_pinned_clubs" = "Maximum count of the pinned groups is 10.";
+"error_viewing_subs" = "You cannot view the full list of subscriptions $1.";
+"error_status_too_long" = "Status is too long ($1 instead 255)";
+"death" = "Death...";
+"nehay" = "Live long!";
+"user_successfully_banned" = "User was successfully banned.";
+
+"content_is_deleted" = "The content has been removed and the user has received a warning.";
+"report_is_ignored" = "Report was ignored.";
+"group_owner_is_banned" = "Group's owner was successfully banned";
+"group_is_banned" = "Group was successfully banned";
+
+"description_too_long" = "Description is too long.";
+
 /* Admin actions */
 
 "login_as" = "Login as $1";
 "manage_user_action" = "Manage user";
 "manage_group_action" = "Manage group";
 "ban_user_action" = "Ban user";
+"blocks" = "Blocks";
+"last_actions" = "Last actions";
 "unban_user_action" = "Unban user";
 "warn_user_action" = "Warn user";
 "ban_in_support_user_action" = "Ban in support";
 "unban_in_support_user_action" = "Unban in support";
+"changes_history" = "Editing history";
 
 /* Admin panel */
 
 "admin" = "Admin panel";
 
+"sandbox_for_developers" = "Sandbox for developers";
 "admin_ownerid" = "Owner ID";
 "admin_author" = "Author";
 "admin_name" = "Name";
@@ -1203,6 +1393,42 @@
 "admin_banned_link_not_specified" = "The link is not specified";
 "admin_banned_link_not_found" = "Link not found";
 
+"admin_gift_moved_successfully" = "Gift moved successfully";
+"admin_gift_moved_to_recycle" = "This gift will now be in <b>Recycle Bin</b>.";
+
+"logs" = "Logs";
+"logs_anything" = "Anything";
+"logs_adding" = "Creation";
+"logs_editing" = "Editing";
+"logs_removing" = "Deletion";
+"logs_restoring" = "Restoring";
+"logs_added" = "created";
+"logs_edited" = "edited";
+"logs_removed" = "removed";
+"logs_restored" = "restored";
+"logs_id_post" = "ID записи";
+"logs_id_object" = "ID объекта";
+"logs_uuid_user" = "UUID пользователя";
+"logs_change_type" = "Тип изменения";
+"logs_change_object" = "Тип объекта";
+
+"logs_user" = "User";
+"logs_object" = "Object";
+"logs_type" = "Type";
+"logs_changes" = "Changes";
+"logs_time" = "Time";
+
+"bans_history" = "Blocks history";
+"bans_history_blocked" = "Blocked";
+"bans_history_initiator" = "Initiator";
+"bans_history_start" = "Start";
+"bans_history_end" = "End";
+"bans_history_time" = "Time";
+"bans_history_reason" = "Reason";
+"bans_history_start" = "Start";
+"bans_history_removed" = "Removed";
+"bans_history_active" = "Active block";
+
 /* Paginator (deprecated) */
 
 "paginator_back" = "Back";
@@ -1249,6 +1475,8 @@
 
 "warning" = "Warning";
 "question_confirm" = "This action can't be undone. Do you really wanna do it?";
+"confirm_m" = "Confirm";
+"action_successfully" = "Success";
 
 /* User alerts */
 
@@ -1262,12 +1490,16 @@
 
 /* Away */
 
+"transition_is_blocked" = "Transition is blocked";
+"caution" = "Caution";
 "url_is_banned" = "Link is not allowed";
 "url_is_banned_comment" = "The <b>$1</b> administration recommends not to follow this link.";
 "url_is_banned_comment_r" = "The <b>$1</b> administration recommends not to follow this link.<br><br>The reason is: <b>$2</b>";
 "url_is_banned_default_reason" = "The link you are trying to open may lead you to a site that was created for the purpose of deceiving users with the intention of gaining profit.";
 "url_is_banned_title" = "Link to a suspicious site";
 "url_is_banned_proceed" = "Follow the link";
+
+"recently" = "Recently";
 
 /* Helpdesk */
 "helpdesk" = "Support";
@@ -1524,6 +1756,41 @@
 
 "no_results" = "No results";
 
+/* BadBrowser */
+
+"deprecated_browser" = "Deprecated browser";
+"deprecated_browser_description" = "To view this content, you will need Firefox ESR 52+ or an equivalent World Wide Web navigator. Sorry about that.";
+
+/* Statistics */
+
+"coverage" = "Coverage";
+"coverage_this_week" = "This graph shows the coverage over the last 7 days.";
+"views" = "Views";
+"views_this_week" = "This graph shows the views of community posts over the last 7 days.";
+
+"full_coverage" = "Full coverage";
+"all_views" = "All views";
+
+"subs_coverage" = "Subscribers coverage";
+"subs_views" = "Subscribers views";
+
+"viral_coverage" = "Viral coverage";
+"viral_views" = "Viral views";
+
+/* Sudo */
+
+"you_entered_as" = "You logged as";
+"please_rights" = "please respect the right to privacy of other people's correspondence and do not abuse user swapping.";
+"click_on" = "Click";
+"there" = "there";
+"to_leave" = "to logout";
+
+/* Phone number */
+
+"verify_phone_number" = "Confirm phone number";
+"we_sended_first" = "We sended SMS with code on number";
+"we_sended_end" = "enter it here";
+
 /* Mobile */
 "mobile_friends" = "Friends";
 "mobile_photos" = "Photos";
@@ -1539,3 +1806,40 @@
 "mobile_like" = "Like";
 "mobile_user_info_hide" = "Hide";
 "mobile_user_info_show_details" = "Show details";
+
+/* Moderation */
+
+"section" = "Section";
+"template_ban" = "Ban by template";
+"active_templates" = "Active templates";
+"users_reports" = "Users reports";
+"substring" = "Substring";
+"n_user" = "User";
+"time_before" = "Time earlier than";
+"time_after" = "Time later than";
+"where_for_search" = "WHERE for search by section";
+"block_params" = "Block params";
+"only_rollback" = "Only rollback";
+"only_block" = "Only blocking";
+"rollback_and_block" = "Rollback and blocking";
+"subm" = "Apply";
+
+"select_section_for_start" = "Choose a section to get started";
+"results_will_be_there" = "Search results will be displayed here";
+"search_results" = "Search results";
+"cnt" = "pcs";
+
+"link_to_page" = "Link on page";
+"or_subnet" = "or subnet";
+"error_when_searching" = "Error while executing request";
+"no_found" = "No found";
+"operation_successfully" = "Operation completed successfully";
+
+"unknown_error" = "Unknown error";
+"templates" = "Template";
+"type" = "Type";
+"count" = "Count";
+"time" = "Time";
+
+"roll_back" = "rollback";
+"roll_backed" = "rollbacked";

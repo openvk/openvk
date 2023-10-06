@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Presenters;
-use openvk\Web\Models\Entities\{Club, Photo, Album};
+use openvk\Web\Models\Entities\{Club, Photo, Album, User};
 use openvk\Web\Models\Repositories\{Photos, Albums, Users, Clubs};
 use Nette\InvalidStateException as ISE;
 
@@ -27,7 +27,7 @@ final class PhotosPresenter extends OpenVKPresenter
             if(!$user) $this->notFound();
             if (!$user->getPrivacyPermission('photos.read', $this->user->identity ?? NULL))
                 $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
-            $this->template->albums  = $this->albums->getUserAlbums($user, $this->queryParam("p") ?? 1);
+            $this->template->albums  = $this->albums->getUserAlbums($user, (int)($this->queryParam("p") ?? 1));
             $this->template->count   = $this->albums->getUserAlbumsCount($user);
             $this->template->owner   = $user;
             $this->template->canEdit = false;
@@ -36,7 +36,7 @@ final class PhotosPresenter extends OpenVKPresenter
         } else {
             $club = (new Clubs)->get(abs($owner));
             if(!$club) $this->notFound();
-            $this->template->albums  = $this->albums->getClubAlbums($club, $this->queryParam("p") ?? 1);
+            $this->template->albums  = $this->albums->getClubAlbums($club, (int)($this->queryParam("p") ?? 1));
             $this->template->count   = $this->albums->getClubAlbumsCount($club);
             $this->template->owner   = $club;
             $this->template->canEdit = false;
@@ -46,7 +46,7 @@ final class PhotosPresenter extends OpenVKPresenter
         
         $this->template->paginatorConf = (object) [
             "count"   => $this->template->count,
-            "page"    => $this->queryParam("p") ?? 1,
+            "page"    => (int)($this->queryParam("p") ?? 1),
             "amount"  => NULL,
             "perPage" => OPENVK_DEFAULT_PER_PAGE,
         ];
@@ -66,7 +66,7 @@ final class PhotosPresenter extends OpenVKPresenter
         }
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
-            if(empty($this->postParam("name")))
+            if(empty($this->postParam("name")) || mb_strlen(trim($this->postParam("name"))) === 0)
                 $this->flashFail("err", tr("error"), tr("error_segmentation")); 
             else if(strlen($this->postParam("name")) > 36)
                 $this->flashFail("err", tr("error"), tr("error_data_too_big", "name", 36, "bytes")); 
@@ -94,19 +94,19 @@ final class PhotosPresenter extends OpenVKPresenter
         if(!$album) $this->notFound();
         if($album->getPrettyId() !== $owner . "_" . $id || $album->isDeleted()) $this->notFound();
         if(is_null($this->user) || !$album->canBeModifiedBy($this->user->identity) || $album->isDeleted())
-            $this->flashFail("err", "Ошибка доступа", "Недостаточно прав для модификации данного ресурса.");
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
         $this->template->album = $album;
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             if(strlen($this->postParam("name")) > 36)
                 $this->flashFail("err", tr("error"), tr("error_data_too_big", "name", 36, "bytes"));
             
-            $album->setName(empty($this->postParam("name")) ? $album->getName() : $this->postParam("name"));
+            $album->setName((empty($this->postParam("name")) || mb_strlen(trim($this->postParam("name"))) === 0) ? $album->getName() : $this->postParam("name"));
             $album->setDescription(empty($this->postParam("desc")) ? NULL : $this->postParam("desc"));
             $album->setEdited(time());
             $album->save();
             
-            $this->flash("succ", "Изменения сохранены", "Новые данные приняты.");
+            $this->flash("succ", tr("changes_saved"), tr("new_data_accepted"));
         }
     }
     
@@ -120,13 +120,13 @@ final class PhotosPresenter extends OpenVKPresenter
         if(!$album) $this->notFound();
         if($album->getPrettyId() !== $owner . "_" . $id || $album->isDeleted()) $this->notFound();
         if(is_null($this->user) || !$album->canBeModifiedBy($this->user->identity))
-            $this->flashFail("err", "Ошибка доступа", "Недостаточно прав для модификации данного ресурса.");
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
         
         $name  = $album->getName();
         $owner = $album->getOwner();
         $album->delete();
 
-        $this->flash("succ", "Альбом удалён", "Альбом $name был успешно удалён.");
+        $this->flash("succ", tr("album_is_deleted"), tr("album_x_is_deleted", $name));
         $this->redirect("/albums" . ($owner instanceof Club ? "-" : "") . $owner->getId());
     }
     
@@ -147,7 +147,7 @@ final class PhotosPresenter extends OpenVKPresenter
         $this->template->photos = iterator_to_array( $album->getPhotos( (int) ($this->queryParam("p") ?? 1), 20) );
         $this->template->paginatorConf = (object) [
             "count"   => $album->getPhotosCount(),
-            "page"    => $this->queryParam("p") ?? 1,
+            "page"    => (int)($this->queryParam("p") ?? 1),
             "amount"  => sizeof($this->template->photos),
             "perPage" => 20,
             "atBottom" => true
@@ -205,13 +205,13 @@ final class PhotosPresenter extends OpenVKPresenter
         $photo = $this->photos->getByOwnerAndVID($ownerId, $photoId);
         if(!$photo) $this->notFound();
         if(is_null($this->user) || $this->user->id != $ownerId)
-            $this->flashFail("err", "Ошибка доступа", "Недостаточно прав для модификации данного ресурса.");
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $photo->setDescription(empty($this->postParam("desc")) ? NULL : $this->postParam("desc"));
             $photo->save();
             
-            $this->flash("succ", "Изменения сохранены", "Обновлённое описание появится на странице с фоткой.");
+            $this->flash("succ", tr("changes_saved"), tr("new_description_will_appear"));
             $this->redirect("/photo" . $photo->getPrettyId());
         } 
         
@@ -221,39 +221,82 @@ final class PhotosPresenter extends OpenVKPresenter
     function renderUploadPhoto(): void
     {
         $this->assertUserLoggedIn();
-        $this->willExecuteWriteAction();
-        
-        if(is_null($this->queryParam("album")))
-            $this->flashFail("err", "Неизвестная ошибка", "Не удалось сохранить фотографию в <b>DELETED</b>.");
-        
-        [$owner, $id] = explode("_", $this->queryParam("album"));
-        $album = $this->albums->get((int) $id);
+        $this->willExecuteWriteAction(true);
+
+        if(is_null($this->queryParam("album"))) {
+            $album = $this->albums->getUserWallAlbum($this->user->identity);
+        } else {
+            [$owner, $id] = explode("_", $this->queryParam("album"));
+            $album = $this->albums->get((int) $id);
+        }
+
         if(!$album)
-            $this->flashFail("err", "Неизвестная ошибка", "Не удалось сохранить фотографию в <b>DELETED</b>.");
-        if(is_null($this->user) || !$album->canBeModifiedBy($this->user->identity))
-            $this->flashFail("err", "Ошибка доступа", "Недостаточно прав для модификации данного ресурса.");
+            $this->flashFail("err", tr("error"), tr("error_adding_to_deleted"), 500, true);
+
+        # Для быстрой загрузки фоток из пикера фотографий нужен альбом, но юзер не может загружать фото
+        # в системные альбомы, так что так.
+        if(is_null($this->user) || !is_null($this->queryParam("album")) && !$album->canBeModifiedBy($this->user->identity))
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"), 500, true);
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
-            if(!isset($_FILES["blob"]))
-                $this->flashFail("err", "Нету фотографии", "Выберите файл.");
-            
-            try {
-                $photo = new Photo;
-                $photo->setOwner($this->user->id);
-                $photo->setDescription($this->postParam("desc"));
-                $photo->setFile($_FILES["blob"]);
-                $photo->setCreated(time());
-                $photo->save();
-            } catch(ISE $ex) {
-                $name = $album->getName();
-                $this->flashFail("err", "Неизвестная ошибка", "Не удалось сохранить фотографию в <b>$name</b>.");
-            }
-            
-            $album->addPhoto($photo);
-            $album->setEdited(time());
-            $album->save();
+            if($this->queryParam("act") == "finish") {
+                $result = json_decode($this->postParam("photos"), true);
+                
+                foreach($result as $photoId => $description) {
+                    $phot = $this->photos->get($photoId);
 
-            $this->redirect("/photo" . $photo->getPrettyId() . "?from=album" . $album->getId());
+                    if(!$phot || $phot->isDeleted() || $phot->getOwner()->getId() != $this->user->id)
+                        continue;
+                    
+                    if(iconv_strlen($description) > 255)
+                        $this->flashFail("err", tr("error"), tr("description_too_long"), 500, true);
+
+                    $phot->setDescription($description);
+                    $phot->save();
+
+                    $album = $phot->getAlbum();
+                }
+
+                $this->returnJson(["success" => true,
+                                    "album"  => $album->getId(),
+                                    "owner"  => $album->getOwner() instanceof User ? $album->getOwner()->getId() : $album->getOwner()->getId() * -1]);
+            }
+
+            if(!isset($_FILES))
+                $this->flashFail("err", tr("no_photo"), tr("select_file"), 500, true);
+            
+            $photos = [];
+            if((int)$this->postParam("count") > 10)
+                $this->flashFail("err", tr("no_photo"), "ты еблан", 500, true);
+
+            for($i = 0; $i < $this->postParam("count"); $i++) {
+                try {
+                    $photo = new Photo;
+                    $photo->setOwner($this->user->id);
+                    $photo->setDescription("");
+                    $photo->setFile($_FILES["photo_".$i]);
+                    $photo->setCreated(time());
+                    $photo->save();
+
+                    $photos[] = [
+                        "url"   => $photo->getURLBySizeId("tiny"),
+                        "id"    => $photo->getId(),
+                        "vid"   => $photo->getVirtualId(),
+                        "owner" => $photo->getOwner()->getId(),
+                        "link"  => $photo->getURL()
+                    ];
+                } catch(ISE $ex) {
+                    $name = $album->getName();
+                    $this->flashFail("err", "Неизвестная ошибка", "Не удалось сохранить фотографию в $name.", 500, true);
+                }
+
+                $album->addPhoto($photo);
+                $album->setEdited(time());
+                $album->save();
+            }
+
+            $this->returnJson(["success" => true,
+                "photos" => $photos]);
         } else {
             $this->template->album = $album;
         }
@@ -269,7 +312,7 @@ final class PhotosPresenter extends OpenVKPresenter
         if(!$album || !$photo) $this->notFound();
         if(!$album->hasPhoto($photo)) $this->notFound();
         if(is_null($this->user) || !$album->canBeModifiedBy($this->user->identity))
-            $this->flashFail("err", "Ошибка доступа", "Недостаточно прав для модификации данного ресурса.");
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $this->assertNoCSRF();
@@ -277,7 +320,7 @@ final class PhotosPresenter extends OpenVKPresenter
             $album->setEdited(time());
             $album->save();
             
-            $this->flash("succ", "Фотография удалена", "Эта фотография была успешно удалена.");
+            $this->flash("succ", tr("photo_is_deleted"), tr("photo_is_deleted_desc"));
             $this->redirect("/album" . $album->getPrettyId());
         }
     }
@@ -285,18 +328,23 @@ final class PhotosPresenter extends OpenVKPresenter
     function renderDeletePhoto(int $ownerId, int $photoId): void
     {
         $this->assertUserLoggedIn();
-        $this->willExecuteWriteAction();
+        $this->willExecuteWriteAction($_SERVER["REQUEST_METHOD"] === "POST");
         $this->assertNoCSRF();
         
         $photo = $this->photos->getByOwnerAndVID($ownerId, $photoId);
         if(!$photo) $this->notFound();
         if(is_null($this->user) || $this->user->id != $ownerId)
-            $this->flashFail("err", "Ошибка доступа", "Недостаточно прав для модификации данного ресурса.");
-        
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
+
+        $redirect = $photo->getAlbum()->getOwner() instanceof User ? "/id0" : "/club" . $ownerId;
+
         $photo->isolate();
         $photo->delete();
         
-        $this->flash("succ", "Фотография удалена", "Эта фотография была успешно удалена.");
-        $this->redirect("/id0");
+        if($_SERVER["REQUEST_METHOD"] === "POST")
+            $this->returnJson(["success" => true]);
+
+        $this->flash("succ", tr("photo_is_deleted"), tr("photo_is_deleted_desc"));
+        $this->redirect($redirect);
     }
 }

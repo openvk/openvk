@@ -1,0 +1,9 @@
+<div n:attr="id => ($mode === 'form' ? 'activetabs' : 'ki')" class="tab">
+    <a n:attr="id => ($mode === 'form' ? 'act_tab_a' : 'ki')" href="/noSpam">{_template_ban}</a>
+</div>
+<div n:attr="id => ($mode === 'templates' ? 'activetabs' : 'ki')" class="tab">
+    <a n:attr="id => ($mode === 'templates' ? 'act_tab_a' : 'ki')" href="/noSpam?act=templates">{_active_templates}</a>
+</div>
+<div n:attr="id => ($mode === 'reports' ? 'activetabs' : 'ki')" class="tab">
+    <a n:attr="id => ($mode === 'reports' ? 'act_tab_a' : 'ki')" href="/scumfeed">{_users_reports}</a>
+</div>

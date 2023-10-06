@@ -44,9 +44,9 @@ class Users
         return $alias->getUser();
     }
     
-    function getByChandlerUser(ChandlerUser $user): ?User
+    function getByChandlerUser(?ChandlerUser $user): ?User
     {
-        return $this->toUser($this->users->where("user", $user->getId())->fetch());
+        return $user ? $this->toUser($this->users->where("user", $user->getId())->fetch()) : NULL;
     }
     
     function find(string $query, array $pars = [], string $sort = "id DESC"): Util\EntityStream

@@ -3,6 +3,7 @@ Function.noop = () => {};
 function MessageBox(title, body, buttons, callbacks) {
     if(u(".ovk-diag-cont").length > 0) return false;
     
+    document.querySelector("html").style.overflowY = "hidden"
     let dialog = u(
     `<div class="ovk-diag-cont">
         <div class="ovk-diag">
@@ -19,7 +20,11 @@ function MessageBox(title, body, buttons, callbacks) {
         
         button.on("click", function(e) {
             let __closeDialog = () => {
-                u("body").removeClass("dimmed");
+                if(document.querySelector(".ovk-photo-view-dimmer") == null) {
+                    u("body").removeClass("dimmed");
+                    document.querySelector("html").style.overflowY = "scroll"
+                }
+
                 u(".ovk-diag-cont").remove();
             };
             

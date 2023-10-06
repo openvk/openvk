@@ -190,13 +190,13 @@
 
                 <script>
                     function viewBackupCodes() {
-                        MessageBox("Просмотр резервных кодов", `
+                        MessageBox(tr("viewing_backup_codes"), `
                             <form id="back-codes-view-form" method="post" action="/settings/2fa">
                                 <label for="password">Пароль</label>
                                 <input type="password" id="password" name="password" required />
                                 <input type="hidden" name="hash" value={$csrfToken} />
                             </form>
-                            `, ["Просмотреть", "Отменить"], [
+                            `, [tr("viewing"), tr("cancel")], [
                             () => {
                                 document.querySelector("#back-codes-view-form").submit();
                             }, Function.noop
@@ -204,13 +204,13 @@
                     }
 
                     function disableTwoFactorAuth() {
-                        MessageBox("Отключить 2FA", `
+                        MessageBox(tr("disable_2fa"), `
                             <form id="two-factor-auth-disable-form" method="post" action="/settings/2fa/disable">
                                 <label for="password">Пароль</label>
                                 <input type="password" id="password" name="password" required />
                                 <input type="hidden" name="hash" value={$csrfToken} />
                             </form>
-                            `, ["Отключить", "Отменить"], [
+                            `, [tr("disable"), tr("cancel")], [
                             () => {
                                 document.querySelector("#two-factor-auth-disable-form").submit();
                             }, Function.noop
@@ -649,6 +649,16 @@
                         </td>
                         <td>
                             <span class="nobold">{_my_feed}</span>
+                        </td>
+                    </tr><tr>
+                        <td width="120" valign="top" align="right" align="right">
+                            <input
+                                  n:attr="checked => $user->getLeftMenuItemStatus('apps')"
+                                  type="checkbox"
+                                  name="menu_aplikoj" />
+                        </td>
+                        <td>
+                            <span class="nobold">{_my_apps}</span>
                         </td>
                     </tr><tr n:if="sizeof(OPENVK_ROOT_CONF['openvk']['preferences']['menu']['links']) > 0">
                         <td width="120" valign="top" align="right" align="right">

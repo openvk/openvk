@@ -344,9 +344,9 @@
         <form method="POST" enctype="multipart/form-data">
             <div id="backdropEditor">
                 <div id="backdropFilePicker">
-                    <label class="button" style="">Обзор<input type="file" accept="image/*" name="backdrop1" style="display: none;"></label>
+                    <label class="button" style="">{_browse}<input type="file" accept="image/*" name="backdrop1" style="display: none;"></label>
                     <div id="spacer" style="width: 366px;"></div>
-                    <label class="button" style="">Обзор<input type="file" accept="image/*" name="backdrop2" style="display: none;"></label>
+                    <label class="button" style="">{_browse}<input type="file" accept="image/*" name="backdrop2" style="display: none;"></label>
                     <div id="spacer" style="width: 366px;"></div>
                 </div>
             </div>

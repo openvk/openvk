@@ -1,0 +1,26 @@
+{block content}
+<div class="content">
+    <center style="margin-bottom: 8pt;">
+        <img src="{$photo->getURLBySizeId('large')}" style="max-width: 80%; max-height: 60vh;" />
+    </center>
+    <table>
+        <tbody>
+            <tr>
+                <td valign="top">
+                </td>
+                <td valign="top" style="width: 100%">
+                    <div>
+                        <h4>{_information}</h4>
+                        <span style="color: grey;">{_info_description}:</span>
+                        {$photo->getDescription() ?? "(" . tr("none") . ")"}<br/>
+                        <span style="color: grey;">{_info_uploaded_by}:</span>
+                        <a href="{$photo->getOwner()->getURL()}">{$photo->getOwner()->getFullName()}</a><br/>
+                        <span style="color: grey;">{_info_upload_date}:</span>
+                        {$photo->getPublicationTime()}
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+{/block}

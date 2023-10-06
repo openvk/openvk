@@ -12,16 +12,24 @@
                 {include size, x => $dat}
             {/ifset}
 
+            {ifset before_content}
+                {include before_content, x => $dat}
+            {/ifset}
+
             {ifset specpage}
                 {include specpage, x => $dat}
             {else}
                 <div class="container_gray">
                     {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
 
+                    {ifset top}
+                        {include top, x => $dat}
+                    {/ifset}
+
                     {if sizeof($data) > 0}
                         <div class="content" n:foreach="$data as $dat">
                             <table>
-                                <tbody>
+                                <tbody n:attr="id => is_null($table_body_id) ? NULL : $table_body_id">
                                     <tr>
                                         <td valign="top">
                                             <a href="{include link, x => $dat}">

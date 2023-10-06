@@ -1,7 +1,7 @@
 {var $gift   = $notification->getModel(0)}
 {var $sender = $notification->getModel(1)}
 
-<a href="{$sender->getURL()}"><b>{$sender->getCanonicalName()}</b></a> отправил вам подарок.
+<a href="{$sender->getURL()}"><b>{$sender->getCanonicalName()}</b></a> {_nt_sent_gift}.
 <div class="nobold">
     {$notification->getDateTime()}
 </div>

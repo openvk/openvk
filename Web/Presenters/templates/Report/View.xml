@@ -1,0 +1,37 @@
+{extends "../@layout.xml"}
+
+{block title}{$report->getReason()}{/block}
+
+{block header}
+    <a href="/admin/support/reports">{_list_of_reports}</a>
+    »
+    {_report_number}{$report->getId()}
+{/block}
+
+{block content}
+    <div class="tabs">{include "../NoSpam/Tabs.xml", mode => "reports"}</div>
+    <br />
+    <p>
+        <b>{$report->getReportAuthor()->getCanonicalName()}</b> пожаловался на <b>{$report->getContentName()}</b>
+        <br />
+        <b>{_comment}:</b> {$report->getReason()}
+    </p>
+    {include "ViewContent.xml", type => $report->getContentType(), object => $report->getContentObject()}
+    <center>
+    <form action="/admin/reportAction{$report->getId()}" method="post">
+        <center>
+            <form n:if="$report->getContentType() != 'group'" action="/admin/reportAction{$report->getId()}" method="post">
+                <input type="hidden" name="hash" value="{$csrfToken}"/>
+                <input type="submit" name="ban" value="{_ban_user_action}" class="button">
+                <input n:if="$report->getContentType() !== 'user'" type="submit" name="delete" value="{_delete}" class="button">
+                <input type="submit" name="ignore" value="{_ignore_report}" class="button">
+            </form>
+            <form n:if="$report->getContentType() == 'group'" action="/admin/reportAction{$report->getId()}" method="post">
+                <input type="hidden" name="hash" value="{$csrfToken}"/>
+                <input type="submit" name="banClubOwner" value="Заблокировать создателя" class="button">
+                <input type="submit" name="banClub" value="Заблокировать группу" class="button">
+                <input type="submit" name="ignore" value="{_ignore_report}" class="button">
+            </form>
+        </center>
+    </form>
+{/block}

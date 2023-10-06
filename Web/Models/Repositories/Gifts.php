@@ -42,4 +42,10 @@ class Gifts
         foreach($cats as $cat)
             yield new GiftCategory($cat);
     }
+
+    function getCategoriesCount(): int
+    {
+        $cats  = $this->cats->where("deleted", false);
+        return $cats->count();
+    }
 }

@@ -29,6 +29,10 @@ a {
     cursor: pointer;
 }
 
+.linkunderline:hover {
+    text-decoration: underline;
+}
+
 p {
     margin: 5px 0;
 }
@@ -671,6 +675,7 @@ input[type~="phone"],
 input[type="search"],
 input[type~="search"],
 input[type~="date"],
+input[type~="datetime-local"],
 select {
     border: 1px solid #C0CAD5;
     padding: 3px;
@@ -739,8 +744,12 @@ h4 {
     line-height: 130%;
 }
 
-.post-content .attachments_b {
+.post-content .attachments:first-of-type {
     margin-top: 8px;
+}
+
+.post-content .attachments_m .attachment {
+    width: 98%;
 }
 
 .attachment .post {
@@ -750,6 +759,12 @@ h4 {
 .post-content .media {
     max-width: 100%;
     image-rendering: -webkit-optimize-contrast;
+}
+
+.post-content .media_makima {
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    object-fit: cover;
 }
 
 .post-signature {
@@ -1461,6 +1476,12 @@ body.scrolled .toTop:hover {
     display: none;
 }
 
+.post-has-videos {
+    margin-top: 11px;
+    margin-left: 3px;
+    color: #3c3c3c;
+}
+
 .post-upload::before, .post-has-poll::before, .post-has-note::before {
     content: " ";
     width: 8px;
@@ -1470,6 +1491,28 @@ body.scrolled .toTop:hover {
     background-color: #4f4f4f;
     margin: 3px;
     margin-left: 2px;
+}
+
+.post-has-video {
+    padding-bottom: 4px;
+    cursor: pointer;
+}
+
+.post-has-video:hover span {
+    text-decoration: underline;
+}
+
+.post-has-video::before {
+    content: " ";
+    width: 14px;
+    height: 15px;
+    display: inline-block;
+    vertical-align: bottom;
+    background-image: url("/assets/packages/static/openvk/img/video.png");
+    background-repeat: no-repeat;
+    margin: 3px;
+    margin-left: 2px;
+    margin-bottom: -1px;
 }
 
 .post-opts {
@@ -2246,6 +2289,124 @@ a.poll-retract-vote {
     border-radius: 1px;
 }
 
+.progress {
+    border: 1px solid #eee;
+    height: 15px;
+    background: linear-gradient(to bottom, #fefefe, #fafafa);
+}
+
+.progress .progress-bar {
+    background: url('progress.png');
+    background-repeat: repeat-x;
+    height: 15px;
+    animation-name: progress;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+@keyframes progress {
+    from {
+        background-position: 0;
+    }
+
+    to {
+        background-position: 20px;
+    }
+}
+
+.upload {
+    margin-top: 8px;
+}
+
+.upload .upload-item {
+    width: 75px;
+    height: 60px;
+    overflow: hidden;
+    display: inline-block;
+    margin-right: 3px;
+}
+
+.upload-item .upload-delete {
+    position: absolute;
+    background: rgba(0,0,0,0.5);
+    padding: 2px 5px;
+    text-decoration: none;
+    color: #fff;
+    font-size: 11px;
+    margin-left: 57px; /* мне лень переделывать :DDDD */
+    opacity: 0;
+    transition: 0.25s;
+}
+
+.upload-item:hover > .upload-delete {
+    opacity: 1;
+}
+
+.upload-item img {
+    width: 100%;
+    max-height: 60px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+
+/* https://imgur.com/a/ihB3JZ4 */
+
+.ovk-photo-view-dimmer {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+    padding-bottom: 20px;
+    z-index: 300;
+}
+
+.ovk-photo-view {
+    position: relative;
+    z-index: 999;
+    background: #fff;
+    width: 610px;
+    padding: 20px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    box-shadow: 0px 0px 3px 1px #222;
+    margin: 15px auto 0 auto;
+}
+
+.ovk-photo-details {
+    overflow: auto;
+}
+
+.photo_com_title {
+	font-weight: bold;
+	padding-bottom: 20px;
+}
+
+.photo_com_title div {
+	float: right;
+	font-weight: normal;
+}
+
+.ovk-photo-slide-left {
+    left: 0;
+    width: 35%;
+    height: 100%;
+    max-height: 60vh;
+    position: absolute;
+    cursor: pointer;
+}
+
+.ovk-photo-slide-right {
+    right: 0;
+    width: 35%;
+    height: 100%;
+    max-height: 60vh;
+    position: absolute;
+    cursor: pointer;
+}
+
 .client_app > img {
 	top: 3px;
 	position: relative;
@@ -2705,4 +2866,120 @@ body.article .floating_sidebar, body.article .page_content {
 .sourceDiv span {
     color:grey;
     font-size: 11px;
+}
+
+.topGrayBlock {
+    background: #F0F0F0;
+    height: 37px;
+    border-bottom: 1px solid #C7C7C7;
+}
+
+.edited {
+    color: #9b9b9b;
+}
+
+.uploadedImage img {
+    max-height: 76px;
+    object-fit: cover;
+}
+
+.lagged {
+    filter: opacity(0.5);
+    cursor: progress;
+    user-select: none;
+}
+
+.editMenu.loading {
+    filter: opacity(0.5);
+    cursor: progress;
+    user-select: none;
+}
+
+.editMenu.loading * {
+    pointer-events: none;
+}
+
+.lagged * {
+    pointer-events: none;
+}
+
+.button.dragged {
+    background: #c4c4c4 !important;
+    border-color: #c4c4c4 !important;
+    color: black !important;
+}
+
+.whiteBox {
+    background: white;
+    width: 421px;
+    margin-left: auto;
+    margin-right: auto;
+    border: 1px solid #E8E8E8;
+    margin-top: 7%;
+    height: 231px;
+}
+
+.boxContent {
+    padding: 24px 38px;
+}
+
+.blueList {
+    list-style-type: none;
+}
+
+.blueList li {
+    color: black;
+    font-size: 11px;
+    padding-top: 7px;
+}
+
+.blueList li::before {
+    content: " ";
+    width: 5px;
+    height: 5px;
+    display: inline-block;
+    vertical-align: bottom;
+    background-color: #73889C;
+    margin: 3px;
+    margin-left: 2px;
+    margin-right: 7px;
+}
+
+.insertedPhoto {
+    background: white;
+    border: 1px solid #E8E7EA;
+    padding: 10px;
+    height: 100px;
+    margin-top: 6px;
+}
+
+.uploadedImage {
+    float: right;
+    display: flex;
+    flex-direction: column;
+}
+
+.uploadedImageDescription {
+    width: 449px;
+}
+
+.uploadedImageDescription textarea {
+    width: 84%;
+    height: 86px;
+}
+
+.smallFrame {
+    border: 1px solid #E1E3E5;
+    background: #F0F0F0;
+    height: 33px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.smallFrame .smallBtn {
+    margin-top: 10px;
+}
+
+.smallFrame:hover {
+    background: #E9F0F1 !important;
 }

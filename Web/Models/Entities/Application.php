@@ -306,11 +306,14 @@ class Application extends RowModel
     function delete(bool $softly = true): void
     {
         if($softly)
-            throw new \UnexpectedValueException("Can't delete apps softly.");
+            throw new \UnexpectedValueException("Can't delete apps softly."); // why
     
         $cx = DatabaseConnection::i()->getContext();
         $cx->table("app_users")->where("app", $this->getId())->delete();
         
         parent::delete(false);
     }
+
+    function getPublicationTime(): string
+    { return tr("recently"); }
 }

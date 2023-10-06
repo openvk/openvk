@@ -10,8 +10,19 @@
         <img src="/assets/packages/static/openvk/img/oof.apng" alt="{_banned_alt}" style="width: 20%;" />
     </center>
     <p>
-        {tr("banned_1", htmlentities($thisUser->getCanonicalName()))|noescape}<br/>
-        {tr("banned_2", htmlentities($thisUser->getBanReason()))|noescape}
+        {var $ban = $thisUser->getBanReason("banned")}
+        {if is_string($ban)}
+            {tr("banned_1", htmlentities($thisUser->getCanonicalName()))|noescape}<br/>
+            {tr("banned_2", htmlentities($thisUser->getBanReason()))|noescape}
+        {else}
+            {tr("banned_1", htmlentities($thisUser->getCanonicalName()))|noescape}
+            <div>
+                Эта страница была заморожена {$ban[0]|noescape}
+                {if $ban[1] !== "app"}
+                    {include "Report/ViewContent.xml", type => $ban[1], object => $ban[2]}
+                {/if}
+            </div>
+        {/if}
 
         {if !$thisUser->getUnbanTime()}
             {_banned_perm}

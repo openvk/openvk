@@ -2,7 +2,7 @@
 {block title}Sandbox{/block}
 
 {block header}
-    Sandbox для разработчиков
+    {_sandbox_for_developers}
 {/block}
 
 {block content}

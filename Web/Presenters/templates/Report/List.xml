@@ -1,0 +1,60 @@
+{extends "../@listView.xml"}
+{var iterator = iterator_to_array($reports)}
+{var page     = $paginatorConf->page}
+{var table_body_id = "reports"}
+
+{block tabs}{include "../NoSpam/Tabs.xml", mode => "reports"}{/block}
+{block before_content}
+    {include "./Tabs.xml", mode => $mode}
+{/block}
+
+{block title}{_list_of_reports}{/block}
+
+{block header}
+    {_list_of_reports}
+{/block}
+
+{block actions}
+    
+{/block}
+
+{block top}
+    {if !is_null($orig)}
+        <h4>Дубликаты жалобы №{$orig}</h4>
+    {/if}
+{/block}
+
+{* BEGIN ELEMENTS DESCRIPTION *}
+
+{block link|strip|stripHtml}
+    /admin/report{$x->getId()}
+{/block}
+
+{block preview}
+    <center><img src="/assets/packages/static/openvk/img/note_icon.png" style="margin-top: 17px;" /></center>
+{/block}
+
+{block name}
+    Жалоба №{$x->getId()}
+{/block}
+
+{block description}
+    <a href="{$x->getReportAuthor()->getURL()}">
+        {$x->getReportAuthor()->getCanonicalName()}
+    </a>
+    пожаловал{!$x->getReportAuthor()->isFemale() ? 'ся' : 'ась'} на
+        {if $x->getContentType() === "user"}<a href="{$x->getContentObject()->getURL()}">{/if}
+            {$x->getContentName()}
+        {if $x->getContentType() === "user"}</a>{/if}
+
+    {if $x->hasDuplicates() && !$orig}
+    <br />
+    <b>Другие жалобы на этот контент: <a href="/scumfeed?orig={$x->getId()}">{$x->getDuplicatesCount()} шт.</a></b>
+    {/if}
+{/block}
+
+{block bottom}
+    <center id="reports-loader" style="display: none; padding: 64px;">
+        <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px;">
+    </center>
+{/block}

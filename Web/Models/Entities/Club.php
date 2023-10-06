@@ -224,7 +224,7 @@ class Club extends RowModel
                     "shape" => "spline",
                     "color" => "#597da3",
                 ],
-                "name" => $unique ? "Полный охват" : "Все просмотры",
+                "name" => $unique ? tr("full_coverage") : tr("all_views"),
             ],
             "subs"  => [
                 "x" => array_reverse(range(1, 7)),
@@ -235,7 +235,7 @@ class Club extends RowModel
                     "color" => "#b05c91",
                 ],
                 "fill" => "tozeroy",
-                "name" => $unique ? "Охват подписчиков" : "Просмотры подписчиков",
+                "name" => $unique ? tr("subs_coverage") : tr("subs_views"),
             ],
             "viral" => [
                 "x" => array_reverse(range(1, 7)),
@@ -246,7 +246,7 @@ class Club extends RowModel
                     "color" => "#4d9fab",
                 ],
                 "fill" => "tozeroy",
-                "name" => $unique ? "Виральный охват" : "Виральные просмотры",
+                "name" => $unique ? tr("viral_coverage") : tr("viral_views"),
             ],
         ];
     }
@@ -272,7 +272,7 @@ class Club extends RowModel
             return false;
         }
         
-        return $query;
+        return $query->group("follower");
     }
     
     function getFollowersCount(): int
@@ -351,9 +351,21 @@ class Club extends RowModel
     }
 
     function getWebsite(): ?string
-	{
-		return $this->getRecord()->website;
-	}
+	  {
+		  return $this->getRecord()->website;
+	  }
+
+    function ban(string $reason): void
+    {
+        $this->setBlock_Reason($reason);
+        $this->save();
+    }
+
+    function unban(): void
+    {
+        $this->setBlock_Reason(null);
+        $this->save();
+    }
 
     function getAlert(): ?string
     {

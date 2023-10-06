@@ -1,0 +1,30 @@
+{block ViewContent}
+    <div class="container_gray" style="margin-top: 16px; margin-bottom: 16px; max-width: 100%;">
+        {if $type == "post"}
+            {include "../components/post/oldpost.xml",
+                post => $object,
+                forceNoDeleteLink => true,
+                forceNoPinLink => true,
+                forceNoCommentsLink => true,
+                forceNoShareLink => true,
+                forceNoLike => true
+            }
+        {elseif $type == "photo"}
+            {include "./content/photo.xml", photo => $object}
+        {elseif $type == "video"}
+            {include "./content/video.xml", video => $object}
+        {elseif $type == "group" || $type == "user"}
+            {include "../components/group.xml", group => $object, isUser => $type == "user"}
+        {elseif $type == "comment"}
+            {include "../components/comment.xml", comment => $object, timeOnly => true, linkWithPost => true}
+        {elseif $type == "note"}
+            {include "./content/note.xml", note => $object}
+        {elseif $type == "app"}
+            {if $appsSoftDeleting}
+                {include "./content/app.xml", app => $object}
+            {/if}
+        {else}
+            {include "../components/error.xml", description => tr("version_incompatibility")}
+        {/if}
+    </div>
+{/block}

@@ -1,4 +1,5 @@
 {extends "../@layout.xml"}
+{var $canReport = $owner->getId() !== $thisUser->getId()}
 
 {block title}
     {$name}
@@ -6,6 +7,7 @@
 
 {block header}
     {$name}
+    <a style="float: right;" onClick="reportApp()" n:if="$canReport ?? false">{_report}</a>
 {/block}
 
 {block content}
@@ -31,6 +33,30 @@
         window.appTitle  = {$name};
         window.appPerms  = {$perms};
         window.appOrigin = {$origin};
+    </script>
+
+    <script n:if="$canReport ?? false">
+        function reportApp() {
+            uReportMsgTxt  = {_going_to_report_app};
+            uReportMsgTxt += "<br/>"+tr("report_question_text");
+            uReportMsgTxt += "<br/><br/><b>"+tr("report_reason")+"</b>: <input type='text' id='uReportMsgInput' placeholder='" + tr("reason") + "' />"
+
+            MessageBox(tr("report_question"), uReportMsgTxt, [tr("confirm_m"), tr("cancel")], [
+                (function() {
+                    res = document.querySelector("#uReportMsgInput").value;
+                    xhr = new XMLHttpRequest();
+                    xhr.open("GET", "/report/" + {$id} + "?reason=" + res + "&type=app", true);
+                    xhr.onload = (function() {
+                    if(xhr.responseText.indexOf("reason") === -1)
+                        MessageBox(tr("error"), tr("error_sending_report"), ["OK"], [Function.noop]);
+                    else
+                        MessageBox(tr("action_successfully"), tr("will_be_watched"), ["OK"], [Function.noop]);
+                    });
+                    xhr.send(null);
+                }),
+                Function.noop
+            ]);
+        }
     </script>
 
     {script "js/al_games.js"}

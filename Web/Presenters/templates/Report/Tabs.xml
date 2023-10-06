@@ -1,0 +1,145 @@
+<style>
+    .reportsTabs {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        row-gap: 4px;
+        gap: 4px;
+        padding: 8px;
+    }
+
+    .reportsTabs .tab {
+        display: flex;
+        flex: 0 0 calc(16.66% - 20px);
+        justify-content: center;
+        border-radius: 3px;
+        padding: 4px;
+        margin: 0;
+        cursor: pointer;
+    }
+</style>
+<center class="tabs reportsTabs stupid-fix">
+    <div n:attr="id => ($mode === 'all' ? 'activetabs' : 'ki')" class="tab" mode="all">
+        <a n:attr="id => ($mode === 'all' ? 'act_tab_a' : 'ki')" mode="all">Все</a>
+    </div>
+    <div n:attr="id => ($mode === 'post' ? 'activetabs' : 'ki')" class="tab" mode="post">
+        <a n:attr="id => ($mode === 'post' ? 'act_tab_a' : 'ki')">Записи</a>
+    </div>
+    <div n:attr="id => ($mode === 'photo' ? 'activetabs' : 'ki')" class="tab" mode="photo">
+        <a n:attr="id => ($mode === 'photo' ? 'act_tab_a' : 'ki')">Фотографии</a>
+    </div>
+    <div n:attr="id => ($mode === 'video' ? 'activetabs' : 'ki')" class="tab" mode="video">
+        <a n:attr="id => ($mode === 'video' ? 'act_tab_a' : 'ki')">Видеозаписи</a>
+    </div>
+    <div n:attr="id => ($mode === 'group' ? 'activetabs' : 'ki')" class="tab" mode="group">
+        <a n:attr="id => ($mode === 'group' ? 'act_tab_a' : 'ki')">Сообщества</a>
+    </div>
+    <div n:attr="id => ($mode === 'comment' ? 'activetabs' : 'ki')" class="tab" mode="comment">
+        <a n:attr="id => ($mode === 'comment' ? 'act_tab_a' : 'ki')">Комментарии</a>
+    </div>
+    <div n:attr="id => ($mode === 'note' ? 'activetabs' : 'ki')" class="tab" mode="note">
+        <a n:attr="id => ($mode === 'note' ? 'act_tab_a' : 'ki')">Заметки</a>
+    </div>
+    <div n:attr="id => ($mode === 'app' ? 'activetabs' : 'ki')" class="tab" mode="app">
+        <a n:attr="id => ($mode === 'app' ? 'act_tab_a' : 'ki')">Приложения</a>
+    </div>
+    <div n:attr="id => ($mode === 'user' ? 'activetabs' : 'ki')" class="tab" mode="user">
+        <a n:attr="id => ($mode === 'user' ? 'act_tab_a' : 'ki')">Пользователи</a>
+    </div>
+</center>
+
+<script>
+    async function getReports(mode) {
+        let _content = $(".content").length;
+        $(".container_gray").empty();
+
+        await $.ajax({
+            type: "POST",
+            url: `/scumfeed?act=${ mode}`,
+            data: {
+                hash: {=$csrfToken}
+            },
+            success: (response) => {
+                if (response?.reports?.length != _content) {
+                    NewNotification("Обратите внимание", "В списке появились новые жалобы. Работа ждёт :)");
+                }
+
+                if (response.reports.length > 0) {
+                    response.reports.forEach((report) => {
+                        $(".container_gray").append(`
+                            <div class="content">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td valign="top">
+                                                <a href="/admin/report${ report.id}">
+                                                    <center>
+                                                        <img src="/assets/packages/static/openvk/img/note_icon.png" style="margin-top: 17px;">
+                                                    </center>
+                                                </a>
+                                            </td>
+                                            <td valign="top" style="width: 100%">
+                                                <a href="/admin/report${ report.id}">
+                                                    <b>
+                                                        Жалоба №${ report.id}
+                                                    </b>
+                                                </a>
+                                                <br>
+                                                <a href="${ report.author.url}">
+                                                    ${ report.author.name}
+                                                </a>
+                                                пожаловал${ report.author.is_female ? "ась" : "ся"} на
+                                                ${ report.content.type === "user" ? `<a href="${ report.content.url}">` : ''}
+                                                    ${ report.content.name}
+                                                ${ report.content.type === "user" ? '</a>' : ''}
+
+                                                ${ report.duplicates > 0 ? `
+                                                    <br />
+                                                    <b>Другие жалобы на этот контент: <a href="/scumfeed?orig=${ report.id}">${ report.duplicates} шт.</a></b>
+                                                ` : ''}
+                                            </td>
+                                            <td valign="top" class="action_links" style="width: 150px;">
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        `);
+                    });
+                } else {
+                    $(".content table").width("100%")
+                    $(".container_gray").html(`
+                        <center style="background: white;border: #DEDEDE solid 1px;">
+                            <span style="color: #707070;margin: 60px 0;display: block;">
+                                {_no_data_description|noescape}
+                            </span>
+                        </center>
+                    `);
+                }
+            }
+        });
+    }
+
+    $(".reportsTabs .tab").on("click", async function () {
+        let mode = $(this).attr("mode");
+
+        $(".reportsTabs #activetabs").attr("id", "ki");
+        $(".reportsTabs #act_tab_a").attr("id", "ki");
+        $(`.reportsTabs .tab[mode='${ mode}']`).attr("id", "activetabs");
+        $(`.reportsTabs .tab[mode='${ mode}'] a`).attr("id", "act_tab_a");
+
+        $(".container_gray").hide();
+        $("#reports-loader").show();
+
+        history.pushState(null, null, `/scumfeed?act=${ mode}`);
+
+        await getReports(mode);
+
+        $(".container_gray").show();
+        $("#reports-loader").hide();
+    });
+
+    setInterval(async () => {
+        await getReports($(".reportsTabs #activetabs").attr("mode"));
+    }, 10000);
+</script>

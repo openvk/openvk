@@ -8,27 +8,57 @@
         <tr>
             <td width="30" valign="top">
                 <a href="{$author->getURL()}">
-                    <img src="{$author->getAvatarURL('miniscule')}" width="30" class="cCompactAvatars" />
+                    <img src="{$author->getAvatarURL('miniscule')}" width="30" class="cCompactAvatars post-avatar" />
                 </a>
             </td>
             <td width="100%" valign="top">
                 <div class="post-author">
-                    <a href="{$author->getURL()}"><b>
+                    <a href="{$author->getURL()}"><b class="post-author-name">
                         {$author->getCanonicalName()}
                     </b></a>
                     <img n:if="$author->isVerified()" class="name-checkmark" src="/assets/packages/static/openvk/img/checkmark.png"><br/>
                 </div>
                 <div class="post-content" id="{$comment->getId()}">
                     <div class="text" id="text{$comment->getId()}">
-                        {$comment->getText()|noescape}
+                        <span data-text="{$comment->getText(false)}" class="really_text">{$comment->getText()|noescape}</span>
                         
-                        <div n:ifcontent class="attachments_b">
-                            <div class="attachment" n:foreach="$comment->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
-                                {include "attachment.xml", attachment => $attachment}
+                        {var $attachmentsLayout = $comment->getChildrenWithLayout(288)}
+                        <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
+                            <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
+                                {include "attachment.xml", attachment => $attachment[2], parent => $comment, parentType => "comment"}
+                            </div>
+                        </div>
+
+                        <div n:ifcontent class="attachments attachments_m">
+                            <div class="attachment" n:foreach="$attachmentsLayout->extras as $attachment">
+                                {include "attachment.xml", attachment => $attachment, post => $comment}
                             </div>
                         </div>
                     </div>
                     <div n:if="isset($thisUser) &&! ($compact ?? false)" class="post-menu">
+                        <a href="#_comment{$comment->getId()}" class="date">{$comment->getPublicationTime()} 
+                            <span n:if="$comment->getEditTime()" class="edited editedMark">({_edited_short})</span>
+                        </a>
+                        {if !$timeOnly}
+                            &nbsp;|
+                            {if $comment->canBeDeletedBy($thisUser)}
+                                <a href="/comment{$comment->getId()}/delete">{_delete}</a>&nbsp;|
+                            {/if}
+                            {if $comment->canBeEditedBy($thisUser)}
+                                <a id="editPost" data-id="{$comment->getId()}">{_edit}</a>&nbsp;|
+                            {/if}
+                            <a class="comment-reply">{_reply}</a>
+                            {if $thisUser->getId() != $comment->getOwner()->getId()}
+                                {var $canReport = true}
+                                | <a href="javascript:reportComment()">{_report}</a>
+                            {/if}
+                            <div style="float: right; font-size: .7rem;">
+                                <a class="post-like-button" href="/comment{$comment->getId()}/like?hash={rawurlencode($csrfToken)}">
+                                    <div class="heart" style="{if $comment->hasLikeFrom($thisUser)}opacity: 1;{else}opacity: 0.4;{/if}"></div>
+                                    <span class="likeCnt">{if $comment->getLikesCount() > 0}{$comment->getLikesCount()}{/if}</span>
+                                </a>
+                            </div>
+                        {/if}
                         {var $target = "wall"}
 
                         {if get_class($comment->getTarget()) == "openvk\Web\Models\Entities\Note"}
@@ -43,21 +73,45 @@
                             {php $target = "topic"}
                         {/if}
 
-                        <a {if is_null($linkW)}href="#_comment{$comment->getId()}"{else}href="{$target}{!is_null($comment->getTarget()) ? $comment->getTarget()->getPrettyId() : $comment->getOwner()->getId()}#_comment{$comment->getId()}"{/if} class="date">{$comment->getPublicationTime()}</a>&nbsp;|
-                        {if $comment->canBeDeletedBy($thisUser)}
-                            <a href="/comment{$comment->getId()}/delete">{_delete}</a>&nbsp;|
-                        {/if}
-                        {if is_null($linkW)}
-                        <a class="comment-reply">{_reply}</a>{/if}
-                        <div style="float: right; font-size: .7rem;">
-                            <a class="post-like-button" href="/comment{$comment->getId()}/like?hash={rawurlencode($csrfToken)}">
-                                <div class="heart" style="{if $comment->hasLikeFrom($thisUser)}opacity: 1;{else}opacity: 0.4;{/if}"></div>
-                                <span class="likeCnt">{if $comment->getLikesCount() > 0}{$comment->getLikesCount()}{/if}</span>
-                            </a>
-                        </div>
+
+                        <span n:if="$compact ?? false">
+
+                        |&nbsp;<a
+                            {if is_null($linkW)}
+                                href="#_comment{$comment->getId()}"
+                            {else}
+                                href="{$target}{!is_null($comment->getTarget()) ? $comment->getTarget()->getPrettyId() : $comment->getOwner()->getId()}#_comment{$comment->getId()}"
+                            {/if}
+                            class="date"
+                        >{$comment->getPublicationTime()}</a>
+                          
+                        </span>
                     </div>
                 </div>
             </td>
         </tr>
     </tbody>
 </table>
+<script n:if="$canReport ?? false">
+    function reportComment() {
+        uReportMsgTxt  = tr("going_to_report_comment");
+        uReportMsgTxt += "<br/>"+tr("report_question_text");
+        uReportMsgTxt += "<br/><br/><b>"+tr("report_reason")+"</b>: <input type='text' id='uReportMsgInput' placeholder='" + tr("reason") + "' />"
+
+        MessageBox(tr("report_question"), uReportMsgTxt, [tr("confirm_m"), tr("cancel")], [
+            (function() {
+                res = document.querySelector("#uReportMsgInput").value;
+                xhr = new XMLHttpRequest();
+                xhr.open("GET", "/report/" + {$comment->getId()} + "?reason=" + res + "&type=comment", true);
+                xhr.onload = (function() {
+                    if(xhr.responseText.indexOf("reason") === -1)
+                        MessageBox(tr("error"), tr("error_sending_report"), ["OK"], [Function.noop]);
+                    else
+                        MessageBox(tr("action_successfully"), tr("will_be_watched"), ["OK"], [Function.noop]);
+                    });
+                xhr.send(null);
+            }),
+            Function.noop
+        ]);
+    }
+</script>

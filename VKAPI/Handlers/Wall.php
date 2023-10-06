@@ -480,28 +480,25 @@ final class Wall extends VKAPIRequestHandler
                 if($attachmentType == "photo") {
                     $attacc = (new PhotosRepo)->getByOwnerAndVID($attachmentOwner, $attachmentId);
                     if(!$attacc || $attacc->isDeleted())
-                        $this->fail(100, "Photo does not exists");
-                    if($attacc->getOwner()->getId() != $this->getUser()->getId())
-                        $this->fail(43, "You do not have access to this photo");
+                        $this->fail(100, "Invalid photo");
+                    if(!$attacc->getOwner()->getPrivacyPermission('photos.read', $this->getUser()))
+                        $this->fail(43, "Access to photo denied");
                     
                     $post->attach($attacc);
                 } elseif($attachmentType == "video") {
                     $attacc = (new VideosRepo)->getByOwnerAndVID($attachmentOwner, $attachmentId);
                     if(!$attacc || $attacc->isDeleted())
                         $this->fail(100, "Video does not exists");
-                    if($attacc->getOwner()->getId() != $this->getUser()->getId())
-                        $this->fail(43, "You do not have access to this video");
+                    if(!$attacc->getOwner()->getPrivacyPermission('videos.read', $this->getUser()))
+                        $this->fail(43, "Access to video denied");
 
                     $post->attach($attacc);
                 } elseif($attachmentType == "note") {
                     $attacc = (new NotesRepo)->getNoteById($attachmentOwner, $attachmentId);
                     if(!$attacc || $attacc->isDeleted())
                         $this->fail(100, "Note does not exist");
-                    if($attacc->getOwner()->getId() != $this->getUser()->getId())
-                        $this->fail(43, "You do not have access to this note");
-                    
-                    if($attacc->getOwner()->getPrivacySetting("notes.read") < 1)
-                        $this->fail(11, "You can't attach note to post, because your notes list is closed. Change it in privacy settings in web-version.");
+                    if(!$attacc->getOwner()->getPrivacyPermission('notes.read', $this->getUser()))
+                        $this->fail(11, "Access to note denied");
 
                     $post->attach($attacc);
                 }
@@ -695,7 +692,7 @@ final class Wall extends VKAPIRequestHandler
         return $response;
     }
 
-    function createComment(int $owner_id, int $post_id, string $message, int $from_group = 0, string $attachments = "") {
+    function createComment(int $owner_id, int $post_id, string $message = "", int $from_group = 0, string $attachments = "") {
         $this->requireUser();
         $this->willExecuteWriteAction();
 
@@ -753,16 +750,16 @@ final class Wall extends VKAPIRequestHandler
                     $attacc = (new PhotosRepo)->getByOwnerAndVID($attachmentOwner, $attachmentId);
                     if(!$attacc || $attacc->isDeleted())
                         $this->fail(100, "Photo does not exists");
-                    if($attacc->getOwner()->getId() != $this->getUser()->getId())
-                        $this->fail(43, "You do not have access to this photo");
+                    if(!$attacc->getOwner()->getPrivacyPermission('photos.read', $this->getUser()))
+                        $this->fail(11, "Access to photo denied");
                     
                     $comment->attach($attacc);
                 } elseif($attachmentType == "video") {
                     $attacc = (new VideosRepo)->getByOwnerAndVID($attachmentOwner, $attachmentId);
                     if(!$attacc || $attacc->isDeleted())
                         $this->fail(100, "Video does not exists");
-                    if($attacc->getOwner()->getId() != $this->getUser()->getId())
-                        $this->fail(43, "You do not have access to this video");
+                    if(!$attacc->getOwner()->getPrivacyPermission('videos.read', $this->getUser()))
+                        $this->fail(11, "Access to video denied");
 
                     $comment->attach($attacc);
                 }

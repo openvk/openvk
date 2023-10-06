@@ -72,7 +72,7 @@ final class UserPresenter extends OpenVKPresenter
         if(!is_null($this->user)) {
             if($this->template->mode !== "friends" && $this->user->id !== $id) {
                 $name = $user->getFullName();
-                $this->flash("err", "Ошибка доступа", "Вы не можете просматривать полный список подписок $name.");
+                $this->flash("err", tr("error_access_denied_short"), tr("error_viewing_subs", $name));
                 
                 $this->redirect($user->getURL());
             }
@@ -107,11 +107,11 @@ final class UserPresenter extends OpenVKPresenter
             $this->notFound();
 
         if(!$club->canBeModifiedBy($this->user->identity ?? NULL))
-            $this->flashFail("err", "Ошибка доступа", "У вас недостаточно прав, чтобы изменять этот ресурс.", NULL, true);
+            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"), NULL, true);
 
         $isClubPinned = $this->user->identity->isClubPinned($club);
         if(!$isClubPinned && $this->user->identity->getPinnedClubCount() > 10)
-            $this->flashFail("err", "Ошибка", "Находится в левом меню могут максимум 10 групп", NULL, true);
+            $this->flashFail("err", tr("error"), tr("error_max_pinned_clubs"), NULL, true);
 
         if($club->getOwner()->getId() === $this->user->identity->getId()) {
             $club->setOwner_Club_Pinned(!$isClubPinned);
@@ -237,7 +237,7 @@ final class UserPresenter extends OpenVKPresenter
             } elseif($_GET['act'] === "status") {
                 if(mb_strlen($this->postParam("status")) > 255) {
                     $statusLength = (string) mb_strlen($this->postParam("status"));
-                    $this->flashFail("err", "Ошибка", "Статус слишком длинный ($statusLength символов вместо 255 символов)", NULL, true);
+                    $this->flashFail("err", tr("error"), tr("error_status_too_long", $statusLength), NULL, true);
                 }
 
                 $user->setStatus(empty($this->postParam("status")) ? NULL : $this->postParam("status"));
@@ -281,7 +281,7 @@ final class UserPresenter extends OpenVKPresenter
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             if(!$user->verifyNumber($this->postParam("code") ?? 0))
-                $this->flashFail("err", "Ошибка", "Не удалось подтвердить номер телефона: неверный код.");
+                $this->flashFail("err", tr("error"), tr("invalid_code"));
         
             $this->flash("succ", tr("changes_saved"), tr("changes_saved_comment"));
         }
@@ -481,6 +481,7 @@ final class UserPresenter extends OpenVKPresenter
                     "menu_novajoj"   => "news",
                     "menu_ligiloj"   => "links",
                     "menu_standardo" => "poster",
+                    "menu_aplikoj"   => "apps"
                 ];
                 foreach($settings as $checkbox => $setting)
                     $user->setLeftMenuItemStatus($setting, $this->checkbox($checkbox));

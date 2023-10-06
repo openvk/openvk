@@ -3,6 +3,8 @@ namespace openvk\Web\Presenters;
 
 final class BlobPresenter extends OpenVKPresenter
 {
+    protected $banTolerant   = true;
+
     private function getDirName($dir): string
     {
         if(gettype($dir) === "integer") {

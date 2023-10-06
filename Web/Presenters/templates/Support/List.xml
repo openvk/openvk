@@ -19,7 +19,7 @@
         <a n:attr="id => ($act === 'closed' ? 'act_tab_a' : 'ki')" href="?act=closed">{_support_closed}</a>
     </div>
     <div class="tab">
-        <a href="/support/agent{$thisUser->getId()}">Мой профиль</a>
+        <a href="/support/agent{$thisUser->getId()}">{_agent_profile}</a>
     </div>
 {/block}
 

@@ -1,0 +1,32 @@
+{block content}
+    <div class="content">
+        <table>
+            <tbody>
+                <tr>
+                    <td valign="top">
+                        <a href="/video{$video->getPrettyId()}">
+                            <div class="video-preview">
+                                <img src="{$video->getThumbnailURL()}"
+                                     alt="{$video->getName()}"
+                                     style="max-width: 170px; max-height: 127px; margin: auto;" />
+                            </div>
+                        </a>
+                    </td>
+                    <td valign="top" style="width: 100%">
+                        <a href="/video{$video->getPrettyId()}">
+                            <b>
+                                {$video->getName()}
+                            </b>
+                        </a>
+                        <br>
+                        <p>
+                            <span>{$video->getDescription() ?? ""}</span>
+                        </p>
+                        <span style="color: grey;">{_video_uploaded} {$video->getPublicationTime()}</span><br/>
+                        <span style="color: grey;">{_video_updated} {$video->getEditTime() ?? $video->getPublicationTime()}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{/block}
