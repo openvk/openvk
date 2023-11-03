@@ -88,6 +88,9 @@ final class ReportPresenter extends OpenVKPresenter
         if(!$id)
             exit(json_encode([ "error" => tr("error_segmentation") ]));
 
+        if ($this->queryParam("type") === "user" && $id === $this->user->id)
+            exit(json_encode(["reason" => "You can't report yourself"]));
+
         if(in_array($this->queryParam("type"), ["post", "photo", "video", "group", "comment", "note", "app", "user"])) {
             if (count(iterator_to_array($this->reports->getDuplicates($this->queryParam("type"), $id, NULL, $this->user->id))) <= 0) {
                 $report = new Report;
