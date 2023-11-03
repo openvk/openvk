@@ -200,6 +200,8 @@
 "attachment" = "Attachment";
 "post_as_group" = "Post as group";
 "comment_as_group" = "Comment as group";
+"set_source" = "Set source";
+"source" = "Source";
 "add_signature" = "Add signature";
 /* ^ can be translated as "author's signature". ^ */
 "contains_nsfw" = "Contains NSFW content";

@@ -18,7 +18,7 @@
     </div>
 
     <div n:class="postFeedWrapper, $thisUser->hasMicroblogEnabled() ? postFeedWrapperMicroblog">
-        {include "../components/textArea.xml", route => "/wall" . $thisUser->getId() . "/makePost", graffiti => true, polls => true, notes => true}
+        {include "../components/textArea.xml", route => "/wall" . $thisUser->getId() . "/makePost", graffiti => true, polls => true, notes => true, hasSource => true}
     </div>
     
     {foreach $posts as $post}

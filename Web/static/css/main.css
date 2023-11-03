@@ -2859,6 +2859,16 @@ body.article .floating_sidebar, body.article .page_content {
     font-size: 12px;
 }
 
+.sourceDiv {
+    margin-top: 3px;
+    margin-left: 4px;
+}
+
+.sourceDiv span {
+    color:grey;
+    font-size: 11px;
+}
+
 .topGrayBlock {
     background: #F0F0F0;
     height: 37px;
@@ -2974,4 +2984,3 @@ body.article .floating_sidebar, body.article .page_content {
 .smallFrame:hover {
     background: #E9F0F1 !important;
 }
-

@@ -78,6 +78,31 @@ class Post extends Postable
     {
         return (bool) $this->getRecord()->pinned;
     }
+
+    function getSource(bool $format = false)
+    {
+        if(!$format) {
+            return $this->getRecord()->source;
+        }
+
+        return $this->formatLinks($this->getRecord()->source);
+    }
+
+    function setSource(string $source)
+    {
+        $src = $source;
+
+        if(iconv_strlen($source) > 50) 
+            throw new \LengthException("Link is too long.");
+        
+        if(!preg_match("/^(http:\/\/|https:\/\/)*[а-яА-ЯёЁa-z0-9\-_]+(\.[а-яА-ЯёЁa-z0-9\-_]+)+(\/\S*)*$/iu", $source))
+            throw new \LogicException("Invalid link");
+
+        if(!str_contains($source, "https://") && !str_contains($source, "http://"))
+            $src = "https://" . $source;
+
+        $this->stateChanges("source", $src);
+    }
     
     function isAd(): bool
     {

@@ -86,6 +86,9 @@
                         <br/>
                         &nbsp;! {_post_is_ad}
                     </div>
+                    <div n:if="!is_null($post->getSource())" class="sourceDiv" style="margin-top:0px;">
+                        <span>{_source}: {$post->getSource(true)|noescape}</span>
+                    </div>
                     <div n:if="$post->isSigned()" class="post-signature">
                         {var $actualAuthor = $post->getOwner(false)}
                         <span>

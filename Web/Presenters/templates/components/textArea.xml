@@ -25,6 +25,16 @@
 
             <div n:if="$postOpts ?? true" class="post-opts">
                 {var $anonEnabled = OPENVK_ROOT_CONF['openvk']['preferences']['wall']['anonymousPosting']['enable']}
+                {if $hasSource}
+                    <label style="user-select:none;">
+                        <input type="checkbox" name="set_source"/> <span style="color: #777777;">{_set_source}</span>
+                    </label>
+
+                    <div id="sourceSet" style="display:none;">
+                        <input type="text" name="source" placeholder="https://youtu.be/dQw4w9WgXcQ/"/>
+                    </div>
+                {/if}
+
                 {if !is_null($thisUser) && !is_null($club ?? NULL) && $owner < 0}
                     {if $club->canBeModifiedBy($thisUser)}
                         <script>
