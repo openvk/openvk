@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Models\Entities\Traits;
-use openvk\Web\Models\Entities\{Attachable, Photo};
+use openvk\Web\Models\Entities\{Attachable, Photo, Video};
 use openvk\Web\Util\Makima\Makima;
 use Chandler\Database\DatabaseConnection;
 
@@ -36,10 +36,10 @@ trait TAttachmentHost
         if($h < 0)
             $h = $w;
 
-        $children = $this->getChildren();
+        $children = iterator_to_array($this->getChildren());
         $skipped  = $photos = $result = [];
         foreach($children as $child) {
-            if($child instanceof Photo) {
+            if($child instanceof Photo || $child instanceof Video && $child->getDimensions()) {
                 $photos[] = $child;
                 continue;
             }
@@ -68,6 +68,7 @@ trait TAttachmentHost
             "height" => $height . "px",
             "tiles"  => $result,
             "extras" => $skipped,
+            "count"  => sizeof($children),
         ];
     }
     

@@ -2,9 +2,9 @@
 {block title}{_upload_video}{/block}
 
 {block header}
-    <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>
+    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
     »
-    <a href="/videos{$thisUser->getId()}">{_videos}</a>
+    <a href="/videos{$owner->getRealId()}">{_videos}</a>
     » 
     {_upload_video}
 {/block}

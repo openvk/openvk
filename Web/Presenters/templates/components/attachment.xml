@@ -10,27 +10,31 @@
         </a>
     {/if}
 {elseif $attachment instanceof \openvk\Web\Models\Entities\Video}
-    {if !$attachment->isDeleted()}
-    {if $attachment->getType() === 0}
-        <div class="bsdn media" data-name="{$attachment->getName()}" data-author="{$attachment->getOwner()->getCanonicalName()}">
-            <video class="media" src="{$attachment->getURL()}"></video>
+    {if $count && $count < 2}
+        {if $attachment->getType() === 0}
+            <div class="bsdn media" data-name="{$attachment->getName()}" data-author="{$attachment->getOwner()->getCanonicalName()}">
+                <video class="media" src="{$attachment->getURL()}"></video>
+            </div>
+        {else}
+            {var $driver = $attachment->getVideoDriver()}
+            {if !$driver}
+                <span style="color:red;">{_version_incompatibility}</span>
+            {else}
+                {$driver->getEmbed("100%")|noescape}
+            {/if}
+        {/if}
+
+        <div class="video-wowzer">
+            <img src="/assets/packages/static/openvk/img/videoico.png" />
+            <a href="/video{$attachment->getPrettyId()}" id="videoOpen" data-id="{$attachment->getId()}">{$attachment->getName()}</a>
+            {if $attachment->getLength()}
+                ({$attachment->getFormattedLength()})
+            {/if}
         </div>
     {else}
-        {var $driver = $attachment->getVideoDriver()}
-        {if !$driver}
-            <span style="color:red;">{_version_incompatibility}</span>
-        {else}
-            {$driver->getEmbed("100%")|noescape}
-        {/if}
-    {/if}
-
-    <div class="video-wowzer">
-        <img src="/assets/packages/static/openvk/img/videoico.png" />
-        <a href="/video{$attachment->getPrettyId()}" id="videoOpen" data-id="{$attachment->getId()}">{$attachment->getName()}</a>
-    </div>
-    
-    {else}
-        <span style="color:gray;">{_video_is_deleted}</span>
+        <div class="compactVideo" id="videoOpen" data-id="{$attachment->getId()}">
+            <img src="{$attachment->getThumbnailURL()}" alt="{$attachment->getName()}"/>
+        </div>
     {/if}
 {elseif $attachment instanceof \openvk\Web\Models\Entities\Poll}
     {presenter "openvk!Poll->view", $attachment->getId()}

@@ -4,6 +4,7 @@ use openvk\Web\Util\Shell\Shell;
 use openvk\Web\Util\Shell\Exceptions\{ShellUnavailableException, UnknownCommandException};
 use openvk\Web\Models\VideoDrivers\VideoDriver;
 use Nette\InvalidStateException as ISE;
+use Chandler\Database\DatabaseConnection;
 
 define("VIDEOS_FRIENDLY_ERROR", "Uploads are disabled on this instance :<", false);
 
@@ -34,10 +35,25 @@ class Video extends Media
         if(sizeof($durations[1]) === 0)
             throw new \DomainException("$filename does not contain any meaningful video streams");
         
-        foreach($durations[1] as $duration)
-            if(floatval($duration) < 1.0)
+        $length = 0;
+        foreach($durations[1] as $duration) {
+            $duration = floatval($duration);
+            if($duration < 1.0)
                 throw new \DomainException("$filename does not contain any meaningful video streams");
+            else
+                $length = max($length, $duration);
+        }
+
+        $this->stateChanges("length", (int) round($length, 0, PHP_ROUND_HALF_EVEN));
         
+        preg_match('%width=([0-9\.]++)%', $streams, $width);
+        preg_match('%height=([0-9\.]++)%', $streams, $height);
+
+        if(!empty($width) && !empty($height)) {
+            $this->stateChanges("width", $width[1]);
+            $this->stateChanges("width", $height[1]);
+        }
+
         try {
             if(!is_dir($dirId = dirname($this->pathFromHash($hash))))
                 mkdir($dirId);
@@ -45,7 +61,11 @@ class Video extends Media
             $dir = $this->getBaseDir();
             $ext = Shell::isPowershell() ? "ps1" : "sh";
             $cmd = Shell::isPowershell() ? "powershell" : "bash";
-            Shell::$cmd(__DIR__ . "/../shell/processVideo.$ext", OPENVK_ROOT, $filename, $dir, $hash)->start(); #async :DDD
+
+            if($cmd == "bash")
+                Shell::$cmd(__DIR__ . "/../shell/processVideo.$ext", OPENVK_ROOT, $filename, $dir, $hash)->start(); # async :DDD
+            else
+                Shell::$cmd(__DIR__ . "/../shell/processVideo.$ext", OPENVK_ROOT, $filename, $dir, $hash)->execute($err); # под виндой только execute
         } catch(ShellUnavailableException $suex) {
             exit(OPENVK_ROOT_CONF["openvk"]["debug"] ? "Shell is unavailable" : VIDEOS_FRIENDLY_ERROR);
         } catch(UnknownCommandException $ucex) {
@@ -118,11 +138,12 @@ class Video extends Media
     function getApiStructure(?User $user = NULL): object
     {
         $fromYoutube = $this->getType() == Video::TYPE_EMBED;
+        $dimensions = $this->getDimensions();
         $res = (object)[
             "type" => "video",
             "video" => [
                 "can_comment" => 1,
-                "can_like" => 1,  // we don't h-have wikes in videos
+                "can_like" => 1,
                 "can_repost" => 1,
                 "can_subscribe" => 1,
                 "can_add_to_faves" => 0,
@@ -130,7 +151,7 @@ class Video extends Media
                 "comments" => $this->getCommentsCount(),
                 "date" => $this->getPublicationTime()->timestamp(),
                 "description" => $this->getDescription(),
-                "duration" => 0, // я хуй знает как получить длину видео
+                "duration" => $this->getLength(),
                 "image" => [
                     [
                         "url" => $this->getThumbnailURL(),
@@ -139,8 +160,8 @@ class Video extends Media
                         "with_padding" => 1
                     ]
                 ],
-                "width" => 640,
-                "height" => 480,
+                "width" => $dimensions ? NULL : $dimensions[0],
+                "height" => $dimensions ? NULL : $dimensions[1],
                 "id" => $this->getVirtualId(),
                 "owner_id" => $this->getOwner()->getId(),
                 "user_id" => $this->getOwner()->getId(),
@@ -194,10 +215,7 @@ class Video extends Media
 
     function isDeleted(): bool
     {
-        if ($this->getRecord()->deleted == 1)
-            return TRUE;
-        else
-            return FALSE;
+        return $this->getRecord()->deleted == 1;
     }
 
     function deleteVideo(): void 
@@ -205,6 +223,8 @@ class Video extends Media
         $this->setDeleted(1);
         $this->unwire();
         $this->save();
+
+        $ctx->table("video_relations")->where("video", $this->getId())->delete();
     }
     
     static function fastMake(int $owner, string $name = "Unnamed Video.ogv", string $description = "", array $file, bool $unlisted = true, bool $anon = false): Video
@@ -221,7 +241,7 @@ class Video extends Media
         $video->setFile($file);
         $video->setUnlisted($unlisted);
         $video->save();
-        
+
         return $video;
     }
 
@@ -242,5 +262,127 @@ class Video extends Media
         $res->player      = !$fromYoutube ? $this->getURL() : $this->getVideoDriver()->getURL();
 
         return $res;
+    }
+
+    function isInLibraryOf($entity): bool
+    {
+        return sizeof(DatabaseConnection::i()->getContext()->table("video_relations")->where([
+            "entity" => $entity->getId() * ($entity instanceof Club ? -1 : 1),
+            "video"  => $this->getId(),
+        ])) != 0;
+    }
+
+    function add($entity): bool
+    {
+        if($this->isInLibraryOf($entity))
+            return false;
+
+        $entityId  = $entity->getId() * ($entity instanceof Club ? -1 : 1);
+        $audioRels = DatabaseConnection::i()->getContext()->table("video_relations");
+
+        $audioRels->insert([
+            "entity" => $entityId,
+            "video"  => $this->getId(),
+        ]);
+
+        return true;
+    }
+
+    function remove($entity): bool
+    {
+        if(!$this->isInLibraryOf($entity))
+            return false;
+
+        DatabaseConnection::i()->getContext()->table("video_relations")->where([
+            "entity" => $entity->getId() * ($entity instanceof Club ? -1 : 1),
+            "video"  => $this->getId(),
+        ])->delete();
+
+        return true;
+    }
+
+    function getLength()
+    {
+        return $this->getRecord()->length;
+    }
+    
+    function getFormattedLength(): string
+    {
+        $len  = $this->getLength();
+        if(!$len) return "00:00";
+
+        $mins = floor($len / 60);
+        $secs = $len - ($mins * 60);
+
+        return (
+            str_pad((string) $mins, 2, "0", STR_PAD_LEFT)
+            . ":" .
+            str_pad((string) $secs, 2, "0", STR_PAD_LEFT)
+        );
+    }
+
+    function fillDimensions()
+    {
+        $hash  = $this->getRecord()->hash;
+        $path  = $this->pathFromHash($hash);
+
+        if(!file_exists($path)) {
+            $this->stateChanges("width", 0);
+            $this->stateChanges("height", 0);
+            $this->stateChanges("length", 0);
+
+            $this->save();
+
+            return false;
+        }
+
+        $streams   = Shell::ffprobe("-i", $path, "-show_streams", "-select_streams v", "-loglevel error")->execute($error);
+
+        $durations = [];
+
+        preg_match_all('%duration=([0-9\.]++)%', $streams, $durations);
+        
+        $length = 0;
+        foreach($durations[1] as $duration) {
+            $duration = floatval($duration);
+            if($duration < 1.0)
+                continue;
+            else
+                $length = max($length, $duration);
+        }
+
+        $this->stateChanges("length", (int) round($length, 0, PHP_ROUND_HALF_EVEN));
+        
+        preg_match('%width=([0-9\.]++)%', $streams, $width);
+        preg_match('%height=([0-9\.]++)%', $streams, $height);
+
+        #exit(var_dump($path));
+        if(!empty($width) && !empty($height)) {
+            $this->stateChanges("width", $width[1]);
+            $this->stateChanges("height", $height[1]);
+        }
+
+        $this->save();
+
+        return true;
+    }
+
+    function getDimensions()
+    {
+        if($this->getType() == Video::TYPE_EMBED) return NULL;
+
+        $width = $this->getRecord()->width;
+        $height = $this->getRecord()->height;
+        if(!$width) $this->fillDimensions();
+
+        return $width != 0 ? [$width, $height] : NULL;
+    }
+
+    function delete(bool $softly = true): void
+    {
+        $ctx = DatabaseConnection::i()->getContext();
+        $ctx->table("video_relations")->where("video", $this->getId())->delete();
+
+        parent::delete($softly);
     }
 }

@@ -81,7 +81,7 @@
                         {var $attachmentsLayout = $post->getChildrenWithLayout($width)}
                         <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
                             <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
-                                {include "../attachment.xml", attachment => $attachment[2], parent => $post, parentType => "post"}
+                                {include "../attachment.xml", attachment => $attachment[2], parent => $post, parentType => "post", count => $attachmentsLayout->count}
                             </div>
                         </div>
 

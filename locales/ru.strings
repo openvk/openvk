@@ -749,6 +749,8 @@
 "no_videos" = "У вас нет видео.";
 "no_videos_results" = "Нет результатов.";
 
+"group_genetive" = "группы";
+
 /* Audios */
 
 "audios" = "Аудиозаписи";

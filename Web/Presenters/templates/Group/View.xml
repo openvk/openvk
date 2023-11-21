@@ -299,6 +299,32 @@
             </div>
         </div>
     </div>
+    <div n:if="$videosCount > 0 || ($thisUser && $club->canBeModifiedBy($thisUser))">
+        <div class="content_title_expanded" onclick="hidePanel(this, {$videosCount});">
+            {_videos}
+        </div>
+        <div>
+            <div class="content_subtitle">
+                {tr("videos", $videosCount)}
+                <div style="float: right;">
+                    <a href="/videos-{$club->getId()}">{_all_title}</a>
+                </div>
+            </div>
+            <div style="padding: 5px;">
+                <div class="ovk-video" n:foreach="$videos as $video">
+                    <a href="/video{$video->getPrettyId()}" class="preview" align="center" id="videoOpen" data-id="{$video->getId()}">
+                        <img
+                            src="{$video->getThumbnailURL()}"
+                            style="max-width: 170px; max-height: 127px; margin: auto;" />
+                    </a>
+                    <div>
+                        <b><a href="/video{$video->getPrettyId()}" id="videoOpen" data-id="{$video->getId()}">{ovk_proc_strtr($video->getName(), 30)}</a></b><br>
+                        <span style="font-size: 10px;">{$video->getPublicationTime()} | {_comments} ({$video->getCommentsCount()})</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div n:if="($topicsCount > 0 || $club->isEveryoneCanCreateTopics() || ($thisUser && $club->canBeModifiedBy($thisUser))) && !$club->isDisplayTopicsAboveWallEnabled()">
         <div class="content_title_expanded" onclick="hidePanel(this, {$topicsCount});">
             {_discussions}

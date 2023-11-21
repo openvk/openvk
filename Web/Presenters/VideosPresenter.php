@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Presenters;
 use openvk\Web\Models\Entities\Video;
-use openvk\Web\Models\Repositories\{Users, Videos};
+use openvk\Web\Models\Repositories\{Users, Videos, Clubs};
 use Nette\InvalidStateException as ISE;
 
 final class VideosPresenter extends OpenVKPresenter
@@ -20,14 +20,19 @@ final class VideosPresenter extends OpenVKPresenter
     
     function renderList(int $id): void
     {
-        $user = $this->users->get($id);
-        if(!$user) $this->notFound();
-        if(!$user->getPrivacyPermission('videos.read', $this->user->identity ?? NULL))
+        if($id > 0)
+            $owner = $this->users->get($id);
+        else
+            $owner = (new Clubs)->get(abs($id));
+
+        if(!$owner) $this->notFound();
+        if($id > 0 && !$owner->getPrivacyPermission('videos.read', $this->user->identity ?? NULL))
             $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
         
-        $this->template->user   = $user;
-        $this->template->videos = $this->videos->getByUser($user, (int) ($this->queryParam("p") ?? 1));
-        $this->template->count  = $this->videos->getUserVideosCount($user);
+        $this->template->owner   = $owner;
+        $this->template->canUpload = $id > 0 ? $id == $this->user->id : $owner->canBeModifiedBy($this->user->identity);
+        $this->template->videos  = $id > 0 ? $this->videos->getByUser($owner, (int) ($this->queryParam("p") ?? 1)) : $this->videos->getByClub($owner, (int) ($this->queryParam("p") ?? 1));
+        $this->template->count   = $this->videos->getVideosCountByEntityId($owner->getRealId());
         $this->template->paginatorConf = (object) [
             "count"   => $this->template->count,
             "page"    => (int) ($this->queryParam("p") ?? 1),
@@ -60,6 +65,14 @@ final class VideosPresenter extends OpenVKPresenter
         if(OPENVK_ROOT_CONF['openvk']['preferences']['videos']['disableUploading'])
             $this->flashFail("err", tr("error"), tr("video_uploads_disabled"));
         
+        if($this->queryParam("gid")) {
+            $club = (new Clubs)->get((int)$this->queryParam("gid"));
+
+            if(!$club || !$club->canUploadVideo($this->user->identity))
+                $this->notFound();
+        }
+
+        $this->template->owner = $club ?: $this->user->identity;
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             if(!empty($this->postParam("name"))) {
                 $video = new Video;
@@ -82,6 +95,8 @@ final class VideosPresenter extends OpenVKPresenter
                 }
                 
                 $video->save();
+
+                $video->add(!isset($club) ? $this->user->identity : $club);
                 
                 $this->redirect("/video" . $video->getPrettyId());
             } else {

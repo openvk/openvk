@@ -3,10 +3,10 @@
 {var $count    = $paginatorConf->count}
 {var $page     = $paginatorConf->page}
 
-{block title}{_videos} {$user->getCanonicalName()}{/block}
+{block title}{_videos} {$owner->getRealId() > 0 ? $owner->getCanonicalName() : tr("group_genetive")}{/block}
 
 {block header}
-    <a href="{$user->getURL()}">{$user->getCanonicalName()}</a>
+    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
     » {_videos}
 {/block}
 
@@ -14,9 +14,9 @@
     <div style="padding-bottom: 0px; padding-top: 0;" class="summaryBar">
         <div class="summary">
             {tr("videos", $count)}
-            <span n:if="isset($thisUser) && $thisUser->getId() == $user->getId() && !OPENVK_ROOT_CONF['openvk']['preferences']['videos']['disableUploading']">
+            <span n:if="$canUpload">
                 &nbsp;|&nbsp;
-                <a href="/videos/upload">{_upload_video}</a>
+                <a href="/videos/upload{if $owner->getRealId() < 0}?gid={$owner->getId()}{/if}">{_upload_video}</a>
             </span>
         </div>
     </div>

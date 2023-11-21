@@ -18,7 +18,7 @@ class Makima
         $this->photos = $photos;
     }
 
-    private function getOrientation(Photo $photo, &$ratio): int
+    private function getOrientation($photo, &$ratio): int
     {
         [$width, $height] = $photo->getDimensions();
         $ratio = $width / $height;

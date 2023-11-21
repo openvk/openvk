@@ -3056,3 +3056,32 @@ hr {
     background-position: 50% !important;
 }
 
+.compactVideo {
+    object-fit: contain;
+    cursor: pointer;
+    background: black;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px); /* kostyls */
+    display: flex;
+    position: relative;
+    min-height: 28px;
+}
+
+.compactVideo img {
+    object-fit: contain;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.compactVideo::before {
+    content: " ";
+    background: url("/assets/packages/static/openvk/img/video_controls.png");
+    width: 28px;
+    height: 28px;
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+}
