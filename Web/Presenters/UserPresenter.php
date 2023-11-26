@@ -29,6 +29,8 @@ final class UserPresenter extends OpenVKPresenter
     function renderView(int $id): void
     {
         $user = $this->users->get($id);
+		if($id < 0)
+                $user = (new Users)->getByShortURL("id" . $id);
         if(!$user || $user->isDeleted()) {
             if(!is_null($user) && $user->isDeactivated()) {
                 $this->template->_template = "User/deactivated.xml";

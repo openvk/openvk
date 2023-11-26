@@ -17,6 +17,7 @@ openvk:
             minLength: 3 # won't affect existing short urls or the ones set via admin panel
             forbiddenNames:
                 - "index.php"
+            enableFakeNegativeIDs: true
         photos:
             upgradeStructure: false
             photoSaving: "quick"
