@@ -19,6 +19,17 @@ final class Gifts extends VKAPIRequestHandler
         if(!$user || $user->isDeleted())
             $this->fail(177, "Invalid user");
 
+        if(!$user->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access denied");
+
+        /*
+        if(!$user->getPrivacyPermission('gifts.read', $this->getUser()))
+            $this->fail(15, "Access denied: this user chose to hide his gifts");*/
+
+        
+        if(!$user->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access denied");
+
         $gift_item = [];
 
         $userGifts = array_slice(iterator_to_array($user->getGifts(1, $count, false)), $offset);
@@ -61,6 +72,9 @@ final class Gifts extends VKAPIRequestHandler
         
         if(!$user || $user->isDeleted())
             $this->fail(177, "Invalid user");
+
+        if(!$user->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access denied");
 
         $gift  = (new GiftsRepo)->get($gift_id);
 

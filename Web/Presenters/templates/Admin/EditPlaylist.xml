@@ -1,0 +1,54 @@
+{extends "@layout.xml"}
+
+{block title}
+    {_edit} {$playlist->getName()}
+{/block}
+
+{block heading}
+    {$playlist->getName()}
+{/block}
+
+{block content}
+    <div class="aui-tabs horizontal-tabs">
+        <form class="aui" method="POST">
+            <div class="field-group">
+                <label for="id">ID</label>
+                <input class="text medium-field" type="number" id="id" disabled value="{$playlist->getId()}" />
+            </div>
+            <div class="field-group">
+                <label for="name">{_name}</label>
+                <input class="text medium-field" type="text" id="name" name="name" value="{$playlist->getName()}" />
+            </div>
+            <div class="field-group">
+                <label for="ext">{_description}</label>
+                <textarea class="text medium-field" type="text" id="description" name="description" style="resize: vertical;">{$playlist->getDescription()}</textarea>
+            </div>
+            <div class="field-group">
+                <label for="ext">{_admin_cover_id}</label>
+                <span id="avatar" class="aui-avatar aui-avatar-project aui-avatar-xlarge">
+                    <span class="aui-avatar-inner">
+                        <img src="{$playlist->getCoverUrl()}" style="object-fit: cover;"></img>
+                    </span>
+                </span>
+                <br />
+                <input class="text medium-field" type="number" id="photo" name="photo" value="{$playlist->getCoverPhotoId()}" />
+            </div>
+            <hr />
+            <div class="field-group">
+                <label for="owner">{_owner}</label>
+                <input class="text medium-field" type="number" id="owner_id" name="owner" value="{$playlist->getOwner()->getId()}" />
+            </div>
+            <div class="field-group">
+                <label for="deleted">{_deleted}</label>
+                <input class="toggle-large" type="checkbox" id="deleted" name="deleted" value="1" {if $playlist->isDeleted()} checked {/if} />
+            </div>
+            <hr />
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input class="button submit" type="submit" value="{_save}">
+                </div>
+            </div>
+        </form>
+    </div>
+{/block}

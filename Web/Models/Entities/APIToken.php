@@ -48,7 +48,7 @@ class APIToken extends RowModel
         $this->delete();
     }
     
-    function save(): void
+    function save(?bool $log = false): void
     {
         if(is_null($this->getRecord()))
             $this->stateChanges("secret", bin2hex(openssl_random_pseudo_bytes(36)));

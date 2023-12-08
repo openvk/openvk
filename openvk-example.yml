@@ -50,6 +50,8 @@ openvk:
                 - "Good luck filling! If you are a regular support agent, inform the administrator that he forgot to fill the config"
         messages:
             strict: false
+        music:
+            exposeOriginalURLs: true
         wall:
             christian: false
             anonymousPosting:

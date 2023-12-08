@@ -67,7 +67,7 @@ final class SupportPresenter extends OpenVKPresenter
         $this->template->count = $this->tickets->getTicketsCountByUserId($this->user->id);
         if($this->template->mode === "list") {
             $this->template->page    = (int) ($this->queryParam("p") ?? 1);
-            $this->template->tickets = $this->tickets->getTicketsByUserId($this->user->id, $this->template->page);
+            $this->template->tickets = iterator_to_array($this->tickets->getTicketsByUserId($this->user->id, $this->template->page));
         }
 
         if($this->template->mode === "new")

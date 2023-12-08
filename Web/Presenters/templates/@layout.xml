@@ -13,9 +13,12 @@
 
         <script src="/language/{php echo getLanguage()}.js" crossorigin="anonymous"></script>
         {script "js/node_modules/jquery/dist/jquery.min.js"}
+        {script "js/node_modules/jquery-ui/dist/jquery-ui.min.js"}
         {script "js/node_modules/umbrellajs/umbrella.min.js"}
         {script "js/l10n.js"}
         {script "js/openvk.cls.js"}
+        {script "js/node_modules/dashjs/dist/dash.all.min.js"}
+        {script "js/al_music.js"}
 
         {css "js/node_modules/tippy.js/dist/backdrop.css"}
         {css "js/node_modules/tippy.js/dist/border.css"}
@@ -122,6 +125,7 @@
                                             <option value="comments">{_s_by_comments}</option>
                                             <option value="videos">{_s_by_videos}</option>
                                             <option value="apps">{_s_by_apps}</option>
+                                            <option value="audios">{_s_by_audios}</option>
                                         </select>
                                     </form>
                                     <div class="searchTips" id="srcht" hidden>
@@ -140,13 +144,13 @@
                                             <option value="comments" {if str_contains($_SERVER['REQUEST_URI'], "type=comments")}selected{/if}>{_s_by_comments}</option>
                                             <option value="videos"   {if str_contains($_SERVER['REQUEST_URI'], "type=videos")}selected{/if}>{_s_by_videos}</option>
                                             <option value="apps"     {if str_contains($_SERVER['REQUEST_URI'], "type=apps")}selected{/if}>{_s_by_apps}</option>
+                                            <option value="audios"   {if str_contains($_SERVER['REQUEST_URI'], "type=audios")}selected{/if}>{_s_by_audios}</option>
                                         </select>
                                         <button class="searchBtn"><span style="color:white;font-weight: 600;font-size:12px;">{_header_search}</span></button>
                                     </form>
                                     <script>
                                         let els = document.querySelectorAll("div.dec")
-                                        for(const element of els)
-                                        {
+                                        for(const element of els) {
                                             element.style.display = "none"
                                         }
                                     </script>
@@ -182,6 +186,7 @@
                             </a>
                             <a n:if="$thisUser->getLeftMenuItemStatus('photos')" href="/albums{$thisUser->getId()}" class="link">{_my_photos}</a>
                             <a n:if="$thisUser->getLeftMenuItemStatus('videos')" href="/videos{$thisUser->getId()}" class="link">{_my_videos}</a>
+                            <a n:if="$thisUser->getLeftMenuItemStatus('audios')" href="/audios{$thisUser->getId()}" class="link">{_my_audios}</a>
                             <a n:if="$thisUser->getLeftMenuItemStatus('messages')" href="/im" class="link">{_my_messages}
                                 <object type="internal/link" n:if="$thisUser->getUnreadMessagesCount() > 0">
                                     (<b>{$thisUser->getUnreadMessagesCount()}</b>)
@@ -228,7 +233,16 @@
 
                             <div id="_groupListPinnedGroups">
                                 <div n:if="$thisUser->getPinnedClubCount() > 0" class="menu_divider"></div>
-                                <a n:foreach="$thisUser->getPinnedClubs() as $club" href="{$club->getURL()}" class="link group_link">{$club->getName()}</a>
+
+                                <a n:foreach="$thisUser->getPinnedClubs() as $club" href="{$club->getURL()}" class="link group_link">
+                                    {ovk_proc_strtr($club->getName(), 14)}
+
+                                    <object type="internal/link" style="white-space: normal;" id="sug{$club->getId()}" n:if="$club->getSuggestedPostsCount($thisUser) > 0 && $club->getWallType() == 2">
+                                        <a href="/club{$club->getId()}/suggested" class="linkunderline">
+                                            (<b>{$club->getSuggestedPostsCount($thisUser)}</b>)
+                                        </a>
+                                    </object>
+                                </a>
                             </div>
                             
                             <div n:if="OPENVK_ROOT_CONF['openvk']['preferences']['commerce'] && $thisUser->getCoins() != 0" id="votesBalance">
@@ -366,6 +380,10 @@
             </p>
         </div>
 
+        <div id="ajloader" class="loader">
+            <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px;">
+        </div>
+
         {include "components/cookies.xml"}
 
         {script "js/node_modules/msgpack-lite/dist/msgpack.min.js"}
@@ -379,6 +397,7 @@
         {script "js/al_api.js"}
         {script "js/al_mentions.js"}
         {script "js/al_polls.js"}
+        {script "js/al_suggestions.js"}
 
         {ifset $thisUser}
             {script "js/al_notifs.js"}
@@ -425,6 +444,12 @@
                 g.type='text/javascript'; g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
             })();
             //]]>
+        </script>
+
+        <script>
+            window.openvk = {
+                "audio_genres": {\openvk\Web\Models\Entities\Audio::genres}
+            }
         </script>
 
         {ifset bodyScripts}

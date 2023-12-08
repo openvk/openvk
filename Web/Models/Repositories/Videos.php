@@ -77,4 +77,11 @@ class Videos
 
         return new Util\EntityStream("Video", $result->order("$sort"));
     }
+
+    function getLastVideo(User $user)
+    {
+        $video = $this->videos->where("owner", $user->getId())->where(["deleted" => 0, "unlisted" => 0])->order("id DESC")->fetch();
+
+        return new Video($video);
+    }
 }

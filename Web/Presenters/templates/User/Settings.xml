@@ -266,8 +266,6 @@
                         <select name="page.read" style="width: 164px;">
                             <option value="3" {if $user->getPrivacySetting('page.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
                             <option value="2" {if $user->getPrivacySetting('page.read') == 2}selected{/if}>{_privacy_value_users}</option>
-                            <option value="1" {if $user->getPrivacySetting('page.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
-                            <option value="0" {if $user->getPrivacySetting('page.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
                         </select>
                     </td>
                 </tr>
@@ -320,6 +318,19 @@
                             <option value="2" {if $user->getPrivacySetting('videos.read') == 2}selected{/if}>{_privacy_value_users}</option>
                             <option value="1" {if $user->getPrivacySetting('videos.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
                             <option value="0" {if $user->getPrivacySetting('videos.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" valign="top">
+                        <span class="nobold">{_privacy_setting_view_audio}</span>
+                    </td>
+                    <td>
+                        <select name="audios.read" style="width: 164px;">
+                            <option value="3" {if $user->getPrivacySetting('audios.read') == 3}selected{/if}>{_privacy_value_anybody_dative}</option>
+                            <option value="2" {if $user->getPrivacySetting('audios.read') == 2}selected{/if}>{_privacy_value_users}</option>
+                            <option value="1" {if $user->getPrivacySetting('audios.read') == 1}selected{/if}>{_privacy_value_friends_dative}</option>
+                            <option value="0" {if $user->getPrivacySetting('audios.read') == 0}selected{/if}>{_privacy_value_only_me_dative}</option>
                         </select>
                     </td>
                 </tr>
@@ -381,6 +392,17 @@
                             <option value="2" {if $user->getPrivacySetting('messages.write') == 2}selected{/if}>{_privacy_value_anybody}</option>
                             <option value="1" {if $user->getPrivacySetting('messages.write') == 1}selected{/if}>{_privacy_value_friends}</option>
                             <option value="0" {if $user->getPrivacySetting('messages.write') == 0}selected{/if}>{_privacy_value_nobody}</option>
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td width="120" valign="top">
+                        <span class="nobold">{_profile_type}</span>
+                    </td>
+                    <td>
+                        <select name="profile_type", style="width: 164px;">
+                            <option value="0" {if $user->getProfileType() == 0}selected{/if}>{_profile_type_open}</option>
+                            <option value="1" {if $user->getProfileType() == 1}selected{/if}>{_profile_type_closed}</option>
                         </select>
                     </td>
                 </tr>
@@ -607,6 +629,17 @@
                         </td>
                         <td>
                             <span class="nobold">{_my_videos}</span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="120" valign="top" align="right">
+                            <input
+                                  n:attr="checked => $user->getLeftMenuItemStatus('audios')"
+                                  type="checkbox"
+                                  name="menu_muziko" />
+                        </td>
+                        <td>
+                            <span class="nobold">{_my_audios}</span>
                         </td>
                     </tr>
                     <tr>

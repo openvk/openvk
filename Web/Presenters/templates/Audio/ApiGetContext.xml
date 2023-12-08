@@ -1,0 +1,7 @@
+<input type="hidden" name="count" value="{$count}">
+<input type="hidden" name="pagesCount" value="{$pagesCount}">
+<input type="hidden" name="page" value="{$page}">
+
+{foreach $audios as $audio} 
+    {include "player.xml", audio => $audio, hideButtons => true}
+{/foreach}

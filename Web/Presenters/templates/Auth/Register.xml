@@ -91,13 +91,13 @@
                     </tr>
                     <tr>
                         <td class="regform-left">
-                            <span class="nobold">{_gender}: </span>
+                            <span class="nobold">{_pronouns}: </span>
                         </td>
                         <td class="regform-right">
-                            {var $femalePreferred = OPENVK_ROOT_CONF["openvk"]["preferences"]["femaleGenderPriority"]}
-                            <select name="sex" required>
-                                <option n:attr="selected => !$femalePreferred" value="male">{_male}</option>
-                                <option n:attr="selected => $femalePreferred" value="female">{_female}</option>
+                            <select name="pronouns" required>
+                                <option value="male">{_male}</option>
+                                <option value="female">{_female}</option>
+                                <option value="neutral">{_neutral}</option>
                             </select>
                         </td>
                     </tr>

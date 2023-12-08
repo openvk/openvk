@@ -76,7 +76,7 @@
                             <img src="/assets/packages/static/openvk/img/loading_mini.gif" style="width: 40px;">
                         </div>
                         <a n:if="!$template->isRollbacked()" id="noSpam-rollback-template-link-{$template->getId()}" onClick="rollbackTemplate({$template->getId()})">{_roll_back}</a>
-                        <span n:attr="style => $template->isRollbacked() ? '' : 'display: none;'" id="noSpam-rollback-template-rollbacked-{$template->getId()}">{roll_backed}</span>
+                        <span n:attr="style => $template->isRollbacked() ? '' : 'display: none;'" id="noSpam-rollback-template-rollbacked-{$template->getId()}">{_roll_backed}</span>
                     </div>
                 </td>
             </tr>

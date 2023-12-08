@@ -1,0 +1,661 @@
+.noOverflow {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.overflowedName {
+    position: absolute;
+    z-index: 99;
+}
+
+.musicIcon {
+    background-image: url('/assets/packages/static/openvk/img/audios_controls.png');
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.musicIcon:hover {
+    filter: brightness(99%);
+}
+
+.musicIcon.pressed {
+    filter: brightness(150%);
+}
+
+.bigPlayer {
+    background-color: rgb(240, 241, 242);
+    margin-left: -10px;
+    margin-top: -10px;
+    width: 102.8%;
+    height: 46px;
+    border-bottom: 1px solid #d8d8d8;
+    box-shadow: 1px 0px 8px 0px rgba(34, 60, 80, 0.2);
+    position: relative;
+}
+
+.bigPlayer.floating {
+    position: fixed;
+    z-index: 199;
+    width: 627px;
+    margin-top: -76px;
+}
+
+.bigPlayer .paddingLayer {
+    padding: 0px 0px 0px 14px;
+}
+
+.bigPlayer .paddingLayer .playButtons {
+    padding: 12px 0px;
+}
+
+.bigPlayer .paddingLayer .playButtons .playButton {
+    width: 22px;
+    height: 22px;
+    float: left;
+    background-position-x: -72px;
+}
+
+.bigPlayer .paddingLayer .playButtons .playButton.pause {
+    background-position-x: -168px;
+}
+
+.bigPlayer .paddingLayer .playButtons .nextButton {
+    width: 16px;
+    height: 16px;
+    background-position-y: -47px;
+}
+
+.bigPlayer .paddingLayer .playButtons .backButton {
+    width: 16px;
+    height: 16px;
+    background-position-y: -47px;
+    background-position-x: -16px;
+    margin-left: 6px;
+}
+
+.bigPlayer .paddingLayer .additionalButtons {
+    float: left;
+    margin-top: -6px;
+    width: 11%;
+}
+
+.bigPlayer .paddingLayer .additionalButtons .repeatButton {
+    width: 14px;
+    height: 16px;
+    background-position-y: -49px;
+    background-position-x: -31px;
+    margin-left: 7px;
+    float: left;
+}
+
+.broadcastButton {
+    width: 16px;
+    height: 12px;
+    background-position-y: -50px;
+    background-position-x: -64px;
+    margin-left: 6px;
+    float: left;
+}
+
+.broadcastButton.atProfile {
+    width: 13px;
+    height: 12px;
+    background-position-y: -50px;
+    background-position-x: -64px;
+    margin-left: 0px !important;
+    margin-right: 5px;
+    float: left;
+}
+
+.bigPlayer .paddingLayer .additionalButtons .shuffleButton {
+    width: 14px;
+    height: 16px;
+    background-position: -50px -50px;
+    margin-left: 7px;
+    float: left;
+}
+
+.bigPlayer .paddingLayer .additionalButtons .deviceButton {
+    width: 12px;
+    height: 16px;
+    background-position: -202px -50px;
+    margin-left: 7px;
+    float: left;
+}
+
+.bigPlayer .paddingLayer .playButtons .arrowsButtons {
+    float: left;
+    display: flex;
+    padding-left: 4px;
+    padding-top: 1.2px;
+}
+
+.bigPlayer .paddingLayer .trackPanel {
+    float: left;
+    margin-top: -13px;
+    margin-left: 13px;
+    width: 63%;
+    position: relative;
+}
+
+.bigPlayer .paddingLayer .bigPlayerTip {
+    display: none;
+    z-index: 999;
+    background: #cecece;
+    padding: 3px;
+    top: -3px;
+    position: absolute;
+    transition: all .1s ease-out;
+    user-select: none;
+}
+
+.bigPlayer .paddingLayer .volumePanel {
+    width: 73px;
+    float: left;
+}
+
+.bigPlayer .paddingLayer .slider, .audioEmbed .track .slider {
+    width: 18px;
+    height: 7px;
+    background: #606060;
+    position: absolute;
+    bottom: 0;
+    top: 0px;
+    pointer-events: none;
+}
+
+.bigPlayer .paddingLayer .trackInfo .timer {
+    float: right;
+    margin-right: 8px;
+    font-size: 10px;
+}
+
+.bigPlayer .paddingLayer .trackInfo .trackName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 81%;
+    display: inline-block;
+}
+
+.bigPlayer .paddingLayer .trackInfo .timer span {
+    font-size: 10px;
+}
+
+.bigPlayer .paddingLayer .trackInfo b:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.audioEmbed .track > .selectableTrack, .bigPlayer .selectableTrack {
+    margin-top: 3px;
+    width: calc(100% - 8px);
+    border-top: #606060 1px solid;
+    height: 6px;
+    position: relative;
+    user-select: none;
+}
+
+#audioEmbed {
+    cursor: pointer;
+    user-select: none;
+    background: #eee;
+    height: 40px;
+    width: 486px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+    border: 1px solid #8B8B8B;
+}
+
+.audioEntry.nowPlaying {
+    background: #606060;
+    border: 1px solid #4f4f4f;
+    box-sizing: border-box;
+}
+
+.audioEntry.nowPlaying .playIcon {
+    background-position-y: -16px !important;
+}
+
+.audioEntry.nowPlaying:hover {
+    background: #4e4e4e !important;
+}
+
+.audioEntry.nowPlaying .performer a {
+    color: #f4f4f4 !important;
+}
+
+.audioEntry .performer a {
+    color: #4C4C4C;
+}
+
+.audioEntry.nowPlaying .title {
+    color: #fff;
+}
+
+.audioEntry.nowPlaying .status {
+    color: white;
+}
+
+.audioEntry.nowPlaying .volume .nobold {
+    color: white !important;
+}
+
+.audioEntry.nowPlaying .buttons .musicIcon, .audioEntry.nowPlaying .explicitMark {
+    filter: brightness(187%) opacity(72%);
+}
+
+.audioEntry {
+    height: 100%;
+    position: relative;
+    width: 100%;
+}
+
+.audioEntry .playerButton {
+    position: relative;
+    padding: 10px 9px 9px 9px;
+    width: 16px;
+    height: 16px;
+}
+
+.audioEntry .subTracks {
+    display: flex;
+    padding-bottom: 5px;
+    padding-left: 8px;
+    padding-right: 12px;
+}
+
+.audioEntry .playerButton .playIcon {
+    background-image: url('/assets/packages/static/openvk/img/play_buttons.gif');
+    cursor: pointer;
+    width: 16px;
+    height: 16px;
+    background-repeat: no-repeat;
+}
+
+.audioEntry .playerButton .playIcon.paused {
+    background-position-y: -16px;
+}
+
+.audioEntry .status {
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 85%;
+    height: 23px;
+}
+
+.audioEntry .status strong {
+    color: #4C4C4C;
+}
+
+.audioEmbed .track {
+    display: none;
+    padding: 4px 0;
+}
+
+.audioEmbed .track, .audioEmbed.playing .track {
+    display: unset;
+}
+
+.audioEntry:hover {
+    background: #EEF0F2;
+    border-radius: 2px;
+}
+
+.audioEntry:hover .buttons {
+    display: block;
+}
+
+.audioEntry:hover .volume .hideOnHover {
+    display: none;
+}
+
+.audioEntry .buttons {
+    display: none;
+    width: 62px;
+    height: 20px;
+    position: absolute;
+    right: 3%;
+    top: 2px;
+    /* чтоб избежать заедания во время ховера кнопки добавления */
+    clip-path: inset(0 0 0 0);
+}
+
+.audioEntry .buttons .edit-icon {
+    width: 11px;
+    height: 11px;
+    float: right;
+    margin-right: 4px;
+    margin-top: 3px;
+    background-position: -137px -51px;
+}
+
+.audioEntry .buttons .add-icon {
+    width: 11px;
+    height: 11px;
+    float: right;
+    background-position: -80px -52px;
+    margin-top: 3px;
+    margin-left: 2px;
+}
+
+.audioEntry .buttons .add-icon-group {
+    width: 14px;
+    height: 11px;
+    float: right;
+    background-position: -94px -52px;
+    margin-top: 3px;
+    transition: margin-right 0.1s ease-out, opacity 0.1s ease-out;
+}
+
+.audioEntry .buttons .report-icon {
+    width: 12px;
+    height: 11px;
+    float: right;
+    background-position: -67px -51px;
+    margin-top: 3px;
+    margin-right: 3px;
+}
+
+.add-icon-noaction {
+    background-image: url('/assets/packages/static/openvk/img/audios_controls.png');
+    width: 11px;
+    height: 11px;
+    float: right;
+    background-position: -94px -52px;
+    margin-top: 2px;
+    margin-right: 2px;
+}
+
+.audioEntry .buttons .remove-icon {
+    margin-top: 3px;
+    width: 11px;
+    height: 11px;
+    margin-left: 2px;
+    float: right;
+    background-position: -108px -52px;
+}
+
+.audioEntry .buttons .remove-icon-group {
+    margin-top: 3px;
+    width: 13px;
+    height: 11px;
+    float: right;
+    background-position: -122px -52px;
+    margin-left: 3px;
+    margin-right: 3px;
+}
+
+.audioEmbed .lyrics {
+    display: none;
+    padding: 6px 33px 10px 33px;
+}
+
+.audioEmbed .lyrics.showed {
+    display: block !important;
+}
+
+.audioEntry .withLyrics {
+    user-select: none;
+    color: #507597;
+}
+
+.audioEntry .withLyrics:hover {
+    text-decoration: underline;
+}
+
+.audioEmbed.withdrawn .status > *, .audioEmbed.processed .status > *, .audioEmbed.withdrawn .playerButton > *, .audioEmbed.processed .playerButton > * {
+    pointer-events: none;
+}
+
+.audioEmbed.withdrawn {
+    filter: opacity(0.8);
+}
+
+.playlistCover img {
+    max-width: 135px;
+    max-height: 135px;
+}
+
+.playlistBlock {
+    margin-top: 14px;
+}
+
+.playlistContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 146px);
+    gap: 18px 10px;
+}
+
+.playlistContainer .playlistCover {
+    width: 111px;
+    height: 111px;
+    display: flex;
+    background: #c4c4c4;
+}
+
+.playlistContainer  .playlistCover img {
+    max-width: 111px;
+    max-height: 111px;
+    margin: auto;
+}
+
+.ovk-diag-body .searchBox {
+    background: #e6e6e6;
+    padding-top: 10px;
+    height: 35px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+}
+
+.ovk-diag-body .searchBox input {
+    height: 24px;
+    margin-right: -1px;
+    width: 77%;
+}
+
+.ovk-diag-body .searchBox select {
+    width: 29%;
+    padding-left: 8px;
+    height: 24px;
+}
+
+.ovk-diag-body .audiosInsert {
+    height: 82%;
+    padding: 9px 5px 9px 9px;
+    overflow-y: auto;
+}
+
+.attachAudio {
+    float: left;
+    width: 28%;
+    height: 26px;
+    padding-top: 11px;
+    text-align: center;
+}
+
+.attachAudio span {
+    user-select: none;
+}
+
+.attachAudio:hover {
+    background: rgb(236, 236, 236);
+    cursor: pointer;
+}
+
+.playlistCover img {
+    cursor: pointer;
+}
+
+.explicitMark {
+    margin-top: 2px;
+    margin-left: 3px;
+    width: 11px;
+    height: 11px;
+    background: url('/assets/packages/static/openvk/img/explicit.svg');
+    background-repeat: no-repeat;
+}
+
+.audioStatus span {
+    color: #2B587A;
+}
+
+.audioStatus span:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.audioStatus {
+    padding-top: 2px;
+    padding-bottom: 3px;
+}
+
+/* <center> 🤣🤣🤣🤣🤣🤣🤣🤣🤣🤣*/
+.audiosDiv center span {
+    color: #707070;
+    margin: 120px 0px !important;
+    display: block;
+}
+
+.audiosDiv center {
+    margin-left: -10px;
+}
+
+.playlistInfo {
+    display: flex;
+    flex-direction: column;
+}
+
+.playlistInfo .playlistName {
+    font-weight: 600;
+}
+
+.searchList.floating {
+    position: fixed;
+    z-index: 199;
+    width: 156px;
+    margin-top: -65px !important;
+}
+
+.audiosSearchBox input[type='search'] {
+    height: 25px;
+    width: 77%;
+    padding-left: 21px;
+    padding-top: 4px;
+    background: rgb(255, 255, 255) url("/assets/packages/static/openvk/img/search_icon.png") 5px 6px no-repeat;
+}
+
+.audiosSearchBox {
+    padding-bottom: 10px;
+    padding-top: 7px;
+    display: flex;
+}
+
+.audiosSearchBox select {
+    width: 30%;
+    padding-left: 7px;
+    margin-left: -2px;
+}
+
+.audioStatus {
+    color: #2B587A;
+    margin-top: -3px;
+}
+
+.audioStatus::before {
+    background-image: url('/assets/packages/static/openvk/img/audios_controls.png');
+    background-repeat: no-repeat;
+    width: 11px;
+    height: 11px;
+    background-position: -66px -51px;
+    margin-top: 1px;
+    display: inline-block;
+    vertical-align: bottom;
+    content: "";
+    padding-right: 2px;
+}
+
+.friendsAudiosList {
+    margin-left: -7px;
+    margin-top: 8px;
+}
+
+.friendsAudiosList .elem {
+    display: flex;
+    padding: 1px 1px;
+    width: 148px;
+}
+
+.friendsAudiosList .elem img {
+    width: 30px;
+    border-radius: 2px;
+    object-fit: cover;
+    height: 31px;
+    min-width: 30px;
+}
+
+.friendsAudiosList .elem .additionalInfo {
+    margin-left: 7px;
+    padding-top: 1px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.friendsAudiosList .elem .additionalInfo .name {
+    color: #2B587A;
+}
+
+.friendsAudiosList #used .elem .additionalInfo .name {
+    color: #F4F4F4;
+}
+
+.friendsAudiosList .elem .additionalInfo .desc {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    color: #878A8F;
+    font-size: 11px;
+}
+
+.friendsAudiosList #used .elem .additionalInfo .desc {
+    color: #F4F4F4;
+}
+
+.friendsAudiosList .elem:hover {
+    background: #E8EBF0;
+    cursor: pointer;
+}
+
+.friendsAudiosList #used .elem:hover {
+    background: #787878;
+    cursor: pointer;
+}
+
+.editContainer {
+    display:table;
+    clear:both;
+    width:100%;
+    margin-top: 10px;
+}
+
+.editContainer .playerContainer {
+    width: 78%;
+    float: left;
+    max-width: 78%;
+    min-width: 68%;
+}
+
+.addToPlaylist {
+    width: 22%;
+}

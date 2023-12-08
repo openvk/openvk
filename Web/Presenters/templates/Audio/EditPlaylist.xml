@@ -1,0 +1,95 @@
+{extends "../@layout.xml"}
+
+{block title}{_edit_playlist}{/block}
+
+{block header}
+    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+    »
+    <a href="/audios{$ownerId}">{_audios}</a>
+    »
+    <a href="/playlist{$playlist->getPrettyId()}">{_playlist}</a>
+    »
+    {_edit_playlist}
+{/block}
+
+{block content}
+    <div class="playlistBlock" style="display: flex;margin-top: 0px;">
+        <div class="playlistCover">
+            <a>
+                <img src="{$playlist->getCoverURL('normal')}" alt="{_playlist_cover}">
+            </a>
+
+            <div class="profile_links" style="width: 139px;">
+                <a class="profile_link" style="width: 98%;" id="_deletePlaylist" data-id="{$playlist->getId()}">{_delete_playlist}</a>
+            </div>
+        </div>
+
+        <div style="padding-left: 13px;width:75%">
+            <div class="playlistInfo">
+                <input value="{$playlist->getName()}" type="text" name="title" maxlength="125">
+            </div>
+
+            <div class="moreInfo">
+                <textarea name="description" maxlength="2045" style="margin-top: 11px;">{$playlist->getDescription()}</textarea>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 19px;">
+        <input id="playlist_query" type="text" style="height: 26px;" placeholder="{_header_search}">
+        <div class="playlistAudiosContainer editContainer">
+            <div id="newPlaylistAudios" n:foreach="$audios as $audio">
+                <div class="playerContainer">
+                    {include "player.xml", audio => $audio, hideButtons => true}
+                </div>
+                <div class="attachAudio addToPlaylist" data-id="{$audio->getId()}">
+                    <span>{_remove_from_playlist}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="showMoreAudiosPlaylist" data-page="2" data-playlist="{$playlist->getId()}" n:if="$pagesCount > 1">
+            {_show_more_audios}
+        </div>
+    </div>
+
+    <form method="post" id="editPlaylistForm" data-id="{$playlist->getId()}" enctype="multipart/form-data">
+        <input type="hidden" name="title" maxlength="128" />
+        <input type="hidden" name="hash" value="{$csrfToken}" />
+        <textarea style="display:none;" name="description" maxlength="2048" />
+        <input type="hidden" name="audios">
+        <input type="file" style="display:none;" name="new_cover" accept=".jpg,.png">
+
+        <div style="float:right;margin-top: 8px;">
+            <button class="button" type="submit">{_save}</button>
+        </div>
+    </form>
+
+    <script>
+        document.querySelector("input[name='audios']").value = {$audiosIds}
+
+        u("#editPlaylistForm").on("submit", (e) => {
+            document.querySelector("#editPlaylistForm input[name='title']").value = document.querySelector(".playlistInfo input[name='title']").value
+            document.querySelector("#editPlaylistForm textarea[name='description']").value = document.querySelector(".playlistBlock textarea[name='description']").value
+        })
+
+        u("#editPlaylistForm input[name='new_cover']").on("change", (e) => {
+            if(!e.currentTarget.files[0].type.startsWith("image/")) {
+                fastError(tr("not_a_photo"))
+                return
+            }
+            
+            let image = URL.createObjectURL(e.currentTarget.files[0])
+
+            document.querySelector(".playlistCover img").src = image
+        })
+
+        u(".playlistCover img").on("click", (e) => {
+            document.querySelector("input[name='new_cover']").click()
+        })
+
+        document.querySelector("#editPlaylistForm input[name='new_cover']").value = ""
+    </script>
+
+    {script "js/al_playlists.js"}
+{/block}

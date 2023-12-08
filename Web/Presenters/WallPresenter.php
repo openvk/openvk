@@ -2,8 +2,8 @@
 namespace openvk\Web\Presenters;
 use openvk\Web\Models\Exceptions\TooMuchOptionsException;
 use openvk\Web\Models\Entities\{Poll, Post, Photo, Video, Club, User};
-use openvk\Web\Models\Entities\Notifications\{MentionNotification, RepostNotification, WallPostNotification};
-use openvk\Web\Models\Repositories\{Posts, Users, Clubs, Albums, Notes, Videos, Comments};
+use openvk\Web\Models\Entities\Notifications\{MentionNotification, RepostNotification, WallPostNotification, PostAcceptedNotification, NewSuggestedPostsNotification};
+use openvk\Web\Models\Repositories\{Posts, Users, Clubs, Albums, Notes, Videos, Comments, Photos, Audios};
 use Chandler\Database\DatabaseConnection;
 use Nette\InvalidStateException as ISE;
 use Bhaktaraz\RSSGenerator\Item;
@@ -46,7 +46,7 @@ final class WallPresenter extends OpenVKPresenter
     function renderWall(int $user, bool $embedded = false): void
     {
         $owner = ($user < 0 ? (new Clubs) : (new Users))->get(abs($user));
-        if ($owner->isBanned())
+        if ($owner->isBanned() || !$owner->canBeViewedBy($this->user->identity))
             $this->flashFail("err", tr("error"), tr("forbidden"));
 
         if(is_null($this->user)) {
@@ -66,11 +66,32 @@ final class WallPresenter extends OpenVKPresenter
         $this->template->oObj = $owner;
         if($user < 0)
             $this->template->club = $owner;
+
+        $iterator = NULL;
+        $count = 0;
+        $type = $this->queryParam("type") ?? "all";
+
+        switch($type) {
+            default:
+            case "all":
+                $iterator = $this->posts->getPostsFromUsersWall($user, (int) ($_GET["p"] ?? 1));
+                $count = $this->posts->getPostCountOnUserWall($user);
+                break;
+            case "owners":
+                $iterator = $this->posts->getOwnersPostsFromWall($user, (int) ($_GET["p"] ?? 1));
+                $count = $this->posts->getOwnersCountOnUserWall($user);
+                break;
+            case "others":
+                $iterator = $this->posts->getOthersPostsFromWall($user, (int) ($_GET["p"] ?? 1));
+                $count = $this->posts->getOthersCountOnUserWall($user);
+                break;
+        }
         
         $this->template->owner   = $user;
         $this->template->canPost = $canPost;
-        $this->template->count   = $this->posts->getPostCountOnUserWall($user);
-        $this->template->posts   = iterator_to_array($this->posts->getPostsFromUsersWall($user, (int) ($_GET["p"] ?? 1)));
+        $this->template->count   = $count;
+        $this->template->type    = $type;
+        $this->template->posts   = iterator_to_array($iterator);
         $this->template->paginatorConf = (object) [
             "count"   => $this->template->count,
             "page"    => (int) ($_GET["p"] ?? 1),
@@ -93,7 +114,7 @@ final class WallPresenter extends OpenVKPresenter
         if(is_null($this->user)) {
             $canPost = false;
         } else if($user > 0) {
-            if(!$owner->isBanned())
+            if(!$owner->isBanned() && $owner->canBeViewedBy($this->user->identity))
                 $canPost = $owner->getPrivacyPermission("wall.write", $this->user->identity);
             else
                 $this->flashFail("err", tr("error"), tr("forbidden"));
@@ -150,11 +171,12 @@ final class WallPresenter extends OpenVKPresenter
                    ->select("id")
                    ->where("wall IN (?)", $ids)
                    ->where("deleted", 0)
+                   ->where("suggested", 0)
                    ->order("created DESC");
         $this->template->paginatorConf = (object) [
             "count"   => sizeof($posts),
             "page"    => (int) ($_GET["p"] ?? 1),
-            "amount"  => sizeof($posts->page((int) ($_GET["p"] ?? 1), $perPage)),
+            "amount"  => $posts->page((int) ($_GET["p"] ?? 1), $perPage)->count(),
             "perPage" => $perPage,
         ];
         $this->template->posts = [];
@@ -168,8 +190,9 @@ final class WallPresenter extends OpenVKPresenter
         
         $page  = (int) ($_GET["p"] ?? 1);
         $pPage = min((int) ($_GET["posts"] ?? OPENVK_DEFAULT_PER_PAGE), 50);
-
-        $queryBase = "FROM `posts` LEFT JOIN `groups` ON GREATEST(`posts`.`wall`, 0) = 0 AND `groups`.`id` = ABS(`posts`.`wall`) WHERE (`groups`.`hide_from_global_feed` = 0 OR `groups`.`name` IS NULL) AND `posts`.`deleted` = 0";
+        
+        $queryBase = "FROM `posts` LEFT JOIN `groups` ON GREATEST(`posts`.`wall`, 0) = 0 AND `groups`.`id` = ABS(`posts`.`wall`) LEFT JOIN `profiles` ON LEAST(`posts`.`wall`, 0) = 0 AND `profiles`.`id` = ABS(`posts`.`wall`)";
+        $queryBase .= "WHERE (`groups`.`hide_from_global_feed` = 0 OR `groups`.`name` IS NULL) AND (`profiles`.`profile_type` = 0 OR `profiles`.`first_name` IS NULL) AND `posts`.`deleted` = 0 AND `posts`.`suggested` = 0";
 
         if($this->user->identity->getNsfwTolerance() === User::NSFW_INTOLERANT)
             $queryBase .= " AND `nsfw` = 0";
@@ -188,7 +211,7 @@ final class WallPresenter extends OpenVKPresenter
         $this->template->paginatorConf = (object) [
             "count"   => $count,
             "page"    => (int) ($_GET["p"] ?? 1),
-            "amount"  => sizeof($posts),
+            "amount"  => $posts->getRowCount(),
             "perPage" => $pPage,
         ];
         foreach($posts as $post)
@@ -255,23 +278,23 @@ final class WallPresenter extends OpenVKPresenter
         if($this->postParam("force_sign") === "on")
             $flags |= 0b01000000;
         
-        try {
-            $photo = NULL;
-            $video = NULL;
-            if($_FILES["_pic_attachment"]["error"] === UPLOAD_ERR_OK) {
-                $album = NULL;
-                if(!$anon && $wall > 0 && $wall === $this->user->id)
-                    $album = (new Albums)->getUserWallAlbum($wallOwner);
-                
-                $photo = Photo::fastMake($this->user->id, $this->postParam("text"), $_FILES["_pic_attachment"], $album, $anon);
+        $photos = [];
+
+        if(!empty($this->postParam("photos"))) {
+            $un  = rtrim($this->postParam("photos"), ",");
+            $arr = explode(",", $un);
+
+            if(sizeof($arr) < 11) {
+                foreach($arr as $dat) {
+                    $ids = explode("_", $dat);
+                    $photo = (new Photos)->getByOwnerAndVID((int)$ids[0], (int)$ids[1]);
+    
+                    if(!$photo || $photo->isDeleted())
+                        continue;
+    
+                    $photos[] = $photo;
+                }
             }
-            
-            /*if($_FILES["_vid_attachment"]["error"] === UPLOAD_ERR_OK)
-                $video = Video::fastMake($this->user->id, $_FILES["_vid_attachment"]["name"], $this->postParam("text"), $_FILES["_vid_attachment"], $anon);*/
-        } catch(\DomainException $ex) {
-            $this->flashFail("err", tr("failed_to_publish_post"), tr("media_file_corrupted"));
-        } catch(ISE $ex) {
-            $this->flashFail("err", tr("failed_to_publish_post"), tr("media_file_corrupted_or_too_large"));
         }
         
         try {
@@ -317,8 +340,27 @@ final class WallPresenter extends OpenVKPresenter
                 }
             }
         }
+
+        $audios = [];
+
+        if(!empty($this->postParam("audios"))) {
+            $un  = rtrim($this->postParam("audios"), ",");
+            $arr = explode(",", $un);
+
+            if(sizeof($arr) < 11) {
+                foreach($arr as $dat) {
+                    $ids = explode("_", $dat);
+                    $audio = (new Audios)->getByOwnerAndVID((int)$ids[0], (int)$ids[1]);
+    
+                    if(!$audio || $audio->isDeleted())
+                        continue;
+    
+                    $audios[] = $audio;
+                }
+            }
+        }
         
-        if(empty($this->postParam("text")) && !$photo && sizeof($videos) < 1 && !$poll && !$note)
+        if(empty($this->postParam("text")) && sizeof($photos) < 1 && sizeof($videos) < 1 && sizeof($audios) < 1 && !$poll && !$note)
             $this->flashFail("err", tr("failed_to_publish_post"), tr("post_is_empty_or_too_big"));
         
         try {
@@ -330,13 +372,17 @@ final class WallPresenter extends OpenVKPresenter
             $post->setAnonymous($anon);
             $post->setFlags($flags);
             $post->setNsfw($this->postParam("nsfw") === "on");
+
+            if($wall < 0 && !$wallOwner->canBeModifiedBy($this->user->identity) && $wallOwner->getWallType() == 2)
+                $post->setSuggested(1);
+            
             $post->save();
         } catch (\LengthException $ex) {
             $this->flashFail("err", tr("failed_to_publish_post"), tr("post_is_too_big"));
         }
         
-        if(!is_null($photo))
-            $post->attach($photo);
+        foreach($photos as $photo)
+        	$post->attach($photo);
         
         if(sizeof($videos) > 0)
             foreach($videos as $vid)
@@ -347,6 +393,9 @@ final class WallPresenter extends OpenVKPresenter
 
         if(!is_null($note))
             $post->attach($note);
+
+        foreach($audios as $audio)
+        	$post->attach($audio);
         
         if($wall > 0 && $wall !== $this->user->identity->getId())
             (new WallPostNotification($wallOwner, $post, $this->user->identity))->emit();
@@ -355,12 +404,32 @@ final class WallPresenter extends OpenVKPresenter
         if($wall > 0)
             $excludeMentions[] = $wall;
 
-        $mentions = iterator_to_array($post->resolveMentions($excludeMentions));
-        foreach($mentions as $mentionee)
-            if($mentionee instanceof User)
-                (new MentionNotification($mentionee, $post, $post->getOwner(), strip_tags($post->getText())))->emit();
+        if($wall < 0 && !$wallOwner->canBeModifiedBy($this->user->identity) && $wallOwner->getWallType() == 2) {
+            # Чтобы не было упоминаний из предложки
+        } else {
+            $mentions = iterator_to_array($post->resolveMentions($excludeMentions));
+
+            foreach($mentions as $mentionee)
+                if($mentionee instanceof User)
+                    (new MentionNotification($mentionee, $post, $post->getOwner(), strip_tags($post->getText())))->emit();
+        }
         
-        $this->redirect($wallOwner->getURL());
+        if($wall < 0 && !$wallOwner->canBeModifiedBy($this->user->identity) && $wallOwner->getWallType() == 2) {
+            $suggsCount = $this->posts->getSuggestedPostsCount($wallOwner->getId());
+
+            if($suggsCount % 10 == 0) {
+                $managers = $wallOwner->getManagers();
+                $owner = $wallOwner->getOwner();
+                (new NewSuggestedPostsNotification($owner, $wallOwner))->emit();
+
+                foreach($managers as $manager)
+                    (new NewSuggestedPostsNotification($manager->getUser(), $wallOwner))->emit();
+            }
+
+            $this->redirect("/club".$wallOwner->getId()."/suggested");
+        } else {
+            $this->redirect($wallOwner->getURL());
+        }
     }
     
     function renderPost(int $wall, int $post_id): void
@@ -368,22 +437,25 @@ final class WallPresenter extends OpenVKPresenter
         $post = $this->posts->getPostById($wall, $post_id);
         if(!$post || $post->isDeleted())
             $this->notFound();
+
+        if(!$post->canBeViewedBy($this->user->identity))
+            $this->flashFail("err", tr("error"), tr("forbidden"));
         
         $this->logPostView($post, $wall);
         
         $this->template->post     = $post;
         if ($post->getTargetWall() > 0) {
-        	$this->template->wallOwner = (new Users)->get($post->getTargetWall());
-			$this->template->isWallOfGroup = false;
+            $this->template->wallOwner = (new Users)->get($post->getTargetWall());
+            $this->template->isWallOfGroup = false;
             if($this->template->wallOwner->isBanned())
                 $this->flashFail("err", tr("error"), tr("forbidden"));
-		} else {
-			$this->template->wallOwner = (new Clubs)->get(abs($post->getTargetWall()));
-			$this->template->isWallOfGroup = true;
+        } else {
+            $this->template->wallOwner = (new Clubs)->get(abs($post->getTargetWall()));
+            $this->template->isWallOfGroup = true;
 
             if ($this->template->wallOwner->isBanned())
                 $this->flashFail("err", tr("error"), tr("forbidden"));
-		}
+        }
         $this->template->cCount   = $post->getCommentsCount();
         $this->template->cPage    = (int) ($_GET["p"] ?? 1);
         $this->template->comments = iterator_to_array($post->getComments($this->template->cPage));
@@ -471,7 +543,7 @@ final class WallPresenter extends OpenVKPresenter
         $this->assertUserLoggedIn();
         $this->willExecuteWriteAction();
         
-        $post = $this->posts->getPostById($wall, $post_id);
+        $post = $this->posts->getPostById($wall, $post_id, true);
         if(!$post)
             $this->notFound();
         $user = $this->user->id;
@@ -486,6 +558,9 @@ final class WallPresenter extends OpenVKPresenter
             else $canBeDeletedByOtherUser = false;
 
         if(!is_null($user)) {
+            if($post->getTargetWall() < 0 && !$post->getWallOwner()->canBeModifiedBy($this->user->identity) && $post->getWallOwner()->getWallType() != 1 && $post->getSuggestionType() == 0)
+                $this->flashFail("err", tr("failed_to_delete_post"), tr("error_deleting_suggested"));
+            
             if($post->getOwnerPost() == $user || $post->getTargetWall() == $user || $canBeDeletedByOtherUser) {
                 $post->unwire();
                 $post->delete();
@@ -581,14 +656,14 @@ final class WallPresenter extends OpenVKPresenter
                             "avatar"  => $post->getOwner()->getAvatarUrl()
                         ]]);
     }
-
+    
     function renderIgnoreSource()
     {
         $this->assertUserLoggedIn();
         $this->willExecuteWriteAction(true);
 
         if($_SERVER["REQUEST_METHOD"] !== "POST")
-            exit("куда ты полез?");
+            exit("");
 
         $owner         = $this->user->id;
         $ignoredSource = (int)$this->postParam("source");
@@ -642,5 +717,94 @@ final class WallPresenter extends OpenVKPresenter
 
             $this->returnJson(["success" => true, "act" => "ignored", "text" => $tr]);
         }
+    }
+    
+    function renderAccept() {
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction(true);
+
+        if($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header("HTTP/1.1 405 Method Not Allowed");
+            exit("Ты дебил, это точка апи.");
+        }
+
+        $id = $this->postParam("id");
+        $sign = $this->postParam("sign") == 1;
+        $content = $this->postParam("new_content");
+
+        $post = (new Posts)->get((int)$id);
+
+        if(!$post || $post->isDeleted())
+            $this->flashFail("err", "Error", tr("error_accepting_invalid_post"), NULL, true);
+
+        if($post->getSuggestionType() == 0)
+            $this->flashFail("err", "Error", tr("error_accepting_not_suggested_post"), NULL, true);
+
+        if($post->getSuggestionType() == 2)
+            $this->flashFail("err", "Error", tr("error_accepting_declined_post"), NULL, true);
+
+        if(!$post->canBePinnedBy($this->user->identity))
+            $this->flashFail("err", "Error", "Can't accept this post.", NULL, true);
+
+        $author = $post->getOwner();
+
+        $flags = 0;
+        $flags |= 0b10000000;
+
+        if($sign)
+            $flags |= 0b01000000;
+
+        $post->setSuggested(0);
+        $post->setCreated(time());
+        $post->setApi_Source_Name(NULL);
+        $post->setFlags($flags);
+    
+        if(mb_strlen($content) > 0)
+            $post->setContent($content);
+        
+        $post->save();
+
+        if($author->getId() != $this->user->id)
+            (new PostAcceptedNotification($author, $post, $post->getWallOwner()))->emit();
+
+        $this->returnJson([
+            "success"   => true,
+            "id"        => $post->getPrettyId(),
+            "new_count" => (new Posts)->getSuggestedPostsCount($post->getWallOwner()->getId())
+        ]);
+    }
+
+    function renderDecline() {
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction(true);
+
+        if($_SERVER["REQUEST_METHOD"] !== "POST") {
+            header("HTTP/1.1 405 Method Not Allowed");
+            exit("Ты дебил, это метод апи.");
+        }
+
+        $id = $this->postParam("id");
+        $post = (new Posts)->get((int)$id);
+
+        if(!$post || $post->isDeleted())
+            $this->flashFail("err", "Error", tr("error_declining_invalid_post"), NULL, true);
+
+        if($post->getSuggestionType() == 0)
+            $this->flashFail("err", "Error", tr("error_declining_not_suggested_post"), NULL, true);
+
+        if($post->getSuggestionType() == 2)
+            $this->flashFail("err", "Error", tr("error_declining_declined_post"), NULL, true);
+
+        if(!$post->canBePinnedBy($this->user->identity))
+            $this->flashFail("err", "Error", "Can't decline this post.", NULL, true);
+
+        $post->setSuggested(2);
+        $post->setDeleted(1);
+        $post->save();
+
+        $this->returnJson([
+            "success"   => true,
+            "new_count" => (new Posts)->getSuggestedPostsCount($post->getWallOwner()->getId())
+        ]);
     }
 }

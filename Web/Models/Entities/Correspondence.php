@@ -131,7 +131,7 @@ class Correspondence
      */
     function getPreviewMessage(): ?Message
     {
-        $messages = $this->getMessages(1, NULL, 1);
+        $messages = $this->getMessages(1, NULL, 1, 0);
         return $messages[0] ?? NULL;
     }
     

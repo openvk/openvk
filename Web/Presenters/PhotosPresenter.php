@@ -136,6 +136,9 @@ final class PhotosPresenter extends OpenVKPresenter
         if(!$album) $this->notFound();
         if($album->getPrettyId() !== $owner . "_" . $id || $album->isDeleted())
             $this->notFound();
+
+        if(!$album->canBeViewedBy($this->user->identity))
+            $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
         
         if($owner > 0 /* bc we currently don't have perms for clubs */) {
             $ownerObject = (new Users)->get($owner);
@@ -158,7 +161,8 @@ final class PhotosPresenter extends OpenVKPresenter
     {
         $photo = $this->photos->getByOwnerAndVID($ownerId, $photoId);
         if(!$photo || $photo->isDeleted()) $this->notFound();
-        
+        if(!$photo->canBeViewedBy($this->user->identity))
+            $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
         if(!is_null($this->queryParam("from"))) {
             if(preg_match("%^album([0-9]++)$%", $this->queryParam("from"), $matches) === 1) {
                 $album = $this->albums->get((int) $matches[1]);
@@ -222,15 +226,20 @@ final class PhotosPresenter extends OpenVKPresenter
     {
         $this->assertUserLoggedIn();
         $this->willExecuteWriteAction(true);
-        
-        if(is_null($this->queryParam("album")))
-            $this->flashFail("err", tr("error"), tr("error_adding_to_deleted"), 500, true);
-        
-        [$owner, $id] = explode("_", $this->queryParam("album"));
-        $album = $this->albums->get((int) $id);
+
+        if(is_null($this->queryParam("album"))) {
+            $album = $this->albums->getUserWallAlbum($this->user->identity);
+        } else {
+            [$owner, $id] = explode("_", $this->queryParam("album"));
+            $album = $this->albums->get((int) $id);
+        }
+
         if(!$album)
             $this->flashFail("err", tr("error"), tr("error_adding_to_deleted"), 500, true);
-        if(is_null($this->user) || !$album->canBeModifiedBy($this->user->identity))
+
+        # Для быстрой загрузки фоток из пикера фотографий нужен альбом, но юзер не может загружать фото
+        # в системные альбомы, так что так.
+        if(is_null($this->user) || !is_null($this->queryParam("album")) && !$album->canBeModifiedBy($this->user->identity))
             $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"), 500, true);
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
@@ -261,6 +270,9 @@ final class PhotosPresenter extends OpenVKPresenter
                 $this->flashFail("err", tr("no_photo"), tr("select_file"), 500, true);
             
             $photos = [];
+            if((int)$this->postParam("count") > 10)
+                $this->flashFail("err", tr("no_photo"), "ты еблан", 500, true);
+
             for($i = 0; $i < $this->postParam("count"); $i++) {
                 try {
                     $photo = new Photo;
@@ -328,7 +340,10 @@ final class PhotosPresenter extends OpenVKPresenter
         if(is_null($this->user) || $this->user->id != $ownerId)
             $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
 
-        $redirect = $photo->getAlbum()->getOwner() instanceof User ? "/id0" : "/club" . $ownerId;
+        if(!is_null($album = $photo->getAlbum()))
+            $redirect = $album->getOwner() instanceof User ? "/id0" : "/club" . $ownerId;
+        else
+            $redirect = "/id0";
 
         $photo->isolate();
         $photo->delete();

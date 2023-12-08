@@ -64,9 +64,10 @@
 "change_status" = "змінити статус";
 "name" = "Ім’я";
 "surname" = "Прізвище";
-"gender" = "Стать";
-"male" = "Чоловіча";
-"female" = "Жіноча";
+"pronouns" = "Займенники";
+"male" = "він/його";
+"female" = "вона/її";
+"neutral" = "вони/їх";
 "description" = "Опис";
 "save" = "Зберегти";
 "main_information" = "Основна інформація";
@@ -134,6 +135,10 @@
 "updated_at" = "Оновлено $1";
 "user_banned" = "На жаль, нам довелося заблокувати сторінку користувача <b>$1</b>.";
 "user_banned_comment" = "Коментар модератора:";
+"verified_page" = "Верифікована сторінка";
+"user_is_blocked" = "Користувача заблоковано";
+"before" = "до";
+"forever" = "назавжди";
 
 /* Wall */
 
@@ -143,8 +148,10 @@
 "post_writes_g" = "опублікували";
 "post_deact_m" = "видалив сторінку зі словами:";
 "post_deact_f" = "видалила сторінку зі словами:";
+"post_deact_g" = "видалили сторінку зі словами:";
 "post_deact_silent_m" = "мовчки видалив свою сторінку.";
 "post_deact_silent_f" = "мовчки видалила свою сторінку.";
+"post_deact_silent_g" = "мовчки видалили свою сторінку.";
 "post_on_your_wall" = "на вашій стіні";
 "post_on_group_wall" = "в $1";
 "post_on_user_wall" = "на стіні $1";
@@ -184,6 +191,7 @@
 "nsfw_warning" = "Даний запис може містити контент 18+";
 "report" = "Поскаржитися";
 "attach" = "Прикріпити";
+"detach" = "Відкріпити";
 "attach_photo" = "Прикріпити фото";
 "attach_photo" = "Прикріпити відео";
 "draw_graffiti" = "Намалювати графіті";
@@ -193,6 +201,8 @@
 "version_incompatibility" = "Не вдалося показати це вкладення. Можливо, база даних несумісна з поточною версією OpenVK.";
 "graffiti" = "Графіті";
 "reply" = "Відповісти";
+"post_is_ad" = "Цей пост було проплачено Держдепом США";
+"edited_short" = "ред.";
 
 /* Friends */
 
@@ -317,14 +327,21 @@
 "search_group" = "Пошук групи";
 "search_by_groups" = "Пошук за групами";
 "search_group_desc" = "Тут Ви можете переглянути існуючи групи та обрати групу до вподоби.";
+"group_banned" = "Спільнота <b>$1</b> заблокована.";
 
 /* Albums */
 
 "create" = "Створити";
+"album" = "Альбом";
 "albums" = "Альбоми";
+"photos" = "фотографій";
+"photo" = "Фотографія";
 "create_album" = "Створити альбом";
 "edit_album" = "Редагувати альбом";
+"edit_photo" = "Змінити фотографію";
 "creating_album" = "Створення альбому";
+"delete_photo" = "Видалити фотографію";
+"sure_deleting_photo" = "Ви впевнені, що бажаєте видалити цю світлину?";
 "upload_photo" = "Завантажити фотографію";
 "photo" = "Фотографія";
 "upload_button" = "Завантажити";
@@ -366,6 +383,39 @@
 "upd_f" = "оновила фотографію на своїй сторінці";
 "upd_g" = "оновило фотографію групи";
 
+"add_photos" = "Додати фотографії";
+"upload_picts" = "Завантажити фотографії";
+"end_uploading" = "Завершити завантаження";
+"photos_successfully_uploaded" = "Фотографії було завантажено";
+"click_to_go_to_album" = "Натисніть, щоб перейти до альбому.";
+"error_uploading_photo" = "Помилка завантаження фотографії";
+"too_many_pictures" = "Не більше 10 фотографій";
+
+"drag_files_here" = "Перетягніть файли сюди";
+"only_images_accepted" = "Файл \"$1\" не є зображенням";
+"max_filesize" = "Максимальний розмір файлу — $1 мегабайт";
+
+"uploading_photos_from_computer" = "Завантаження фотографій з Вашого ПК";
+"supported_formats" = "Підтримувані формати зображень: JPG, PNG й GIF.";
+"max_load_photos" = "Ви можете завантажити до 10 фотографій за один раз.";
+"tip" = "Порада";
+"tip_ctrl" = "щоб обрати кілька фотографій одразу, утримуйте клавішу Ctrl під час вибору файлів в OS Windows або клавішу CMD у Mac OS.";
+"album_poster" = "Обкладинка альбому";
+"select_photo" = "Оберіть фотографію";
+"upload_new_photo" = "Завантажте нову світлину";
+
+"is_x_photos_zero" = "Усього 0 фотографій.";
+"is_x_photos_one" = "Всього 1 фотографія.";
+"is_x_photos_few" = "Всього $1 фотографій.";
+"is_x_photos_many" = "Всього $1 фотографій.";
+"is_x_photos_other" = "Всього $1 фотографій.";
+
+"all_photos" = "Всі фотографії";
+"error_uploading_photo" = "Помилка завантаження фотографії. Текст помилки: ";
+"too_many_photos" = "Надто багато фотографій.";
+
+"photo_x_from_y" = "Фотографія $1 з $2";
+
 /* Notes */
 
 "notes" = "Нотатки";
@@ -395,6 +445,18 @@
 /* Notes: Article Viewer */
 "aw_legacy_ui" = "Класичне дієвидло";
 
+"select_note" = "Вибір нотатки";
+"no_notes" = "Ви не маєте жодної нотатки";
+
+"error_attaching_note" = "Не вдалося закріпити нотатку";
+
+"select_or_create_new" = "Оберіть існуючу нотатку або <a href='/notes/create'>створіть нову</a>";
+
+"notes_closed" = "Ви не можете прикріпити нотатку до запису, оскільки ваші нотатки видно тільки вам.<br><br> Ви можете змінити це в <a href=\"/settings?act=privacy\">налаштуваннях</a>.";
+"do_not_attach_note" = "Не прикріплювати нотатку";
+"something" = "Щось";
+"supports_xhtml" = "з (X)HTML підтримується.";
+
 /* Menus */
 
 "edit_button" = "ред.";
@@ -402,11 +464,13 @@
 "my_friends" = "Мої Друзі";
 "my_photos" = "Мої Фотографії";
 "my_videos" = "Мої Відеозаписи";
+"my_audios" = "Мої Аудіозаписи";
 "my_messages" = "Мої Повідомлення";
 "my_notes" = "Мої Нотатки";
 "my_groups" = "Мої Групи";
 "my_feed" = "Мої Новини";
 "my_feedback" = "Мої Відповіді";
+"my_apps" = "Застосунки";
 "my_settings" = "Мої Налаштування";
 "bug_tracker" = "Баг-трекер";
 
@@ -483,13 +547,14 @@
 "privacy_setting_add_to_friends" = "Хто може називати мене другом";
 "privacy_setting_write_wall" = "Хто може писати у мене на стіні";
 "privacy_setting_write_messages" = "Хто може писати мені повідомлення";
+"privacy_setting_view_audio" = "Хто може переглядати мої аудіо";
 "privacy_value_anybody" = "Всі охочий";
 "privacy_value_anybody_dative" = "Усім охочим";
 "privacy_value_users" = "Користувачам OpenVK";
 "privacy_value_friends" = "Друзі";
 "privacy_value_friends_dative" = "Друзям";
 "privacy_value_only_me" = "Тільки я";
-"privacy_value_only_me_dative" = "Тільки мені";
+"privacy_value_only_me_dative" = "Тільки мені та Кирилу Буданову";
 "privacy_value_nobody" = "Ніхто";
 "your_email_address" = "Адрес Вашої електронної пошти";
 "your_page_address" = "Адрес Вашої сторінки";
@@ -581,6 +646,9 @@
 "two_factor_authentication_backup_codes_1" = "Резервні коди дозволяють підтверджувати вхід, коли у вас немає доступу до телефону, наприклад, у подорожі.";
 "two_factor_authentication_backup_codes_2" = "У вас є ще <b>10 кодів</b>, кожним кодом можна скористатися тільки один раз. Надрукуйте їх, приберіть в надійне місце і використовуйте, коли будуть потрібні коди для підтвердження входу.";
 "two_factor_authentication_backup_codes_3" = "Ви можете отримати нові коди, якщо вони закінчуються. Дійсні тільки останні створені резервні коди.";
+"viewing_backup_codes" = "Перегляд резервних кодів";
+"disable_2fa" = "Вимкнути 2FA";
+"viewing" = "Переглянути";
 
 /* Sorting */
 
@@ -606,6 +674,134 @@
 "videos_many" = "$1 відеозаписів";
 "videos_other" = "$1 відеозаписів";
 "view_video" = "Перегляд";
+"change_video" = "Редагувати відеозапис";
+"unknown_video" = "ЦЕЙ ВІДЕОЗАПИС НЕ ПІДТРИМУЄТЬСЯ В ЦІЙ ВЕРСІЇ OPENVK.";
+"selecting_video" = "Вибір відеозаписів";
+"upload_new_video" = "Завантажити нове відео";
+"max_attached_videos" = "Максимум 10 відеозаписів";
+"max_attached_photos" = "Максимум 10 фотографій";
+"max_attached_audios" = "Максимум 10 аудіо";
+"no_videos" = "Ви не маєте відео.";
+"no_videos_results" = "Немає результатів.";
+
+/* Audios */
+
+"audios" = "Аудіозаписи";
+"audio" = "Аудіо";
+"playlist" = "Список відтворення";
+"upload_audio" = "Завантажити аудіо";
+"upload_audio_to_group" = "Завантажити аудіо у групу";
+
+"performer" = "Виконавець";
+"audio_name" = "Назва";
+"genre" = "Жанр";
+"lyrics" = "Текст";
+
+"select_another_file" = "Оберіть інший файл";
+
+"limits" = "Ліміти";
+"select_audio" = "Оберіть аудіо з вашого пристрою";
+"audio_requirements" = "Аудіо має тривати від $1с до $2 хвилин, важити до $3MB та мати аудіопотік.";
+"audio_requirements_2" = "Аудіо не має порушувати авторські права";
+"you_can_also_add_audio_using" = "Ви також можете додати аудіо з числа вже завантажених файлів за допомогою";
+"search_audio_inst" = "пошуку аудіо";
+
+"audio_embed_not_found" = "Аудіозапис не знайдено";
+"audio_embed_deleted" = "Аудіозапис видалено";
+"audio_embed_withdrawn" = "Аудіо було вилучено на вимогу правовласника";
+"audio_embed_forbidden" = "Налаштування конфіденційності користувача не дозволяють вбудовувати це аудіо";
+"audio_embed_processing" = "Аудіо ще обробляється або було оброблено неправильно.";
+
+"audios_count_zero" = "Немає аудіозаписів";
+"audios_count_one" = "Один аудіозапис";
+"audios_count_few" = "$1 аудіозаписів";
+"audios_count_many" = "$1 аудіозаписів";
+"audios_count_other" = "$1 аудіозаписів";
+
+"track_unknown" = "Невідомий";
+"track_noname" = "Без назви";
+
+"my_music" = "Моя музика";
+"music_user" = "Музика користувача";
+"music_club" = "Аудіозапис спільноти";
+"audio_new" = "Нове";
+"audio_popular" = "Популярні";
+"audio_search" = "Пошук";
+
+"my_audios_small" = "Мої аудіозаписи";
+"my_playlists" = "Мій список відтворення";
+"playlists" = "Списки відтворення";
+"audios_explicit" = "Має нецензурну лексику";
+"withdrawn" = "Вилучено";
+"deleted" = "Видалено";
+"owner" = "Власник";
+"searchable" = "Доступно у пошуку";
+
+"select_audio" = "Оберіть аудіо";
+"no_playlists_thisuser" = "Ви ще не додали жодного списку відтворення.";
+"no_playlists_user" = "Цей користувач ще не додав жодного списка відтворення.";
+"no_playlists_club" = "Ця група не додала жодного списку відтворення.";
+
+"no_audios_thisuser" = "Ви ще не додали жодного аудіо.";
+"no_audios_user" = "Цей користувач не додав жодного аудіо.";
+"no_audios_club" = "Ця група не додала жодного аудіо.";
+
+"new_playlist" = "Створити список відтворення";
+"created_playlist" = "створений";
+"updated_playlist" = "оновлений";
+"bookmark" = "Додати до колекції";
+"unbookmark" = "Видалити з колекції";
+"empty_playlist" = "У цьому списку відтворення немає аудіозаписів.";
+"edit_playlist" = "Редагувати список відтворення";
+"unable_to_load_queue" = "Помилка при завантаженні черги.";
+
+"fully_delete_audio" = "Повністю видалити аудіо";
+"attach_audio" = "Прикріпити аудіо";
+"detach_audio" = "Відкріпити аудіо";
+
+"show_more_audios" = "Показати більше аудіо";
+"add_to_playlist" = "Додати до списку відтворення";
+"remove_from_playlist" = "Видалити зі списку відтворення";
+"delete_playlist" = "Видалити список відтворення";
+"playlist_cover" = "Обкладинка списку відтворення";
+
+"playlists_user" = "Список відтворення користувачів";
+"playlists_club" = "Списки відтворення груп";
+"change_cover" = "Змінити обкладинку";
+"playlist_cover" = "Обкладинка списку відтворення";
+
+"minutes_count_zero" = "триває менше ніж хвилину";
+"minutes_count_one" = "триває одну хвилину";
+"minutes_count_few" = "триває 1 хвилину";
+"minutes_count_many" = "триває $1 хвилину";
+"minutes_count_other" = "триває $1 хвилину";
+
+"listens_count_zero" = "жодного прослуховування";
+"listens_count_one" = "одне прослуховування";
+"listens_count_few" = "1 прослуховування";
+"listens_count_many" = "$1 прослуховувань";
+"listens_count_other" = "$1 слухає";
+
+"add_audio_to_club" = "Додати аудіо до групи";
+"what_club_add" = "До якої групи ви хочете додати пісню?";
+"group_has_audio" = "Ця група вже має цю пісню.";
+"group_hasnt_audio" = "Ця група не має цієї пісні.";
+
+"by_name" = "за назвою";
+"by_performer" = "за виконавцем";
+"no_access_clubs" = "Немає груп, де ви є адміністратором.";
+"audio_successfully_uploaded" = "Аудіо було успішно завантажено і наразі обробляється.";
+
+"broadcast_audio" = "Трансляція аудіо до статусу";
+"sure_delete_playlist" = "Ви дійсно хочете видалити цей список відтворення?";
+"edit_audio" = "Редагувати аудіо";
+"audios_group" = "Аудіо з групи";
+"playlists_group" = "Списки відтворення з групи";
+
+"play_tip" = "Відтворення/пауза";
+"repeat_tip" = "Повтор";
+"shuffle_tip" = "Перемішати";
+"mute_tip" = "Вимкнути звук";
 
 /* Notifications */
 
@@ -642,6 +838,7 @@
 "nt_mention_in_video" = "в обговоренні відеозапису";
 "nt_mention_in_note" = "в обговоренні під";
 "nt_mention_in_topic" = "в обговоренні";
+"nt_sent_gift" = "відправив вам подарунок";
 
 /* Time */
 
@@ -738,7 +935,6 @@
 /* Apps */
 "app" = "Застосунок";
 "apps" = "Застосунки";
-"my_apps" = "Мої Застосунки";
 "all_apps" = "Всі застосунки";
 "installed_apps" = "Мої застосунки";
 "own_apps" = "Керування";
@@ -815,6 +1011,7 @@
 "support_new" = "Нове звернення";
 "support_new_title" = "Введіть тему вашого звернення";
 "support_new_content" = "Опишіть проблему чи пропозицію";
+"reports" = "Скарги";
 "support_rate_good_answer" = "Це хороша відповідь";
 "support_rate_bad_answer" = "Це погана відповідь";
 "support_good_answer_user" = "Ви залишили позитивний відгук.";
@@ -825,6 +1022,26 @@
 "support_rated_bad" = "Ви залишили негативний відгук про відповідь.";
 "wrong_parameters" = "Неправильні параметри запиту.";
 "fast_answers" = "Швидкі відповіді";
+"ignore_report" = "Ігнорувати скаргу";
+"report_number" = "Скарга №";
+"list_of_reports" = "Лист скарг";
+"text_of_the_post" = "Текст допису";
+"today" = "сьогодні";
+
+"will_be_watched" = "Скоро її розглянуть модератори";
+
+"report_question" = "Поскаржитись?";
+"report_question_text" = "Що саме Ви вважаєте неприпустимим у цьому матеріалі?";
+"report_reason" = "Причина скарги";
+"reason" = "Причина";
+"going_to_report_app" = "Ви збираєтеся поскаржитися на цей додаток.";
+"going_to_report_club" = "Ви збираєтеся поскаржитися на цю спільноту.";
+"going_to_report_photo" = "Ви збираєтеся поскаржитися на цю фотографію.";
+"going_to_report_user" = "Ви збираєтеся поскаржитися на цього користувача.";
+"going_to_report_video" = "Ви збираєтеся поскаржитися на цей відеозапис.";
+"going_to_report_post" = "Ви збираєтеся поскаржитися на цей запис.";
+"going_to_report_comment" = "Ви збираєтеся поскаржитися на цей коментар.";
+
 "comment" = "Коментар";
 "sender" = "Відправник";
 "author" = "Автор";
@@ -834,6 +1051,12 @@
 "ticket_changed_comment" = "Зміни набудуть чинності через кілька секунд.";
 "banned_in_support_1" = "Вибачте, <b>$1</b>, але тепер вам не можна створювати звернення.";
 "banned_in_support_2" = "Підстава: <b>$1</b>. Цього разу нам довелося забрати у вас цю можливість назавжди.";
+"you_can_close_this_ticket_1" = "Якщо ви не маєте запитань, Ви можете ";
+"you_can_close_this_ticket_2" = "закрити це звернення";
+"agent_profile_created_1" = "Профіль створено";
+"agent_profile_created_2" = "Тепер користувачі бачать Ваш псевдонім і аватар замість стандартного поличчя та ID.";
+"agent_profile_edited" = "Профіль відредагований";
+"agent_profile" = "Картка агента";
 
 /* Invite */
 
@@ -958,6 +1181,7 @@
 "error_repost_fail" = "Не вдалося поділитися записом";
 "error_data_too_big" = "Атрибут '$1' не може бути довше $2 $3";
 "forbidden" = "Помилка доступу";
+"unknown_error" = "Невідома помилка";
 "forbidden_comment" = "Налаштування приватності цього користувача не дозволяють дивитися на його сторінку.";
 "changes_saved" = "Зміни збережені";
 "changes_saved_comment" = "Нові дані з'являться на вашій сторінці";
@@ -993,6 +1217,112 @@
 "media_file_corrupted_or_too_large" = "Файл медіаконтенту пошкоджений або файл занадто великий.";
 "post_is_empty_or_too_big" = "Пост порожній чи надто великий.";
 "post_is_too_big" = "Пост надто великий.";
+"error_sending_report" = "Не вдалося подати скаргу...";
+"error_when_saving_gift" = "Не вдалося зберегти подарунок";
+"error_when_saving_gift_bad_image" = "Зображення подарунка пошкоджене.";
+"error_when_saving_gift_no_image" = "Будь ласка, завантажте зображення подарунка.";
+"video_uploads_disabled" = "Завантаження відео вимкнено адміністратором.";
+
+"error_when_publishing_comment" = "Не вдалося опублікувати коментар";
+"error_when_publishing_comment_description" = "Файл зображення пошкоджено, він занадто великий або один бік зображення в рази більший за інший.";
+"error_comment_empty" = "Коментар порожній або занадто великий.";
+"error_comment_too_big" = "Коментар занадто великий.";
+"error_comment_file_too_big" = "Файл медіаконтенту пошкоджений або занадто великий.";
+
+"comment_is_added" = "Коментар додано";
+"comment_is_added_desc" = "Ваш коментар з'явиться на сторінці.";
+
+"error_access_denied_short" = "Помилка доступу";
+"error_access_denied" = "Ви не маєте права на редагування цього ресурсу";
+"success" = "Успіх";
+"comment_will_not_appear" = "Цей коментар більше не буде відображатися.";
+
+"error_when_gifting" = "Не вдалося подарувати";
+"error_user_not_exists" = "Користувач або набір не існують.";
+"error_no_rights_gifts" = "Не вдалося підтвердити права на подарунок.";
+"error_no_more_gifts" = "У вас більше не залишилось цих подарунків.";
+"error_no_money" = "АХАХАХА ЛОШАРА ПІЗДУЙ НА ЗАРОБІТКИ У ПОЛЬЩУ";
+/* трррр шкібіді доп доп доп доп єс єс єс) */
+
+"description_too_long" = "Опис надто довгий.";
+
+"invalid_audio" = "Пошкоджене аудіо.";
+"do_not_have_audio" = "У вас немає цього аудіо";
+"do_have_audio" = "Ви вже маєте цей аудіозапис.";
+
+"set_playlist_name" = "Введіть назву плейліста.";
+"playlist_already_bookmarked" = "Цей плейліст вже є у вашій збірці.";
+"playlist_not_bookmarked" = "Цього плейліст немає у вашій збірці.";
+"invalid_cover_photo" = "Помилка при завантаженні фото обкладинки.";
+"not_a_photo" = "Завантажений файл не схожий на фотографію.";
+"file_too_big" = "Файл занадто великий.";
+"file_loaded_partially" = "Файл завантажено частково.";
+"file_not_uploaded" = "Не вдалося завантажити файл.";
+"error_code" = "Код помилки: $1.";
+"ffmpeg_timeout" = "Тайм-аут очікування ffmpeg. Спробуйте завантажити файл ще раз.";
+"ffmpeg_not_installed" = "Не вдалося отримати доступ до файлу. Схоже, що ffmpeg не встановлено на цьому сервері.";
+
+"gift_sent" = "Подарунок відправлено";
+"gift_sent_desc" = "Ви відправили <b>$1</b> за $2 голосів";
+
+"error_on_server_side" = "Виникла помилка на боці сервера. Зверніться до системного адміністратора.";
+"error_no_group_name" = "Ви не ввели назву групи.";
+
+"success_action" = "Операція пройшла успішно";
+"connection_error" = "Помилка з'єднання";
+"connection_error_desc" = "Не вдалося з'єднатися до служби телеметрії";
+
+"error_when_uploading_photo" = "Не вдалося зберегти фотографію.";
+
+"new_changes_desc" = "Нові дані з'являться у вашій групі.";
+"comment_is_changed" = "Коментар до адміністратора змінено";
+"comment_is_deleted" = "Коментар до адміністратора видалено";
+"comment_is_too_long" = "Коментар надто довгий ($1 символів замість 36 символів)";
+"x_no_more_admin" = "$1 більше не є адміністратором.";
+"x_is_admin" = "$1 призначено адміністратором.";
+
+"x_is_now_hidden" = "Тепер $1 буде відображатися як звичайний підписник усім, окрім інших адміністраторів";
+"x_is_now_showed" = "Тепер $1 буде відображатися як звичайний адміністратор.";
+
+"note_is_deleted" = "Нотатка видалена";
+"note_x_is_now_deleted" = "Нотатка \"$1\" була успішно видалена.";
+"new_data_accepted" = "Нові дані прийняті.";
+
+"album_is_deleted" = "Альбом видалено";
+"album_x_is_deleted" = "Альбом $1 було видалено.";
+
+"error_adding_to_deleted" = "Не вдалося зберегти фотографію у <b>DELETED</b>.";
+"error_adding_to_x" = "Не вдалося зберегти фотографію в <b>$1</b>.";
+"no_photo" = "Нема фотографій";
+
+"select_file" = "Оберіть файл";
+"new_description_will_appear" = "Оновлений опис з'явиться на сторінці з фото.";
+"photo_is_deleted" = "Фотографія видалена";
+"photo_is_deleted_desc" = "Ця світлина була успішно видалена.";
+
+"no_video" = "Немає відеозапису";
+"no_video_desc" = "Оберіть файл або вкажіть URL.";
+"error_occured" = "Виникла помилка";
+"error_video_damaged_file" = "Файл пошкоджений або не має відеозапису.";
+"error_video_incorrect_link" = "Вірогідно, посилання некоректне.";
+"error_video_no_title" = "Відео не може бути опубліковано без назви.";
+
+"new_data_video" = "Оновлений опис з'явиться на сторінці з відео.";
+"error_deleting_video" = "Не вдалося видалити відео";
+"login_please" = "Ви не увійшли в аккаунт.";
+"invalid_code" = "Не вдалося підтвердити номер телефону: неправильний код.";
+
+"error_max_pinned_clubs" = "Знаходитись у лівому меню можуть максимум 10 спільнот";
+"error_viewing_subs" = "Ви не можете переглядати лист підписок $1.";
+"error_status_too_long" = "Статус надто довгий ($1 символів замість 255 символів)";
+"death" = "Сміерць...";
+"nehay" = "Няхай жыве!";
+"user_successfully_banned" = "Користувача успішно заблоковано.";
+
+"content_is_deleted" = "Коментар видалено, а користувач отримав попередження.";
+"report_is_ignored" = "Скаргу проігноровано.";
+"group_owner_is_banned" = "Творець спільноти успішно заблоковано.";
+"group_is_banned" = "Спільноту успішно заблоковано";
 
 /* Admin actions */
 
@@ -1000,14 +1330,18 @@
 "manage_user_action" = "Керування користувачем";
 "manage_group_action" = "Керування групою";
 "ban_user_action" = "Заблокувати користувача";
+"blocks" = "Блокування";
+"last_actions" = "Останні дії";
 "unban_user_action" = "Розблокувати користувача";
 "warn_user_action" = "Попередити користувача";
 "ban_in_support_user_action" = "Заблокувати у тех.підтримці";
 "unban_in_support_user_action" = "Розблокувати у тех.підтримці";
+"changes_history" = "Історія редагування";
 
 /* Admin panel */
 
 "admin" = "Адмін панель";
+"sandbox_for_developers" = "Sandbox для розробників";
 "admin_ownerid" = "ID власника";
 "admin_author" = "Автор";
 "admin_name" = "Ім'я";
@@ -1082,6 +1416,44 @@
 "admin_banned_link_initiator" = "Ініціатор";
 "admin_banned_link_not_specified" = "Посилання не зазначено";
 "admin_banned_link_not_found" = "Посилання не знайдено";
+"admin_gift_moved_successfully" = "Подарунок успішно переміщено";
+"admin_gift_moved_to_recycle" = "Тепер подарунок у <b>кошику</b>.";
+"admin_original_file" = "Оригінальний файл";
+"admin_audio_length" = "Довжина";
+"admin_cover_id" = "Обкладинка (ідентифікатор фото)";
+"admin_music" = "Музика";
+"logs" = "Логи";
+"logs_anything" = "Будь-яке";
+"logs_adding" = "Створення";
+"logs_editing" = "Редагування";
+"logs_removing" = "Видалення";
+"logs_restoring" = "Відновлення";
+"logs_added" = "додав";
+"logs_edited" = "відредагував";
+"logs_removed" = "видалив";
+"logs_restored" = "відновив";
+"logs_id_post" = "ID допису";
+"logs_id_object" = "ID об'єкту";
+"logs_uuid_user" = "UUID користувача";
+"logs_change_type" = "Тип зміни";
+"logs_change_object" = "Тип об'єкта";
+
+"logs_user" = "Користувач";
+"logs_object" = "Об'єкт";
+"logs_type" = "Тип";
+"logs_changes" = "Зміни";
+"logs_time" = "Час";
+
+"bans_history" = "Історія блокувань";
+"bans_history_blocked" = "Заблоковано";
+"bans_history_initiator" = "Ініціатор";
+"bans_history_start" = "Початок";
+"bans_history_end" = "Кінець";
+"bans_history_time" = "Час";
+"bans_history_reason" = "Причина";
+"bans_history_start" = "Початок";
+"bans_history_removed" = "Знята";
+"bans_history_active" = "Активне блокування";
 
 /* Paginator (deprecated) */
 
@@ -1130,7 +1502,9 @@
 "transfer" = "Передати";
 "close" = "Закрити";
 "warning" = "Увага";
-"question_confirm" = "Цю дію не можна скасувати. Ви дійсно впевнені, що хочете зробити?";
+"question_confirm" = "Цю дію не можна скасувати. Ви переконані що хочете це зробити?";
+"confirm_m" = "Підтвердити";
+"action_successfully" = "Операція виконана успішно";
 
 /* User alerts */
 
@@ -1144,12 +1518,16 @@
 
 /* Away */
 
+"transition_is_blocked" = "Перехід за посиланням заборонений";
+"caution" = "Попередження";
 "url_is_banned" = "Перехід неможливий";
 "url_is_banned_comment" = "Адміністрація <b>$1</b> не рекомендує переходити за цим посиланням.";
 "url_is_banned_comment_r" = "Адміністрація <b>$1</b> не рекомендує переходити за цим посиланням.<br><br>Підстава: <b>$2</b>";
 "url_is_banned_default_reason" = "Посилання, за яким Ви спробували перейти, може вести на сайт, що був створений з метою обману користувачів і отримання шляхом цього неправомірного прибутку.";
 "url_is_banned_title" = "Посилання на підозрілий сайт";
 "url_is_banned_proceed" = "Перейти за посиланням";
+
+"recently" = "Нещодавно";
 
 /* Chandler */
 
@@ -1402,6 +1780,8 @@
 "s_order_by_name" = "Назвою";
 "s_order_by_random" = "Випадковістю";
 "s_order_by_rating" = "Рейтингом";
+"s_order_by_length" = "Довжиною";
+"s_order_by_listens" = "Кількістю прослуховувань";
 "s_order_invert" = "Інвертувати";
 
 "s_by_date" = "За датою";
@@ -1422,11 +1802,49 @@
 "closed_group_post" = "Цей допис з приватної групи";
 "deleted_target_comment" = "Цей коментар належить до видаленого допису";
 
+"no_results" = "Немає результатів";
+
+/* BadBrowser */
+
+"deprecated_browser" = "Застарілий браузер";
+"deprecated_browser_description" = "Для перегляду цього контенту вам необхідний >Firefox ESR 52 або еквівалент по функціоналу навігатор по всесвітньою мережею інтернет. Співчуваємо про це.";
+
+/* Statistics */
+
+"coverage" = "Обхват";
+"coverage_this_week" = "Цей графік відображає обхват за останні 7 днів.";
+"views" = "Перегляди";
+"views_this_week" = "Цей графік відображає перегляди дописів спільноти за остані 7 днів.";
+
+"full_coverage" = "Повний обхват";
+"all_views" = "Усі перегляди";
+
+"subs_coverage" = "обхват підписників";
+"subs_views" = "Перегляди підписників";
+
+"viral_coverage" = "Віральний обхват";
+"viral_views" = "Віральні перегляди";
+
+/* Sudo */
+
+"you_entered_as" = "Ви увійшли як";
+"please_rights" = "наполегливо просимо, шануйте право на таємницю листування інших людей та не зловживайте підміною користувача.";
+"click_on" = "Натисніть";
+"there" = "тут";
+"to_leave" = "щоб вийти";
+
+/* Phone number */
+
+"verify_phone_number" = "Підтвердити номер телефону";
+"we_sended_first" = "Ми надіслали SMS з кодом на номер";
+"we_sended_end" = "уведіть його сюди";
+
 /* Mobile */
 
 "mobile_friends" = "Друзі";
 "mobile_photos" = "Фотографії";
 "mobile_videos" = "Відеозаписи";
+"mobile_audios" = "Аудіозаписи";
 "mobile_messages" = "Повідомлення";
 "mobile_notes" = "Нотатки";
 "mobile_groups" = "Групи";
@@ -1438,3 +1856,42 @@
 "mobile_like" = "Подобається";
 "mobile_user_info_hide" = "Приховувати";
 "mobile_user_info_show_details" = "Показати докладніше";
+"my" = "Мої";
+"введіть_назву_або_виконавця" = "Введіть назву або виконавця...";
+
+/* Moderation */
+
+"section" = "Розділ";
+"template_ban" = "Блокування за шаблоном";
+"active_templates" = "Чинні шаблони";
+"users_reports" = "Скарги користувачів";
+"substring" = "Підрядок";
+"n_user" = "Користувач";
+"time_before" = "Годину раніше, ніж";
+"time_after" = "Годиною пізніше, ніж";
+"where_for_search" = "WHERE для пошуку по розділу";
+"block_params" = "Параметри блокувань";
+"only_rollback" = "Тільки відкат";
+"only_block" = "Тільки блокування";
+"rollback_and_block" = "Відкат та блокування";
+"subm" = "Застосувати";
+
+"select_section_for_start" = "Для початку роботи, оберіть розділ";
+"results_will_be_there" = "Тут будуть відображатися результати пошуку";
+"search_results" = "Результати пошуку";
+"cnt" = "шт.";
+
+"link_to_page" = "Посилання на сторінку";
+"or_subnet" = "або підмережа";
+"error_when_searching" = "Помилка при виконанні запиту";
+"no_found" = "Нічого не знайдено";
+"operation_successfully" = "Операцію успішно виконано";
+
+"unknown_error" = "Невідома помилка";
+"templates" = "Шаблони";
+"type" = "Тип";
+"count" = "Кількість";
+"time" = "Час";
+
+"roll_back" = "відкотити";
+"roll_backed" = "відкачано";

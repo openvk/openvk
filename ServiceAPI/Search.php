@@ -46,7 +46,7 @@ class Search implements Handler
                 break;
         }
 
-        $res = $repo->find($query, ["doNotSearchMe" => $this->user->getId()], $sort);
+        $res = $repo->find($query, ["doNotSearchMe" => $this->user->getId(), "doNotSearchPrivate" => true,], $sort);
 
         $results  = array_slice(iterator_to_array($res), 0, 5);
             

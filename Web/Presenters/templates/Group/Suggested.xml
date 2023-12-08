@@ -1,0 +1,34 @@
+{extends "../@layout.xml"}
+
+{block title}{_suggested} {$club->getCanonicalName()}{/block}
+
+{block header}
+    <a href="{$club->getURL()}">{$club->getName()}</a>
+    » {if $type == "my"}{_suggested_posts_by_you}{else}{_suggested_posts_by_everyone}{/if}
+{/block}
+
+{block content}
+    {if $count < 1}
+        {include "../components/error.xml", title => "", description => $type == "my" ? tr("no_suggested_posts_by_you") : tr("no_suggested_posts_by_people")}
+    {else}
+        <h4 id="cound">{if $type == "my"}{tr("suggested_posts_in_group_by_you", $count)}{else}{tr("suggested_posts_in_group", $count)}{/if}</h4>
+        <div id="postz" class="infContainer">
+            {var $microblog = $thisUser->hasMicroblogEnabled()}
+            <div class="infObj" n:foreach="$posts as $post">
+                {if $microblog}
+                    {include "../components/post/microblogpost.xml", post => $post, commentSection => false, suggestion => true, forceNoCommentsLink => true, forceNoPinLink => true, forceNoLike => true, forceNoShareLink => true, forceNoDeleteLink => false}
+                {else}
+                    {include "../components/post/oldpost.xml", post => $post, commentSection => false, suggestion => true, forceNoCommentsLink => true, forceNoPinLink => true, forceNoLike => true, forceNoShareLink => true, forceNoDeleteLink => false}
+                {/if}
+            </div>
+
+            {include "../components/paginator.xml", conf => (object) [
+                "page"     => $page,
+                "count"    => $count,
+                "amount"   => sizeof($posts),
+                "perPage"  => OPENVK_DEFAULT_PER_PAGE,
+                "atBottom" => true,
+            ]}
+        </div>
+    {/if}
+{/block}

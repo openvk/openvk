@@ -1,0 +1,135 @@
+{extends "@layout.xml"}
+{var $search = $mode === "audios"}
+
+{block title}
+    {_audios}
+{/block}
+
+{block heading}
+    {_audios}
+{/block}
+
+{block searchTitle}
+    {include title}
+{/block}
+
+{block content}
+    <nav class="aui-navgroup aui-navgroup-horizontal">
+        <div class="aui-navgroup-inner">
+            <div class="aui-navgroup-primary">
+                <ul class="aui-nav" resolved="">
+                    <li n:attr="class => $mode === 'audios' ? 'aui-nav-selected' : ''">
+                        <a href="?act=audios">{_audios}</a>
+                    </li>
+                    <li n:attr="class => $mode === 'playlists' ? 'aui-nav-selected' : ''">
+                        <a href="?act=playlists">{_playlists}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <table class="aui aui-table-list">
+        {if $mode === "audios"}
+            {var $audios  = iterator_to_array($audios)}
+            {var $amount = sizeof($audios)}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>{_admin_author}</th>
+                    <th>{_peformer}</th>
+                    <th>{_admin_title}</th>
+                    <th>{_genre}</th>
+                    <th>Explicit</th>
+                    <th>{_withdrawn}</th>
+                    <th>{_deleted}</th>
+                    <th>{_created}</th>
+                    <th>{_actions}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr n:foreach="$audios as $audio">
+                    <td>{$audio->getId()}</td>
+                    <td>
+                        {var $owner = $audio->getOwner()}
+                        <span class="aui-avatar aui-avatar-xsmall">
+                            <span class="aui-avatar-inner">
+                                <img src="{$owner->getAvatarUrl('miniscule')}" alt="{$owner->getCanonicalName()}" style="object-fit: cover;" role="presentation" />
+                            </span>
+                        </span>
+
+                        <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+
+                        <span n:if="$owner->isBanned()" class="aui-lozenge aui-lozenge-subtle aui-lozenge-removed">{_admin_banned}</span>
+                    </td>
+                    <td>{$audio->getPerformer()}</td>
+                    <td>{$audio->getTitle()}</td>
+                    <td>{$audio->getGenre()}</td>
+                    <td>{$audio->isExplicit() ? tr("yes") : tr("no")}</td>
+                    <td n:attr="style => $audio->isWithdrawn() ? 'color: red;' : ''">
+                        {$audio->isWithdrawn() ? tr("yes") : tr("no")}
+                    </td>
+                    <td n:attr="style => $audio->isDeleted() ? 'color: red;' : ''">
+                        {$audio->isDeleted() ? tr("yes") : tr("no")}
+                    </td>
+                    <td>{$audio->getPublicationTime()}</td>
+                    <td>
+                        <a class="aui-button aui-button-primary" href="/admin/music/{$audio->getId()}/edit">
+                            <span class="aui-icon aui-icon-small aui-iconfont-new-edit">Редактировать</span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        {else}
+            {var $playlists  = iterator_to_array($playlists)}
+            {var $amount     = sizeof($playlists)}
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>{_admin_author}</th>
+                    <th>{_name}</th>
+                    <th>{_created_playlist}</th>
+                    <th>{_actions}</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr n:foreach="$playlists as $playlist">
+                    <td>{$playlist->getId()}</td>
+                    <td>
+                        {var $owner = $playlist->getOwner()}
+                        <span class="aui-avatar aui-avatar-xsmall">
+                            <span class="aui-avatar-inner">
+                                <img src="{$owner->getAvatarUrl('miniscule')}" alt="{$owner->getCanonicalName()}" style="object-fit: cover;" role="presentation" />
+                            </span>
+                        </span>
+
+                        <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+
+                        <span n:if="$owner->isBanned()" class="aui-lozenge aui-lozenge-subtle aui-lozenge-removed">{_admin_banned}</span>
+                    </td>
+                    <td>
+                        <span class="aui-avatar aui-avatar-xsmall">
+                            <span class="aui-avatar-inner">
+                                <img src="{$playlist->getCoverURL()}" alt="{$owner->getCanonicalName()}" style="object-fit: cover;" role="presentation" />
+                            </span>
+                        </span>
+                        {ovk_proc_strtr($playlist->getName(), 30)}
+                    </td>
+                    <td>{$playlist->getCreationTime()}</td>
+                    <td>
+                        <a class="aui-button aui-button-primary" href="/admin/playlist/{$playlist->getId()}/edit">
+                            <span class="aui-icon aui-icon-small aui-iconfont-new-edit">{_edit}</span>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        {/if}
+    </table>
+    <br/>
+    <div align="right">
+        {var $isLast = ((10 * (($_GET['p'] ?? 1) - 1)) + $amount) < $count}
+
+        <a n:if="($_GET['p'] ?? 1) > 1" class="aui-button" href="/admin/music?act={($_GET['act'] ?? 'audios')}&p={($_GET['p'] ?? 1) - 1}">&laquo;</a>
+        <a n:if="$isLast" class="aui-button" href="/admin/music?act={($_GET['act'] ?? 'audios')}&p={($_GET['p'] ?? 1) + 1}">&raquo;</a>
+    </div>
+{/block}

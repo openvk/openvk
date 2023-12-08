@@ -21,6 +21,7 @@
 </div>
 {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
 {if sizeof($data) > 0}
+<div>
     <table class="post post-divider" border="0" style="font-size: 11px;" n:foreach="$data as $dat">
         <tbody>
             <tr>
@@ -44,6 +45,7 @@
             </tr>
         </tbody>
     </table>
+</div>
         {include "../components/paginator.xml", conf => (object) [
             "page"     => $page,
             "count"    => $count,

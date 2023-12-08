@@ -5,7 +5,7 @@ use Nette\Database\Table\ActiveRow;
 use openvk\Web\Models\RowModel;
 use openvk\Web\Models\Entities\Club;
 use Chandler\Database\DatabaseConnection;
-use openvk\Web\Models\Repositories\{Applications, Comments, Notes, Reports, Users, Posts, Photos, Videos, Clubs};
+use openvk\Web\Models\Repositories\{Applications, Comments, Notes, Reports, Audios, Users, Posts, Photos, Videos, Clubs};
 use Chandler\Database\DatabaseConnection as DB;
 use Nette\InvalidStateException as ISE;
 use Nette\Database\Table\Selection;
@@ -74,6 +74,7 @@ class Report extends RowModel
         else if ($this->getContentType() == "note")    return (new Notes)->get($this->getContentId());
         else if ($this->getContentType() == "app")     return (new Applications)->get($this->getContentId());
         else if ($this->getContentType() == "user")    return (new Users)->get($this->getContentId());
+        else if ($this->getContentType() == "audio")   return (new Audios)->get($this->getContentId());
         else return null;
     }
 

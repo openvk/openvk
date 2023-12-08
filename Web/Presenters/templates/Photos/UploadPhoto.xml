@@ -35,7 +35,7 @@
 
                 <div class="limits" style="margin-top:17px">
                     <b style="color:#45688E">{_admin_limits}</b>
-                    <ul class="blueList" style="margin-left: -25px;margin-top: 1px;">
+                    <ul style="margin-top: 6px;">
                         <li>{_supported_formats}</li>
                         <li>{_max_load_photos}</li>
                     </ul>

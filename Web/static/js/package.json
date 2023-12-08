@@ -2,6 +2,8 @@
   "dependencies": {
     "@atlassian/aui": "^9.6.0",
     "create-react-class": "^15.7.0",
+    "dashjs": "^4.3.0",
+    "id3js": "^2.1.1",
     "handlebars": "^4.7.7",
     "jquery": "^3.0.0",
     "knockout": "^3.5.1",

@@ -4,7 +4,7 @@ use morphos\Gender;
 use openvk\Web\Themes\{Themepack, Themepacks};
 use openvk\Web\Util\DateTime;
 use openvk\Web\Models\RowModel;
-use openvk\Web\Models\Entities\{Photo, Message, Correspondence, Gift};
+use openvk\Web\Models\Entities\{Photo, Message, Correspondence, Gift, Audio};
 use openvk\Web\Models\Repositories\{Applications, Bans, Comments, Notes, Posts,   Users, Clubs, Albums, Gifts, Notifications, Videos, Photos};
 use openvk\Web\Models\Exceptions\InvalidUserNameException;
 use Nette\Database\Table\ActiveRow;
@@ -190,7 +190,7 @@ class User extends RowModel
     function getMorphedName(string $case = "genitive", bool $fullName = true): string
     {
         $name = $fullName ? ($this->getLastName() . " " . $this->getFirstName()) : $this->getFirstName();
-        if(!preg_match("%^[А-яё\-]+$%", $name))
+        if(!preg_match("%[А-яё\-]+$%", $name))
             return $name; # name is probably not russian
 
         $inflected = inflectName($name, $case, $this->isFemale() ? Gender::FEMALE : Gender::MALE);
@@ -348,10 +348,11 @@ class User extends RowModel
         return $this->getRecord()->marital_status;
     }
     
-    function getLocalizedMaritalStatus(): string
+    function getLocalizedMaritalStatus(?bool $prefix = false): string
     {
         $status = $this->getMaritalStatus();
         $string = "relationship_$status";
+        if ($prefix) $string .= "_prefix";
         if($this->isFemale()) {
             $res = tr($string . "_fem");
             if($res != ("@" . $string . "_fem"))
@@ -359,6 +360,17 @@ class User extends RowModel
         }
         
         return tr($string);
+    }
+
+    function getMaritalStatusUser(): ?User
+    {
+        if (!$this->getRecord()->marital_status_user) return NULL;
+        return (new Users)->get($this->getRecord()->marital_status_user);
+    }
+
+    function getMaritalStatusUserPrefix(): ?string
+    {
+        return $this->getLocalizedMaritalStatus(true);
     }
 
     function getContactEmail(): ?string
@@ -455,6 +467,7 @@ class User extends RowModel
             "length"   => 1,
             "mappings" => [
                 "photos",
+                "audios",
                 "videos",
                 "messages",
                 "notes",
@@ -462,7 +475,7 @@ class User extends RowModel
                 "news",
                 "links",
                 "poster",
-                "apps"
+                "apps",
             ],
         ])->get($id);
     }
@@ -482,6 +495,7 @@ class User extends RowModel
                 "friends.add",
                 "wall.write",
                 "messages.write",
+                "audios.read",
             ],
         ])->get($id);
     }
@@ -493,6 +507,9 @@ class User extends RowModel
             return $permStatus === User::PRIVACY_EVERYONE;
         else if($user->getId() === $this->getId())
             return true;
+
+        if($permission != "messages.write" && !$this->canBeViewedBy($user))
+            return false;
 
         switch($permStatus) {
             case User::PRIVACY_ONLY_FRIENDS:
@@ -720,8 +737,8 @@ class User extends RowModel
 
         for($i = 0; $i < 10 - $this->get2faBackupCodeCount(); $i++) {
             $codes[] = [
-                owner => $this->getId(),
-                code => random_int(10000000, 99999999)
+                "owner" => $this->getId(),
+                "code" => random_int(10000000, 99999999)
             ];
         }
 
@@ -781,7 +798,29 @@ class User extends RowModel
 
     function isFemale(): bool
     {
-        return (bool) $this->getRecord()->sex;
+        return $this->getRecord()->sex == 1;
+    }
+
+    function isNeutral(): bool
+    {
+        return (bool) $this->getRecord()->sex == 2;
+    }
+
+    function getLocalizedPronouns(): string
+    {
+        switch ($this->getRecord()->sex) {
+            case 0:
+                return tr('male');
+            case 1:
+                return tr('female');
+            case 2:
+                return tr('neutral');
+        }
+    }
+
+    function getPronouns(): int
+    {
+        return $this->getRecord()->sex;
     }
 
     function isVerified(): bool
@@ -1010,6 +1049,7 @@ class User extends RowModel
                 "friends.add",
                 "wall.write",
                 "messages.write",
+                "audios.read",
             ],
         ])->set($id, $status)->toInteger());
     }
@@ -1020,6 +1060,7 @@ class User extends RowModel
             "length"   => 1,
             "mappings" => [
                 "photos",
+                "audios",
                 "videos",
                 "messages",
                 "notes",
@@ -1027,7 +1068,7 @@ class User extends RowModel
                 "news",
                 "links",
                 "poster",
-                "apps"
+                "apps",
             ],
         ])->set($id, (int) $status)->toInteger();
 
@@ -1222,8 +1263,60 @@ class User extends RowModel
         }
         return $response;
     }
+    
+    function getProfileType(): int
+    {
+        # 0 — открытый профиль, 1 — закрытый
+        return $this->getRecord()->profile_type;
+    }
 
-    function toVkApiStruct(): object
+    function canBeViewedBy(?User $user = NULL): bool
+    {
+        if(!is_null($user)) {
+            if($this->getId() == $user->getId()) {
+                return true;
+            }
+
+            if($user->getChandlerUser()->can("access")->model("admin")->whichBelongsTo(NULL)) {
+                return true;
+            }
+
+            if($this->getProfileType() == 0) {
+                return true;
+            } else {
+                if($user->getSubscriptionStatus($this) == User::SUBSCRIPTION_MUTUAL) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        } else {
+            if($this->getProfileType() == 0) {
+                if($this->getPrivacySetting("page.read") == 3) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    function isClosed()
+    {
+        return (bool) $this->getProfileType();
+    }
+    
+    function getRealId()
+    {
+        return $this->getId();
+    }
+
+    function toVkApiStruct(?User $user = NULL): object
     {
         $res = (object) [];
 
@@ -1237,12 +1330,13 @@ class User extends RowModel
         $res->photo_id    = !is_null($this->getAvatarPhoto()) ? $this->getAvatarPhoto()->getPrettyId() : NULL;
         # TODO: Perenesti syuda vsyo ostalnoyie
 
-        return $res;
-    }
+        $res->is_closed   = $this->isClosed();
 
-    function getRealId()
-    {
-        return $this->getId();
+        if(!is_null($user)) {
+            $res->can_access_closed  = (bool)$this->canBeViewedBy($user);
+        }
+
+        return $res;
     }
     
     function getIgnoredSources(int $page = 1, int $perPage = 10, bool $onlyIds = false)
@@ -1297,6 +1391,46 @@ class User extends RowModel
         return sizeof(DatabaseConnection::i()->getContext()->table("ignored_sources")->where("ignored_source", $this->getId()));
     }
     
+    function getAudiosCollectionSize()
+    {
+        return (new \openvk\Web\Models\Repositories\Audios)->getUserCollectionSize($this);
+    }
+
+    function getBroadcastList(string $filter = "friends", bool $shuffle = false)
+    {
+        $dbContext = DatabaseConnection::i()->getContext();
+        $entityIds = [];
+        $query     = $dbContext->table("subscriptions")->where("follower", $this->getRealId());
+
+        if($filter != "all")
+            $query = $query->where("model = ?", "openvk\\Web\\Models\\Entities\\" . ($filter == "groups" ? "Club" : "User"));
+
+        foreach($query as $_rel) {
+            $entityIds[] = $_rel->model == "openvk\\Web\\Models\\Entities\\Club" ? $_rel->target * -1 : $_rel->target;
+        }
+
+        if($shuffle) {
+            $shuffleSeed    = openssl_random_pseudo_bytes(6);
+            $shuffleSeed    = hexdec(bin2hex($shuffleSeed));
+    
+            $entityIds = knuth_shuffle($entityIds, $shuffleSeed);
+        }
+        
+        $entityIds = array_slice($entityIds, 0, 10);
+
+        $returnArr = [];
+        
+        foreach($entityIds as $id) {
+            $entit = $id > 0 ? (new Users)->get($id) : (new Clubs)->get(abs($id));
+
+            if($id > 0 && $entit->isDeleted()) continue;
+            $returnArr[] = $entit;
+        }
+
+        return $returnArr;
+    }
+
     use Traits\TBackDrops;
     use Traits\TSubscribable;
+    use Traits\TAudioStatuses;
 }

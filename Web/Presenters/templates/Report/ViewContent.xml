@@ -23,6 +23,8 @@
             {if $appsSoftDeleting}
                 {include "./content/app.xml", app => $object}
             {/if}
+        {elseif $type == "audio"}
+            {include "../Audio/player.xml", audio => $object}
         {else}
             {include "../components/error.xml", description => tr("version_incompatibility")}
         {/if}

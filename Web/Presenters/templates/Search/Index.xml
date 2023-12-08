@@ -94,8 +94,8 @@
                 {/if}    
                 {if $x->getPrivacySetting("page.info.read") > 1}        
                 <tr>
-                    <td><span class="nobold">{_gender}: </span></td>
-                    <td>{$x->isFemale() ? tr("female") : tr("male")}</td>
+                    <td><span class="nobold">{_pronouns}: </span></td>
+                    <td>{$x->isFemale() ? tr("female") : ($x->isNeutral() ? tr("neutral") : tr("male"))}</td>
                 </tr>
                 <tr>
                     <td><span class="nobold">{_relationship}:</span></td>
@@ -139,6 +139,8 @@
     }
     </style>
     <div style="margin-top:-7px">
+    {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
+
     {include "../components/paginator.xml", conf => (object) [
         "page"     => $page,
         "count"    => $count,
@@ -153,7 +155,6 @@
     <div>
     {include searchOptions}
 
-    {var $data = is_array($iterator) ? $iterator : iterator_to_array($iterator)}
     <div class="container_gray borderup" style="float:left;width:73.3%;">
         {if sizeof($data) > 0}
             {if $type == "users" || $type == "groups" || $type == "apps"}
@@ -188,7 +189,7 @@
                 </div>
             {elseif $type == "posts"}
                 <div n:foreach="$data as $dat" class="content">
-                    {if !$dat || $dat->getTargetWall() < 0 && $dat->getWallOwner()->isHideFromGlobalFeedEnabled()}
+                    {if !$dat || $dat->getTargetWall() < 0 && $dat->getWallOwner()->isHideFromGlobalFeedEnabled() || !$dat->canBeViewedBy($thisUser)}
                         {_closed_group_post}.
                     {else}
                         {include "../components/post.xml", post => $dat, commentSection => true, onWallOf => true}
@@ -204,12 +205,14 @@
                 </div>
             {elseif $type == "videos"}
                 {foreach $data as $dat}
-                        <div class="content">
-                            {include "../components/video.xml", video => $dat}
-                        </div>
+                    <div class="content">
+                        {include "../components/video.xml", video => $dat}
+                    </div>
                 {/foreach}
             {elseif $type == "audios"}
-                хуй
+                {foreach $data as $dat}
+                    {include "../Audio/player.xml", audio => $dat}
+                {/foreach}
             {/if}
         {else}
             {ifset customErrorMessage}
@@ -230,12 +233,13 @@
 {block searchOptions}
     <div class="searchOptions">
         <ul class="searchList">
-            <li {if $type === "users"}   id="used"{/if}><a href="/search?type=users{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">   {_s_people}   {if $type === "users"}   ({$count}){/if}</a></li>
-            <li {if $type === "groups"}  id="used"{/if}><a href="/search?type=groups{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_groups}   {if $type === "groups"}  ({$count}){/if}</a></li>
-            <li {if $type === "comments"}id="used"{/if}><a href="/search?type=comments{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">{_s_comments} {if $type === "comments"}({$count}){/if}</a></li>
-            <li {if $type === "posts"}   id="used"{/if}><a href="/search?type=posts{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">   {_s_posts}    {if $type === "posts"}   ({$count}){/if}</a></li>
-            <li {if $type === "videos"}  id="used"{/if}><a href="/search?type=videos{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_videos}   {if $type === "videos"}  ({$count}){/if}</a></li>
-            <li {if $type === "apps"}    id="used"{/if}><a href="/search?type=apps{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">    {_s_apps}     {if $type === "apps"}    ({$count}){/if}</a></li>
+            <a {if $type === "users"}   id="used"{/if} href="/search?type=users{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">   {_s_people}   {if $type === "users"}   ({$count}){/if}</a>
+            <a {if $type === "groups"}  id="used"{/if} href="/search?type=groups{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_groups}   {if $type === "groups"}  ({$count}){/if}</a>
+            <a {if $type === "comments"}id="used"{/if} href="/search?type=comments{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">{_s_comments} {if $type === "comments"}({$count}){/if}</a>
+            <a {if $type === "posts"}   id="used"{/if} href="/search?type=posts{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">   {_s_posts}    {if $type === "posts"}   ({$count}){/if}</a>
+            <a {if $type === "videos"}  id="used"{/if} href="/search?type=videos{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_videos}   {if $type === "videos"}  ({$count}){/if}</a>
+            <a {if $type === "apps"}    id="used"{/if} href="/search?type=apps{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">    {_s_apps}     {if $type === "apps"}    ({$count}){/if}</a>
+            <a {if $type === "audios"}  id="used"{/if} href="/search?type=audios{if $_GET['query']}&query={urlencode($_GET['query'])}{/if}&sort=id">  {_s_audios}   {if $type === "audios"}  ({$count}){/if}</a>
         </ul>
 
         <div class="searchOption">
@@ -248,6 +252,11 @@
                         {if OPENVK_ROOT_CONF["openvk"]["preferences"]["commerce"]}
                             <option value="rating" {if $_GET["sort"] == "rating"}selected{/if}>{_s_order_by_rating}</option>
                         {/if}
+                    {/if}
+
+                    {if $type == "audios"}
+                        <option value="length" n:attr="selected => $_GET['sort'] == 'length'">{_s_order_by_length}</option>
+                        <option value="listens" n:attr="selected => $_GET['sort'] == 'listens'">{_s_order_by_listens}</option>
                     {/if}
                 </select>
                 <div id="invertor">
@@ -299,14 +308,14 @@
             </div>
         </div>
 
-        <div class="searchOption">
+        <!-- <div class="searchOption">
             <div class="searchOptionName" id="n_gender" onclick="hideParams('gender')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_gender}</div>
             <div class="searchOptionBlock" id="s_gender">
                 <p><input type="radio" form="searcher" id="gend" {if $_GET['gender'] == 0}checked{/if} name="gender" value="0">{_male}</p>
                 <p><input type="radio" form="searcher" id="gend1"{if $_GET['gender'] == 1}checked{/if} name="gender" value="1">{_female}</p>
                 <p><input type="radio" form="searcher" id="gend2"{if $_GET['gender'] == 2 || is_null($_GET['gender'])}checked{/if} name="gender" value="2">{_s_any}</p>
             </div>
-        </div>
+        </div> -->
 
         <div class="searchOption">
             <div class="searchOptionName" id="n_relationship" onclick="hideParams('relationship')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{ovk_proc_strtr(tr("relationship"), 14)}</div>
@@ -351,9 +360,19 @@
                 <input type="text" value="{if !is_null($_GET['fav_quote'])}{$_GET['fav_quote']}{/if}" form="searcher" placeholder="{_favorite_quotes}"  name="fav_quote">
             </div>
         </div>
-        <!--<input name="with_photo" type="checkbox" {if !is_null($_GET['with_photo']) && $_GET['with_photo'] == "on"}checked{/if} form="searcher">{_s_with_photo}-->
     {/if}
-        <input class="button" type="button" id="dnt" value="{_reset}" onclick="resetSearch()">
+
+    {if $type == "audios"}
+        <div class="searchOption">
+        <div class="searchOptionName" id="n_main_audio" onclick="hideParams('main_audio')"><img src="/assets/packages/static/openvk/img/hide.png" class="searchHide">{_s_main}</div>
+            <div class="searchOptionBlock" id="s_main_audio">
+                <label><input type="checkbox" name="only_performers" n:attr="checked => !empty($_GET['only_performers'])" form="searcher">{_s_only_performers}</label><br>
+                <label><input type="checkbox" name="with_lyrics" n:attr="checked => !empty($_GET['with_lyrics'])" form="searcher">{_s_with_lyrics}</label>
+            </div>
+        </div>
+    {/if}
+    
+    <input class="button" type="button" id="dnt" value="{_reset}" onclick="resetSearch()">
     </div>
 
 {/block}

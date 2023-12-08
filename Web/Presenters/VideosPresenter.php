@@ -39,11 +39,12 @@ final class VideosPresenter extends OpenVKPresenter
     function renderView(int $owner, int $vId): void
     {
         $user = $this->users->get($owner);
+        $video = $this->videos->getByOwnerAndVID($owner, $vId);
+
         if(!$user) $this->notFound();
+        if(!$video || $video->isDeleted()) $this->notFound();
         if(!$user->getPrivacyPermission('videos.read', $this->user->identity ?? NULL))
             $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
-
-        if($this->videos->getByOwnerAndVID($owner, $vId)->isDeleted()) $this->notFound();
         
         $this->template->user     = $user;
         $this->template->video    = $this->videos->getByOwnerAndVID($owner, $vId);
@@ -74,18 +75,18 @@ final class VideosPresenter extends OpenVKPresenter
                     else if(!empty($this->postParam("link")))
                         $video->setLink($this->postParam("link"));
                     else
-                        $this->flashFail("err", tr("no_video"), tr("no_video_desc"));
+                        $this->flashFail("err", tr("no_video_error"), tr("no_video_description"));
                 } catch(\DomainException $ex) {
-                    $this->flashFail("err", tr("error_occured"), tr("error_video_damaged_file"));
+                    $this->flashFail("err", tr("error_video"), tr("file_corrupted"));
                 } catch(ISE $ex) {
-                    $this->flashFail("err", tr("error_occured"), tr("error_video_incorrect_link"));
+                    $this->flashFail("err", tr("error_video"), tr("link_incorrect"));
                 }
                 
                 $video->save();
                 
                 $this->redirect("/video" . $video->getPrettyId());
             } else {
-                $this->flashFail("err", tr("error_occured"), tr("error_video_no_title"));
+                $this->flashFail("err", tr("error_video"), tr("no_name_error"));
             }
         }
     }
@@ -99,14 +100,14 @@ final class VideosPresenter extends OpenVKPresenter
         if(!$video)
             $this->notFound();
         if(is_null($this->user) || $this->user->id !== $owner)
-            $this->flashFail("err", tr("error_access_denied_short"), tr("error_access_denied"));
+            $this->flashFail("err", tr("access_denied_error"), tr("access_denied_error_description"));
         
         if($_SERVER["REQUEST_METHOD"] === "POST") {
             $video->setName(empty($this->postParam("name")) ? NULL : $this->postParam("name"));
             $video->setDescription(empty($this->postParam("desc")) ? NULL : $this->postParam("desc"));
             $video->save();
             
-            $this->flash("succ", tr("changes_saved"), tr("new_data_video"));
+            $this->flash("succ", tr("changes_saved"), tr("changes_saved_video_comment"));
             $this->redirect("/video" . $video->getPrettyId());
         } 
         
@@ -128,9 +129,29 @@ final class VideosPresenter extends OpenVKPresenter
                 $video->deleteVideo($owner, $vid);
             }
         } else {
-            $this->flashFail("err", tr("error_deleting_video"), tr("login_please"));
+            $this->flashFail("err", tr("cant_delete_video"), tr("cant_delete_video_comment"));
         }
         
         $this->redirect("/videos" . $owner);
+    }
+
+    function renderLike(int $owner, int $video_id): void
+    {
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction();
+        $this->assertNoCSRF();
+
+        $video = $this->videos->getByOwnerAndVID($owner, $video_id);
+        if(!$video || $video->isDeleted() || $video->getOwner()->isDeleted()) $this->notFound();
+
+        if(method_exists($video, "canBeViewedBy") && !$video->canBeViewedBy($this->user->identity)) {
+            $this->flashFail("err", tr("error"), tr("forbidden"));
+        }
+
+        if(!is_null($this->user)) {
+            $video->toggleLike($this->user->identity);
+        }
+
+        $this->returnJson(["success" => true]);
     }
 }

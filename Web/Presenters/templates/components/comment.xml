@@ -22,9 +22,16 @@
                     <div class="text" id="text{$comment->getId()}">
                         <span data-text="{$comment->getText(false)}" class="really_text">{$comment->getText()|noescape}</span>
                         
-                        <div n:ifcontent class="attachments_b">
-                            <div class="attachment" n:foreach="$comment->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
-                                {include "attachment.xml", attachment => $attachment}
+                        {var $attachmentsLayout = $comment->getChildrenWithLayout(288)}
+                        <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
+                            <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
+                                {include "attachment.xml", attachment => $attachment[2], parent => $comment, parentType => "comment"}
+                            </div>
+                        </div>
+
+                        <div n:ifcontent class="attachments attachments_m">
+                            <div class="attachment" n:foreach="$attachmentsLayout->extras as $attachment">
+                                {include "attachment.xml", attachment => $attachment, post => $comment}
                             </div>
                         </div>
                     </div>

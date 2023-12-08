@@ -28,7 +28,7 @@ abstract class VKAPIRequestHandler
     
     protected function getPlatform(): ?string
     {
-        return $this->platform;
+        return $this->platform ?? "";
     }
     
     protected function userAuthorized(): bool

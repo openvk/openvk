@@ -106,7 +106,7 @@
                             <span class="nobold">{_block_params}:</span>
                         </td>
                         <td>
-                            <select name="ban_type" id="noSpam-ban-type" style="width: 140px;"
+                            <select name="ban_type" id="noSpam-ban-type" style="width: 140px;">
                                 <option value="1">{_only_rollback}</option>
                                 <option value="2">{_only_block}</option>
                                 <option value="3">{_rollback_and_block}</option>

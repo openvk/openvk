@@ -128,6 +128,9 @@ class Users
                     case "doNotSearchMe":
                         $result->where("id !=", $paramValue);
                         break;
+                    case "doNotSearchPrivate":
+                        $result->where("profile_type", 0);
+                        break;
                 }
             }
         }

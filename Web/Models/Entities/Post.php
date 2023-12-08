@@ -207,6 +207,9 @@ class Post extends Postable
     
     function canBeDeletedBy(User $user): bool
     {
+        if($this->getTargetWall() < 0 && !$this->getWallOwner()->canBeModifiedBy($user) && $this->getWallOwner()->getWallType() != 1 && $this->getSuggestionType() == 0)
+            return false;
+        
         return $this->getOwnerPost() === $user->getId() || $this->canBePinnedBy($user);
     }
     
@@ -246,6 +249,37 @@ class Post extends Postable
         $this->save();
     }
 
+    function canBeViewedBy(?User $user = NULL): bool
+    {
+        if($this->isDeleted()) {
+            return false;
+        }
+        
+        return $this->getWallOwner()->canBeViewedBy($user);
+    }
+    
+    function getSuggestionType()
+    {
+        return $this->getRecord()->suggested;
+    }
+  
+    function toNotifApiStruct()
+    {
+        $res = (object)[];
+        
+        $res->id      = $this->getVirtualId();
+        $res->to_id   = $this->getOwner() instanceof Club ? $this->getOwner()->getId() * -1 : $this->getOwner()->getId();
+        $res->from_id = $res->to_id;
+        $res->date    = $this->getPublicationTime()->timestamp();
+        $res->text    = $this->getText(false);
+        $res->attachments = []; # todo
+
+        $res->copy_owner_id = NULL; # todo
+        $res->copy_post_id  = NULL; # todo
+
+        return $res;
+    }
+    
     function canBeEditedBy(?User $user = NULL): bool
     {
         if(!$user)
@@ -256,6 +290,12 @@ class Post extends Postable
 
         if($this->getTargetWall() > 0)
             return $this->getPublicationTime()->timestamp() + WEEK > time() && $user->getId() == $this->getOwner(false)->getId();
+        else {
+            if($this->isPostedOnBehalfOfGroup())
+                return $this->getWallOwner()->canBeModifiedBy($user);
+            else
+                return $user->getId() == $this->getOwner(false)->getId();
+        }
 
         return $user->getId() == $this->getOwner(false)->getId();
     }

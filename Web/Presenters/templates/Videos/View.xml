@@ -29,7 +29,7 @@
     <hr/>
     
     <div style="width: 100%; min-height: 100px;">
-        <div style="float: left; min-height: 100px; width: 68%; margin-right: 2%;">
+        <div style="float: left; min-height: 100px; width: 68%; margin-right: 2%;" id="comments">
             {include "../components/comments.xml",
                      comments => $comments,
                      count => $cCount,
@@ -50,13 +50,18 @@
                 {$video->getPublicationTime()}
             </div>
             <br/>
-            <div n:if="isset($thisUser) && $thisUser->getId() === $user->getId()">
-                <h4>{_actions}</h4>
-                <a href="/video{$video->getPrettyId()}/edit" class="profile_link" style="display:block;width:96%;">
-                    {_edit}
-                </a>
-                <a href="/video{$video->getPrettyId()}/remove" class="profile_link" style="display:block;width:96%;">
-                    {_delete}
+            <div>
+                <div n:if="isset($thisUser) && $thisUser->getId() === $user->getId()">
+                    <h4>{_actions}</h4>
+                    <a href="/video{$video->getPrettyId()}/edit" class="profile_link" style="display:block;width:96%;">
+                        {_edit}
+                    </a>
+                    <a href="/video{$video->getPrettyId()}/remove" class="profile_link" style="display:block;width:96%;">
+                        {_delete}
+                    </a>
+                </div>
+                <a href="/video{$video->getPrettyId()}" class="profile_link" id="videoOpen" data-id="{$video->getId()}" style="display:block;width:96%;">
+                    {_watch_in_window}
                 </a>
             </div>
 

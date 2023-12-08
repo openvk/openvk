@@ -1,0 +1,56 @@
+<div class="bigPlayer">
+    <audio class="audio" />
+    <div class="paddingLayer">
+        <div class="playButtons">
+            <div class="playButton musicIcon" title="{_play_tip} [Space]"></div>
+                
+            <div class="arrowsButtons">
+                <div>
+                    <div class="nextButton musicIcon"></div>
+                </div>
+
+                <div>
+                    <div class="backButton musicIcon"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="trackPanel">
+            <div class="trackInfo">
+                <div class="trackName">
+                    <b>{_track_unknown}</b> —
+                    <span>{_track_noname}</span>
+                </div>
+
+                <div class="timer" style="float:right">
+                    <span class="time">00:00</span>
+                    <span>/</span>
+                    <span class="elapsedTime" style="cursor:pointer">-00:00</span>
+                </div>
+            </div>
+
+            <div class="track" style="margin-top: -2px;">
+                <div class="bigPlayerTip">00:00</div>
+                <div class="selectableTrack">
+                    <div style="width: 95%;position: relative;">&nbsp;
+                        <div class="slider"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="volumePanel">
+            <div class="selectableTrack">
+                <div style="position: relative;width:72%">&nbsp;
+                    <div class="slider"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="additionalButtons">
+            <div class="repeatButton musicIcon" title="{_repeat_tip} [R]" ></div>
+            <div class="shuffleButton musicIcon" title="{_shuffle_tip}"></div>
+            <div class="deviceButton musicIcon" title="{_mute_tip} [M]"></div>
+        </div>
+    </div>
+</div>

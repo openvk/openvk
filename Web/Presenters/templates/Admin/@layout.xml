@@ -97,6 +97,9 @@
                                         <li>
                                             <a href="/admin/bannedLinks">{_admin_banned_links}</a>
                                         </li>
+                                        <li>
+                                            <a href="/admin/music">{_admin_music}</a>
+                                        </li>
                                     </ul>
                                     <div class="aui-nav-heading">
                                         <strong>Chandler</strong>

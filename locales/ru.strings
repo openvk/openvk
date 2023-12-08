@@ -62,9 +62,10 @@
 "change_status" = "изменить статус";
 "name" = "Имя";
 "surname" = "Фамилия";
-"gender" = "Пол";
-"male" = "мужской";
-"female" = "женский";
+"pronouns" = "Местоимения";
+"male" = "он/его";
+"female" = "она/её";
+"neutral" = "они/их";
 "description" = "Описание";
 "save" = "Сохранить";
 "main_information" = "Основная информация";
@@ -103,6 +104,13 @@
 "relationship_3_fem" = "Помолвлена";
 "relationship_4_fem" = "Замужем";
 "relationship_6_fem" = "Влюблена";
+"relationship_2_prefix" = "с";
+"relationship_3_prefix" = "с";
+"relationship_4_prefix" = "на";
+"relationship_4_prefix_fem" = "за";
+"relationship_5_prefix" = "с";
+"relationship_6_prefix" = "в";
+"relationship_7_prefix" = "с";
 "politViews" = "Полит. взгляды";
 "politViews_0" = "Не выбраны";
 "politViews_1" = "Индифферентные";
@@ -132,6 +140,22 @@
 "updated_at" = "Обновлено $1";
 "user_banned" = "К сожалению, нам пришлось заблокировать страницу пользователя <b>$1</b>.";
 "user_banned_comment" = "Комментарий модератора:";
+
+"closed_page" = "Закрытая страница";
+
+"limited_access_to_page_m" = "$1 ограничил доступ к своей странице.";
+"limited_access_to_page_f" = "$1 ограничила доступ к своей странице.";
+
+"you_can_add" = "Вы можете";
+"add_to_friends_m" = "добавить его в друзья.";
+"add_to_friends_f" = "добавить её в друзья.";
+
+"register_to_access_page_m" = "Зарегистрируйтесь, чтобы получить доступ к его странице.";
+"register_to_access_page_f" = "Зарегистрируйтесь, чтобы получить доступ к её странице.";
+
+"private_profile_warning" = "Этот профиль закрытый, но вы имеете к нему доступ, потому что вы — администратор.";
+"private_profile_warning_desc" = "Пожалуйста, уважайте право на личную жизнь и не злоупотребляйте этой возможностью.";
+
 "verified_page" = "Подтверждённая страница";
 "user_is_blocked" = "Пользователь заблокирован";
 "before" = "до";
@@ -145,8 +169,10 @@
 "post_writes_g" = "опубликовали";
 "post_deact_m" = "удалил страницу со словами:";
 "post_deact_f" = "удалила страницу со словами:";
+"post_deact_g" = "удалили страницу со словами:";
 "post_deact_silent_m" = "молча удалил свою страницу.";
 "post_deact_silent_f" = "молча удалила свою страницу.";
+"post_deact_silent_g" = "молча удалили свою страницу.";
 "post_on_your_wall" = "на вашей стене";
 "post_on_group_wall" = "в $1";
 "post_on_user_wall" = "на стене $1";
@@ -213,6 +239,11 @@
 "interesting_fact_other" = "Интересный факт: вас игнорирует $1 пользователей.";
 "add_new_ignores" = "Добавить новое";
 
+"all_posts" = "Все записи";
+"users_posts" = "Записи $1";
+"clubs_posts" = "Записи сообщества";
+"others_posts" = "Чужие записи";
+
 /* Friends */
 
 "friends" = "Друзья";
@@ -266,6 +297,7 @@
 
 /* Group */
 
+"group" = "Сообщество";
 "name_group" = "Название";
 "subscribe" = "Подписаться";
 "unsubscribe" = "Отписаться";
@@ -302,8 +334,61 @@
 "set_comment" = "Изменить комментарий";
 "hidden_yes" = "Скрыт: Да";
 "hidden_no" = "Скрыт: Нет";
-"group_allow_post_for_everyone" = "Разрешить публиковать записи всем";
+
+"group_allow_post_for_everyone" = "Открытая";
+"group_limited_post" = "Предложка";
+"group_closed_post" = "Закрытая";
+"suggest_new" = "Предложить новость";
+"suggested_by_you_zero" = "$1 предложенных вами записей";
+"suggested_by_you_one" = "Одна предложенная вами запись";
+"suggested_by_you_few" = "$1 предложенные вами записи";
+"suggested_by_you_many" = "$1 предложенных вами записей";
+"suggested_by_you_other" = "$1 предложенных вами записей";
+
+"suggested_by_everyone_zero" = "$1 предложенных записей";
+"suggested_by_everyone_one" = "Одна предложенная запись";
+"suggested_by_everyone_few" = "$1 предложенные записи";
+"suggested_by_everyone_many" = "$1 предложенных записей";
+"suggested_by_everyone_other" = "$1 предложенных записей";
+
 "group_hide_from_global_feed" = "Не отображать публикации в глобальной ленте";
+"suggested_posts_by_you" = "Предложенные вами записи";
+"suggested_posts_by_everyone" = "Предложенные записи";
+"suggested" = "Предложено";
+"suggested_posts_everyone" = "Предложенные пользователями записи";
+"no_suggested_posts_by_you" = "Вы ещё не предлагали записей в эту группу.";
+"no_suggested_posts_by_people" = "В эту группу ещё не предлагали записей.";
+
+"publish_suggested" = "Опубликовать запись";
+"decline_suggested" = "Отклонить";
+
+"error_loading_suggest" = "Не удалось подгрузить новые посты";
+
+"publishing_suggested_post" = "Публикация предложенной записи";
+"suggested_posts_in_group_zero" = "Вы посмотрели всю предложку, поздравляю!";
+"suggested_posts_in_group_one" = "В эту группу предложили одну запись";
+"suggested_posts_in_group_few" = "В эту группу предложили $1 записи";
+"suggested_posts_in_group_many" = "В эту группу предложили $1 записей";
+"suggested_posts_in_group_other" = "В эту группу предложили $1 записей";
+
+"suggested_posts_in_group_by_you_zero" = "Вы не предлагали в эту группу никаких записей";
+"suggested_posts_in_group_by_you_one" = "Вы предложили в эту группу одну запись";
+"suggested_posts_in_group_by_you_few" = "Вы предложили в эту группу $1 записи";
+"suggested_posts_in_group_by_you_many" = "Вы предложили в эту группу $1 записей";
+"suggested_posts_in_group_by_you_other" = "Вы предложили в эту группу $1 записей";
+
+"suggestion_succefully_published" = "Запись успешно опубликована";
+"suggestion_succefully_declined" = "Запись успешно отклонена";
+"suggestion_press_to_go" = "Нажмите, чтобы перейти к ней";
+
+"error_declining_invalid_post" = "Не удалость отклонить пост: поста не существует";
+"error_declining_not_suggested_post" = "Не удалость отклонить пост: пост не из предложки";
+"error_declining_declined_post" = "Не удалость отклонить пост: пост уже отклонён";
+
+"error_accepting_invalid_post" = "Не удалость принять пост: поста не существует";
+"error_accepting_not_suggested_post" = "Не удалость принять пост: пост не из предложки";
+"error_accepting_declined_post" = "Не удалость принять пост: пост отклонён";
+
 "statistics" = "Статистика";
 "group_administrators_list" = "Список админов";
 "group_display_only_creator" = "Отображать только создателя группы";
@@ -337,12 +422,18 @@
 "search_group_desc" = "Здесь Вы можете просмотреть существующие группы и выбрать группу себе по вкусу...";
 "group_banned" = "К сожалению, нам пришлось заблокировать сообщество <b>$1</b>.";
 
+"error_suggestions" = "Ошибка доступа к предложенным";
+"error_suggestions_closed" = "У этой группы закрытая стена.";
+"error_suggestions_open" = "У этой группы открытая стена.";
+"error_suggestions_access" = "Просматривать все предложенные записи могут только администраторы группы.";
+
 /* Albums */
 
 "create" = "Создать";
 "album" = "Альбом";
 "albums" = "Альбомы";
 "photos" = "фотографий";
+"photo" = "Фотография";
 "create_album" = "Создать альбом";
 "edit_album" = "Редактировать альбом";
 "edit_photo" = "Изменить фотографию";
@@ -388,6 +479,7 @@
 
 "upd_m" = "обновил фотографию на своей странице";
 "upd_f" = "обновила фотографию на своей странице";
+"upd_n" = "обновили фотографию на своей странице";
 "upd_g" = "обновило фотографию группы";
 
 "add_photos" = "Добавить фотографии";
@@ -408,6 +500,20 @@
 "tip" = "Подсказка";
 "tip_ctrl" = "для того, чтобы выбрать сразу несколько фотографий, удерживайте клавишу Ctrl при выборе файлов в ОС Windows или клавишу CMD в Mac OS.";
 "album_poster" = "Обложка альбома";
+"select_photo" = "Выберите фотографию";
+"upload_new_photo" = "Загрузить новую фотографию";
+
+"is_x_photos_zero" = "Всего ноль фотографий.";
+"is_x_photos_one" = "Всего одна фотография.";
+"is_x_photos_few" = "Всего $1 фотографии.";
+"is_x_photos_many" = "Всего $1 фотографий.";
+"is_x_photos_other" = "Всего $1 фотографий.";
+
+"all_photos" = "Все фотографии";
+"error_uploading_photo" = "Не удалось загрузить фотографию. Текст ошибки: ";
+"too_many_photos" = "Слишком много фотографий.";
+
+"photo_x_from_y" = "Фотография $1 из $2";
 
 /* Notes */
 
@@ -460,6 +566,7 @@
 "my_videos" = "Мои Видеозаписи";
 "my_messages" = "Мои Сообщения";
 "my_notes" = "Мои Заметки";
+"my_audios" = "Мои Аудиозаписи";
 "my_groups" = "Мои Группы";
 "my_feed" = "Мои Новости";
 "my_feedback" = "Мои Ответы";
@@ -539,6 +646,7 @@
 "privacy_setting_add_to_friends" = "Кто может называть меня другом";
 "privacy_setting_write_wall" = "Кто может писать у меня на стене";
 "privacy_setting_write_messages" = "Кто может писать мне сообщения";
+"privacy_setting_view_audio" = "Кому видно мои аудиозаписи";
 "privacy_value_anybody" = "Все желающие";
 "privacy_value_anybody_dative" = "Всем желающим";
 "privacy_value_users" = "Пользователям OpenVK";
@@ -547,6 +655,9 @@
 "privacy_value_only_me" = "Только я";
 "privacy_value_only_me_dative" = "Только мне";
 "privacy_value_nobody" = "Никто";
+"profile_type" = "Тип профиля";
+"profile_type_open" = "Открытый";
+"profile_type_closed" = "Закрытый";
 "your_email_address" = "Адрес Вашей электронной почты";
 "your_page_address" = "Адрес Вашей страницы";
 "page_address" = "Адрес страницы";
@@ -670,8 +781,128 @@
 "selecting_video" = "Выбор видеозаписей";
 "upload_new_video" = "Загрузить новое видео";
 "max_attached_videos" = "Максимум 10 видеозаписей";
+"max_attached_photos" = "Максимум 10 фотографий";
+"max_attached_audios" = "Максимум 10 аудиозаписей";
 "no_videos" = "У вас нет видео.";
 "no_videos_results" = "Нет результатов.";
+
+/* Audios */
+
+"audios" = "Аудиозаписи";
+"audio" = "Аудиозапись";
+"playlist" = "Плейлист";
+"upload_audio" = "Загрузить аудио";
+"upload_audio_to_group" = "Загрузить аудио в группу";
+
+"performer" = "Исполнитель";
+"audio_name" = "Название";
+"genre" = "Жанр";
+"lyrics" = "Текст";
+
+"select_another_file" = "Выбрать другой файл";
+
+"limits" = "Ограничения";
+"select_audio" = "Выберите аудиозапись на Вашем компьютере";
+"audio_requirements" = "Аудиозапись должна быть длинной от $1c до $2 минут, весить до $3мб и содержать аудиопоток.";
+"audio_requirements_2" = "Аудиозапись не должна нарушать авторские и смежные права.";
+"you_can_also_add_audio_using" = "Вы также можете добавить аудиозапись из числа уже загруженных файлов, воспользовавшись";
+"search_audio_inst" = "поиском по аудио";
+
+"audio_embed_not_found" = "Аудиозапись не найдена";
+"audio_embed_deleted" = "Аудиозапись была удалена";
+"audio_embed_withdrawn" = "Аудиозапись была изъята по обращению правообладателя.";
+"audio_embed_forbidden" = "Настройки приватности пользователя не позволяют встраивать эту композицию";
+"audio_embed_processing" = "Аудио ещё обрабатывается, либо обработалось неправильно.";
+
+"audios_count_zero" = "Нет аудиозаписей";
+"audios_count_one" = "Одна аудиозапись"; /* сингл */
+"audios_count_few" = "$1 аудиозаписи";
+"audios_count_many" = "$1 аудиозаписей";
+"audios_count_other" = "$1 аудиозаписей";
+
+"track_unknown" = "Неизвестен";
+"track_noname" = "Без названия";
+
+"my_music" = "Моя музыка";
+"music_user" = "Музыка пользователя";
+"music_club" = "Музыка группы";
+"audio_new" = "Новое";
+"audio_popular" = "Популярное";
+"audio_search" = "Поиск";
+
+"my_audios_small" = "Мои аудиозаписи";
+"my_playlists" = "Мои плейлисты";
+"playlists" = "Плейлисты";
+"audios_explicit" = "Содержит нецензурную лексику";
+"withdrawn" = "Изъято";
+"deleted" = "Удалено";
+"owner" = "Владелец";
+"searchable" = "Доступно в поиске";
+
+"select_audio" = "Выбрать аудиозаписи";
+"no_playlists_thisuser" = "Вы ещё не добавляли плейлистов.";
+"no_playlists_user" = "Этот пользователь ещё не добавлял плейлистов.";
+"no_playlists_club" = "Эта группа ещё не добавляла плейлистов.";
+
+"no_audios_thisuser" = "Вы ещё не добавляли аудиозаписей.";
+"no_audios_user" = "Этот пользователь ещё не добавлял аудиозаписей.";
+"no_audios_club" = "Эта группа ещё не добавляла аудиозаписей.";
+
+"new_playlist" = "Новый плейлист";
+"created_playlist" = "создан";
+"updated_playlist" = "обновлён";
+"bookmark" = "Добавить в коллекцию";
+"unbookmark" = "Убрать из коллекции";
+"empty_playlist" = "В этом плейлисте нет аудиозаписей.";
+"edit_playlist" = "Редактировать плейлист";
+"unable_to_load_queue" = "Не удалось загрузить очередь.";
+
+"fully_delete_audio" = "Полностью удалить аудиозапись";
+"attach_audio" = "Прикрепить аудиозапись";
+"detach_audio" = "Открепить аудиозапись";
+
+"show_more_audios" = "Показать больше аудиозаписей";
+"add_to_playlist" = "Добавить в плейлист";
+"remove_from_playlist" = "Удалить из плейлиста";
+"delete_playlist" = "Удалить плейлист";
+"playlist_cover" = "Обложка плейлиста";
+"playlists_user" = "Плейлисты польз.";
+"playlists_club" = "Плейлисты группы";
+"change_cover" = "Сменить обложку";
+"playlist_cover" = "Обложка плейлиста";
+
+"minutes_count_zero" = "длится ноль минут";
+"minutes_count_one" = "длится одну минуту";
+"minutes_count_few" = "длится $1 минуты";
+"minutes_count_many" = "длится $1 минут";
+"minutes_count_other" = "длится $1 минут";
+
+"listens_count_zero" = "нет прослушиваний";
+"listens_count_one" = "одно прослушивание";
+"listens_count_few" = "$1 прослушивания";
+"listens_count_many" = "$1 прослушиваний";
+"listens_count_other" = "$1 прослушиваний";
+
+"add_audio_to_club" = "Добавить аудио в группу";
+"what_club_add" = "В какую группу вы хотите добавить песню?";
+"group_has_audio" = "У группы уже есть эта песня.";
+"group_hasnt_audio" = "У группы нет этой песни.";
+
+"by_name" = "по композициям";
+"by_performer" = "по исполнителю";
+"no_access_clubs" = "Нет групп, где вы являетесь администратором.";
+"audio_successfully_uploaded" = "Аудио успешно загружено и на данный момент обрабатывается.";
+
+"broadcast_audio" = "Транслировать аудио в статус";
+"sure_delete_playlist" = "Вы действительно хотите удалить этот плейлист?";
+"edit_audio" = "Редактировать аудиозапись";
+"audios_group" = "Аудиозаписи группы";
+"playlists_group" = "Плейлисты группы";
+
+"play_tip" = "Проигрывание/пауза";
+"repeat_tip" = "Повторение";
+"shuffle_tip" = "Перемешать";
+"mute_tip" = "Заглушить";
 
 /* Notifications */
 
@@ -691,6 +922,9 @@
 "nt_shared_yours" = "поделился(-ась) вашим";
 "nt_commented_yours" = "оставил(а) комментарий под";
 "nt_written_on_your_wall" = "написал(а) на вашей стене";
+"nt_accepted_your_post" = "опубликовало вашу предложенную";
+"nt_in_club" = "В сообществе";
+"nt_new_suggested_posts" = "новые записи в предложке";
 "nt_made_you_admin" = "назначил(а) вас руководителем сообщества";
 "nt_from" = "от";
 "nt_yours_adjective" = "вашим";
@@ -708,6 +942,7 @@
 "nt_mention_in_video" = "в обсуждении видеозаписи";
 "nt_mention_in_note" = "в обсуждении заметки";
 "nt_mention_in_topic" = "в обсуждении";
+"nt_post_small" = "запись";
 "nt_sent_gift" = "отправил вам подарок";
 
 /* Time */
@@ -913,6 +1148,7 @@
 "going_to_report_photo" = "Вы собираетесь пожаловаться на данную фотографию.";
 "going_to_report_user" = "Вы собираетесь пожаловаться на данного пользователя.";
 "going_to_report_video" = "Вы собираетесь пожаловаться на данную видеозапись.";
+"going_to_report_audio" = "Вы собираетесь пожаловаться на данную аудиозапись.";
 "going_to_report_post" = "Вы собираетесь пожаловаться на данную запись.";
 "going_to_report_comment" = "Вы собираетесь пожаловаться на данный комментарий.";
 
@@ -1028,6 +1264,7 @@
 "topics_other" = "$1 тем";
 "created" = "Создано";
 "everyone_can_create_topics" = "Все могут создавать темы";
+"everyone_can_upload_audios" = "Все могут загружать аудиозаписи";
 "display_list_of_topics_above_wall" = "Отображать список тем над стеной";
 "topic_changes_saved_comment" = "Обновлённый заголовок и настройки появятся на странице с темой.";
 "failed_to_create_topic" = "Не удалось создать тему";
@@ -1045,6 +1282,7 @@
 "no_data" = "Нет данных";
 "no_data_description" = "Тут ничего нет... Пока...";
 "error" = "Ошибка";
+"error_generic" = "Произошла ошибка общего характера: ";
 "error_shorturl" = "Данный короткий адрес уже занят.";
 "error_segmentation" = "Ошибка сегментации";
 "error_upload_failed" = "Не удалось загрузить фото";
@@ -1053,6 +1291,8 @@
 "error_weak_password" = "Ненадёжный пароль. Пароль должен содержать не менее 8 символов, цифры, прописные и строчные буквы";
 "error_shorturl_incorrect" = "Короткий адрес имеет некорректный формат.";
 "error_repost_fail" = "Не удалось поделиться записью";
+
+"error_insufficient_info" = "Вы не указали необходимую информацию.";
 "error_data_too_big" = "Аттрибут '$1' не может быть длиннее $2 $3";
 "forbidden" = "Ошибка доступа";
 "unknown_error" = "Неизвестная ошибка";
@@ -1091,6 +1331,10 @@
 "media_file_corrupted_or_too_large" = "Файл медиаконтента повреждён или слишком велик.";
 "post_is_empty_or_too_big" = "Пост пустой или слишком большой.";
 "post_is_too_big" = "Пост слишком большой.";
+
+"error_deleting_suggested" = "Вы не можете удалить ваш принятый пост";
+"error_invalid_wall_value" = "Некорректное значение стены";
+
 "error_sending_report" = "Не удалось подать жалобу...";
 "error_when_saving_gift" = "Не удалось сохранить подарок";
 "error_when_saving_gift_bad_image" = "Изображение подарка кривое.";
@@ -1179,11 +1423,28 @@
 "group_owner_is_banned" = "Создатель сообщества успешно забанен.";
 "group_is_banned" = "Сообщество успешно забанено";
 "description_too_long" = "Описание слишком длинное.";
+
 "invalid_club" = "Такой группы не существует.";
 "invalid_user" = "Такого пользователя не существует.";
 "no_sense" = "Нет смысла.";
 "cant_ignore_self" = "Нельзя игнорировать себя.";
 "max_ignores" = "Максимальное число игноров — $1";
+
+"invalid_audio" = "Такой аудиозаписи не существует.";
+"do_not_have_audio" = "У вас нет этой аудиозаписи.";
+"do_have_audio" = "У вас уже есть эта аудиозапись.";
+
+"set_playlist_name" = "Укажите название плейлиста.";
+"playlist_already_bookmarked" = "Плейлист уже есть в вашей коллекции.";
+"playlist_not_bookmarked" = "Плейлиста нет в вашей коллекции.";
+"invalid_cover_photo" = "Не удалось сохранить обложку плейлиста.";
+"not_a_photo" = "Загруженный файл не похож на фотографию.";
+"file_too_big" = "Файл слишком большой.";
+"file_loaded_partially" = "Файл загрузился частично.";
+"file_not_uploaded" = "Не удалось загрузить файл.";
+"error_code" = "Код ошибки: $1.";
+"ffmpeg_timeout" = "Превышено время ожидания обработки ffmpeg. Попробуйте загрузить файл снова.";
+"ffmpeg_not_installed" = "Не удалось обработать файл. Похоже, на сервере не установлен ffmpeg.";
 
 /* Admin actions */
 
@@ -1280,6 +1541,10 @@
 
 "admin_gift_moved_successfully" = "Подарок успешно перемещён";
 "admin_gift_moved_to_recycle" = "Теперь подарок находится в <b>корзине</b>.";
+"admin_original_file" = "Оригинальный файл";
+"admin_audio_length" = "Длина";
+"admin_cover_id" = "Обложка (ID фото)";
+"admin_music" = "Музыка";
 
 "logs" = "Логи";
 "logs_anything" = "Любое";
@@ -1511,8 +1776,16 @@
 "tour_section_5_text_3" = "Кроме загрузки видео напрямую, сайт поддерживает и встраивание видео из YouTube";
 
 
-"tour_section_6_title_1" = "Аудиозаписи, которых пока что нет XD";
-"tour_section_6_text_1" = "Я был бы очень рад сделать туториал по этому разделу, но солнышко Вриска не сделала музыку";
+"tour_section_6_title_1" = "Слушайте аудиозаписи";
+"tour_section_6_text_1" = "Вы можете слушать аудиозаписи в разделе \"Мои Аудиозаписи\"";
+"tour_section_6_text_2" = "Этот раздел также регулируется настройками приватности";
+"tour_section_6_text_3" = "Самые прослушиваемые песни находятся во вкладке \"Популярное\", а недавно загруженные — во вкладке \"Новое\"";
+"tour_section_6_text_4" = "Чтобы добавить песню в свою коллекцию, наведите на неё и нажмите на плюс. Найти нужную песню можно в поиске";
+"tour_section_6_text_5" = "Если вы не можете найти нужную песню, вы можете загрузить её самостоятельно";
+"tour_section_6_bottom_text_1" = "<b>Важно:</b> песня не должна нарушать авторские права";
+"tour_section_6_title_2" = "Создавайте плейлисты";
+"tour_section_6_text_6" = "Вы можете создавать сборники треков во вкладке \"Мои плейлисты\"";
+"tour_section_6_text_7" = "Можно также добавлять чужие плейлисты в свою коллекцию";
 
 
 "tour_section_7_title_1" = "Следите за тем, что пишут ваши друзья";
@@ -1623,6 +1896,8 @@
 "s_order_by_name" = "По имени";
 "s_order_by_random" = "По случайности";
 "s_order_by_rating" = "По рейтингу";
+"s_order_by_length" = "По длине";
+"s_order_by_listens" = "По числу прослушиваний";
 "s_order_invert" = "Инвертировать";
 
 "s_by_date" = "По дате";
@@ -1644,6 +1919,8 @@
 "deleted_target_comment" = "Этот комментарий принадлежит к удалённой записи";
 
 "no_results" = "Результатов нет";
+"s_only_performers" = "Только исполнители";
+"s_with_lyrics" = "С текстом";
 
 /* BadBrowser */
 
@@ -1683,6 +1960,7 @@
 /* Mobile */
 "mobile_friends" = "Друзья";
 "mobile_photos" = "Фотографии";
+"mobile_audios" = "Аудиозаписи";
 "mobile_videos" = "Видеозаписи";
 "mobile_messages" = "Сообщения";
 "mobile_notes" = "Заметки";
@@ -1695,6 +1973,53 @@
 "mobile_like" = "Нравится";
 "mobile_user_info_hide" = "Скрыть";
 "mobile_user_info_show_details" = "Показать подробнее";
+
+/* Fullscreen player */
+
+"hide_player" = "Скрыть";
+"close_player" = "Закрыть";
+"show_comments" = "Показать информацию";
+"close_comments" = "Скрыть информацию";
+"to_page" = "Перейти на страницу";
+"download_video" = "Скачать";
+"added" = "Добавлено";
+"x_views" = "$1 просмотров";
+
+"video_author" = "Автор видео";
+"video_delete" = "Удалить";
+"no_description" = "описания нет";
+
+"show_more_comments" = "Показать больше комментариев";
+"video_processing" = "Видео успешно загружено и на данный момент обрабатывается.";
+"video_access_denied" = "Доступ к видео запрещён";
+"open_page_to_read_comms" = "Для чтения комментариев откройте <a href=\"$1\">страницу</a>.";
+
+"no_video_error" = "Нету видеозаписи";
+"no_video_description" = "Выберите файл или укажите ссылку.";
+
+"error_video" = "Произошла ошибка";
+"file_corrupted" = "Файл повреждён или не содержит видео.";
+"link_incorrect" = "Возможно, ссылка некорректна.";
+
+"no_name_error" = "Видео не может быть опубликовано без названия";
+"access_denied_error" = "Ошибка доступа";
+"access_denied_error_description" = "Вы не имеете права редактировать этот ресурс";
+
+"changes_saved_video_comment" = "Обновлённые данные появятся на странице с видео";
+"cant_delete_video" = "Не удалось удалить видео";
+"cant_delete_video_comment" = "Вы не вошли в аккаунт.";
+
+"change_video" = "Изменить видеозапись";
+
+"video_is_deleted" = "Видео удалено.";
+"share_video" = "Поделиться видеороликом";
+"shared_succ_video" = "Видео появится на вашей стене. Нажмите на уведомление, чтобы перейти к записи.";
+"watch_in_window" = "Смотреть в окне";
+
+"comments_load_timeout" = "Возможно, инстанция упала."; 
+
+"my" = "Мои";
+"enter_a_name_or_artist" = "Введите название или автора...";
 
 /* Moderation */
 
@@ -1732,3 +2057,4 @@
 
 "roll_back" = "откатить";
 "roll_backed" = "откачено";
+

@@ -40,6 +40,8 @@ final class NotesPresenter extends OpenVKPresenter
             $this->notFound();
         if(!$note->getOwner()->getPrivacyPermission('notes.read', $this->user->identity ?? NULL))
             $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
+        if(!$note->canBeViewedBy($this->user->identity))
+            $this->flashFail("err", tr("forbidden"), tr("forbidden_comment"));
         
         $this->template->cCount   = $note->getCommentsCount();
         $this->template->cPage    = (int) ($this->queryParam("p") ?? 1);

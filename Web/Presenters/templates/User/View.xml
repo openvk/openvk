@@ -330,13 +330,13 @@
                 </div>
                 <div style="padding: 5px;">
                     <div class="ovk-video" n:foreach="$videos as $video">
-                        <a href="/video{$video->getPrettyId()}" class="preview" align="center">
+                        <a href="/video{$video->getPrettyId()}" class="preview" align="center" id="videoOpen" data-id="{$video->getId()}">
                             <img
                                 src="{$video->getThumbnailURL()}"
                                 style="max-width: 170px; max-height: 127px; margin: auto;" />
                         </a>
                         <div>
-                            <b><a href="/video{$video->getPrettyId()}">{ovk_proc_strtr($video->getName(), 30)}</a></b><br>
+                            <b><a href="/video{$video->getPrettyId()}" id="videoOpen" data-id="{$video->getId()}">{ovk_proc_strtr($video->getName(), 30)}</a></b><br>
                             <span style="font-size: 10px;">{$video->getPublicationTime()} | {_comments} ({$video->getCommentsCount()})</span>
                         </div>
                     </div>
@@ -420,6 +420,10 @@
                 <form name="status_popup_form" onsubmit="changeStatus(); return false;">
                     <div style="margin-bottom: 10px;">
                         <input type="text" name="status" size="50" value="{$user->getStatus()}" />
+                        <label style="width: 316px;display: block;">
+                            <input type="checkbox" name="broadcast" n:attr="checked => $user->isBroadcastEnabled()" />
+                            {_broadcast_audio}
+                        </label>
                     </div>
                     <input type="hidden" name="hash" value="{$csrfToken}" />
                     <button type="submit" name="submit" class="button" style="height: 22px;">{_send}</button>
@@ -428,11 +432,20 @@
 			<div class="accountInfo clearFix">
                 <div class="profileName">
                     <h2>{$user->getFullName()}</h2>
-                    {if !is_null($user->getStatus())}
-                        <div n:class="page_status, $thatIsThisUser ? page_status_edit_button" n:attr="id => $thatIsThisUser ? page_status_text : NULL">{$user->getStatus()}</div>
-                    {elseif $thatIsThisUser}
-                        <div class="page_status">
-                            <div n:class="edit_link, $thatIsThisUser ? page_status_edit_button" id="page_status_text">[ {_change_status} ]</div>
+
+                    {if !$audioStatus}
+                        {if !is_null($user->getStatus())}
+                            <div n:class="page_status, $thatIsThisUser ? page_status_edit_button" n:attr="id => $thatIsThisUser ? page_status_text : NULL">{$user->getStatus()}</div>
+                        {elseif $thatIsThisUser}
+                            <div class="page_status">
+                                <div n:class="edit_link, $thatIsThisUser ? page_status_edit_button" id="page_status_text">[ {_change_status} ]</div>
+                            </div>
+                        {/if}
+                    {else}
+                        <div class="page_status" style="display: flex;">
+                            <div n:class="audioStatus, $thatIsThisUser ? page_status_edit_button" id="page_status_text">
+                                {$audioStatus->getName()}
+                            </div>
                         </div>
                     {/if}
                 </div>
@@ -441,12 +454,20 @@
                 <table id="basicInfo" class="ugc-table" border="0" cellspacing="0" cellpadding="0" border="0" cellspacing="0" cellpadding="0" n:if=" $user->getPrivacyPermission('page.info.read', $thisUser ?? NULL)">
                     <tbody>
                         <tr>
-                            <td class="label"><span class="nobold">{_gender}: </span></td>
-                            <td class="data">{$user->isFemale() ? tr("female") : tr("male")}</td>
+                            <td class="label"><span class="nobold">{_pronouns}: </span></td>
+                            <td class="data">{$user->isFemale() ? tr("female") : ($user->isNeutral() ? tr("neutral") : tr("male"))}</td>
                         </tr>
                         <tr>
                             <td class="label"><span class="nobold">{_relationship}:</span></td>
-                            <td class="data">{$user->getLocalizedMaritalStatus()}</td>
+                            <td class="data">
+                                {$user->getLocalizedMaritalStatus()}
+                                {if $user->getMaritalStatusUser()}
+                                    {$user->getMaritalStatusUserPrefix()}
+                                    <a href="{$user->getMaritalStatusUser()->getURL()}" target="_blank">
+                                        {$user->getMaritalStatusUser()->getCanonicalName()}
+                                    </a>
+                                {/if}
+                            </td>
                         </tr>
                         <tr>
                             <td class="label"><span class="nobold">{_registration_date}: </span></td>
@@ -533,7 +554,7 @@
                             {var $musics = explode(", ", $user->getFavoriteMusic())}
 
                             {foreach $musics as $music}
-                                <a href="/search?type=users&query=&fav_mus={urlencode($music)}">{$music}</a>{if $music != end($musics)},{/if}
+                                <a href="/search?type=audios&query={urlencode($music)}">{$music}</a>{if $music != end($musics)},{/if}
                             {/foreach}
                         </td>
                     </tr>
@@ -594,6 +615,25 @@
                     <div style="padding-top: 15px;color:gray;text-align: center;">{_no_information_provided}</div>
                 {/if}
             </div>
+            </div>
+        </div>
+
+        <div n:if="$audiosCount > 0 && $user->getPrivacyPermission('audios.read', $thisUser ?? NULL)">
+            <div class="content_title_expanded" onclick="hidePanel(this, {$audiosCount});">
+                {_audios}
+            </div>
+            <div>
+                <div class="content_subtitle">
+                    {tr("audios_count", $audiosCount)}
+                    <div style="float:right;">
+                        <a href="/audios{$user->getId()}">{_all_title}</a>
+                    </div>
+                </div>
+                <div class="content_list long">
+                    <div class="audio" n:foreach="$audios as $audio" style="width: 100%;">
+                        {include "../Audio/player.xml", audio => $audio}
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -742,12 +782,14 @@
 
             async function changeStatus() {
                 const status = document.status_popup_form.status.value;
+                const broadcast = document.status_popup_form.broadcast.checked;
 
                 document.status_popup_form.submit.innerHTML = "<div class=\"button-loading\"></div>";
                 document.status_popup_form.submit.disabled = true;
 
                 const formData = new FormData();
                 formData.append("status", status);
+                formData.append("broadcast", Number(broadcast));
                 formData.append("hash", document.status_popup_form.hash.value);
                 const response = await ky.post("/edit?act=status", {body: formData});
 

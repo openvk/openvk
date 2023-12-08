@@ -52,7 +52,6 @@ class Messages
         $query = file_get_contents(__DIR__ . "/../sql/get-correspondencies-count.tsql");
         DatabaseConnection::i()->getConnection()->query(file_get_contents(__DIR__ . "/../sql/mysql-msg-fix.tsql"));
         $count = DatabaseConnection::i()->getConnection()->query($query, $id, $class, $id, $class)->fetch()->cnt;
-        bdump($count);
         return $count;
     }
 }

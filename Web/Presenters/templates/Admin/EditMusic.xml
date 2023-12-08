@@ -1,0 +1,81 @@
+{extends "@layout.xml"}
+
+{block title}
+    {_edit} {$audio->getName()}
+{/block}
+
+{block heading}
+    {$audio->getName()}
+{/block}
+
+{block content}
+    <div class="aui-tabs horizontal-tabs">
+        <form class="aui" method="POST">
+            <div class="field-group">
+                <label for="id">ID</label>
+                <input class="text medium-field" type="number" id="id" disabled value="{$audio->getId()}" />
+            </div>
+            <div class="field-group">
+                <label>{_created}</label>
+                {$audio->getPublicationTime()}
+            </div>
+            <div class="field-group">
+                <label>{_edited}</label>
+                {$audio->getEditTime() ?? "never"}
+            </div>
+            <div class="field-group">
+                <label for="name">{_name}</label>
+                <input class="text medium-field" type="text" id="name" name="name" value="{$audio->getTitle()}" />
+            </div>
+            <div class="field-group">
+                <label for="performer">{_performer}</label>
+                <input class="text medium-field" type="text" id="performer" name="performer" value="{$audio->getPerformer()}" />
+            </div>
+            <div class="field-group">
+                <label for="ext">{_lyrics}</label>
+                <textarea class="text medium-field" type="text" id="text" name="text" style="resize: vertical;">{$audio->getLyrics()}</textarea>
+            </div>
+            <div class="field-group">
+                <label>{_admin_audio_length}</label>
+                {$audio->getFormattedLength()}
+            </div>
+            <div class="field-group">
+                <label for="ext">{_genre}</label>
+                <select class="select medium-field" name="genre">
+                    <option n:foreach='\openvk\Web\Models\Entities\Audio::genres as $genre'
+                            n:attr="selected: $genre == $audio->getGenre()" value="{$genre}">
+                        {$genre}
+                    </option>
+                </select>
+            </div>
+            <div class="field-group">
+                <label>{_admin_original_file}</label>
+                <audio controls src="{$audio->getOriginalURL(true)}">
+            </div>
+            <hr />
+            <div class="field-group">
+                <label for="owner">{_owner}</label>
+                <input class="text medium-field" type="number" id="owner_id" name="owner" value="{$owner}" />
+            </div>
+            <div class="field-group">
+                <label for="explicit">Explicit</label>
+                <input class="toggle-large" type="checkbox" id="explicit" name="explicit" value="1" {if $audio->isExplicit()} checked {/if} />
+            </div>
+            <div class="field-group">
+                <label for="deleted">{_deleted}</label>
+                <input class="toggle-large" type="checkbox" id="deleted" name="deleted" value="1" {if $audio->isDeleted()} checked {/if} />
+            </div>
+            <div class="field-group">
+                <label for="withdrawn">{_withdrawn}</label>
+                <input class="toggle-large" type="checkbox" id="withdrawn" name="withdrawn" value="1" {if $audio->isWithdrawn()} checked {/if} />
+            </div>
+            <hr />
+            <div class="buttons-container">
+                <div class="buttons">
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input class="button submit" type="submit" value="{_save}">
+                </div>
+            </div>
+        </form>
+    </div>
+{/block}

@@ -23,7 +23,7 @@ final class ReportPresenter extends OpenVKPresenter
         if ($_SERVER["REQUEST_METHOD"] === "POST")
             $this->assertNoCSRF();
 
-        $act = in_array($this->queryParam("act"), ["post", "photo", "video", "group", "comment", "note", "app", "user"]) ? $this->queryParam("act") : NULL;
+        $act = in_array($this->queryParam("act"), ["post", "photo", "video", "group", "comment", "note", "app", "user", "audio"]) ? $this->queryParam("act") : NULL;
 
         if (!$this->queryParam("orig")) {
             $this->template->reports = $this->reports->getReports(0, (int)($this->queryParam("p") ?? 1), $act, $_SERVER["REQUEST_METHOD"] !== "POST");
@@ -88,7 +88,7 @@ final class ReportPresenter extends OpenVKPresenter
         if(!$id)
             exit(json_encode([ "error" => tr("error_segmentation") ]));
 
-        if(in_array($this->queryParam("type"), ["post", "photo", "video", "group", "comment", "note", "app", "user"])) {
+        if(in_array($this->queryParam("type"), ["post", "photo", "video", "group", "comment", "note", "app", "user", "audio"])) {
             if (count(iterator_to_array($this->reports->getDuplicates($this->queryParam("type"), $id, NULL, $this->user->id))) <= 0) {
                 $report = new Report;
                 $report->setUser_id($this->user->id);

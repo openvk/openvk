@@ -26,11 +26,11 @@
     
     <hr/>
     
-    <div style="width: 100%; min-height: 100px;">
-        <div style="float: left; min-height: 100px; width: 70%;">
-            {include "../components/comments.xml", comments => $comments, count => $cCount, page => $cPage, model => "photos", parent => $photo}
+    <div style="width: 100%; min-height: 100px;" class="ovk-photo-details">
+        <div style="float: left; min-height: 100px; width: 68%;margin-left: 3px;">
+            {include "../components/comments.xml", comments => $comments, count => $cCount, page => $cPage, model => "photos", parent => $photo, custom_id => 999}
         </div>
-        <div style="float: left; min-height: 100px; width: 30%;">
+        <div style="float:right;min-height: 100px;width: 30%;margin-left: 1px;">
             <div>
                 <h4>{_information}</h4>
                 <span style="color: grey;">{_info_description}:</span>
@@ -42,7 +42,7 @@
             </div>
             <br/>
             <h4>{_actions}</h4>
-            {if $thisUser->getId() != $photo->getOwner()->getId()}
+            {if isset($thisUser) && $thisUser->getId() != $photo->getOwner()->getId()}
                 {var canReport = true}
             {/if}
             <div n:if="isset($thisUser) && $thisUser->getId() === $photo->getOwner()->getId()">

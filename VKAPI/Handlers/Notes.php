@@ -40,6 +40,9 @@ final class Notes extends VKAPIRequestHandler
         if($note->getOwner()->isDeleted())
             $this->fail(403, "Owner is deleted");
 
+        if(!$note->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access denied");
+        
         if(!$note->getOwner()->getPrivacyPermission('notes.read', $this->getUser()))
             $this->fail(43, "No access");
 
@@ -118,21 +121,6 @@ final class Notes extends VKAPIRequestHandler
         return 1;
     }
 
-    function deleteComment(int $comment_id, int $owner_id = 0)
-    {
-        $this->requireUser();
-        $this->willExecuteWriteAction();
-
-        $comment = (new CommentsRepo)->get($comment_id);
-
-        if(!$comment || !$comment->canBeDeletedBy($this->getUser()))
-            $this->fail(403, "Access to comment denied");
-
-        $comment->delete();
-
-        return 1;
-    }
-
     function edit(string $note_id, string $title = "", string $text = "", int $privacy = 0, int $comment_privacy = 0, string $privacy_view  = "", string $privacy_comment  = "")
     {
         $this->requireUser();
@@ -159,25 +147,6 @@ final class Notes extends VKAPIRequestHandler
         return 1;
     }
 
-    function editComment(int $comment_id, string $message, int $owner_id = NULL)
-    {
-        /*
-        $this->requireUser();
-        $this->willExecuteWriteAction();
-
-        $comment = (new CommentsRepo)->get($comment_id);
-
-        if($comment->getOwner() != $this->getUser()->getId())
-            $this->fail(15, "Access to comment denied");
-        
-        $comment->setContent($message);
-        $comment->setEdited(time());
-        $comment->save();
-        */
-        
-        return 1;
-    }
-
     function get(int $user_id, string $note_ids = "", int $offset = 0, int $count = 10, int $sort = 0)
     {
         $this->requireUser();
@@ -187,7 +156,10 @@ final class Notes extends VKAPIRequestHandler
             $this->fail(15, "Invalid user");
         
         if(!$user->getPrivacyPermission('notes.read', $this->getUser()))
-            $this->fail(43, "Access denied: this user chose to hide his notes");
+            $this->fail(15, "Access denied: this user chose to hide his notes");
+
+        if(!$user->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access denied");
         
         if(empty($note_ids)) {
             $notes = array_slice(iterator_to_array((new NotesRepo)->getUserNotes($user, 1, $count + $offset, $sort == 0 ? "ASC" : "DESC")), $offset);
@@ -238,6 +210,9 @@ final class Notes extends VKAPIRequestHandler
         if(!$note->getOwner()->getPrivacyPermission('notes.read', $this->getUser()))
             $this->fail(40, "Access denied: this user chose to hide his notes");
 
+        if(!$note->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access to note denied");
+
         return $note->toVkApiStruct();
     }
 
@@ -258,6 +233,9 @@ final class Notes extends VKAPIRequestHandler
 
         if(!$note->getOwner()->getPrivacyPermission('notes.read', $this->getUser()))
             $this->fail(14, "No access");
+
+        if(!$note->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access to note denied");
         
         $arr = (object) [
             "count" => $note->getCommentsCount(), 

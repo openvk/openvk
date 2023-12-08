@@ -90,7 +90,7 @@
                     <div class="comments_count">
                         <a href="/note{$dat->getPrettyId()}">
 
-                            {if sizeof($dat->getCommentsCount()) > 0}
+                            {if $dat->getCommentsCount() > 0}
                                 {_comments} ({$dat->getCommentsCount()})
                             {else}
                                 {_no_comments}

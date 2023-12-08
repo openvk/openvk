@@ -33,14 +33,26 @@ class Photos
         return new Photo($photo);
     }
 
-    function getEveryUserPhoto(User $user): \Traversable
+    function getEveryUserPhoto(User $user, int $page = 1, ?int $perPage = NULL): \Traversable
     {
+        $perPage = $perPage ?? OPENVK_DEFAULT_PER_PAGE;
         $photos = $this->photos->where([
-            "owner" => $user->getId()
-        ]);
+            "owner"   => $user->getId(),
+            "deleted" => 0
+        ])->order("id DESC");
 
-        foreach($photos as $photo) {
+        foreach($photos->page($page, $perPage) as $photo) {
             yield new Photo($photo);
         }
+    }
+
+    function getUserPhotosCount(User $user) 
+    {
+        $photos = $this->photos->where([
+            "owner"   => $user->getId(),
+            "deleted" => 0
+        ]);
+
+        return sizeof($photos);
     }
 }

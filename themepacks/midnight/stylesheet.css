@@ -235,10 +235,146 @@ input[type="radio"] {
 }
 
 .searchList #used {
-    background: linear-gradient(#453e5e,#473f61);
+    background: #463f60 !important;
 }
 
 #backdropEditor {
     background-image: url("/themepack/midnight/0.0.2.8/resource/backdrop-editor.gif") !important;
     border-color: #473e66 !important;
+}
+
+.sugglist {
+    background-color: #231e33;
+    border-color: #2c2640 !important;
+}
+
+.sugglist a {
+    color: #7c94c5;
+}
+
+.button.loaded {
+    background: #383052 url("/assets/packages/static/openvk/img/loading_mini.gif") no-repeat 50% 50% !important;
+}
+
+.bigPlayer {
+    background-color: rgb(30, 26, 43) !important;
+}
+
+.bigPlayer .selectableTrack, .audioEmbed .track > .selectableTrack {
+    border-top: #b9b9b9 1px solid !important;
+}
+
+.bigPlayer .paddingLayer .slider, .audioEmbed .track .slider {
+    background: #b9b9b9 !important;
+}
+
+.musicIcon {
+    filter: invert(81%) !important;
+}
+
+.audioEntry.nowPlaying {
+    background: #463f60 !important;
+    border: 1px solid #645a86 !important;
+}
+
+.preformer {
+    color: #b7b7b7 !important;
+}
+
+.bigPlayer .paddingLayer .trackPanel .track .timeTip {
+    background: #b9b9b9 !important;
+    color: black !important;
+}
+
+.audioEntry.nowPlaying:hover {
+    background: #50486f !important;
+}
+
+.audioEntry:hover {
+    background: #19142D !important;
+}
+
+.audioEntry .performer a {
+    color: #a2a1a1 !important;
+}
+
+.musicIcon.lagged {
+    opacity: 49%;
+}
+
+.bigPlayer .paddingLayer .bigPlayerTip {
+    color: black !important;
+}
+
+.searchList a {
+    color: #bbb !important;
+}
+
+.searchList a:hover {
+    color: #eeeeee !important;
+    background: #332d46 !important;
+}
+
+.friendsAudiosList .elem:hover {
+    background: #332d46 !important;
+}
+
+.audioEntry .playerButton .playIcon {
+    filter: invert(81%);
+}
+
+img[src$='/assets/packages/static/openvk/img/camera_200.png'], img[src$='/assets/packages/static/openvk/img/song.jpg']  {
+    filter: invert(100%);
+}
+
+.audioStatus {
+    color: #8E8E8E !important;
+}
+
+.audioEntry .withLyrics {
+    color: #6f6497 !important;
+}
+
+#listensCount {
+    color: unset !important;
+}
+
+#upload_container, .whiteBox {
+    background: #1d1928 !important;
+    border: 1px solid #383052 !important;
+}
+
+ul {
+    color: #8b9ab5 !important;
+}
+
+#audio_upload {
+    border: 2px solid #383052 !important;
+    background-color: #262133 !important;
+}
+
+/* вот бы css в овк был бы написан на var()'ах( */
+#upload_container.uploading {
+    background: #121017 url('/assets/packages/static/openvk/img/progressbar.gif') !important;
+}
+
+.musicIcon.pressed {
+    opacity: 41% !important;
+}
+
+.ovk-diag-body .searchBox {
+    background: #1e1a2b !important;
+}
+
+.audioEntry.nowPlaying .title {
+    color: #fff !important;
+}
+
+.attachAudio:hover {
+    background: #19142D !important;
+    cursor: pointer;
+}
+
+.showMore, .showMoreAudiosPlaylist {
+    background: #181826 !important;
 }

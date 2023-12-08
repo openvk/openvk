@@ -1,0 +1,109 @@
+{extends "../@layout.xml"}
+
+{block title}
+    {_new_playlist}
+{/block}
+
+{block header}
+    {if !$_GET["gid"]}
+        <a href="{$thisUser->getURL()}">{$thisUser->getCanonicalName()}</a>
+        »
+        <a href="/audios{$thisUser->getId()}">{_audios}</a>
+    {else}
+        <a href="{$club->getURL()}">{$club->getCanonicalName()}</a>
+        »
+        <a href="/audios-{$club->getId()}">{_audios}</a>
+    {/if}
+    »
+    {_new_playlist}
+{/block}
+
+{block content}
+    <style>
+        textarea[name='description'] {
+            padding: 4px;
+        }
+
+        .playlistInfo {
+            width: 76%;
+            margin-left: 8px;
+        }
+    </style>
+
+    <div style="display:flex;">
+        <div class="playlistCover" onclick="document.querySelector(`#newPlaylistForm input[name='cover']`).click()">
+            <a>
+                <img src="/assets/packages/static/openvk/img/song.jpg" alt="{_playlist_cover}">
+            </a>
+        </div>
+
+        <div style="padding-left: 17px;width: 75%;" class="plinfo">
+            <div>
+                <input type="text" name="title" placeholder="{_title}" maxlength="125" />
+            </div>
+            <div class="moreInfo" style="margin-top: 11px;">
+                <textarea placeholder="{_description}" name="description" maxlength="2045" />
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 19px;">
+        <input id="playlist_query" type="text" style="height: 26px;" placeholder="{_header_search}">
+        <div class="playlistAudiosContainer editContainer">
+            <div id="newPlaylistAudios" n:foreach="$audios as $audio">
+                <div style="width: 78%;float: left;">
+                    {include "player.xml", audio => $audio, hideButtons => true}
+                </div>
+                <div class="attachAudio addToPlaylist" data-id="{$audio->getId()}">
+                    <span>{_add_to_playlist}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="showMoreAudiosPlaylist" data-page="2" {if !is_null($_GET["gid"])}data-club="{abs($_GET['gid'])}"{/if} n:if="$pagesCount > 1">
+            {_show_more_audios}
+        </div>
+    </div>
+
+    <form method="post" id="newPlaylistForm" enctype="multipart/form-data">
+        <input type="hidden" name="title" maxlength="125" />
+        <input type="hidden" name="hash" value="{$csrfToken}" />
+        <textarea style="display:none;" name="description" maxlength="2045" />
+        <input type="hidden" name="audios">
+        <input type="file" style="display:none;" name="cover" accept=".jpg,.png">
+
+        <div style="float: right;margin-top: 9px;">
+            <button class="button" type="submit">{_create}</button>
+        </div>
+    </form>
+
+    <script>
+        document.querySelector("input[name='audios']").value = ""
+
+        u("#newPlaylistForm").on("submit", (e) => {
+            document.querySelector("#newPlaylistForm input[name='title']").value = document.querySelector(".plinfo input[name='title']").value
+            document.querySelector("#newPlaylistForm textarea[name='description']").value = document.querySelector(".plinfo textarea[name='description']").value
+        })
+
+        u("#newPlaylistForm input[name='cover']").on("change", (e) => {
+            if(!e.currentTarget.files[0].type.startsWith("image/")) {
+                fastError(tr("not_a_photo"))
+                return
+            }
+
+            let image = URL.createObjectURL(e.currentTarget.files[0])
+
+            document.querySelector(".playlistCover img").src = image
+            document.querySelector(".playlistCover img").style.display = "block"
+        })
+
+        u(".playlistCover img").on("click", (e) => {
+            document.querySelector("#newPlaylistForm input[name='cover']").value = ""
+            e.currentTarget.href = ""
+        })
+
+        document.querySelector("#newPlaylistForm input[name='cover']").value = ""
+    </script>
+
+    {script "js/al_playlists.js"}
+{/block}

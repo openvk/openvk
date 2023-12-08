@@ -245,11 +245,13 @@
 "my_friends" = "Maje Siabry";
 "my_photos" = "Maje Fotazdymki";
 "my_videos" = "Maje Videazapisy";
+"my_audios" = "Maje Aŭdyjozapisy";
 "my_messages" = "Maje Paviedamleńni";
 "my_notes" = "Maje Natatki";
-"my_groups" = "Maje Hurty";
+"my_groups" = "Maje Hrupy";
 "my_feed" = "Maje Naviny";
 "my_feedback" = "Maje Adkazy";
+"my_apps" = "Prykładańni";
 "my_settings" = "Maje Nałady";
 "bug_tracker" = "Bah-trekier";
 

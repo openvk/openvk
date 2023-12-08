@@ -1,6 +1,7 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Models\Entities\Traits;
-use openvk\Web\Models\Entities\Attachable;
+use openvk\Web\Models\Entities\{Attachable, Photo};
+use openvk\Web\Util\Makima\Makima;
 use Chandler\Database\DatabaseConnection;
 
 trait TAttachmentHost
@@ -28,6 +29,46 @@ trait TAttachmentHost
             
             yield $repo->get($rel->attachable_id);
         }
+    }
+
+    function getChildrenWithLayout(int $w, int $h = -1): object
+    {
+        if($h < 0)
+            $h = $w;
+
+        $children = $this->getChildren();
+        $skipped  = $photos = $result = [];
+        foreach($children as $child) {
+            if($child instanceof Photo) {
+                $photos[] = $child;
+                continue;
+            }
+
+            $skipped[] = $child;
+        }
+
+        $height = "unset";
+        $width  = $w;
+        if(sizeof($photos) < 2) {
+            if(isset($photos[0]))
+                $result[] = ["100%", "unset", $photos[0], "unset"];
+        } else {
+            $mak    = new Makima($photos);
+            $layout = $mak->computeMasonryLayout($w, $h);
+            $height = $layout->height;
+            $width  = $layout->width;
+            for($i = 0; $i < sizeof($photos); $i++) {
+                $tile = $layout->tiles[$i];
+                $result[] = [$tile->width . "px", $tile->height . "px", $photos[$i], "left"];
+            }
+        }
+
+        return (object) [
+            "width"  => $width . "px",
+            "height" => $height . "px",
+            "tiles"  => $result,
+            "extras" => $skipped,
+        ];
     }
     
     function attach(Attachable $attachment): void

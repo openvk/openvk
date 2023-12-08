@@ -15,7 +15,19 @@
 {block content}
     <div class="content_divider">
         <div>
-            <div n:if="$canPost" class="content_subtitle">
+            <div class="tabs">
+                <div n:attr="id => ($type != 'all' ? 'ki' : 'activetabs')" class="tab">
+                    <a n:attr="id => ($type != 'all' ? 'ki' : 'act_tab_a')" href="/wall{$owner}">{_all_posts}</a>
+                </div>
+                <div n:attr="id => ($type != 'owners' ? 'ki' : 'activetabs')" class="tab">
+                    <a n:attr="id => ($type != 'owners' ? 'ki' : 'act_tab_a')" href="/wall{$owner}?type=owners">{isset($club) ? tr("clubs_posts") : tr("users_posts", ovk_proc_strtr($oObj->getFirstName(), 20))}</a>
+                </div>
+                <div n:attr="id => ($type != 'others' ? 'ki' : 'activetabs')" class="tab">
+                    <a n:attr="id => ($type != 'others' ? 'ki' : 'act_tab_a')" href="/wall{$owner}?type=others">{_others_posts}</a>
+                </div>
+            </div>
+
+            <div n:if="$canPost && $type == 'all'" class="content_subtitle">
                 {include "../components/textArea.xml", route => "/wall$owner/makePost"}
             </div>
             

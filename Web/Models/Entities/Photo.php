@@ -328,6 +328,19 @@ class Photo extends Media
 
         return $res;
     }
+    
+    function canBeViewedBy(?User $user = NULL): bool
+    {
+        if($this->isDeleted() || $this->getOwner()->isDeleted()) {
+            return false;
+        }
+
+        if(!is_null($this->getAlbum())) {
+            return $this->getAlbum()->canBeViewedBy($user);
+        } else {
+            return $this->getOwner()->canBeViewedBy($user);
+        }
+    }
 
     static function fastMake(int $owner, string $description = "", array $file, ?Album $album = NULL, bool $anon = false): Photo
     {
@@ -346,5 +359,21 @@ class Photo extends Media
         }
 
         return $photo;
+    }
+
+    function toNotifApiStruct()
+    {
+        $res = (object)[];
+        
+        $res->id        = $this->getVirtualId();
+        $res->owner_id  = $this->getOwner()->getId();
+        $res->aid       = 0;
+        $res->src       = $this->getURLBySizeId("tiny");
+        $res->src_big   = $this->getURLBySizeId("normal");
+        $res->src_small = $this->getURLBySizeId("miniscule");
+        $res->text      = $this->getDescription();
+        $res->created   = $this->getPublicationTime()->timestamp();
+
+        return $res;
     }
 }

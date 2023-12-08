@@ -1,0 +1,69 @@
+{php $id = $audio->getId() . rand(0, 1000)}
+{php $isWithdrawn = $audio->isWithdrawn()}
+{php $editable = isset($thisUser) && $audio->canBeModifiedBy($thisUser)}
+<div id="audioEmbed-{$id}" data-realid="{$audio->getId()}" {if $hideButtons}data-prettyid="{$audio->getPrettyId()}" data-name="{$audio->getName()}"{/if} data-genre="{$audio->getGenre()}" class="audioEmbed {if !$audio->isAvailable()}processed{/if} {if $isWithdrawn}withdrawn{/if}" data-length="{$audio->getLength()}" data-keys="{json_encode($audio->getKeys())}" data-url="{$audio->getURL()}">
+    <audio class="audio" />
+
+    <div id="miniplayer" class="audioEntry" style="min-height: 39px;">
+        <div style="display: flex;">
+            <div class="playerButton">
+                <div class="playIcon"></div>
+            </div>
+
+            <div class="status" style="margin-top: 12px;">
+                <div class="mediaInfo noOverflow" style="margin-bottom: -8px; cursor: pointer;display:flex;width: 85%;">
+                    <div class="info">
+                        <strong class="performer">
+                            <a href="/search?query=&type=audios&sort=id&only_performers=on&query={$audio->getPerformer()}">{$audio->getPerformer()}</a>
+                        </strong>
+                        —
+                        <span class="title {if !empty($audio->getLyrics())}withLyrics{/if}">{$audio->getTitle()}</span>
+                    </div>
+
+                    <div class="explicitMark" n:if="$audio->isExplicit()"></div>
+                </div>
+            </div>
+
+            <div class="volume" style="display: flex; flex-direction: column;width:14%;">
+                <span class="nobold {if !$hideButtons}hideOnHover{/if}" data-unformatted="{$audio->getLength()}" style="text-align: center;margin-top: 12px;">{$audio->getFormattedLength()}</span>
+                <div class="buttons" style="margin-top: 8px;">
+                    {php $hasAudio = isset($thisUser) && $audio->isInLibraryOf($thisUser)}
+
+                    {if !$hideButtons}
+                        <div class="remove-icon musicIcon" data-id="{$audio->getId()}" n:if="isset($thisUser) && $hasAudio" ></div>
+                        <div class="add-icon musicIcon hovermeicon" data-id="{$audio->getId()}" n:if="isset($thisUser) && !$hasAudio && !$isWithdrawn" ></div>
+                        <div class="remove-icon-group musicIcon" data-id="{$audio->getId()}" data-club="{$club->getId()}" n:if="isset($thisUser) && isset($club) && $club->canBeModifiedBy($thisUser)" ></div>
+                        <div class="add-icon-group musicIcon" data-id="{$audio->getId()}" n:if="isset($thisUser) && !$isWithdrawn" ></div>
+                        <div class="edit-icon musicIcon" data-lyrics="{$audio->getLyrics()}" data-title="{$audio->getTitle()}" data-performer="{$audio->getPerformer()}" data-explicit="{(int)$audio->isExplicit()}" data-searchable="{(int)!$audio->isUnlisted()}" n:if="isset($thisUser) && $editable && !$isWithdrawn" ></div>
+                        <div class="report-icon musicIcon" data-id="{$audio->getId()}" n:if="isset($thisUser) && !$editable && !$isWithdrawn" ></div>
+                    {/if}
+                </div>
+            </div>
+        </div>
+        <div class="subTracks">
+            <div style="width: 100%;">
+                <div class="track lengthTrack" style="margin-top: 3px;display:none">
+                    <div class="selectableTrack" style="width: 100%;" n:attr="style => $isWithdrawn ? 'display: none;' : ''">
+                        <div style="position: relative;width: calc(100% - 18px);">
+                            <div class="slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="width: 81px;margin-left: 16px;">
+                <div class="track volumeTrack" style="margin-top: 3px;display:none">
+                    <div class="selectableTrack" style="width: 100%;" n:attr="style => $isWithdrawn ? 'display: none;' : ''">
+                        <div style="position: relative;width: calc(100% - 18px);">
+                            <div class="slider"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="lyrics" n:if="!empty($audio->getLyrics())">
+        {nl2br($audio->getLyrics())|noescape}
+    </div>
+</div>

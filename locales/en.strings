@@ -35,18 +35,18 @@
 "2fa_code_2" = "Two-factor authentication code";
 
 "password_successfully_reset" = "Your password has been successfully reset.";
-"password_reset_email_sent" = "If you are registered, you will receive instructions by email.";
+"password_reset_email_sent" = "If you are registered, you will receive instructions via email.";
 "password_reset_error" = "An unexpected error occurred while resetting the password.";
 "password_reset_rate_limit_error" = "You can't do it that often, sorry.";
 
-"email_sent" = "Mail has been successfully sent.";
-"email_sent_desc" = "If your email addess exists, you will receive instructions.";
+"email_sent" = "Email has been successfully sent.";
+"email_sent_desc" = "If this email address exists, you will receive instructions.";
 "email_error" = "An unexpected error occurred while sending the email.";
 "email_rate_limit_error" = "You can't do it that often, sorry.";
 
-"email_verify_success" = "Your Email has been verified. Have a great time!";
+"email_verify_success" = "Your email has been verified. Have a great time!";
 
-"registration_disabled_info" = "Registration has been disabled by the system administrator. If possible, ask for an invitation from your friend, if he is registered on this site.";
+"registration_disabled_info" = "Registration has been disabled by the system administrator. If possible, request an invitation from your friend if they are registered on this site.";
 "registration_closed" = "Registration is closed.";
 "invites_you_to" = "<strong>$1</strong> invites you to $2";
 
@@ -66,15 +66,16 @@
 "birth_date" = "Birth date";
 "registration_date" = "Registration date";
 "hometown" = "Hometown";
-"this_is_you" = "it's you";
+"this_is_you" = "that's you";
 "edit_page" = "Edit page";
 "edit_group" = "Edit group";
 "change_status" = "change status";
 "name" = "Name";
 "surname" = "Surname";
-"gender" = "Gender";
-"male" = "male";
-"female" = "female";
+"pronouns" = "Pronouns";
+"male" = "he/him";
+"female" = "she/her";
+"neutral" = "they/them";
 "description" = "Description";
 "save" = "Save";
 "main_information" = "Main information";
@@ -94,7 +95,7 @@
 "desc_none" = "no description";
 "send" = "Send";
 
-"years_zero" = "0 year old";
+"years_zero" = "0 years old";
 "years_one" = "1 year old";
 "years_other" = "$1 years old";
 
@@ -112,6 +113,14 @@
 "relationship_6" = "In love";
 "relationship_7" = "Everything is complicated";
 "relationship_8" = "Actively searching";
+
+/* xd */
+"relationship_2_prefix" = "with";
+"relationship_3_prefix" = "with";
+"relationship_4_prefix" = "with";
+"relationship_5_prefix" = "with";
+"relationship_6_prefix" = "with";
+"relationship_7_prefix" = "with";
 
 "politViews" = "Polit. Views";
 
@@ -154,6 +163,18 @@
 "before" = "before";
 "forever" = "forever";
 
+"closed_page" = "Closed page";
+
+"limited_access_to_page_m" = "$1 limited access to his page.";
+"limited_access_to_page_f" = "$1 limited access to her page.";
+
+"you_can_add" = "You can";
+"add_to_friends_m" = "add him to friends.";
+"add_to_friends_f" = "add her to friends.";
+
+"register_to_access_page_m" = "Sign up to get access to his page.";
+"register_to_access_page_f" = "Sign up to get access to her page.";
+
 /* Wall */
 
 "feed" = "News";
@@ -163,8 +184,10 @@
 "post_writes_g" = "published";
 "post_deact_m" = "deleted his profile saying:";
 "post_deact_f" = "deleted her profile saying:";
+"post_deact_g" = "deleted they profile saying:";
 "post_deact_silent_m" = "silently deleted his profile.";
 "post_deact_silent_f" = "silently deleted her profile.";
+"post_deact_silent_f" = "silently deleted they profile.";
 "post_on_your_wall" = "on your wall";
 "post_on_group_wall" = "in $1";
 "post_on_user_wall" = "on $1's wall";
@@ -237,6 +260,11 @@
 "interesting_fact_other" = "Fun fact: you have been ignored by $1 users.";
 "add_new_ignores" = "Add new";
 
+"all_posts" = "All posts";
+"users_posts" = "Posts by $1";
+"clubs_posts" = "Group's posts";
+"others_posts" = "Others posts";
+
 /* Friends */
 
 "friends" = "Friends";
@@ -283,6 +311,7 @@
 
 /* Group */
 
+"group" = "Group";
 "name_group" = "Name";
 "subscribe" = "Subscribe";
 "unsubscribe" = "Unsubscribe";
@@ -320,17 +349,69 @@
 "set_comment" = "Set comment";
 "hidden_yes" = "Hidden: Yes";
 "hidden_no" = "Hidden: No";
-"group_allow_post_for_everyone" = "Allow posting for everyone";
+"group_allow_post_for_everyone" = "Open";
+"group_limited_post" = "Suggestions";
+"group_closed_post" = "Closed";
+"suggest_new" = "Suggest post";
+
+"suggested_by_you_zero" = "$1 suggested posts by you";
+"suggested_by_you_one" = "One suggested post by you";
+"suggested_by_you_few" = "$1 suggested posts by you";
+"suggested_by_you_many" = "$1 suggested posts by you";
+"suggested_by_you_other" = "$1 suggested posts by you";
+
+"suggested_by_everyone_zero" = "$1 suggested posts";
+"suggested_by_everyone_one" = "One suggested post";
+"suggested_by_everyone_few" = "$1 suggested posts";
+"suggested_by_everyone_many" = "$1 suggested posts";
+"suggested_by_everyone_other" = "$1 suggested posts";
+
 "group_hide_from_global_feed" = "Don't display posts in the global feed";
+"suggested_posts_by_you" = "Suggested posts by you";
+"suggested_posts_by_everyone" = "Suggested posts";
+"suggested" = "Suggested";
+"suggested_posts_everyone" = "Suggested by users posts";
+"no_suggested_posts_by_you" = "You haven't suggested posts to this group yet.";
+"no_suggested_posts_by_people" = "No posts have been suggested to this group yet.";
+
+"publish_suggested" = "Accept";
+"decline_suggested" = "Decline";
+
+"error_loading_suggest" = "Error when loading new posts";
+
+"publishing_suggested_post" = "Publishing suggested post";
+"suggested_posts_in_group_zero" = "You've looked at all the suggested posts, congratulations!";
+"suggested_posts_in_group_one" = "This group has one suggested post";
+"suggested_posts_in_group_few" = "This group has $1 suggested posts";
+"suggested_posts_in_group_many" = "This group has $1 suggested posts";
+"suggested_posts_in_group_other" = "This group has $1 suggested posts";
+
+"suggested_posts_in_group_by_you_zero" = "You haven't suggested any posts to this group";
+"suggested_posts_in_group_by_you_one" = "You suggested one post to this group";
+"suggested_posts_in_group_by_you_few" = "You suggested $1 posts to this group";
+"suggested_posts_in_group_by_you_many" = "You suggested $1 posts to this group";
+"suggested_posts_in_group_by_you_other" = "You suggested $1 posts to this group";
+
+"suggestion_succefully_published" = "Post successfully published";
+"suggestion_succefully_declined" = "Post successfully declined";
+"suggestion_press_to_go" = "Click to show it";
+
+"error_declining_invalid_post" = "Error when declining post: post does not exists";
+"error_declining_not_suggested_post" = "Error when declining post: post is not suggested";
+"error_declining_declined_post" = "Error when declining post: post is already declined";
+
+"error_accepting_invalid_post" = "Error when accepting post: post does not exists";
+"error_accepting_not_suggested_post" = "Error when accepting post: post is not suggested";
+"error_accepting_declined_post" = "Error when accepting post: cant accept declined post";
 "statistics" = "Statistics";
 "group_administrators_list" = "Admins list";
 "group_display_only_creator" = "Display only group creator";
 "group_display_all_administrators" = "Display all administrators";
 "group_dont_display_administrators_list" = "Display nothing";
 
-"group_changeowner_modal_title" = "Owner's permissions transfer";
-"group_changeowner_modal_text" = "Attention! You are transferring owner rights to user $1. This action is irreversible. After the transfer, you will remain an administrator, but you can easily stop being one.";
-"group_owner_setted" = "The new owner ($1) has been successfully assigned to the community $2. You have been granted administrator rights in the community. If you want to return the owner role, contact <a href='/support?act=new'>site technical support</a>.";
+"group_changeowner_modal_title" = "Transfer Owner's Permissions";
+"group_changeowner_modal_text" = "Attention! You are transferring ownership rights to user $1. This action is irreversible. After the transfer, you will remain an administrator, but you can easily step down from this role.";
+"group_owner_setted" = "The new owner ($1) has been successfully assigned to the community $2. You have been granted administrator rights in the community. If you wish to revert to the owner role, please contact <a href='/support?act=new'>site technical support</a>.";
 
 "participants_zero" = "No participants";
 "participants_one" = "$1 participant";
@@ -348,11 +429,16 @@
 "meetings_one" = "$1 meeting";
 "meetings_other" = "$1 meetings";
 
-"open_new_group" = "Open a new group";
-"open_group_desc" = "Can't find the right group? Open your own...";
-"search_group" = "Search group";
-"search_by_groups" = "Search by groups";
-"search_group_desc" = "Here you can browse through the existing groups and choose a group to suit your needs...";
+"open_new_group" = "Start a New Group";
+"open_group_desc" = "Unable to find the perfect group? Start your own...";
+"search_group" = "Search for a Group";
+"search_by_groups" = "Explore Groups";
+"search_group_desc" = "Browse through existing groups and find the one that suits your needs...";
+
+"error_suggestions" = "Error accessing to suggestions";
+"error_suggestions_closed" = "This group has closed wall.";
+"error_suggestions_open" = "This group has open wall.";
+"error_suggestions_access" = "Only group's administrators can view all suggested posts.";
 
 "group_banned" = "Unfortunately, we had to block the <b>$1</b> group.";
 
@@ -362,6 +448,7 @@
 "albums" = "Albums";
 "album" = "Album";
 "photos" = "photos";
+"photo" = "Photo";
 "create_album" = "Create album";
 "edit_album" = "Edit album";
 "edit_photo" = "Edit photo";
@@ -422,11 +509,25 @@
 "max_filesize" = "Max filesize is $1 MB";
 
 "uploading_photos_from_computer" = "Uploading photos from Your computer";
-"supported_formats" = "Supported file formats: JPG, PNG and GIF.";
+"supported_formats" = "Supported file formats: JPG, PNG, and GIF.";
 "max_load_photos" = "You can upload up to 10 photos at a time.";
 "tip" = "Tip";
-"tip_ctrl" = "to select multiple photos at once, hold down the Ctrl key when selecting files in Windows or the CMD key in Mac OS.";
-"album_poster" = "Album poster";
+"tip_ctrl" = "To select multiple photos at once, hold down the Ctrl key when selecting files in Windows or the CMD key in Mac OS.";
+"album_poster" = "Album Poster";
+"select_photo" = "Select Photos";
+"upload_new_photo" = "Upload New Photo";
+
+"is_x_photos_zero" = "Just zero photos.";
+"is_x_photos_one" = "Just one photo.";
+"is_x_photos_few" = "Just $1 photos.";
+"is_x_photos_many" = "Just $1 photos.";
+"is_x_photos_other" = "Just $1 photos.";
+
+"all_photos" = "All photos";
+"error_uploading_photo" = "Error when uploading photo. Error text: ";
+"too_many_photos" = "Too many photos.";
+
+"photo_x_from_y" = "Photo $1 from $2";
 
 /* Notes */
 
@@ -443,11 +544,11 @@
 "notes_zero" = "No notes";
 "notes_one" = "$1 note";
 "notes_other" = "$1 notes";
-"notes_start_screen" = "With notes, you can share your events with friends and see what's going on with them.";
-"note_preview" = "Preview draft";
-"note_preview_warn" = "Preview mode active";
-"note_preview_warn_details" = "Notes may change their behaviour or looks after being saved. Also, try not to use preview very often.";
-"note_preview_empty_err" = "Preview of empty or nameless note? Why, Mr. White?";
+"notes_start_screen" = "Use notes to share your events with friends and stay updated on theirs.";
+"note_preview" = "Preview Draft";
+"note_preview_warn" = "Preview Mode Activated";
+"note_preview_warn_details" = "Note behavior or appearance may change after saving. Avoid excessive use of preview.";
+"note_preview_empty_err" = "Previewing an empty or nameless note? Why, Mr. White?";
 
 "notes_list_zero" = "No notes found";
 "notes_list_one" = "$1 note found";
@@ -479,6 +580,7 @@
 "my_videos" = "My Videos";
 "my_messages" = "My Messages";
 "my_notes" = "My Notes";
+"my_audios" = "My Audios";
 "my_groups" = "My Groups";
 "my_feed" = "My Feed";
 "my_feedback" = "My Feedback";
@@ -559,15 +661,16 @@
 "results_other" = "$1 results";
 
 "privacy_setting_access_page" = "Who can view my page";
-"privacy_setting_read_info" = "Who can see main information of my page";
+"privacy_setting_read_info" = "Who can see the main information on my page";
 "privacy_setting_see_groups" = "Who can see my groups and meetings";
 "privacy_setting_see_photos" = "Who can see my photos";
 "privacy_setting_see_videos" = "Who can see my videos";
 "privacy_setting_see_notes" = "Who can see my notes";
 "privacy_setting_see_friends" = "Who can see my friends";
 "privacy_setting_add_to_friends" = "Who can add me to friends";
-"privacy_setting_write_wall" = "Who can publish post on my wall";
+"privacy_setting_write_wall" = "Who can publish posts on my wall";
 "privacy_setting_write_messages" = "Who can write messages to me";
+"privacy_setting_view_audio" = "Who can see my audios";
 "privacy_value_anybody" = "Anybody";
 "privacy_value_anybody_dative" = "Anybody";
 "privacy_value_users" = "OpenVK users";
@@ -576,6 +679,10 @@
 "privacy_value_only_me" = "Only me";
 "privacy_value_only_me_dative" = "Only me";
 "privacy_value_nobody" = "Nobody";
+
+"profile_type" = "Profile type";
+"profile_type_open" = "Open";
+"profile_type_closed" = "Closed";
 
 "your_email_address" = "Your Email address";
 "your_page_address" = "Your address page";
@@ -608,58 +715,58 @@
 
 "email_change_confirm_message" = "Please confirm your new email address for the change to take effect. We have sent instructions to it.";
 
-"profile_deactivate" = "Delete account";
-"profile_deactivate_button" = "Delete account";
-"profile_deactivate_header" = "We are sorry that you want to delete your page. Therefore, you can specify the reason for deletion and your message about it. We read your feedback and try to make the site better!";
-"profile_deactivate_reason_header" = "Please select a reason why you are leaving";
+"profile_deactivate" = "Delete Account";
+"profile_deactivate_button" = "Delete Account";
+"profile_deactivate_header" = "We're sorry to see you go. Please share the reason for deleting your account and any feedback you have. Your input helps us improve the site!";
+"profile_deactivate_reason_header" = "Please select a reason for leaving";
 "profile_deactivate_reason_1" = "I have another profile and don't need this one";
 "profile_deactivate_reason_1_text" = "I created a new page and now I want to wipe my past.";
-"profile_deactivate_reason_2" = "Website takes away too much of my time";
-"profile_deactivate_reason_2_text" = "Even though this site is nice and beautiful, it takes away my time that I need for work and life.";
-"profile_deactivate_reason_3" = "Website harbors too much inappropriate content";
+"profile_deactivate_reason_2" = "The website consumes too much of my time";
+"profile_deactivate_reason_2_text" = "While the site is nice, it's taking away time I need for work and life.";
+"profile_deactivate_reason_3" = "The website has inappropriate content";
 "profile_deactivate_reason_3_text" = "I have found enough porn and pirated content to last me a lifetime, I'm leaving now.";
-"profile_deactivate_reason_4" = "I am worried about the safety of my data";
-"profile_deactivate_reason_4_text" = "I'm being watched and I'm scared to be here. I'm sorry, I have to leave.";
+"profile_deactivate_reason_4" = "I am concerned about the safety of my data";
+"profile_deactivate_reason_4_text" = "I feel uneasy about my privacy here. I have to leave.";
 "profile_deactivate_reason_5" = "No one comments on my posts";
-"profile_deactivate_reason_5_text" = "No one watches me here and it's sad. You will regret that I left.";
+"profile_deactivate_reason_5_text" = "This lack of engagement is disheartening. You'll regret losing me.";
 "profile_deactivate_reason_6" = "Other reason";
 
 "profile_deactivated_msg" = "Your account has been <b>deleted</b>.<br/><br/>If you would like to start using the site again, you can <a href='/settings/reactivate'>restore your account</a> until $1.";
 "profile_deactivated_status" = "Account deleted";
-"profile_deactivated_info" = "The account has been deleted.<br/>The information is not available.";
+"profile_deactivated_info" = "This account has been deleted.<br/>No further information available.";
 
 "share_with_friends" = "Share with friends";
 
 "end_all_sessions" = "End all sessions";
-"end_all_sessions_description" = "If you wanna logout from $1 on all devices, click on button below";
+"end_all_sessions_description" = "If you wish to log out of $1 on all devices, click the button below.";
 
-"end_all_sessions_done" = "All sessions was ended, including mobile apps";
+"end_all_sessions_done" = "All sessions have been terminated, including mobile apps.";
 
 "backdrop_short" = "Backdrop";
-"backdrop" = "Page backdrop";
-"backdrop_desc" = "You can set two pictures as your profile or group backdrop. They will be displayed on left and right edges of page. With this feature, you can add more personality to your profile.";
-"backdrop_warn" = "The images will be arranged as in the layout above. Their height will be automatically increased so that they occupy 100% of the screen height, there will be a blur in the middle. It is not possible to replace the background of the main OpenVK interface or add audio.";
-"backdrop_about_adding" = "You can upload only one picture, although depending on design, the ending result may look ugly. You can also change only one pic: if you already have two images set up and you want to change one - upload only one, the other won't be removed. To remove both images press the button below, you can't remove pictures individually.";
-"backdrop_save" = "Save backdrop picture(s)";
-"backdrop_remove" = "Remove all backdrop pictures";
-"backdrop_error_title" = "Error saving backdrop settings";
-"backdrop_error_no_media" = "Images are corrupted or haven't been uploaded in their entirety";
-"backdrop_succ" = "Backdrop settings saved";
-"backdrop_succ_rem" = "Backdrop images have been removed";
+"backdrop" = "Page Backdrop";
+"backdrop_desc" = "You can set two pictures as the backdrop for your profile or group. They will be displayed on the left and right edges of the page, adding personality to your profile.";
+"backdrop_warn" = "The images will be arranged as shown in the layout above. Their height will be automatically increased to occupy 100% of the screen height, with a blur in the middle. You cannot replace the background of the main OpenVK interface or add audio.";
+"backdrop_about_adding" = "You can upload only one picture, although depending on the design, the end result may look imperfect. You can also change only one picture: if you already have two images set up and you want to change one, upload only one, and the other won't be removed. To remove both images, press the button below; you can't remove pictures individually.";
+"backdrop_save" = "Save Backdrop Picture(s)";
+"backdrop_remove" = "Remove All Backdrop Pictures";
+"backdrop_error_title" = "Error Saving Backdrop Settings";
+"backdrop_error_no_media" = "Images are corrupted or haven't been uploaded in their entirety.";
+"backdrop_succ" = "Backdrop settings saved successfully";
+"backdrop_succ_rem" = "Backdrop images have been successfully removed";
 "backdrop_succ_desc" = "Users will start seeing changes in 5 minutes.";
 "browse" = "Browse";
 
 /* Two-factor authentication */
 
-"two_factor_authentication" = "Two-factor authentication";
-"two_factor_authentication_disabled" = "Provides reliable protection against hacking: to enter the page, you must enter the code obtained in the 2FA application.";
-"two_factor_authentication_enabled" = "Two-factor authentication is enabled. Your page is protected.";
-"two_factor_authentication_login" = "You have two-factor authentication enabled. To login, enter the code received in the application.";
+"two_factor_authentication" = "Two-Factor Authentication";
+"two_factor_authentication_disabled" = "Enhances security by requiring a code from the 2FA app to access your account, providing reliable protection against hacking.";
+"two_factor_authentication_enabled" = "Two-Factor Authentication is active. Your account is securely protected.";
+"two_factor_authentication_login" = "Two-Factor Authentication is enabled. Enter the code received in the application to log in.";
 
-"two_factor_authentication_settings_1" = "Two-factor authentication via TOTP can be used even without internet. To do this, you need a code generation app. For example, <b>Google Authenticator</b> for Android and iOS or <b>FOSS Aegis and andOTP</b> for Android. Make sure the date and time is set correctly on your phone.";
+"two_factor_authentication_settings_1" = "Two-Factor Authentication via TOTP can be used even without an internet connection. You'll need a code generation app such as <b>Google Authenticator</b> for Android and iOS or <b>FOSS Aegis and andOTP</b> for Android. Ensure your phone's date and time are set correctly.";
 "two_factor_authentication_settings_2" = "Using the app for two-factor authentication, scan the QR code below:";
-"two_factor_authentication_settings_3" = "or manually enter the given secret key: <b>$1</b>.";
-"two_factor_authentication_settings_4" = "Now enter the code that the application gave you and the password for your page so that we can confirm that you really are.";
+"two_factor_authentication_settings_3" = "Alternatively, manually enter the provided secret key: <b>$1</b>.";
+"two_factor_authentication_settings_4" = "Now, enter the code generated by the app and your account password to confirm your identity.";
 
 "connect" = "Connect";
 "enable" = "Enable";
@@ -667,20 +774,20 @@
 "code" = "Code";
 "2fa_code" = "2FA code";
 
-"incorrect_password" = "Incorrect password";
-"incorrect_code" = "Incorrect code";
-"incorrect_2fa_code" = "Incorrect two-factor authentication code";
-"two_factor_authentication_enabled_message" = "Two-factor authentication enabled";
-"two_factor_authentication_enabled_message_description" = "Your page has become more difficult to hack. We recommend that you download <a href='javascript:viewBackupCodes()'>backup codes</a>";
-"two_factor_authentication_disabled_message" = "Two-factor authentication disabled";
+"incorrect_password" = "Password is incorrect";
+"incorrect_code" = "Code is incorrect";
+"incorrect_2fa_code" = "Two-factor authentication code is incorrect";
+"two_factor_authentication_enabled_message" = "Two-factor authentication is now enabled";
+"two_factor_authentication_enabled_message_description" = "Your account is now more secure. We recommend downloading <a href='javascript:viewBackupCodes()'>backup codes</a>.";
+"two_factor_authentication_disabled_message" = "Two-factor authentication has been disabled";
 
-"view_backup_codes" = "View backup codes";
-"backup_codes" = "Backup codes for login confirmation";
-"two_factor_authentication_backup_codes_1" = "Backup codes allow you to validate your login when you don't have access to your phone, for example, while traveling.";
-"two_factor_authentication_backup_codes_2" = "You have <b>10 more codes</b>, each code can only be used once. Print them out, put them away in a safe place and use them when you need codes to validate your login.";
-"two_factor_authentication_backup_codes_3" = "You can get new codes if they run out. Only the last created backup codes are valid.";
+"view_backup_codes" = "See backup codes";
+"backup_codes" = "Backup codes for login verification";
+"two_factor_authentication_backup_codes_1" = "Backup codes enable you to confirm your login when you can't access your phone, such as when traveling.";
+"two_factor_authentication_backup_codes_2" = "You have <b>10 more codes</b>, and each code can only be used once. Print them, store them securely, and use when needed for login verification.";
+"two_factor_authentication_backup_codes_3" = "You can request new codes if needed. Only the latest set of backup codes generated is valid.";
 "viewing_backup_codes" = "View backup codes";
-"disable_2fa" = "Disable 2FA";
+"disable_2fa" = "Turn off 2FA";
 "viewing" = "View";
 
 /* Sorting */
@@ -712,11 +819,133 @@
 "selecting_video" = "Selecting videos";
 "upload_new_video" = "Upload new video";
 "max_attached_videos" = "Max is 10 videos";
+"max_attached_photos" = "Max is 10 photos";
+"max_attached_audios" = "Max is 10 audios";
 "no_videos" = "You don't have uploaded videos.";
 "no_videos_results" = "No results.";
 
 "change_video" = "Change video";
 "unknown_video" = "This video is not supported in your version of OpenVK.";
+
+
+/* Audios */
+
+"audios" = "Audios";
+"audio" = "Audio";
+"playlist" = "Playlist";
+"upload_audio" = "Upload audio";
+"upload_audio_to_group" = "Upload audio to group";
+
+"performer" = "Performer";
+"audio_name" = "Name";
+"genre" = "Genre";
+"lyrics" = "Lyrics";
+
+"select_another_file" = "Select another file";
+
+"limits" = "Limits";
+"select_audio" = "Select audio from your computer";
+"audio_requirements" = "Audio must be between $1s to $2 minutes, weights to $3MB and contain audio stream.";
+"audio_requirements_2" = "Audio must not infringe copyright and related rights";
+"you_can_also_add_audio_using" = "You can also add audio from among the files you have already downloaded using";
+"search_audio_inst" = "audios search";
+
+"audio_embed_not_found" = "Audio not found";
+"audio_embed_deleted" = "Audio was deleted";
+"audio_embed_withdrawn" = "The audio was withdrawn at the request of the copyright holder";
+"audio_embed_forbidden" = "The user's privacy settings do not allow this embed this audio";
+"audio_embed_processing" = "Audio is still being processed, or has not been processed correctly.";
+
+"audios_count_zero" = "No audios";
+"audios_count_one" = "One audio";
+"audios_count_few" = "$1 audios";
+"audios_count_many" = "$1 audios";
+"audios_count_other" = "$1 audios";
+
+"track_unknown" = "Unknown";
+"track_noname" = "Without name";
+
+"my_music" = "My music";
+"music_user" = "User's music";
+"music_club" = "Club's music";
+"audio_new" = "New";
+"audio_popular" = "Popular";
+"audio_search" = "Search";
+
+"my_audios_small" = "My audios";
+"my_playlists" = "My playlists";
+"playlists" = "Playlists";
+"audios_explicit" = "Contains obscene language";
+"withdrawn" = "Withdrawn";
+"deleted" = "Deleted";
+"owner" = "Owner";
+"searchable" = "Searchable";
+
+"select_audio" = "Select audios";
+"no_playlists_thisuser" = "You haven't added any playlists yet.";
+"no_playlists_user" = "This user has not added any playlists yet.";
+"no_playlists_club" = "This group hasn't added playlists yet.";
+
+"no_audios_thisuser" = "You haven't added any audios yet.";
+"no_audios_user" = "This user has not added any audios yet.";
+"no_audios_club" = "This group has not added any audios yet.";
+
+"new_playlist" = "New playlist";
+"created_playlist" = "created";
+"updated_playlist" = "updated";
+"bookmark" = "Add to collection";
+"unbookmark" = "Remove from collection";
+"empty_playlist" = "There are no audios in this playlist.";
+"edit_playlist" = "Edit playlist";
+"unable_to_load_queue" = "Error when loading queue.";
+
+"fully_delete_audio" = "Fully delete audio";
+"attach_audio" = "Attach audio";
+"detach_audio" = "Detach audio";
+
+"show_more_audios" = "Show more audios";
+"add_to_playlist" = "Add to playlist";
+"remove_from_playlist" = "Remove from playlist";
+"delete_playlist" = "Delete playlist";
+"playlist_cover" = "Playlist cover";
+
+"playlists_user" = "Users playlists";
+"playlists_club" = "Groups playlists";
+"change_cover" = "Change cover";
+"playlist_cover" = "Playlist's cover";
+
+"minutes_count_zero" = "lasts no minutes";
+"minutes_count_one" = "lasts one minute";
+"minutes_count_few" = "lasts $1 minutes";
+"minutes_count_many" = "lasts $1 minutes";
+"minutes_count_other" = "lasts $1 minutes";
+
+"listens_count_zero" = "no listens";
+"listens_count_one" = "one listen";
+"listens_count_few" = "$1 listens";
+"listens_count_many" = "$1 listens";
+"listens_count_other" = "$1 listens";
+
+"add_audio_to_club" = "Add audio to group";
+"what_club_add" = "Which group do you want to add the song to?";
+"group_has_audio" = "This group already has this song.";
+"group_hasnt_audio" = "This group doesn't have this song.";
+
+"by_name" = "by name";
+"by_performer" = "by performer";
+"no_access_clubs" = "There are no groups where you are an administrator.";
+"audio_successfully_uploaded" = "Audio has been successfully uploaded and is currently being processed.";
+
+"broadcast_audio" = "Broadcast audio to status";
+"sure_delete_playlist" = "Do you sure want to delete this playlist?";
+"edit_audio" = "Edit audio";
+"audios_group" = "Audios from group";
+"playlists_group" = "Playlists from group";
+
+"play_tip" = "Play/pause";
+"repeat_tip" = "Repeat";
+"shuffle_tip" = "Shuffle";
+"mute_tip" = "Mute";
 
 /* Notifications */
 
@@ -726,18 +955,21 @@
 
 "notifications_like" = "$1 liked your $2post$3 from $4";
 "notifications_repost" = "$1 shared your $2post$3 from $4";
-"notifications_comment_under" = "$1 leaved a comment on $2";
+"notifications_comment_under" = "$1 left a comment on $2";
 "notifications_under_note" = "your $3note$4";
 "notifications_under_photo" = "your $3photo$4";
 "notifications_under_post" = "your $3post$4 from $5";
 "notifications_under_video" = "your $3video$4";
 "notifications_post" = "$1 published $2a post$3 on your wall: $4";
-"notifications_appoint" = "$1 appointed you as community manager $2";
+"notifications_appoint" = "$1 appointed you as community manager of $2";
 
 "nt_liked_yours" = "liked your";
 "nt_shared_yours" = "shared your";
 "nt_commented_yours" = "commented";
 "nt_written_on_your_wall" = "wrote on your wall";
+"nt_accepted_your_post" = "accepted your suggested";
+"nt_in_club" = "In group";
+"nt_new_suggested_posts" = "new posts in suggestions";
 "nt_made_you_admin" = "appointed you in the community";
 
 "nt_from" = "from";
@@ -758,6 +990,8 @@
 "nt_mention_in_topic" = "in the discussion";
 "nt_sent_gift" = "sent you a gift";
 
+"nt_post_small" = "post";
+
 /* Time */
 
 "time_at_sp" = " at ";
@@ -774,19 +1008,19 @@
 "you_still_have_x_points" = "You have <b>$1</b> unused votes.";
 
 "vouchers" = "Vouchers";
-"have_voucher" = "Have voucher";
+"have_voucher" = "Have a voucher";
 "voucher_token" = "Voucher token";
 "voucher_activators" = "Users";
-"voucher_explanation" = "Enter the voucher serial number. It is usually listed on the receipt or in the message.";
-"voucher_explanation_ex" = "Note that vouchers can expire and can only be used once.";
-"invalid_voucher" = "Voucher is invalid";
-"voucher_bad" = "You may have entered the wrong serial number, already used voucher, or the voucher has simply expired.";
+"voucher_explanation" = "Enter the voucher serial number, usually found on the receipt or in the message.";
+"voucher_explanation_ex" = "Note that vouchers can expire and are valid for a single use only.";
+"invalid_voucher" = "Invalid voucher";
+"voucher_bad" = "You may have entered the wrong serial number, used a voucher already, or the voucher has expired.";
 "voucher_good" = "Voucher activated";
-"voucher_redeemed" = "The voucher has been successfully activated. You will receive points, but you will no longer be able to activate it with this code.";
+"voucher_redeemed" = "The voucher has been successfully activated. You will receive points, but this code can no longer be used.";
 "redeem" = "Redeem voucher";
 "deactivate" = "Deactivate";
-"usages_total" = "Number of uses";
-"usages_left" = "Uses left";
+"usages_total" = "Total uses";
+"usages_left" = "Uses remaining";
 
 "points_transfer_dialog_header_1" = "You can send as a gift or transfer part of the votes to another person.";
 "points_transfer_dialog_header_2" = "Your current balance:";
@@ -881,13 +1115,13 @@
 "app_news" = "A news note";
 "app_state" = "Status";
 "app_enabled" = "Enabled";
-"app_creation_hint_url" = "Specify in the URL the exact address together with the scheme (https), the port (80) and the required request parameters.";
-"app_creation_hint_iframe" = "Your application will be opened in an iframe.";
-"app_balance" = "Your application has <b>$1</b> votes to its credit.";
-"app_users" = "Your application is used by <b>$1</b> people.";
-"app_withdrawal_q" = "withdraw?";
-"app_withdrawal" = "Withdrawal";
-"app_withdrawal_empty" = "Couldn't withdraw emptiness, sorry.";
+"app_creation_hint_url" = "Specify the exact address in the URL, including the scheme (https), port (80), and required request parameters.";
+"app_creation_hint_iframe" = "Your application will open in an iframe.";
+"app_balance" = "Your application has <b>$1</b> votes credited to it.";
+"app_users" = "Your application is being used by <b>$1</b> people.";
+"app_withdrawal_q" = "Do you want to withdraw?";
+"app_withdrawal" = "Withdraw";
+"app_withdrawal_empty" = "Sorry, withdrawal of emptiness is not possible.";
 "app_withdrawal_created" = "A request to withdraw $1 votes has been created. Awaiting crediting.";
 
 "appjs_payment" = "Purchase payment";
@@ -982,6 +1216,7 @@
 "going_to_report_photo" = "You are about to report this photo.";
 "going_to_report_user" = "You are about to report this user.";
 "going_to_report_video" = "You are about to report this video.";
+"going_to_report_audio" = "You are about to report this audio.";
 "going_to_report_post" = "You are about to report this post.";
 "going_to_report_comment" = "You are about to report this comment.";
 
@@ -990,14 +1225,11 @@
 
 "author" = "Author";
 
-"you_have_not_entered_text" = "You have not entered any text";
-"you_have_not_entered_name_or_text" = "You did not enter a name or text";
+"ticket_changed" = "Ticket Updated";
+"ticket_changed_comment" = "Changes will be applied in a few seconds.";
 
-"ticket_changed" = "Ticket changed";
-"ticket_changed_comment" = "The changes will take effect in a few seconds.";
-
-"banned_in_support_1" = "Sorry, <b>$1</b>, but now you can't create tickets.";
-"banned_in_support_2" = "And the reason for this is simple: <b>$1</b>. Unfortunately, this time we had to take away this opportunity from you forever.";
+"banned_in_support_1" = "Apologies, <b>$1</b>, but you're currently banned from creating tickets.";
+"banned_in_support_2" = "The reason is straightforward: <b>$1</b>. Unfortunately, this privilege has been permanently revoked this time.";
 
 "you_can_close_this_ticket_1" = "If you have no more questions, you can ";
 "you_can_close_this_ticket_2" = "close this ticket";
@@ -1017,22 +1249,22 @@
 "banned_title" = "You are banned";
 "banned_header" = "You are banned";
 "banned_alt" = "The user is blocked.";
-"banned_1" = "Sorry <b>$1</b>, but you have been banned.";
-"banned_2" = "And the reason for this is simple: <b>$1</b>.";
-"banned_perm" = "Unfortunately, this time we had to block you forever.";
-"banned_until_time" = "This time we had to block you until <b>$1</b>";
-"banned_3" = "You can still <a href=\"/support?act=new\">write to the support</a> if you think there was an error or <a href=\"/logout?hash=$1\">logout</a>.";
+"banned_1" = "Apologies, <b>$1</b>, but you have been banned.";
+"banned_2" = "The reason for this action is simple: <b>$1</b>.";
+"banned_perm" = "Regrettably, this time the ban is permanent.";
+"banned_until_time" = "This time, the ban extends until <b>$1</b>";
+"banned_3" = "You can still <a href=\"/support?act=new\">reach out to support</a> if you believe there was an error or <a href=\"/logout?hash=$1\">logout</a>.";
 "banned_unban_myself" = "Unban myself";
 "banned_unban_title" = "Your account has been unbanned";
-"banned_unban_description" = "Try not to break the rules anymore.";
+"banned_unban_description" = "Kindly refrain from violating the rules in the future.";
 
 /* Registration confirm */
 
-"ec_header" = "Registration confirmation";
-"ec_title" = "Thanks!";
-"ec_1" = "<b>$1</b>, your registration is almost done. In a few minutes you should receive an mail with a link to confirm your email address.";
-"ec_2" = "If for some reason you don't get the mail, check your spam folder. If you don't find the email there, you can resend it.";
-"ec_resend" = "Resend mail";
+"ec_header" = "Confirm Registration";
+"ec_title" = "Thank You!";
+"ec_1" = "<b>$1</b>, your registration is nearly complete. In a few minutes, you should receive an email with a link to verify your email address.";
+"ec_2" = "If, for any reason, you don't receive the email, please check your spam folder. If it's not there, you can request a resend.";
+"ec_resend" = "Resend Email";
 
 /* Messages */
 
@@ -1110,6 +1342,7 @@
 "created" = "Created";
 
 "everyone_can_create_topics" = "Everyone can create topics";
+"everyone_can_upload_audios" = "Everyone can upload audios";
 "display_list_of_topics_above_wall" = "Display a list of topics above the wall";
 
 "topic_changes_saved_comment" = "The updated title and settings will appear on the topic page.";
@@ -1128,7 +1361,7 @@
 "information_-2" = "Login success";
 
 "no_data" = "No data";
-"no_data_description" = "There is nothing here... yet...";
+"no_data_description" = "There is nothing here... yet.";
 
 "error" = "Error";
 "error_shorturl" = "This short address is already owned.";
@@ -1136,7 +1369,7 @@
 "error_upload_failed" = "Failed to upload a photo";
 "error_old_password" = "Old password does not match";
 "error_new_password" = "New password does not match";
-"error_weak_password" = "Password isn't strong enough. It should has at least 8 symbols, at least one capital letter and at least one digit.";
+"error_weak_password" = "Your password isn't strong enough. It should be at least 8 characters long, include at least one capital letter, and contain at least one digit.";
 "error_shorturl_incorrect" = "The short address has an incorrect format.";
 "error_repost_fail" = "Failed to share post";
 "error_data_too_big" = "Attribute '$1' must be at most $2 $3 long";
@@ -1156,7 +1389,7 @@
 "invalid_email_address" = "Invalid Email address";
 "invalid_email_address_comment" = "The Email you entered is not correct.";
 
-"invalid_real_name" = "Please, enter your real name. It'll be easier for your friends to find you like this.";
+"invalid_real_name" = "Kindly input your actual name. It will make it simpler for your friends to find you in this way.";
 
 "invalid_birth_date" = "Invalid date of birth";
 "invalid_birth_date_comment" = "The date of birth you entered is not correct.";
@@ -1169,8 +1402,8 @@
 
 "profile_changed" = "Profile changed";
 "profile_changed_comment" = "Your active profile has been changed.";
-"profile_not_found" = "User is not found.";
-"profile_not_found_text" = "This profile has either been deleted or not been created yet.";
+"profile_not_found" = "User was not found.";
+"profile_not_found_text" = "Either this profile has been deleted, or it hasn't been created yet.";
 
 "suspicious_registration_attempt" = "Suspicious registration attempt";
 "suspicious_registration_attempt_comment" = "You tried to register from a suspicious location.";
@@ -1194,6 +1427,8 @@
 "media_file_corrupted_or_too_large" = "The media content file is corrupted or too large.";
 "post_is_empty_or_too_big" = "The post is empty or too big.";
 "post_is_too_big" = "The post is too big.";
+"error_deleting_suggested" = "You can't delete your accepted post";
+"error_invalid_wall_value" = "Invalid wall value";
 
 "error_sending_report" = "Failed to make a report...";
 
@@ -1209,10 +1444,10 @@
 "error_comment_file_too_big" = "Media file is corrupted or too big.";
 
 "comment_is_added" = "Comment has been added";
-"comment_is_added_desc" = "Your comment will appear on page.";
+"comment_is_added_desc" = "Your comment will appear on the page.";
 
 "error_access_denied_short" = "Access denied";
-"error_access_denied" = "You don't have rights to edit this resource";
+"error_access_denied" = "You don't have permission to edit this resource";
 "success" = "Success";
 "comment_will_not_appear" = "This comment will no longer appear.";
 
@@ -1237,7 +1472,7 @@
 "new_changes_desc" = "New data will appear in your group.";
 "comment_is_changed" = "Admin comment changed";
 "comment_is_deleted" = "Admin comment deleted";
-"comment_is_too_long" = "Comment is too long ($1 symbols instead 36)";
+"comment_is_too_long" = "Comment is too long ($1 characters instead of 36)";
 "x_no_more_admin" = "$1 no longer an administrator.";
 "x_is_admin" = "$1 appointed as an administrator.";
 
@@ -1256,7 +1491,7 @@
 "no_photo" = "No photo";
 
 "select_file" = "Select file";
-"new_description_will_appear" = "The updated description will appear on the photo page..";
+"new_description_will_appear" = "The updated description will appear on the photo page.";
 "photo_is_deleted" = "Photo was deleted";
 "photo_is_deleted_desc" = "This photo has been successfully deleted.";
 
@@ -1265,7 +1500,7 @@
 "error_occured" = "Error occured";
 "error_video_damaged_file" = "The file is corrupted or does not contain video.";
 "error_video_incorrect_link" = "Perhaps the link is incorrect.";
-"error_video_no_title" = "Video can't be published without title.";
+"error_video_no_title" = "Video can't be published without a title.";
 
 "new_data_video" = "The updated description will appear on the video page.";
 "error_deleting_video" = "Failed to delete video";
@@ -1274,9 +1509,9 @@
 
 "error_max_pinned_clubs" = "Maximum count of the pinned groups is 10.";
 "error_viewing_subs" = "You cannot view the full list of subscriptions $1.";
-"error_status_too_long" = "Status is too long ($1 instead 255)";
+"error_status_too_long" = "Status is too long ($1 characters instead of 255)";
 "death" = "Death...";
-"nehay" = "Live long!";
+"nehay" = "Let 'em live!";
 "user_successfully_banned" = "User was successfully banned.";
 
 "content_is_deleted" = "The content has been removed and the user has received a warning.";
@@ -1290,6 +1525,22 @@
 "no_sense" = "No sense.";
 "cant_ignore_self" = "Can't ignore urself.";
 "max_ignores" = "Max ignores — $1";
+
+"invalid_audio" = "Invalid audio.";
+"do_not_have_audio" = "You don't have this audio.";
+"do_have_audio" = "You already have this audio.";
+
+"set_playlist_name" = "Enter the playlist name.";
+"playlist_already_bookmarked" = "This playlist is already in your collection.";
+"playlist_not_bookmarked" = "This playlist is not in your collection.";
+"invalid_cover_photo" = "Error when loading cover photo.";
+"not_a_photo" = "Uploaded file doesn't look like a photo.";
+"file_too_big" = "File is too big.";
+"file_loaded_partially" = "The file has been uploaded partially.";
+"file_not_uploaded" = "Failed to upload the file.";
+"error_code" = "Error code: $1.";
+"ffmpeg_timeout" = "Timed out waiting ffmpeg. Try to upload file again.";
+"ffmpeg_not_installed" = "Failed to proccess the file. It looks like ffmpeg is not installed on this server.";
 
 /* Admin actions */
 
@@ -1320,7 +1571,7 @@
 "admin_verification" = "Verification";
 "admin_banreason" = "Ban reason";
 "admin_banned" = "banned";
-"admin_gender" = "Gender";
+"admin_gender" = "Sex";
 "admin_registrationdate" = "Registration date";
 "admin_actions" = "Actions";
 "admin_image" = "Image";
@@ -1365,7 +1616,7 @@
 "admin_voucher_serial_desc" = "The number consists of 24 characters. If the format is incorrect or the field is not filled in, it will be assigned automatically.";
 "admin_voucher_coins" = "Number of votes";
 "admin_voucher_rating_number" = "Number of rating";
-"admin_voucher_usages_desc" = "The number of accounts that can use the voucher. If you type -1, it will be infinity.";
+"admin_voucher_usages_desc" = "The number of users that can use the voucher. If you type -1, it will be infinity.";
 "admin_voucher_status" = "Status";
 "admin_voucher_status_opened" = "active";
 "admin_voucher_status_closed" = "closed";
@@ -1396,7 +1647,11 @@
 "admin_banned_link_not_found" = "Link not found";
 
 "admin_gift_moved_successfully" = "Gift moved successfully";
-"admin_gift_moved_to_recycle" = "This gift will now be in <b>Recycle Bin</b>.";
+"admin_gift_moved_to_recycle" = "This gift was moved to <b>Recycle Bin</b>.";
+"admin_original_file" = "Original file";
+"admin_audio_length" = "Length";
+"admin_cover_id" = "Cover (photo ID)";
+"admin_music" = "Music";
 
 "logs" = "Logs";
 "logs_anything" = "Anything";
@@ -1408,11 +1663,11 @@
 "logs_edited" = "edited";
 "logs_removed" = "removed";
 "logs_restored" = "restored";
-"logs_id_post" = "ID записи";
-"logs_id_object" = "ID объекта";
-"logs_uuid_user" = "UUID пользователя";
-"logs_change_type" = "Тип изменения";
-"logs_change_object" = "Тип объекта";
+"logs_id_post" = "Post ID";
+"logs_id_object" = "Object ID";
+"logs_uuid_user" = "User UUID";
+"logs_change_type" = "Change Type";
+"logs_change_object" = "Object Type";
 
 "logs_user" = "User";
 "logs_object" = "Object";
@@ -1480,26 +1735,26 @@
 "confirm_m" = "Confirm";
 "action_successfully" = "Success";
 
-/* User alerts */
+/* User Alerts */
 
-"user_alert_scam" = "This account has been reported a lot for scam. Please be careful, especially if he asked for money.";
-"user_may_not_reply" = "This user may not reply to you because of your privacy settings. <a href='/settings?act=privacy'>Open privacy settings</a>";
+"user_alert_scam" = "This account has received numerous reports for scams. Please exercise caution, especially if they request money.";
+"user_may_not_reply" = "This user may be unable to reply to you due to your privacy settings. <a href='/settings?act=privacy'>Open privacy settings</a>";
 
-/* Cookies pop-up */
+/* Cookies Pop-up */
 
-"cookies_popup_content" = "All kids love cookie, so this website uses Cookies to identify your session and nothing more. Check <a href='/privacy'>our privacy policy</a> for more information.";
+"cookies_popup_content" = "Just like how kids love cookies, this website uses Cookies to identify your session and nothing more. Check <a href='/privacy'>our privacy policy</a> for more information.";
 "cookies_popup_agree" = "Accept";
 
 /* Away */
 
 "transition_is_blocked" = "Transition is blocked";
 "caution" = "Caution";
-"url_is_banned" = "Link is not allowed";
-"url_is_banned_comment" = "The <b>$1</b> administration recommends not to follow this link.";
-"url_is_banned_comment_r" = "The <b>$1</b> administration recommends not to follow this link.<br><br>The reason is: <b>$2</b>";
-"url_is_banned_default_reason" = "The link you are trying to open may lead you to a site that was created for the purpose of deceiving users with the intention of gaining profit.";
+"url_is_banned" = "This link is banned";
+"url_is_banned_comment" = "The <b>$1</b> administration advises against following this link.";
+"url_is_banned_comment_r" = "The <b>$1</b> administration advises against following this link.<br><br>Reason: <b>$2</b>";
+"url_is_banned_default_reason" = "The link you are attempting to open may lead to a site designed to deceive users for profit.";
 "url_is_banned_title" = "Link to a suspicious site";
-"url_is_banned_proceed" = "Follow the link";
+"url_is_banned_proceed" = "Proceed to the link";
 
 "recently" = "Recently";
 
@@ -1520,17 +1775,17 @@
 "c_group_removed" = "The group has been deleted.";
 "c_groups" = "Chandler Groups";
 "c_users" = "Chandler Users";
-"c_group_permissions" = "Permissions";
-"c_group_members" = "Members";
+"c_group_permissions" = "Group Permissions";
+"c_group_members" = "Group Members";
 "c_model" = "Model";
 "c_permission" = "Permission";
 "c_permissions" = "Permissions";
 "c_color" = "Color";
 "add" = "Add";
 "c_edit_groups" = "Edit Groups";
-"c_user_is_not_in_group" = "The relationship between the user and the group was not found.";
-"c_permission_not_found" = "The relationship between the permission and the group was not found.";
-"c_group_not_found" = "The group was not found.";
+"c_user_is_not_in_group" = "No relationship found between the user and the group.";
+"c_permission_not_found" = "No relationship found between the permission and the group.";
+"c_group_not_found" = "Group not found.";
 "c_user_is_already_in_group" = "This user is already a member of this group.";
 "c_add_to_group" = "Add to group";
 "c_remove_from_group" = "Remove from group";
@@ -1539,8 +1794,8 @@
 
 "global_maintenance" = "Undergoing maintenance";
 "section_maintenance" = "The section is not available";
-"undergoing_global_maintenance" = "Unfortunately, the instance is now closed for technical work. We are already working on troubleshooting. Please try to come back later.";
-"undergoing_section_maintenance" = "Unfortunately, the <b>$1</b> section is temporarily unavailable. We are already working on troubleshooting. Please try to come back later.";
+"undergoing_global_maintenance" = "Unfortunately, the instance is now closed for technical work. We are already working on troubleshooting. Please come back later.";
+"undergoing_section_maintenance" = "Unfortunately, the <b>$1</b> section is temporarily unavailable. We are already working on troubleshooting. Please come back later.";
 
 "topics" = "Topics";
 
@@ -1584,48 +1839,56 @@
 
 
 "tour_section_2_title_1" = "Your Profile";
-"tour_section_2_text_1_1" = "After registering, you will automatically be redirected to <b>your</b> profile.";
-"tour_section_2_text_1_2" = "You can edit it anywhere and anytime you want.";
-"tour_section_2_text_1_3" = "<b>Hint:</b> To make your profile look nice and presentable, you can fill it with information or upload a photo that highlights, for example, your deep inner world.";
-"tour_section_2_bottom_text_1" = "You are the one who decides how much information your friends need to know about you.";
-"tour_section_2_title_2" = "Set your own privacy settings";
-"tour_section_2_text_2_1" = "You can define exactly who can access certain types of information and sections on your page.";
-"tour_section_2_text_2_2" = "You have the right to block access to your page from search engines and unregistered users.";
-"tour_section_2_text_2_3" = "<b>Remember:</b> privacy settings will be expanded in the future.";
+"tour_section_2_text_1_1" = "Upon registration, you'll be redirected to <b>your</b> profile automatically.";
+"tour_section_2_text_1_2" = "You have the flexibility to edit it at any time and from anywhere.";
+"tour_section_2_text_1_3" = "<b>Hint:</b> To enhance your profile's appearance, consider filling it with information or uploading a photo that reflects your inner world.";
+"tour_section_2_bottom_text_1" = "You decide how much information you want to share with your friends.";
+"tour_section_2_title_2" = "Set Your Privacy Settings";
+"tour_section_2_text_2_1" = "Define who can access specific types of information and sections on your page.";
+"tour_section_2_text_2_2" = "You can block access to your page from search engines and unregistered users.";
+"tour_section_2_text_2_3" = "<b>Remember:</b> Privacy settings will be expanded in the future.";
 "tour_section_2_title_3" = "Profile URL";
-"tour_section_2_text_3_1" = "After registering your page, you get a personal ID like <b>@id12345</b>";
-"tour_section_2_text_3_2" = "The <b>default ID</b>, which was obtained after registration, <b>cannot be changed</b>";
-"tour_section_2_text_3_3" = "But in the settings of your page you can bind your personal address and this address <b>can be changed</b> at any time";
-"tour_section_2_text_3_4" = "<b>Hint:</b> You can take any address that is at least 5 characters long. Try to get a cool URL :)";
-"tour_section_2_bottom_text_2" = "<i>Any short address in Latin small letters is supported; the address may contain numbers (not at the beginning), periods, and underscores (not at the beginning or end)</i>";
+"tour_section_2_text_3_1" = "After registering, your page is assigned a personal ID like <b>@id12345</b>.";
+"tour_section_2_text_3_2" = "The <b>default ID</b> obtained at registration <b>cannot be changed</b>.";
+"tour_section_2_text_3_3" = "However, in your page settings, you can link a personal address that <b>can be changed</b> at any time.";
+"tour_section_2_text_3_4" = "<b>Hint:</b> Choose an address that's at least 5 characters long for a cool URL :)";
+"tour_section_2_bottom_text_2" = "<i>Supports any short address in lowercase Latin letters; the address may contain numbers (not at the beginning), periods, and underscores (not at the beginning or end)</i>";
 "tour_section_2_title_4" = "Wall";
 
 
-"tour_section_3_title_1" = "Share your photo moments";
-"tour_section_3_text_1" = "The &quot;Photos&quot; section is available in your profile as soon as you sign up";
-"tour_section_3_text_2" = "You can browse user photo albums and create your own";
-"tour_section_3_text_3" = "Access to all your photo albums for other users is controlled in the page privacy settings";
-"tour_section_3_bottom_text_1" = "You can create an unlimited number of photo albums from your travels or events, or just to store memes";
+"tour_section_3_title_1" = "Share Your Photo Moments";
+"tour_section_3_text_1" = "The \"Photos\" section becomes available in your profile as soon as you sign up.";
+"tour_section_3_text_2" = "Explore user photo albums and create your own.";
+"tour_section_3_text_3" = "Control access to all your photo albums for other users in the page privacy settings.";
+"tour_section_3_bottom_text_1" = "Create an unlimited number of photo albums for your travels, events, or just to store memes.";
 
 
 "tour_section_4_title_1" = "Search";
-"tour_section_4_text_1" = "The &quot;Search&quot; section allows you to search for users and groups.";
-"tour_section_4_text_2" = "This section of the site will be improved over time.";
-"tour_section_4_text_3" = "To start a search, you need to know the user's first (or last) name; and if you're looking for a group, you need to know its name.";
+"tour_section_4_text_1" = "The \"Search\" section allows you to search for users and groups.";
+"tour_section_4_text_2" = "This section of the site will continue to improve over time.";
+"tour_section_4_text_3" = "To start a search, you need to know the user's first (or last) name. For groups, you need to know the group's name.";
 "tour_section_4_title_2" = "Quick Search";
-"tour_section_4_text_4" = "If you want to save time in any way, the search bar is also available in the header of the site";
+"tour_section_4_text_4" = "To save time, use the search bar in the site header.";
 
 
-"tour_section_5_title_1" = "Upload and share videos with your friends!";
-"tour_section_5_text_1" = "You can upload an unlimited number of videos and clips";
-"tour_section_5_text_2" = "The &quot;Videos&quot; section is controlled by the privacy settings";
-"tour_section_5_bottom_text_1" = "Videos can be uploaded bypassing the &quot;Videos&quot; section by simply attaching them to a new entry on the wall:";
-"tour_section_5_title_2" = "Importing videos from YouTube";
-"tour_section_5_text_3" = "In addition to uploading videos directly, the site also supports embedding videos from YouTube";
+"tour_section_5_title_1" = "Upload and Share Videos with Your Friends!";
+"tour_section_5_text_1" = "You can upload an unlimited number of videos and clips.";
+"tour_section_5_text_2" = "Control the \"Videos\" section through privacy settings.";
+"tour_section_5_bottom_text_1" = "Upload videos directly to the wall, bypassing the \"Videos\" section:";
+"tour_section_5_title_2" = "Importing Videos from YouTube";
+"tour_section_5_text_3" = "In addition to direct uploads, the site also supports embedding videos from YouTube.";
 
 
-"tour_section_6_title_1" = "Audios section, which doesn't exist yet xdddd";
-"tour_section_6_text_1" = "I would love to do a tutorial on this section, but sunshine Vriska didn't make the music :c";
+"tour_section_6_title_1" = "Listen to music";
+"tour_section_6_text_1" = "You can listen to music in \"My Audios\"";
+"tour_section_6_text_2" = "This section is also controlled by the privacy settings.";
+"tour_section_6_text_3" = "The most listened songs are in \"Popular\", and recently uploaded songs are in \"New\"";
+"tour_section_6_text_4" = "To add a song to your collection, hover over it and click on the \"plus\". You can search for the song you want.";
+"tour_section_6_text_5" = "If you can't find the song you want, you can upload it yourself";
+"tour_section_6_bottom_text_1" = "<b>Important:</b> the song must not infringe copyright";
+"tour_section_6_title_2" = "Create playlists";
+"tour_section_6_text_6" = "You can create playlists in the \"My Playlists\" tab";
+"tour_section_6_text_7" = "You can also add another's playlists to your collection";
 
 
 "tour_section_7_title_1" = "Follow what your friends write";
@@ -1634,80 +1897,84 @@
 "tour_section_7_bottom_text_1" = "No recommendation system. <b>It's up to you to create your own news feed</b>";
 
 
-"tour_section_8_title_1" = "Follow what topics are discussed on the site";
-"tour_section_8_text_1" = "The global newsfeed will show entries of all site users and groups";
-"tour_section_8_text_2" = "Viewing this section may not be recommended for sensitive or fragile people";
-"tour_section_8_bottom_text_1" = "The design of the global feed does not differ in any way from the local feed";
-"tour_section_8_bottom_text_2" = "The feed has many types of content, from regular photos and videos to anonymous posts and polls";
+"tour_section_7_title_1" = "Stay Updated with Your Friends' Updates";
+"tour_section_7_text_1" = "The 'My News' section is divided into two types: local feed and global feed.";
+"tour_section_7_text_2" = "The local feed exclusively displays updates from your friends and groups.";
+"tour_section_7_bottom_text_1" = "No recommendation system. <b>You have the power to curate your own news feed</b>.";
+
+"tour_section_8_title_1" = "Explore Site-wide Discussions";
+"tour_section_8_text_1" = "The global newsfeed showcases posts from all site users and groups.";
+"tour_section_8_text_2" = "Note: Viewer discretion is advised, as this section may contain content not suitable for sensitive individuals.";
+"tour_section_8_bottom_text_1" = "The design of the global feed is identical to the local feed.";
+"tour_section_8_bottom_text_2" = "The feed encompasses various content types, including regular photos, videos, anonymous posts, and polls.";
 
 
-"tour_section_9_title_1" = "Create groups!";
-"tour_section_9_text_1" = "The site already has thousands of groups devoted to various topics and fan associations";
-"tour_section_9_text_2" = "You can join any group you want. And if you haven't found a matching one, you can create your own";
-"tour_section_9_text_3" = "Each group has its own section of wiki pages, photo albums, block of links and discussions";
-"tour_section_9_title_2" = "Manage your group with a friend";
-"tour_section_9_text_2_1" = "Manage the group in the &quot;Edit Group&quot; section under the community avatar";
-"tour_section_9_text_2_2" = "Create a team of administrators from the usual participants or those whom you trust";
-"tour_section_9_text_2_3" = "You can hide the administrator you want, so he will not appear anywhere within your group";
-"tour_section_9_bottom_text_1" = "The &quot;My Groups&quot; section is on the left menu of the site";
-"tour_section_9_bottom_text_2" = "Group example";
-"tour_section_9_bottom_text_3" = "Groups are often real organizations whose members want to stay in touch with their audiences";
-
+"tour_section_9_title_1" = "Create Groups!";
+"tour_section_9_text_1" = "Explore thousands of groups on the site covering diverse topics and fan communities.";
+"tour_section_9_text_2" = "Join any group that interests you, and if you can't find one, feel free to create your own.";
+"tour_section_9_text_3" = "Each group comes with its dedicated section of wiki pages, photo albums, a block of links, and discussion forums.";
+"tour_section_9_title_2" = "Manage Your Group with a Friend";
+"tour_section_9_text_2_1" = "Navigate to the &quot;Edit Group&quot; section under the community avatar to manage your group.";
+"tour_section_9_text_2_2" = "Build a team of administrators from regular participants or individuals you trust.";
+"tour_section_9_text_2_3" = "You have the option to hide specific administrators, ensuring they remain discreet within your group.";
+"tour_section_9_bottom_text_1" = "Find the &quot;My Groups&quot; section in the left menu of the site.";
+"tour_section_9_bottom_text_2" = "Example Group";
+"tour_section_9_bottom_text_3" = "Groups often represent real organizations, with members wanting to stay connected with their audiences.";
 
 "tour_section_10_title_1" = "Oops";
 "tour_section_10_text_1" = "I would be very happy to do a tutorial on this section, but it's still under development. For now, let's skip it and move on...";
 
 
 "tour_section_11_title_1" = "Themes";
-"tour_section_11_text_1" = "After registering, you will have the default theme installed as your appearance";
-"tour_section_11_text_2" = "Some new users may be a bit intimidated by the current default theme, which reeks of quite antiquity";
-"tour_section_11_text_3" = "<b>But no worries:</b> You can create your own theme for the site by reading the <a href='https://docs.openvk.uk/'>documentation</a> or choose an existing one from the catalog";
-"tour_section_11_bottom_text_1" = "A catalog of themes is available under &quot;My Settings&quot;, in the &quot;Interface&quot; tab;";
+"tour_section_11_text_1" = "Upon registration, the default theme will be set as your appearance.";
+"tour_section_11_text_2" = "Some new users might find the current default theme a bit dated.";
+"tour_section_11_text_3" = "<b>No worries:</b> You can create your own theme by reading the <a href='https://docs.openvk.uk/'>documentation</a> or choose one from the catalog.";
+"tour_section_11_bottom_text_1" = "A catalog of themes is available under \"My Settings\" in the \"Interface\" tab.";
 "tour_section_11_wordart" = "<img src='https://openvk.uk/assets/packages/static/openvk/img/tour/wordart_en.png' width='65%'>";
 
-"tour_section_12_title_1" = "Profile and group backgrounds";
-"tour_section_12_text_1" = "You can set two images as the background of your page";
-"tour_section_12_text_2" = "They will be displayed on the sides of those who come to your page";
-"tour_section_12_text_3" = "<b>Hint:</b> before setting the background, try to experiment with the layout: try to mirror the future background image, or even just create a nice gradient";
+"tour_section_12_title_1" = "Profile and Group Backgrounds";
+"tour_section_12_text_1" = "You can set two images as the background of your page.";
+"tour_section_12_text_2" = "They will be displayed on the sides for those who visit your page.";
+"tour_section_12_text_3" = "<b>Hint:</b> Before setting the background, experiment with the layout—try mirroring the future background image or creating a nice gradient.";
 "tour_section_12_title_2" = "Avatars";
-"tour_section_12_text_2_1" = "You can set the option to show the user's avatar: standard, rounded and square (1:1)";
-"tour_section_12_text_2_2" = "These settings will only be visible to you";
-"tour_section_12_title_3" = "Editing the left menu";
-"tour_section_12_text_3_1" = "If necessary, you can hide unnecessary sections of the site";
-"tour_section_12_text_3_2" = "<b>Remember: </b>The essential sections (My Page; My Friends; My Answers; My Settings) cannot be hidden";
-"tour_section_12_title_4" = "View of posts";
-"tour_section_12_text_4_1" = "If you're tired of the old wall design that was in the once-popular original VKontakte, you can always change the look of the posts to Microblog";
-"tour_section_12_text_4_2" = "The view of the posts can be changed between the two options at any time";
-"tour_section_12_text_4_3" = "<b>Note that</b> if you selected the old view of the posts, the latest comments will not be loaded";
-"tour_section_12_bottom_text_1" = "Background setup page";
-"tour_section_12_bottom_text_2" = "Examples of pages with set backgrounds";
-"tour_section_12_bottom_text_3" = "With this feature you can add more personality to your profile";
-"tour_section_12_bottom_text_4" = "Old post view";
+"tour_section_12_text_2_1" = "You can choose to display the user's avatar in standard, rounded, or square (1:1) styles.";
+"tour_section_12_text_2_2" = "These settings are visible only to you.";
+"tour_section_12_title_3" = "Editing the Left Menu";
+"tour_section_12_text_3_1" = "Hide unnecessary sections of the site if needed.";
+"tour_section_12_text_3_2" = "<b>Remember:</b> Essential sections like My Page, My Friends, My Answers, and My Settings cannot be hidden.";
+"tour_section_12_title_4" = "View of Posts";
+"tour_section_12_text_4_1" = "If you're tired of the old wall design from the once-popular original VKontakte, change the post look to Microblog.";
+"tour_section_12_text_4_2" = "You can switch between the two post views at any time.";
+"tour_section_12_text_4_3" = "<b>Note:</b> If you choose the old post view, the latest comments will not be loaded.";
+"tour_section_12_bottom_text_1" = "Background Setup Page";
+"tour_section_12_bottom_text_2" = "Examples of Pages with Set Backgrounds";
+"tour_section_12_bottom_text_3" = "Add more personality to your profile with this feature.";
+"tour_section_12_bottom_text_4" = "Old Post View";
 "tour_section_12_bottom_text_5" = "Microblog";
 
 
 "tour_section_13_title_1" = "Promocodes";
-"tour_section_13_text_1" = "OpenVK has a promo code system that aims to add some currency (rating percentages, votes, and so on)";
-"tour_section_13_text_2" = "Such coupons are created for some significant events and holidays. Follow the <a href='https://t.me/openvk'>OpenVK Telegram channel</a>";
-"tour_section_13_text_3" = "After activating a promocode, the currency set by the administrators will be transferred to you";
-"tour_section_13_text_4" = "<b>Remember: </b>All promocodes have a limited activation period";
-"tour_section_13_bottom_text_1" = "Promocodes consist of 24 digits and letters";
-"tour_section_13_bottom_text_2" = "Successful activation (for example, we were credited with 100 votes)";
-"tour_section_13_bottom_text_3" = "<b>Attention: </b>Once a promocode is activated on your page, the same promocode cannot be reactivated";
+"tour_section_13_text_1" = "OpenVK features a promo code system designed to add various currencies such as rating percentages, votes, and more.";
+"tour_section_13_text_2" = "These coupons are created for significant events and holidays. Stay updated on the latest by following the <a href='https://t.me/openvk'>OpenVK Telegram channel</a>.";
+"tour_section_13_text_3" = "Upon activating a promo code, the currency determined by administrators will be transferred to your account.";
+"tour_section_13_text_4" = "<b>Remember:</b> All promo codes have a limited activation period.";
+"tour_section_13_bottom_text_1" = "Promo codes consist of 24 digits and letters.";
+"tour_section_13_bottom_text_2" = "Successful activation, for example, results in the crediting of 100 votes.";
+"tour_section_13_bottom_text_3" = "<b>Attention:</b> Once a promo code is activated on your page, the same code cannot be reactivated.";
 
-"tour_section_14_title_1" = "Mobile version";
-"tour_section_14_text_1" = "At the moment there is no mobile web version of the site yet, but there is a mobile app for Android";
-"tour_section_14_text_2" = "OpenVK Legacy is an OpenVK mobile app for retro Android devices with the design of the original VKontakte 3.0 app from 2013";
-"tour_section_14_text_3" = "The minimum supported version is Android 2.1 Eclair, which means devices from the early 2010s will be quite useful";
+"tour_section_14_title_1" = "Mobile Version";
+"tour_section_14_text_1" = "Currently, there is no mobile web version of the site, but there is an Android mobile app.";
+"tour_section_14_text_2" = "OpenVK Legacy is an OpenVK mobile app designed for retro Android devices, featuring the design of the original VKontakte 3.0 app from 2013.";
+"tour_section_14_text_3" = "The minimum supported version is Android 2.1 Eclair, making devices from the early 2010s quite useful.";
 
-"tour_section_14_title_2" = "Where can I download this?";
-"tour_section_14_text_2_1" = "Release versions are downloaded through the official F-Droid repository";
-"tour_section_14_text_2_2" = "If you are a beta tester, new versions of the app are posted to a separate update channel";
-"tour_section_14_text_2_3" = "<b>Note: </b>The app may have various bugs and problems, if you encounter a mistake, please report it to the <a href='/app'>official app group</a>";
+"tour_section_14_title_2" = "Where to Download?";
+"tour_section_14_text_2_1" = "Release versions can be downloaded through the official F-Droid repository.";
+"tour_section_14_text_2_2" = "If you're a beta tester, new app versions are posted to a separate update channel.";
+"tour_section_14_text_2_3" = "<b>Note:</b> The app may have various bugs and issues. If you encounter an error, please report it to the <a href='/app'>official app group</a>.";
 
 "tour_section_14_bottom_text_1" = "Screenshots";
-"tour_section_14_bottom_text_2" = "This concludes the tour of the site. If you want to try our mobile app, create your own group here, invite your friends or find new ones, or just have some fun in general, you can do it right now with a small <a href='/reg'>registration</a>";
-"tour_section_14_bottom_text_3" = "This concludes the tour of the site";
+"tour_section_14_bottom_text_2" = "That concludes the tour of the site. If you're interested in trying our mobile app, creating your group, inviting friends, or just having fun in general, you can do it now with a quick <a href='/reg'>registration</a>.";
+"tour_section_14_bottom_text_3" = "This concludes the site tour.";
 
 /* Search */
 
@@ -1736,6 +2003,8 @@
 "s_order_by_name" = "By name";
 "s_order_by_random" = "By random";
 "s_order_by_rating" = "By rating";
+"s_order_by_length" = "By length";
+"s_order_by_listens" = "By listens count";
 "s_order_invert" = "Invert";
 
 "s_by_date" = "By date";
@@ -1753,14 +2022,16 @@
 "s_any" = "any";
 "reset" = "Reset";
 
-"closed_group_post" = "This is a post from private group";
+"closed_group_post" = "This post was published in a private group";
 "deleted_target_comment" = "This comment belongs to deleted post";
 
 "no_results" = "No results";
+"s_only_performers" = "Performers only";
+"s_with_lyrics" = "With lyrics";
 
 /* BadBrowser */
 
-"deprecated_browser" = "Deprecated browser";
+"deprecated_browser" = "Deprecated Browser";
 "deprecated_browser_description" = "To view this content, you will need Firefox ESR 52+ or an equivalent World Wide Web navigator. Sorry about that.";
 
 /* Statistics */
@@ -1781,21 +2052,22 @@
 
 /* Sudo */
 
-"you_entered_as" = "You logged as";
+"you_entered_as" = "You are logged in as";
 "please_rights" = "please respect the right to privacy of other people's correspondence and do not abuse user swapping.";
 "click_on" = "Click";
-"there" = "there";
-"to_leave" = "to logout";
+"there" = "here";
+"to_leave" = "to log out";
 
 /* Phone number */
 
 "verify_phone_number" = "Confirm phone number";
-"we_sended_first" = "We sended SMS with code on number";
+"we_sended_first" = "We sent an SMS with code to the given number";
 "we_sended_end" = "enter it here";
 
 /* Mobile */
 "mobile_friends" = "Friends";
 "mobile_photos" = "Photos";
+"mobile_audios" = "Audios";
 "mobile_videos" = "Videos";
 "mobile_messages" = "Messages";
 "mobile_notes" = "Notes";
@@ -1808,6 +2080,53 @@
 "mobile_like" = "Like";
 "mobile_user_info_hide" = "Hide";
 "mobile_user_info_show_details" = "Show details";
+
+/* Fullscreen player */
+
+"hide_player" = "Minimize";
+"close_player" = "Close";
+"show_comments" = "Show info";
+"close_comments" = "Hide info";
+"to_page" = "Go to page";
+"download_video" = "Download";
+"added" = "Added";
+"x_views" = "$1 views";
+
+"video_author" = "Video's author";
+"video_delete" = "Delete";
+"no_description" = "no description";
+
+"show_more_comments" = "Show more comments";
+"video_processing" = "Video is succefully uploaded and now is processed.";
+"video_access_denied" = "Access to video denied";
+"open_page_to_read_comms" = "To read the comments, open <a href=\"$1\">page</a>.";
+
+"no_video_error" = "No videofile";
+"no_video_description" = "Select file or specify link.";
+
+"error_video" = "An error has occurred";
+"file_corrupted" = "File is corrupted or does not have video.";
+"link_incorrect" = "Maybe, the link is wrong.";
+
+"no_name_error" = "Video can't be published without name";
+"access_denied_error" = "Access denied";
+"access_denied_error_description" = "You are not allowed to edit this resource";
+
+"changes_saved_video_comment" = "Updated data will appear on the video page";
+"cant_delete_video" = "Failed to delete video";
+"cant_delete_video_comment" = "You are not logged in.";
+
+"change_video" = "Change video";
+
+"video_is_deleted" = "Video was deleted.";
+"share_video" = "Share video";
+"shared_succ_video" = "Video will appear at your wall. Click on this notification to move to post.";
+"watch_in_window" = "Watch in window";
+
+"comments_load_timeout" = "The instance may have fallen";
+
+"my" = "My";
+"enter_a_name_or_artist" = "Enter a name or artist...";
 
 /* Moderation */
 

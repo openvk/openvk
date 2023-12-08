@@ -100,14 +100,20 @@ button.bsdn_playButton {
     cursor: pointer;
 }
 
-.bsdn_fullScreenButton {
+.bsdn_fullScreenButton, .bsdn_repeatButton {
     cursor: pointer;
 }
 
 .bsdn_fullScreenButton > img:hover {
-	background: url("/assets/packages/static/openvk/img/bsdn/fullscreen_hover.gif");
-	object-fit: none;
-	object-position: -64px 0;
+    background: url("/assets/packages/static/openvk/img/bsdn/fullscreen_hover.gif");
+    object-fit: none;
+    object-position: -64px 0;
+}
+
+.bsdn_repeatButton.pressed > img {
+    background: url("/assets/packages/static/openvk/img/bsdn/repeat_hover.gif");
+    object-fit: none;
+    object-position: -64px 0;
 }
 
 .bsdn_teaserWrap {
@@ -215,6 +221,6 @@ time.bsdn_timeFull {
     margin: 10px 0;
 }
 
-.bsdn_fullScreenButton > img, .bsdn_soundIcon {
+.bsdn_fullScreenButton > img, .bsdn_repeatButton > img, .bsdn_soundIcon {
     vertical-align: middle;
 }

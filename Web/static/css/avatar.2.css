@@ -81,3 +81,10 @@ div.ovk-video > div > img
     object-fit: cover;
     border-radius: 100px;
 }
+
+.friendsAudiosList .elem img {
+    width: 30px;
+    border-radius: 100px;
+    height: 31px;
+    min-width: 30px;
+}

@@ -14,6 +14,7 @@ final class Account extends VKAPIRequestHandler
             "last_name"        => $this->getUser()->getLastName(),
             "home_town"        => $this->getUser()->getHometown(),
             "status"           => $this->getUser()->getStatus(),
+            "audio_status"     => is_null($this->getUser()->getCurrentAudioStatus()) ? NULL : $this->getUser()->getCurrentAudioStatus()->toVkApiStruct($this->getUser()),
             "bdate"            => is_null($this->getUser()->getBirthday()) ? '01.01.1970' : $this->getUser()->getBirthday()->format('%e.%m.%Y'),
             "bdate_visibility" => $this->getUser()->getBirthdayPrivacy(),
             "phone"            => "+420 ** *** 228",                       # TODO

@@ -64,7 +64,7 @@
             <tr>
                 <td width="120" valign="top"><span class="nobold">{_role}: </span></td>
                 <td>
-                    {$club->getOwner()->getId() == $user->getId() ? !$club->isOwnerHidden() || $club->canBeModifiedBy($thisUser) : !is_null($manager) ? tr("administrator") : tr("follower")}
+                    {($club->getOwner()->getId() == $user->getId() ? !$club->isOwnerHidden() || $club->canBeModifiedBy($thisUser) : !is_null($manager)) ? tr("administrator") : tr("follower")}
                 </td>
             </tr>
             <tr n:if="$manager && !empty($manager->getComment()) || $club->getOwner()->getId() === $user->getId() && !empty($club->getOwnerComment()) && (!$club->isOwnerHidden() || $club->canBeModifiedBy($thisUser))">

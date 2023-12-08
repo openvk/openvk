@@ -1,0 +1,1855 @@
+#include <ru>
+
+"__locale" = "ru_RU.UTF-8;Rus";
+"__WinEncoding" = "Windows-1251";
+"__transNames" = "[\P{script=Han}]; Russian-Latin/BGN; Any-Latin";
+
+/* Check for https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html */
+
+/* Main page */
+
+"home" = "Glavnaja";
+"welcome" = "Dobro požalovatí";
+"to_top" = "Vverh";
+
+/* Login */
+
+"log_in" = "Vhod";
+"password" = "Parolí";
+"registration" = "Registracija";
+"forgot_password" = "Zabyli parolí?";
+"checkbox_in_registration" = "Ja soglasen s <a href='/privacy'>politikoj konfidencialínosti</a> i <a href='/terms'>pravilami sajta</a>";
+"checkbox_in_registration_unchecked" = "Vy dolžny soglasitísja s politikoj konfidencialínosti i pravilami, čtoby zaregistrirovatísja.";
+"login_failed" = "Ne udalosí vojti";
+"invalid_username_or_password" = "Nevernoe imja polízovatelja ili parolí. <a href='/restore'>Zabyli parolí?</a>";
+"failed_to_register" = "Ne udalosí zaregistrirovatísja";
+"referral_link_invalid" = "Priglasitelínaja ssylka nedejstvitelína.";
+"registration_disabled" = "Registracija otključena sistemnym administratorom.";
+"user_already_exists" = "Polízovatelí s takim email uže susčestvuet.";
+"access_recovery" = "Vosstanovlenie dostupa";
+"page_access_recovery" = "Vosstanovití dostup k stranice";
+"access_recovery_info" = "Zabyli parolí? Ne volnujtesí, vvedite vaši dannye i my otpravim vam email s instrukcijami po vosstanovleniju akkaunta.";
+"access_recovery_info_2" = "Vvedite vaš novyj parolí. Vse tekusčie seansy budut priostanovleny i tokeny dostupa budut annulirovany.";
+"reset_password" = "Sbrosití parolí";
+"2fa_code_2" = "Kod dvuhfaktornoj autentifikacii";
+"password_successfully_reset" = "Vaš parolí byl uspešno sbrošen.";
+"password_reset_email_sent" = "Esli vy zaregistrirovany, vy polučite instrukcii na email.";
+"password_reset_error" = "Nepredvidennaja ošibka pri sbrose parolja.";
+"password_reset_rate_limit_error" = "Nelízja delatí eto tak často, izvinite.";
+"email_sent" = "Pisímo bylo uspešno otpravleno.";
+"email_sent_desc" = "Esli vaš elektronnyj adres susčestvuet, vy polučite pisímo.";
+"email_error" = "Nepredvidennaja ošibka pri otpravke pisíma.";
+"email_rate_limit_error" = "Nelízja delatí eto tak často, izvinite.";
+"email_verify_success" = "Vaš Email byl podtverždjon. Prijatnogo vremjapreprovoždenija!";
+"registration_disabled_info" = "Registracija otključena sistemnym administratorom. Pri vozmožnosti poprosite priglašenie u vašego znakomogo, esli on zaregistrirovan na etom sajte.";
+"registration_closed" = "Registracija zakryta.";
+"invites_you_to" = "<strong>$1</strong> priglašaet vas v $2";
+"register_meta_desc" = "Zaregistrirujtesí v $1 prjamo sejčas!";
+"register_referer_meta_title" = "$1 priglašaet vas v $2!";
+"register_referer_meta_desc" = "Prisoedinjajtesí k $1 i množestvu drugih polízovatelej v $2!";
+"registration_welcome_1" = "- universalínoe sredstvo poiska kolleg osnovannoe na strukture VKontakte.";
+"registration_welcome_2" = "My hotim, čtoby druzíja, odnokursniki, odnoklassniki, sosedi i kollegi vsegda mogli bytí v kontakte.";
+"users" = "Polízovateli";
+"other_fields" = "Ostalínoe";
+
+/* Profile information */
+
+"select_language" = "Vybratí jazyk";
+"edit" = "Redaktirovatí";
+"birth_date" = "Dení roždenija";
+"registration_date" = "Data registracii";
+"hometown" = "Rodnoj gorod";
+"this_is_you" = "eto Vy";
+"edit_page" = "Redaktirovatí stranicu";
+"edit_group" = "Redaktirovatí gruppu";
+"change_status" = "izmenití status";
+"name" = "Imja";
+"surname" = "Familija";
+"gender" = "Pol";
+"male" = "mužskoj";
+"female" = "ženskij";
+"description" = "Opisanie";
+"save" = "Sohranití";
+"main_information" = "Osnovnaja informacija";
+"additional_information" = "Dopolnitelínaja informacija";
+"nickname" = "Niknejm";
+"online" = "Onlajn";
+"was_online" = "byl v seti";
+"was_online_m" = "byl v seti";
+"was_online_f" = "byla v seti";
+"all_title" = "Vse";
+"information" = "Informacija";
+"status" = "Status";
+"no_information_provided" = "Informacija otsutstvuet.";
+"deceased_person" = "Stranica pokojnogo čeloveka";
+"none" = "otsutstvuet";
+"desc_none" = "opisanie otsutstvuet";
+"send" = "Otpravití";
+"years_zero" = "0 let";
+"years_one" = "1 god";
+"years_few" = "$1 goda";
+"years_many" = "$1 let";
+"years_other" = "$1 let";
+"show_my_birthday" = "Pokazyvatí datu roždenija";
+"show_only_month_and_day" = "Pokazyvatí tolíko dení i mesjac";
+"relationship" = "Semejnoe položenie";
+"relationship_0" = "Ne vybrano";
+"relationship_1" = "Ne ženat";
+"relationship_2" = "Vstrečajusí";
+"relationship_3" = "Pomolvlen";
+"relationship_4" = "Ženat";
+"relationship_5" = "V graždanskom brake";
+"relationship_6" = "Vljubljon";
+"relationship_7" = "Vsjo složno";
+"relationship_8" = "V aktivnom poiske";
+"relationship_1_fem" = "Ne zamužem";
+"relationship_3_fem" = "Pomolvlena";
+"relationship_4_fem" = "Zamužem";
+"relationship_6_fem" = "Vljublena";
+"politViews" = "Polit. vzgljady";
+"politViews_0" = "Ne vybrany";
+"politViews_1" = "Indifferentnye";
+"politViews_2" = "Kommunističeskie";
+"politViews_3" = "Socialističeskie";
+"politViews_4" = "Umerennye";
+"politViews_5" = "Liberalínye";
+"politViews_6" = "Konservativnye";
+"politViews_7" = "Monarhičeskie";
+"politViews_8" = "Ulítrakonservativnye";
+"politViews_9" = "Libertarianskie";
+"contact_information" = "Kontaktnaja informacija";
+"email" = "Elektronnaja počta";
+"phone" = "Telefon";
+"telegram" = "Telegram";
+"personal_website" = "Ličnyj sajt";
+"city" = "Gorod";
+"address" = "Adres";
+"personal_information" = "Ličnaja informacija";
+"interests" = "Interesy";
+"favorite_music" = "Ljubimaja muzyka";
+"favorite_films" = "Ljubimye filímy";
+"favorite_shows" = "Ljubimye TV-šou";
+"favorite_books" = "Ljubimye knigi";
+"favorite_quotes" = "Ljubimye citaty";
+"information_about" = "O sebe";
+"updated_at" = "Obnovleno $1";
+"user_banned" = "K sožaleniju, nam prišlosí zablokirovatí stranicu polízovatelja <b>$1</b>.";
+"user_banned_comment" = "Kommentarij moderatora:";
+"verified_page" = "Podtverždjonnaja stranica";
+"user_is_blocked" = "Polízovatelí zablokirovan";
+"before" = "do";
+"forever" = "navsegda";
+
+/* Wall */
+
+"feed" = "Novosti";
+"post_writes_m" = "napisal";
+"post_writes_f" = "napisala";
+"post_writes_g" = "opublikovali";
+"post_deact_m" = "udalil stranicu so slovami:";
+"post_deact_f" = "udalila stranicu so slovami:";
+"post_deact_silent_m" = "molča udalil svoju stranicu.";
+"post_deact_silent_f" = "molča udalila svoju stranicu.";
+"post_on_your_wall" = "na vašej stene";
+"post_on_group_wall" = "в $1";
+"post_on_user_wall" = "na stene $1";
+"wall" = "Stena";
+"post" = "Zapisí";
+"write" = "Napisatí";
+"publish" = "Opublikovatí";
+"delete" = "Udalití";
+"comments" = "Kommentarii";
+"share" = "Podelitísja";
+"pin" = "Zakrepití";
+"unpin" = "Otkrepití";
+"pinned" = "zakrepleno";
+"comments_tip" = "Budíte pervym, kto ostavit kommentarij!";
+"your_comment" = "Vaš kommentarij";
+"auditory" = "Auditorija";
+"in_wall" = "na stenu";
+"in_group" = "v gruppu";
+"shown" = "Pokazano";
+"x_out_of" = "$1 iz";
+"wall_zero" = "net zapisej";
+"wall_one" = "edinstvennaja zapisí";
+"wall_few" = "$1 zapisi";
+"wall_many" = "$1 zapisej";
+"wall_other" = "$1 zapisej";
+"publish_post" = "Dobavití zapisí";
+"view_other_comments" = "Posmotretí ostalínye kommentarii";
+"no_comments" = "Kommentarii otsutstvujut";
+"my_news" = "Moi novosti";
+"all_news" = "Vse novosti";
+"posts_per_page" = "Količestvo zapisej na stranice";
+"attachment" = "Vloženie";
+"post_as_group" = "Ot imeni soobsčestva";
+"comment_as_group" = "Ot imeni soobsčestva";
+"add_signature" = "Podpisí avtora";
+"contains_nsfw" = "Soderžit NSFW-kontent";
+"nsfw_warning" = "Dannyj post možet soderžatí 18+ kontent";
+"report" = "Požalovatísja";
+"attach" = "Prikrepití";
+"detach" = "Otkrepití";
+"attach_photo" = "Prikrepití foto";
+"attach_video" = "Prikrepití video";
+"draw_graffiti" = "Narisovatí graffiti";
+"no_posts_abstract" = "Zdesí nikto ničego ne napisal... Poka.";
+"attach_no_longer_available" = "Eto vloženie bolíše nedostupno.";
+"open_post" = "Otkrytí zapisí";
+"version_incompatibility" = "Ne udalosí otobrazití eto vloženie. Vozmožno, baza dannyh nesovmestima s tekusčej versiej OpenVK.";
+"graffiti" = "Graffiti";
+"reply" = "Otvetití";
+"post_is_ad" = "Etot post byl razmesčjon za vzjatku.";
+"edited_short" = "red.";
+
+/* Friends */
+
+"friends" = "Druzíja";
+"followers" = "Podpisčiki";
+"follower" = "Podpisčik";
+"friends_add" = "Dobavití v druzíja";
+"friends_delete" = "Udalití iz druzej";
+"friends_reject" = "Otmenití zajavku";
+"friends_accept" = "Prinjatí zajavku";
+"send_message" = "Otpravití soobsčenie";
+"incoming_req" = "Vhodjasčie";
+"outcoming_req" = "Ishodjasčie";
+"req" = "Zajavki";
+"friends_online" = "Druzíja onlajn";
+"all_friends" = "Vse druzíja";
+"req_zero" = "Ne najdeno ni odnoj zajavki...";
+"req_one" = "Najdena $1 zajavka";
+"req_few" = "Najdeno $1 zajavki";
+"req_many" = "Najdeno $1 zajavki";
+"req_other" = "Najdeno $1 zajavok";
+"friends_zero" = "Ni odnogo druga";
+"friends_one" = "$1 drug";
+"friends_few" = "$1 druga";
+"friends_many" = "$1 druzej";
+"friends_other" = "$1 druzej";
+"friends_online_zero" = "Ni odnogo druga onlajn";
+"friends_online_one" = "$1 drug onlajn";
+"friends_online_few" = "$1 druga onlajn";
+"friends_online_many" = "$1 druzej onlajn";
+"friends_online_other" = "$1 druzej onlajn";
+"friends_list_zero" = "U Vas poka net druzej";
+"friends_list_one" = "U Vas $1 drug";
+"friends_list_few" = "U Vas $1 druga";
+"friends_list_many" = "U Vas $1 druzej";
+"friends_list_other" = "U Vas $1 druzej";
+"followers_zero" = "Ni odnogo podpisčika";
+"followers_one" = "$1 podpisčik";
+"followers_few" = "$1 podpisčika";
+"followers_many" = "$1 podpisčikov";
+"followers_other" = "$1 podpisčikov";
+"subscriptions_zero" = "Ni odnoj podpiski";
+"subscriptions_one" = "$1 podpiska";
+"subscriptions_few" = "$1 podpiski";
+"subscriptions_many" = "$1 podpisok";
+"subscriptions_other" = "$1 podpisok";
+"friends_list_online_zero" = "U Vas poka net druzej onlajn";
+"friends_list_online_one" = "U Vas $1 drug onlajn";
+"friends_list_online_few" = "U Vas $1 druga onlajn";
+"friends_list_online_many" = "U Vas $1 druzej onlajn";
+"friends_list_online_other" = "U Vas $1 druzej onlajn";
+
+/* Group */
+
+"name_group" = "Nazvanie";
+"subscribe" = "Podpisatísja";
+"unsubscribe" = "Otpisatísja";
+"subscriptions" = "Podpiski";
+"join_community" = "Vstupití v gruppu";
+"leave_community" = "Vyjti iz gruppy";
+"check_community" = "Prosmotr gruppy";
+"min_6_community" = "Nazvanie dolžno bytí ne menee 6 simvolov";
+"participants" = "Učastniki";
+"groups" = "Gruppy";
+"meetings" = "Vstreči";
+"create_group" = "Sozdatí gruppu";
+"group_managers" = "Rukovodstvo";
+"group_type" = "Tip gruppy";
+"group_type_open" = "Eto otkrytaja gruppa. V nejo možet vstupití ljuboj želajusčij.";
+"group_type_closed" = "Eto zakrytaja gruppa. Dlja vstuplenija neobhodimo podavatí zajavku.";
+"creator" = "Sozdatelí";
+"administrators" = "Administratory";
+"add_to_left_menu" = "Dobavití v levoe menju";
+"remove_from_left_menu" = "Udalití iz levogo menju";
+"all_followers" = "Vse podpisčiki";
+"only_administrators" = "Tolíko administratory";
+"website" = "Sajt";
+"managed" = "Upravljaemye";
+"size" = "Razmer";
+"administrators_one" = "$1 administrator";
+"administrators_few" = "$1 administratora";
+"administrators_other" = "$1 administratorov";
+"role" = "Rolí";
+"administrator" = "Administrator";
+"promote_to_admin" = "Povysití do administratora";
+"promote_to_owner" = "Naznačití vladelícem";
+"devote" = "Razžalovatí";
+"set_comment" = "Izmenití kommentarij";
+"hidden_yes" = "Skryt: Da";
+"hidden_no" = "Skryt: Net";
+"group_allow_post_for_everyone" = "Razrešití publikovatí zapisi vsem";
+"group_hide_from_global_feed" = "Ne otobražatí publikacii v globalínoj lente";
+"statistics" = "Statistika";
+"group_administrators_list" = "Spisok adminov";
+"group_display_only_creator" = "Otobražatí tolíko sozdatelja gruppy";
+"group_display_all_administrators" = "Otobražatí vseh administratorov";
+"group_dont_display_administrators_list" = "Ničego ne otobražatí";
+"group_changeowner_modal_title" = "Peredača prav vladelíca";
+"group_changeowner_modal_text" = "Vnimanie! Vy peredajote prava vladelíca polízovatelju $1. Eto dejstvie neobratimo. Posle peredači vy ostanetesí adminstratorom, no smožete legko perestatí im bytí.";
+"group_owner_setted" = "Novyj vladelec ($1) uspešno naznačen v soobsčestvo $2. Vam vydany prava administratora v soobsčestve. Esli Vy hotite vernutí rolí vladelíca, obratitesí v <a href='/support?act=new'>tehničeskuju podderžku sajta</a>.";
+"participants_zero" = "Ni odnogo učastnika";
+"participants_one" = "Odin učastnik";
+"participants_few" = "$1 učastnika";
+"participants_many" = "$1 učastnikov";
+"participants_other" = "$1 učastnikov";
+"groups_zero" = "Ni odnoj gruppy";
+"groups_one" = "Odna gruppa";
+"groups_few" = "$1 gruppy";
+"groups_many" = "$1 grupp";
+"groups_other" = "$1 grupp";
+"groups_list_zero" = "Vy ne sostoite ni v odnoj gruppe";
+"groups_list_one" = "Vy sostoite v odnoj gruppe";
+"groups_list_other" = "Vy sostoite v $1 gruppah";
+"meetings_zero" = "Ni odnoj vstreči";
+"meetings_one" = "Odna vstreča";
+"meetings_few" = "$1 vstreči";
+"meetings_many" = "$1 vstreč";
+"meetings_other" = "$1 vstreč";
+"open_new_group" = "Otkrytí novuju gruppu";
+"open_group_desc" = "Ne možete najti nužnuju gruppu? Otkrojte svoju...";
+"search_group" = "Poisk gruppy";
+"search_by_groups" = "Poisk po gruppam";
+"search_group_desc" = "Zdesí Vy možete prosmotretí susčestvujusčie gruppy i vybratí gruppu sebe po vkusu...";
+"group_banned" = "K sožaleniju, nam prišlosí zablokirovatí soobsčestvo <b>$1</b>.";
+
+/* Albums */
+
+"create" = "Sozdatí";
+"album" = "Alíbom";
+"albums" = "Alíbomy";
+"photos" = "fotografij";
+"photo" = "Fotografija";
+"create_album" = "Sozdatí alíbom";
+"edit_album" = "Redaktirovatí alíbom";
+"edit_photo" = "Izmenití fotografiju";
+"creating_album" = "Sozdanie alíboma";
+"delete_photo" = "Udalití fotografiju";
+"sure_deleting_photo" = "Vy uvereny, čto hotite udalití etu fotografiju?";
+"upload_photo" = "Zagruzití fotografiju";
+"photo" = "Fotografija";
+"upload_button" = "Zagruzití";
+"open_original" = "Otkrytí original";
+"avatar_album" = "Fotografii so stranicy";
+"wall_album" = "Fotografii so steny";
+"albums_zero" = "Ni odnogo alíboma";
+"albums_one" = "Odin alíbom";
+"albums_few" = "$1 alíboma";
+"albums_many" = "$1 alíbomov";
+"albums_other" = "$1 alíbomov";
+"albums_list_zero" = "U Vas net ni odnogo alíboma";
+"albums_list_one" = "U Vas odin alíbom";
+"albums_list_few" = "U Vas $1 alíboma";
+"albums_list_many" = "U Vas $1 alíbomov";
+"albums_list_other" = "U Vas $1 alíbomov";
+
+"add_image" = "Postavití izobraženie";
+"add_image_group" = "Zagruzití fotografiju";
+"upload_new_picture" = "Zagruzití novuju fotografiju";
+"uploading_new_image" = "Zagruzka novoj fotografii";
+"friends_avatar" = "Druzíjam budet prosče uznatí Vas, esli vy zagruzite svoju nastojasčuju fotografiju.";
+"groups_avatar" = "Horošee foto sdelaet Vaše soobsčestvo bolee uznavaemym.";
+"formats_avatar" = "Vy možete zagruzití izobraženie v formate JPG, GIF ili PNG.";
+"troubles_avatar" = "Esli voznikajut problemy s zagruzkoj, poprobujte vybratí fotografiju meníšego razmera.";
+"webcam_avatar" = "Esli vaš kompíjuter osnasčjon veb-kameroj, Vy možete <a href='javascript:'>sdelatí momentalínuju fotografiju »</a>";
+
+"update_avatar_notification" = "Fotografija profilja obnovlena";
+"update_avatar_description" = "Nažmite sjuda, čtoby perejti k prosmotru";
+
+"deleting_avatar" = "Udalenie fotografii";
+"deleting_avatar_sure" = "Vy dejstvitelíno hotite udalití avatar?";
+
+"deleted_avatar_notification" = "Fotografija uspešno udalena";
+
+"save_changes" = "Sohranití izmenenija";
+
+"upd_m" = "obnovil fotografiju na svoej stranice";
+"upd_f" = "obnovila fotografiju na svoej stranice";
+"upd_g" = "obnovilo fotografiju gruppy";
+
+"add_photos" = "Dobavití fotografii";
+"upload_picts" = "Zagruzití fotografii";
+"end_uploading" = "Zaveršití zagruzku";
+"photos_successfully_uploaded" = "Fotografii uspešno zagruženy";
+"click_to_go_to_album" = "Nažmite, čtoby perejti k alíbomu.";
+"error_uploading_photo" = "Ne udalosí zagruzití fotografiju";
+"too_many_pictures" = "Ne bolíše 10 fotografij";
+
+"drag_files_here" = "Peretasčite fajly sjuda";
+"only_images_accepted" = "Fajl \"$1\" ne javljaetsja izobraženiem";
+"max_filesize" = "Maksimalínyj razmer fajla — $1 megabajt";
+
+"uploading_photos_from_computer" = "Zagruzka fotografij s Vašego kompíjutera";
+"supported_formats" = "Podderživaemye formaty fajlov: JPG, PNG i GIF.";
+"max_load_photos" = "Vy možete zagružatí do 10 fotografij za odin raz.";
+"tip" = "Podskazka";
+"tip_ctrl" = "dlja togo, čtoby vybratí srazu neskolíko fotografij, uderživajte klavišu Ctrl pri vybore fajlov v OS Windows ili klavišu CMD v Mac OS.";
+"album_poster" = "Obložka alíboma";
+"select_photo" = "Vyberite fotografiju";
+"upload_new_photo" = "Zagruzití novuju fotografiju";
+
+"is_x_photos_zero" = "Vsego nolí fotografij.";
+"is_x_photos_one" = "Vsego odna fotografija.";
+"is_x_photos_few" = "Vsego $1 fotografii.";
+"is_x_photos_many" = "Vsego $1 fotografij.";
+"is_x_photos_other" = "Vsego $1 fotografij.";
+
+"all_photos" = "Vse fotografii";
+"error_uploading_photo" = "Ne udalosí zagruzití fotografiju. Tekst ošibki: ";
+"too_many_photos" = "Sliškom mnogo fotografij.";
+
+"photo_x_from_y" = "Fotografija $1 iz $2";
+
+/* Notes */
+
+"notes" = "Zametki";
+"note" = "Zametka";
+"name_note" = "Nazvanie";
+"text_note" = "Soderžanie";
+"create_note" = "Dobavití zapisí";
+"edit_note" = "Redaktirovatí zametku";
+"actions" = "Dejstvija";
+"notes_start_screen" = "S pomosčíju zametok Vy možete delitísja sobytijami iz žizni s druzíjami, a tak že bytí v kurse togo, čto proishodit u nih.";
+"note_preview" = "Predprosmotr";
+"note_preview_warn" = "Eto vsego liší predprosmotr";
+"note_preview_warn_details" = "Posle sohranenija zametki mogut vygljadetí inače. K tomu že, ne vyzyvajte predprosmotr sliškom často.";
+"note_preview_empty_err" = "Začem vam predprosmotr dlja zametki bez imeni ili soderžanija?";
+"edited" = "Otredaktirovano";
+"notes_zero" = "Ni odnoj zametki";
+"notes_one" = "Odna zametka";
+"notes_few" = "$1 zametki";
+"notes_many" = "$1 zametok";
+"notes_other" = "$1 zametok";
+"notes_list_zero" = "Ne najdeno ni odnoj zametki";
+"notes_list_one" = "Najdena odna zametka";
+"notes_list_few" = "Najdeno $1 zametki";
+"notes_list_many" = "Najdeno $1 zametok";
+"notes_list_other" = "Najdeno $1 zametok";
+
+"select_note" = "Vybor zametki";
+"no_notes" = "U vas net ni odnoj zametki";
+
+"error_attaching_note" = "Ne udalosí prikrepití zametku";
+
+"select_or_create_new" = "Vyberite susčestvujusčuju zametku ili <a href='/notes/create'>sozdajte novuju</a>";
+
+"notes_closed" = "Vy ne možete prikrepití zametku k zapisi, tak kak vaši zametki vidny tolíko vam.<br><br> Vy možete pomenjatí eto v <a href=\"/settings?act=privacy\">nastrojkah</a>.";
+"do_not_attach_note" = "Ne prikrepljatí zametku";
+"something" = "Koe-čto";
+"supports_xhtml" = "iz (X)HTML podderživaetsja.";
+
+/* Notes: Article Viewer */
+"aw_legacy_ui" = "Staryj interfejs";
+
+/* Menus */
+
+"edit_button" = "red.";
+
+"my_page" = "Moja Stranica";
+"my_friends" = "Moi Druzíja";
+"my_photos" = "Moi Fotografii";
+"my_videos" = "Moi Videozapisi";
+"my_messages" = "Moi Soobsčenija";
+"my_notes" = "Moi Zametki";
+"my_audios" = "Moi Audiozapisi";
+"my_groups" = "Moi Gruppy";
+"my_feed" = "Moi Novosti";
+"my_feedback" = "Moi Otvety";
+"my_settings" = "Moi Nastrojki";
+"bug_tracker" = "Bag-treker";
+
+"menu_settings" = "Nastrojki";
+"menu_login" = "Vhod";
+"menu_registration" = "Registracija";
+"menu_help" = "Pomosčí";
+"menu_logout" = "Vyjti";
+"menu_support" = "Podderžka";
+
+"header_home" = "glavnaja";
+"header_groups" = "gruppy";
+"header_people" = "ljudi";
+"header_invite" = "priglasití";
+"header_help" = "pomosčí";
+"header_log_out" = "vyjti";
+"header_search" = "Poisk";
+"header_login" = "vhod";
+"header_registration" = "registracija";
+
+"left_menu_donate" = "Podderžatí";
+
+"footer_about_instance" = "ob instancii";
+"footer_rules" = "pravila";
+"footer_blog" = "blog";
+"footer_help" = "pomosčí";
+"footer_developers" = "razrabotčikam";
+"footer_choose_language" = "vybratí jazyk";
+"footer_privacy" = "privatností";
+
+/* Settings */
+
+"main" = "Osnovnoe";
+"contacts" = "Kontakty";
+"avatar" = "Avatar";
+"privacy" = "Privatností";
+"interface" = "Vnešnij vid";
+"security" = "Bezopasností";
+"profile_picture" = "Izobraženie stranicy";
+"picture" = "Izobraženie";
+"change_password" = "Izmenití parolí";
+"old_password" = "Staryj parolí";
+"new_password" = "Novyj parolí";
+"repeat_password" = "Povtorite parolí";
+"avatars_style" = "Otobraženie avatarov";
+"style" = "Stilí";
+"default" = "po umolčaniju";
+"arbitrary_avatars" = "Proizvolínye";
+"cut" = "Kvadratnye";
+"round_avatars" = "Kruglye";
+"apply_style_for_this_device" = "Primenití stilí tolíko dlja etogo ustrojstva";
+"search_for_groups" = "Poisk grupp";
+"search_for_users" = "Poisk ljudej";
+"search_for_posts" = "Poisk zapisej";
+"search_for_comments" = "Poisk kommentariev";
+"search_for_videos" = "Poisk video";
+"search_for_apps" = "Poisk priloženij";
+"search_for_notes" = "Poisk zapisok";
+"search_for_audios" = "Poisk muzyki";
+"search_button" = "Najti";
+"search_placeholder" = "Načnite vvodití ljuboe imja, nazvanie ili slovo";
+"results_zero" = "Ni odnogo rezulítata";
+"results_one" = "Odin rezulítat";
+"results_few" = "$1 rezulítata";
+"results_many" = "$1 rezulítatov";
+"results_other" = "$1 rezulítatov";
+"privacy_setting_access_page" = "Komu v internete vidno moju stranicu";
+"privacy_setting_read_info" = "Komu vidno osnovnuju informaciju moej stranicy";
+"privacy_setting_see_groups" = "Komu vidno moi gruppy i vstreči";
+"privacy_setting_see_photos" = "Komu vidno moi fotografii";
+"privacy_setting_see_videos" = "Komu vidno moi videozapisi";
+"privacy_setting_see_notes" = "Komu vidno moi zametki";
+"privacy_setting_see_friends" = "Komu vidno moih druzej";
+"privacy_setting_add_to_friends" = "Kto možet nazyvatí menja drugom";
+"privacy_setting_write_wall" = "Kto možet pisatí u menja na stene";
+"privacy_setting_write_messages" = "Kto možet pisatí mne soobsčenija";
+"privacy_setting_view_audio" = "Komu vidno moi audiozapisi";
+"privacy_value_anybody" = "Vse želajusčie";
+"privacy_value_anybody_dative" = "Vsem želajusčim";
+"privacy_value_users" = "Polízovateljam OpenVK";
+"privacy_value_friends" = "Druzíja";
+"privacy_value_friends_dative" = "Druzíjam";
+"privacy_value_only_me" = "Tolíko ja";
+"privacy_value_only_me_dative" = "Tolíko mne";
+"privacy_value_nobody" = "Nikto";
+"your_email_address" = "Adres Vašej elektronnoj počty";
+"your_page_address" = "Adres Vašej stranicy";
+"page_address" = "Adres stranicy";
+"current_email_address" = "Tekusčij adres";
+"new_email_address" = "Novyj adres";
+"save_email_address" = "Sohranití adres";
+"page_id" = "ID stranicy";
+"you_can_also" = "Vy takže možete";
+"delete_your_page" = "udalití svoju stranicu";
+"delete_album" = "udalití alíbom";
+"ui_settings_interface" = "Interfejs";
+"ui_settings_sidebar" = "Levoe menju";
+"ui_settings_rating" = "Rejting";
+"ui_settings_rating_show" = "Pokazyvatí";
+"ui_settings_rating_hide" = "Skryvatí";
+"ui_settings_nsfw_content" = "NSFW-kontent";
+"ui_settings_nsfw_content_dont_show" = "Ne pokazyvatí v globalínoj lente";
+"ui_settings_nsfw_content_blur" = "Tolíko zamazyvatí";
+"ui_settings_nsfw_content_show" = "Pokazyvatí";
+"ui_settings_view_of_posts" = "Vid postov";
+"ui_settings_view_of_posts_old" = "Staryj";
+"ui_settings_view_of_posts_microblog" = "Mikroblog";
+"ui_settings_main_page" = "Glavnaja stranica";
+"ui_settings_sessions" = "Sessii";
+"additional_links" = "Dopolnitelínye ssylki";
+"ad_poster" = "Reklamnyj plakat";
+"email_change_confirm_message" = "Čtoby izmenenie vstupilo v silu, podtverdite vaš novyj adres elektronnoj počty. My otpravili instrukcii na nego.";
+"profile_deactivate" = "Udalenie stranicy";
+"profile_deactivate_button" = "Udalití stranicu";
+"profile_deactivate_header" = "My sožaleem, čto Vy hotite udalití svoju stranicu. Poetomu, Vy možete ukazatí pričinu udalenija i Vaše soobsčenie po etomu povodu. My čitaem Vaši otzyvy i pytaemsja sdelatí sajt lučše!";
+"profile_deactivate_reason_header" = "Požalujsta, ukažite pričinu udalenija Vašej stranicy";
+"profile_deactivate_reason_1" = "U menja estí drugaja stranica na sajte";
+"profile_deactivate_reason_1_text" = "Ja sozdal novuju stranicu i teperí hoču podteretí svojo prošloe.";
+"profile_deactivate_reason_2" = "Sajt otnimaet u menja sliškom mnogo vremeni";
+"profile_deactivate_reason_2_text" = "Pustí etot sajt horoš i prekrasen, no on otnimaet u menja vremja, kotoroe mne nužno dlja raboty i žizni.";
+"profile_deactivate_reason_3" = "Sajt soderžit sliškom mnogo nepriemlemyh materialov";
+"profile_deactivate_reason_3_text" = "Ja našjol dostatočno pornografii i piratskogo kontenta - hvatit na vsju žizní. Teperí ja uhožu.";
+"profile_deactivate_reason_4" = "Menja bespokoit bezopasností moih dannyh";
+"profile_deactivate_reason_4_text" = "Za mnoj sledjat i mne strašno zdesí nahoditsja. Izvinite, ja vynužden ujti.";
+"profile_deactivate_reason_5" = "Moju stranicu ne kommentirujut";
+"profile_deactivate_reason_5_text" = "Menja nikto ne smotrit zdesí i eto grustno. Vy požaleete o tom, čto ja ušjol.";
+"profile_deactivate_reason_6" = "Drugaja pričina";
+"profile_deactivated_msg" = "Vaša stranica <b>udalena</b>.<br/><br/>Esli Vy zahotite snova načatí polízovatísja sajtom, Vy možete <a href='/settings/reactivate'>vosstanovití svoju stranicu</a> do $1.";
+"profile_deactivated_status" = "Stranica udalena";
+"profile_deactivated_info" = "Stranica polízovatelja udalena.<br/>Informacija nedostupna.";
+"share_with_friends" = "Rasskazatí druzíjam";
+"end_all_sessions" = "Sbrosití vse sessii";
+"end_all_sessions_description" = "Esli vy hotite vyjti iz $1 so vseh ustrojstv, nažmite na knopku niže";
+"end_all_sessions_done" = "Vse sessii sbrošeny, vključaja mobilínye priloženija";
+"backdrop_short" = "Fon";
+"backdrop" = "Fon stranicy";
+"backdrop_desc" = "Vy možete ustanovití dva izobraženija v kačestve fona vašej stranicy. Oni budut otobražatísja po bokam u teh, kto zajdjot na vašu stranicu. S pomosčíju etoj vozmožnosti vy možete dobavití svoemu profilju bolíše individualínosti.";
+"backdrop_warn" = "Izobraženija budut raspoloženy tak, kak na sheme vyše. Ih vysota budet avtomatičeski uveličena, čtoby oni zanimali 100% vysoty ekrana, poseredine budet razmytie. Zamenití fon osnovnogo interfejsa OpenVK ili dobavití audiozapisí nelízja.";
+"backdrop_about_adding" = "Vy možete ustanovití tolíko 1 izobraženie (no budet nekrasivo), a tak že zamenití tolíko odno: esli u vas uže stoit dva, a vy hotite zamenití vtoroe - to zagružajte tolíko vtoroe, pervoe sohranitsja, a čtoby udalití nado nažatí na sootvetstvujusčuju knopku vnizu, udaljatí po odnoj nelízja.";
+"backdrop_save" = "Sohranití fon";
+"backdrop_remove" = "Udalití fon";
+"backdrop_error_title" = "Ne udalosí sohranití fon";
+"backdrop_error_no_media" = "Izobraženija povreždeny ili zagruženy ne polnostíju";
+"backdrop_succ" = "Fon sohranjon";
+"backdrop_succ_rem" = "Fon udaljon";
+"backdrop_succ_desc" = "Izmenenija budut zametny drugim polízovateljam čerez 5 minut.";
+"browse" = "Obzor";
+
+/* Two-factor authentication */
+
+"two_factor_authentication" = "Dvuhfaktornaja autentifikacija";
+"two_factor_authentication_disabled" = "Obespečivaet nadežnuju zasčitu ot vzloma: dlja vhoda na stranicu neobhodimo vvesti kod, polučennyj v priloženii 2FA.";
+"two_factor_authentication_enabled" = "Dvuhfaktornaja autentifikacija vključena. Vaša stranica zasčisčena.";
+"two_factor_authentication_login" = "U vas vključena dvuhfaktornaja autentifikacija. Dlja vhoda vvedite kod polučennyj v priloženii.";
+"two_factor_authentication_settings_1" = "Dvuhfaktornuju autentifikaciju čerez TOTP možno ispolízovatí daže bez interneta. Dlja etogo vam ponadobitsja priloženie dlja generacii kodov. Naprimer, <b>Google Authenticator</b> dlja Android i iOS ili svobodnye <b>Aegis i andOTP</b> dlja Android. Ubeditesí, čto na telefone točno ustanovlena data i vremja.";
+"two_factor_authentication_settings_2" = "Ispolízuja priloženie dlja dvuhfaktornoj autentifikacii, otskanirujte privedennyj niže QR-kod:";
+"two_factor_authentication_settings_3" = "ili vručnuju vvedite sekretnyj ključ: <b>$1</b>.";
+"two_factor_authentication_settings_4" = "Teperí vvedite kod, kotoryj vam predostavilo priloženie, i parolí ot vašej stranicy, čtoby my mogli podtverdití, čto vy dejstvitelíno vy.";
+"connect" = "Podključití";
+"enable" = "Vključití";
+"disable" = "Otključití";
+"code" = "Kod";
+"2fa_code" = "Kod 2FA";
+"incorrect_password" = "Nevernyj parolí";
+"incorrect_code" = "Nevernyj kod";
+"incorrect_2fa_code" = "Nevernyj kod dvuhfaktornoj autentifikacii";
+"two_factor_authentication_enabled_message" = "Dvuhfaktornaja autentifikacija vključena";
+"two_factor_authentication_enabled_message_description" = "Vašu stranicu stalo trudnee vzlomatí. Rekomenduem vam skačatí <a href='javascript:viewBackupCodes()'>rezervnye kody</a>";
+"two_factor_authentication_disabled_message" = "Dvuhfaktornaja autentifikacija otključena";
+"view_backup_codes" = "Posmotretí rezervnye kody";
+"backup_codes" = "Rezervnye kody dlja podtverždenija vhoda";
+"two_factor_authentication_backup_codes_1" = "Rezervnye kody pozvoljajut podtverždatí vhod, kogda u vas net dostupa k telefonu, naprimer, v putešestvii.";
+"two_factor_authentication_backup_codes_2" = "U vas estí esčjo <b>10 kodov</b>, každym kodom možno vospolízovatísja tolíko odin raz. Raspečatajte ih, uberite v nadežnoe mesto i ispolízujte, kogda potrebujutsja kody dlja podtverždenija vhoda.";
+"two_factor_authentication_backup_codes_3" = "Vy možete polučití novye kody, esli oni zakančivajutsja. Dejstvitelíny tolíko poslednie sozdannye rezervnye kody.";
+"viewing_backup_codes" = "Prosmotr rezervnyh kodov";
+"disable_2fa" = "Otključití 2FA";
+"viewing" = "Prosmotretí";
+
+/* Sorting */
+
+"sort_randomly" = "Sortirovatí slučajno";
+"sort_up" = "Sortirovatí po date sozdanija vverh";
+"sort_down" = "Sortirovatí po date sozdanija vniz";
+
+/* Videos */
+
+"videos" = "Videozapisi";
+"video" = "Videozapisí";
+"upload_video" = "Zagruzití video";
+"video_uploaded" = "Zagruženo";
+"video_updated" = "Obnovleno";
+"video_link_to_yt" = "Ssylka na YouTube";
+"info_name" = "Nazvanie";
+"info_description" = "Opisanie";
+"info_uploaded_by" = "Zagruzil";
+"info_upload_date" = "Data zagruzki";
+"videos_zero" = "Net video";
+"videos_one" = "Odna videozapisí";
+"videos_few" = "$1 videozapisi";
+"videos_many" = "$1 videozapisej";
+"videos_other" = "$1 videozapisej";
+"view_video" = "Prosmotr";
+"change_video" = "Izmenití videozapisí";
+"unknown_video" = "Eta videozapisí ne podderživaetsja v vašej versii OpenVK.";
+
+"selecting_video" = "Vybor videozapisej";
+"upload_new_video" = "Zagruzití novoe video";
+"max_attached_videos" = "Maksimum 10 videozapisej";
+"max_attached_photos" = "Maksimum 10 fotografij";
+"max_attached_audios" = "Maksimum 10 audiozapisej";
+"no_videos" = "U vas net video.";
+"no_videos_results" = "Net rezulítatov.";
+
+/* Audios */
+
+"audios" = "Audiozapisi";
+"audio" = "Audiozapisí";
+"playlist" = "Plejlist";
+"upload_audio" = "Zagruzití audio";
+"upload_audio_to_group" = "Zagruzití audio v gruppu";
+
+"performer" = "Ispolnitelí";
+"audio_name" = "Nazvanie";
+"genre" = "Žanr";
+"lyrics" = "Tekst";
+
+"select_another_file" = "Vybratí drugoj fajl";
+
+"limits" = "Ograničenija";
+"select_audio" = "Vyberite audiozapisí na Vašem kompíjutere";
+"audio_requirements" = "Audiozapisí dolžna bytí dlinnoj ot $1c do $2 minut, vesití do $3mb i soderžatí audiopotok.";
+"audio_requirements_2" = "Audiozapisí ne dolžna narušatí avtorskie i smežnye prava.";
+"you_can_also_add_audio_using" = "Vy takže možete dobavití audiozapisí iz čisla uže zagružennyh fajlov, vospolízovavšisí";
+"search_audio_inst" = "poiskom po audio";
+
+"audio_embed_not_found" = "Audiozapisí ne najdena";
+"audio_embed_deleted" = "Audiozapisí byla udalena";
+"audio_embed_withdrawn" = "Audiozapisí byla izjjata po obrasčeniju pravoobladatelja.";
+"audio_embed_forbidden" = "Nastrojki privatnosti polízovatelja ne pozvoljajut vstraivatí etu kompoziciju";
+"audio_embed_processing" = "Audio esčjo obrabatyvaetsja, libo obrabotalosí nepravilíno.";
+
+"audios_count_zero" = "Net audiozapisej";
+"audios_count_one" = "Odna audiozapisí";
+"audios_count_few" = "$1 audiozapisi";
+"audios_count_many" = "$1 audiozapisej";
+"audios_count_other" = "$1 audiozapisej";
+
+"track_unknown" = "Neizvesten";
+"track_noname" = "Bez nazvanija";
+
+"my_music" = "Moja muzyka";
+"music_user" = "Muzyka polízovatelja";
+"music_club" = "Muzyka gruppy";
+"audio_new" = "Novoe";
+"audio_popular" = "Populjarnoe";
+"audio_search" = "Poisk";
+
+"my_audios_small" = "Moi audiozapisi";
+"my_playlists" = "Moi plejlisty";
+"playlists" = "Plejlisty";
+"audios_explicit" = "Soderžit necenzurnuju leksiku";
+"withdrawn" = "Izjjato";
+"deleted" = "Udaleno";
+"owner" = "Vladelec";
+"searchable" = "Dostupno v poiske";
+
+"select_audio" = "Vybratí audiozapisi";
+"no_playlists_thisuser" = "Vy esčjo ne dobavljali plejlistov.";
+"no_playlists_user" = "Etot polízovatelí esčjo ne dobavljal plejlistov.";
+"no_playlists_club" = "Eta gruppa esčjo ne dobavljala plejlistov.";
+
+"no_audios_thisuser" = "Vy esčjo ne dobavljali audiozapisej.";
+"no_audios_user" = "Etot polízovatelí esčjo ne dobavljal audiozapisej.";
+"no_audios_club" = "Eta gruppa esčjo ne dobavljala audiozapisej.";
+
+"new_playlist" = "Novyj plejlist";
+"created_playlist" = "sozdan";
+"updated_playlist" = "obnovljon";
+"bookmark" = "Dobavití v kollekciju";
+"unbookmark" = "Ubratí iz kollekcii";
+"empty_playlist" = "V etom plejliste net audiozapisej.";
+"edit_playlist" = "Redaktirovatí plejlist";
+"unable_to_load_queue" = "Ne udalosí zagruzití očeredí.";
+
+"fully_delete_audio" = "Polnostíju udalití audiozapisí";
+"attach_audio" = "Prikrepití audiozapisí";
+"detach_audio" = "Otkrepití audiozapisí";
+
+"show_more_audios" = "Pokazatí bolíše audiozapisej";
+"add_to_playlist" = "Dobavití v plejlist";
+"remove_from_playlist" = "Udalití iz plejlista";
+"delete_playlist" = "Udalití plejlist";
+"playlist_cover" = "Obložka plejlista";
+"playlists_user" = "Plejlisty políz.";
+"playlists_club" = "Plejlisty gruppy";
+"change_cover" = "Smenití obložku";
+"playlist_cover" = "Obložka plejlista";
+
+"minutes_count_zero" = "dlitsja nolí minut";
+"minutes_count_one" = "dlitsja odnu minutu";
+"minutes_count_few" = "dlitsja $1 minuty";
+"minutes_count_many" = "dlitsja $1 minut";
+"minutes_count_other" = "dlitsja $1 minut";
+
+"listens_count_zero" = "net proslušivanij";
+"listens_count_one" = "odno proslušivanie";
+"listens_count_few" = "$1 proslušivanija";
+"listens_count_many" = "$1 proslušivanij";
+"listens_count_other" = "$1 proslušivanij";
+
+"add_audio_to_club" = "Dobavití audio v gruppu";
+"what_club_add" = "V kakuju gruppu vy hotite dobavití pesnju?";
+"group_has_audio" = "U gruppy uže estí eta pesnja.";
+"group_hasnt_audio" = "U gruppy net etoj pesni.";
+
+"by_name" = "po kompozicijam";
+"by_performer" = "po ispolnitelju";
+"no_access_clubs" = "Net grupp, gde vy javljaetesí administratorom.";
+"audio_successfully_uploaded" = "Audio uspešno zagruženo i na dannyj moment obrabatyvaetsja.";
+
+"broadcast_audio" = "Translirovatí audio v status";
+"sure_delete_playlist" = "Vy dejstvitelíno hotite udalití etot plejlist?";
+"edit_audio" = "Redaktirovatí audiozapisí";
+"audios_group" = "Audiozapisi gruppy";
+"playlists_group" = "Plejlisty gruppy";
+
+"play_tip" = "Proigryvanie/pauza";
+"repeat_tip" = "Povtorenie";
+"shuffle_tip" = "Peremešatí";
+"mute_tip" = "Zaglušití";
+
+/* Notifications */
+
+"feedback" = "Otvety";
+"unread" = "Nepročitannoe";
+"archive" = "Arhiv";
+"notifications_like" = "$1 ocenil vašu $2zapisí$3 ot $4";
+"notifications_repost" = "$1 podelilsja(-lasí) vašej $2zapisíju$3 ot $4";
+"notifications_comment_under" = "$1 ostavil(-la) kommentarij pod $2";
+"notifications_under_note" = "vašej $3zametkoj$4";
+"notifications_under_photo" = "vašim $3foto$4";
+"notifications_under_post" = "vašej $3zapisíju$4 ot $5";
+"notifications_under_video" = "vašim $3video$4";
+"notifications_post" = "$1 napisal(-la) $2zapisí$3 na vašej stene: $4";
+"notifications_appoint" = "$1 naznačil vas rukovoditelem soobsčestva $2";
+"nt_liked_yours" = "ponravilsja vaš";
+"nt_shared_yours" = "podelilsja(-así) vašim";
+"nt_commented_yours" = "ostavil(a) kommentarij pod";
+"nt_written_on_your_wall" = "napisal(a) na vašej stene";
+"nt_made_you_admin" = "naznačil(a) vas rukovoditelem soobsčestva";
+"nt_from" = "ot";
+"nt_yours_adjective" = "vašim";
+"nt_yours_feminitive_adjective" = "vašej";
+"nt_post_nominative" = "post";
+"nt_post_instrumental" = "postom";
+"nt_note_instrumental" = "zametkoj";
+"nt_photo_instrumental" = "fotografiej";
+"nt_topic_instrumental" = "temoj";
+
+"nt_you_were_mentioned_u" = "Vas upomjanul polízovatelí";
+"nt_you_were_mentioned_g" = "Vas upomjanulo soobsčestvo";
+"nt_mention_in_post_or_comms" = "v poste ili v odnoj iz vetok ego obsuždenija";
+"nt_mention_in_photo" = "v obsuždenii fotografii";
+"nt_mention_in_video" = "v obsuždenii videozapisi";
+"nt_mention_in_note" = "v obsuždenii zametki";
+"nt_mention_in_topic" = "v obsuždenii";
+"nt_sent_gift" = "otpravil vam podarok";
+
+/* Time */
+
+"time_at_sp" = " v ";
+"time_just_now" = "tolíko čto";
+"time_exactly_five_minutes_ago" = "rovno 5 minut nazad";
+"time_minutes_ago" = "$1 minut nazad";
+"time_today" = "segodnja";
+"time_yesterday" = "včera";
+"points" = "Golosa";
+"points_count" = "golosov";
+"on_your_account" = "na vašem sčetu";
+"top_up_your_account" = "Popolnití balans";
+"you_still_have_x_points" = "U Vas <b>$1</b> neispolízovannyh golosov.";
+"vouchers" = "Vaučery";
+"have_voucher" = "Estí vaučer";
+"voucher_token" = "Kod vaučera";
+"voucher_activators" = "Vospolízovavšiesja";
+"voucher_explanation" = "Vvedite serijnyj nomer vaučera. Obyčno on ukazan v čeke ili v soobsčenii.";
+"voucher_explanation_ex" = "Obratite vnimanie, čto vaučery mogut istekatí i vospolízovatísja imi možno tolíko odin raz.";
+"invalid_voucher" = "Vaučer nedejstvitelínyj";
+"voucher_bad" = "Vozmožno, vy vveli nevernyj serijnyj nomer, uže ispolízovali dannyj vaučer ili že on prosto istjok.";
+"voucher_good" = "Vaučer aktivirovan";
+"voucher_redeemed" = "Vaučer byl uspešno aktivirovan. Vam budut načisleny golosa, no etim kodom vy bolíše ne smožete aktivirovatí ego.";
+"redeem" = "Aktivirovatí vaučer";
+"deactivate" = "Deaktivirovatí";
+"usages_total" = "Količestvo ispolízovanij";
+"usages_left" = "Ostalosí ispolízovanij";
+"points_transfer_dialog_header_1" = "Vy možete otpravití v podarok ili peredatí častí golosov drugomu čeloveku.";
+"points_transfer_dialog_header_2" = "Vaš tekusčij balans:";
+"points_amount_one" = "1 golos";
+"points_amount_few" = "$1 golosa";
+"points_amount_many" = "$1 golosov";
+"points_amount_other" = "$1 golosov";
+"transfer_poins" = "Peredača golosov";
+"transfer_poins_button" = "Peredatí golosa";
+"also_you_can_transfer_points" = "Takže vy možete <a href=\"javascript:showCoinsTransferDialog($1, '$2')\">peredatí golosa</a> drugomu čeloveku.";
+"transferred_to_you" = "peredal vam";
+"transfer_trough_ton" = "Popolnití s pomosčíju TON";
+"transfer_ton_contents" = "Vy možete popolnití vaš balans s pomosčíju kriptovaljuty TON. Dostatočno otskanirovatí QR-code priloženiem Tonkeeper, ili vručnuju otpravití TON po rekvizitam. V tečenie neskolíkih minut vam pridut opredelennoe količestvo golosov.";
+"transfer_ton_address" = "<b>Adres košelíka:</b> $1<br/><b>Soderžanie soobsčenija:</b> $2";
+"transfer_ton_currency_per_ton" = "$1 TON";
+"receiver_address" = "Adres polučatelja";
+"coins_count" = "Količestvo golosov";
+"message" = "Soobsčenie";
+"failed_to_tranfer_points" = "Ne udalosí peredatí golosa";
+"points_transfer_successful" = "Vy uspešno peredali <b>$1 <a href=\"$2\">$3</a></b>.";
+"not_all_information_has_been_entered" = "Vvedena ne vsja informacija.";
+"negative_transfer_value" = "My ne možem ukrastí golosa u drugogo čeloveka, izvinite.";
+"message_is_too_long" = "Soobsčenie sliškom dlinnoe.";
+"receiver_not_found" = "Polučatelí ne najden.";
+"you_dont_have_enough_points" = "U vas nedostatočno golosov.";
+"increase_rating" = "Povysití rejting";
+"increase_rating_button" = "Povysití";
+"to_whom" = "Komu";
+"increase_by" = "Povysití na";
+"price" = "Stoimostí";
+"you_have_unused_votes" = "U Vas $1 neispolízovannyh golosa na balanse.";
+"apply_voucher" = "Primenití vaučer";
+"failed_to_increase_rating" = "Ne udalosí povysití rejting";
+"rating_increase_successful" = "Vy uspešno povysyli rejting <b><a href=\"$1\">$2</a></b> na <b>$3%</b>.";
+"negative_rating_value" = "My ne možem ukrastí rejting u drugogo čeloveka, izvinite.";
+"increased_your_rating_by" = "povysil vaš rejting na";
+
+/* Gifts */
+
+"gift" = "Podarok";
+"gifts" = "Podarki";
+"gifts_zero" = "Net podarkov";
+"gifts_one" = "Odin podarok";
+"gifts_few" = "$1 podarka";
+"gifts_many" = "$1 podarkov";
+"gifts_other" = "$1 podarkov";
+"gifts_left" = "Podarkov ostalosí: $1";
+"gifts_left_one" = "Odin podarok ostalsja";
+"gifts_left_few" = "$1 podarka ostalosí";
+"gifts_left_many" = "$1 podarkov ostalosí";
+"gifts_left_other" = "$1 podarkov ostalosí";
+"send_gift" = "Otpravití podarok";
+"gift_select" = "Vybratí podarok";
+"collections" = "Kollekcii";
+"confirm" = "Podtverždenie";
+"as_anonymous" = "Anonimno";
+"gift_your_message" = "Vaše soobsčenie";
+"free_gift" = "Besplatno";
+"coins" = "Golosa";
+"coins_zero" = "0 golosov";
+"coins_one" = "Odin golos";
+"coins_few" = "$1 golosa";
+"coins_many" = "$1 golosov";
+"coins_other" = "$1 golosov";
+"users_gifts" = "Podarki";
+
+/* Apps */
+"app" = "Priloženie";
+"apps" = "Priloženija";
+"my_apps" = "Moi Priloženija";
+"all_apps" = "Vse priloženija";
+"installed_apps" = "Moi priloženija";
+"own_apps" = "Upravlenie";
+"own_apps_alternate" = "Moi priloženija";
+"app_play" = "zapustití";
+"app_uninstall" = "otključití";
+"app_edit" = "redaktirovatí";
+"app_dev" = "Razrabotčik";
+"create_app" = "Sozdatí priloženie";
+"edit_app" = "Redaktirovatí priloženie";
+"new_app" = "Novoe priloženie";
+"app_news" = "Zametka s novostjami";
+"app_state" = "Sostojanie";
+"app_enabled" = "Vključeno";
+"app_creation_hint_url" = "Ukažite v URL točnyj adres vmeste so shemoj (https), portom (80) i nužnymi parametrami zaprosa.";
+"app_creation_hint_iframe" = "Vaše priloženie budet otkryto v iframe.";
+"app_balance" = "Na sčetu vašego priloženija <b>$1</b> golosov.";
+"app_users" = "Vašim priloženiem polízujutsja <b>$1</b> čelovek.";
+"app_withdrawal_q" = "vyvesti?";
+"app_withdrawal" = "Vyvod sredstv";
+"app_withdrawal_empty" = "Ne udalosí vyvesti pustotu, izvinite.";
+"app_withdrawal_created" = "Zajavka na vyvod $1 golosov byla sozdana. Ožidajte začislenija.";
+"appjs_payment" = "Oplata pokupki";
+"appjs_payment_intro" = "Vy sobiraetesí oplatití zakaz v priloženii";
+"appjs_order_items" = "Sostav zakaza";
+"appjs_payment_total" = "Itogovaja summa k oplate";
+"appjs_payment_confirm" = "Oplatití";
+"appjs_err_funds" = "Ne udalosí oplatití pokupku: nedostatočno sredstv.";
+"appjs_wall_post" = "Opublikovatí zapisí";
+"appjs_wall_post_desc" = "hočet opublikovatí na Vašej stene zapisí";
+"appjs_act_friends" = "vašim Druzíjam";
+"appjs_act_friends_desc" = "dobavljatí polízovatelej v druzíja i čitatí Vaš spisok druzej";
+"appjs_act_wall" = "vašej Stene";
+"appjs_act_wall_desc" = "smotretí Vaši novosti, Vašu stenu i sozdavatí na nej zapisi";
+"appjs_act_messages" = "vašim Soobsčenijam";
+"appjs_act_messages_desc" = "čitatí i pisatí ot Vašego imeni soobsčenija";
+"appjs_act_groups" = "vašim Soobsčestvam";
+"appjs_act_groups_desc" = "smotretí spisok Vaših grupp i podpisyvatí vas na drugie";
+"appjs_act_likes" = "funkcionalu Lajkov";
+"appjs_act_likes_desc" = "stavití i ubiratí otmetki \"Mne nravitsja\" s zapisej";
+"appjs_act_request" = "Zapros dostupa";
+"appjs_act_requests" = "zaprašivaet dostup k";
+"appjs_act_can" = "Priloženie smožet";
+"appjs_act_allow" = "Razrešití";
+"appjs_act_disallow" = "Ne razrešatí";
+"app_uninstalled" = "Priloženie otključeno";
+"app_uninstalled_desc" = "Ono bolíše ne smožet vypolnjatí dejstvija ot Vašego imeni.";
+"app_err_not_found" = "Priloženie ne najdeno";
+"app_err_not_found_desc" = "Nekorrektnyj identifikator ili ono bylo otključeno.";
+"app_err_forbidden_desc" = "Eto priloženie ne Vaše.";
+"app_err_url" = "Nepravilínyj adres";
+"app_err_url_desc" = "Adres priloženija ne prošjol proverku, ubeditesí čto on ukazan pravilíno.";
+"app_err_ava" = "Ne udalosí zagruzití avatarku";
+"app_err_ava_desc" = "Avatarka sliškom bolíšaja ili krivaja: ošibka obsčego haraktera №$res.";
+"app_err_note" = "Ne udalosí prikrepití novostnuju zametku";
+"app_err_note_desc" = "Ubeditesí, čto ssylka pravilínaja i zametka prinadležit Vam.";
+
+"learn_more" = "Podrobnee";
+
+/* Support */
+
+"support_opened" = "Otkrytye";
+"support_answered" = "S otvetom";
+"support_closed" = "Zakrytye";
+"support_ticket" = "Obrasčenie";
+"support_tickets" = "Obrasčenija";
+"support_status_0" = "Vopros na rassmotrenii";
+"support_status_1" = "Estí otvet";
+"support_status_2" = "Zakryto";
+"support_greeting_hi" = "Zdravstvujte, $1!";
+"support_greeting_regards" = "S uvaženiem,<br/>komanda podderžki $1.";
+"support_faq" = "Často zadavaemye voprosy";
+"support_list" = "Spisok obrasčenij";
+"support_new" = "Novoe obrasčenie";
+"support_new_title" = "Vvedite temu vašego obrasčenija";
+"support_new_content" = "Opišite problemu ili predloženie";
+
+
+"support_rate_good_answer" = "Eto horošij otvet";
+"support_rate_bad_answer" = "Eto plohoj otvet";
+"support_good_answer_user" = "Vy ostavili položitelínyj otzyv.";
+"support_bad_answer_user" = "Vy ostavili negativnyj otzyv.";
+"support_good_answer_agent" = "Polízovatelí ostavil položitelínyj otzyv.";
+"support_bad_answer_agent" = "Polízovatelí ostavil negativnyj otzyv";
+"support_rated_good" = "Vy ostavili položitelínyj otzyv ob otvete.";
+"support_rated_bad" = "Vy ostavili negativnyj otzyv ob otvete.";
+"wrong_parameters" = "Nevernye parametry zaprosa.";
+"fast_answers" = "Bystrye otvety";
+
+"reports" = "Žaloby";
+"ignore_report" = "Ignorirovatí žalobu";
+"report_number" = "Žaloba №";
+"list_of_reports" = "Spisok žalob";
+"text_of_the_post" = "Tekst zapisi";
+"today" = "segodnja";
+
+"will_be_watched" = "Skoro ejo rassmotrjat moderatory";
+
+"report_question" = "Požalovatísja?";
+"report_question_text" = "Čto imenno vam kažetsja nedopustimym v etom materiale?";
+"report_reason" = "Pričina žaloby";
+"reason" = "Pričina";
+"going_to_report_app" = "Vy sobiraetesí požalovatísja na dannoe priloženie.";
+"going_to_report_club" = "Vy sobiraetesí požalovatísja na dannoe soobsčestvo.";
+"going_to_report_photo" = "Vy sobiraetesí požalovatísja na dannuju fotografiju.";
+"going_to_report_user" = "Vy sobiraetesí požalovatísja na dannogo polízovatelja.";
+"going_to_report_video" = "Vy sobiraetesí požalovatísja na dannuju videozapisí.";
+"going_to_report_post" = "Vy sobiraetesí požalovatísja na dannuju zapisí.";
+"going_to_report_comment" = "Vy sobiraetesí požalovatísja na dannyj kommentarij.";
+
+"comment" = "Kommentarij";
+"sender" = "Otpravitelí";
+"author" = "Avtor";
+"you_have_not_entered_text" = "Vy ne vveli tekst";
+"you_have_not_entered_name_or_text" = "Vy ne vveli imja ili tekst";
+"ticket_changed" = "Tiket izmenjon";
+"ticket_changed_comment" = "Izmenenija vstupjat silu čerez neskolíko sekund.";
+"banned_in_support_1" = "Izvinite, <b>$1</b>, no teperí vam nelízja sozdavatí obrasčenija.";
+"banned_in_support_2" = "A pričina etomu prosta: <b>$1</b>. K sožaleniju, na etot raz nam prišlosí otobratí u vas etu vozmožností navsegda.";
+"you_can_close_this_ticket_1" = "Esli u Vas bolíše net voprosov, Vy možete ";
+"you_can_close_this_ticket_2" = "zakrytí etot tiket";
+"agent_profile_created_1" = "Profilí sozdan";
+"agent_profile_created_2" = "Teperí polízovateli vidjat Vaši psevdonim i avatarku vmesto standartnyh avatarki i nomera.";
+"agent_profile_edited" = "Profilí otredaktirovan";
+"agent_profile" = "Kartočka agenta";
+
+/* Invite */
+
+"invite" = "Priglasití";
+"you_can_invite" = "Vy možete priglasití svoih druzej ili znakomyh v setí s pomosčíju individualínoj ssylki:";
+"you_can_invite_2" = "Priložite etu ssylku k vašemu soobsčeniju. Polízovatelí zaregistriruetsja, i on srazu pojavitsja u vas v druzíjah.";
+
+/* Banned */
+
+"banned_title" = "Vam ban";
+"banned_header" = "Vy byli veriskoknuty";
+"banned_alt" = "Polízovatelí zablokirovan.";
+"banned_1" = "Izvinite, <b>$1</b>, no vy byli veriskoknuty.";
+"banned_2" = "A pričina etomu prosta: <b>$1</b>.";
+"banned_perm" = "K sožaleniju, na etot raz nam prišlosí zablokirovatí vas navsegda.";
+"banned_until_time" = "Na etot raz nam prišlosí zablokirovatí vas do <b>$1</b>";
+"banned_3" = "Vy vsjo esčjo možete <a href=\"/support?act=new\">napisatí v službu podderžki</a>, esli sčitaete čto proizošla ošibka ili <a href=\"/logout?hash=$1\">vyjti</a>.";
+"banned_unban_myself" = "Razmorozití stranicu";
+"banned_unban_title" = "Vaš akkaunt razblokirovan";
+"banned_unban_description" = "Postarajtesí bolíše ne narušatí pravila.";
+
+/* Registration confirm */
+
+"ec_header" = "Podtverždenie registracii";
+"ec_title" = "Spasibo!";
+"ec_1" = "<b>$1</b>, vaša registracija počti zakončena. V tečenie neskolíkih minut na vaš adres E-mail dolžno prijti pisímo so ssylkoj dlja podtverždenija vašego adresa počty.";
+"ec_2" = "Esli po kakim-to pričinam vam ne prišlo pisímo, to proveríte papku Spam. Esli pisíma ne okažetsja i tam, to vy možete pereotpravití pisímo.";
+"ec_resend" = "Pereotpravití pisímo";
+
+/* Messages */
+
+"all_messages" = "Vse soobsčenija";
+"search_messages" = "Poisk soobsčenij";
+"no_messages" = "Nikto Vam ne pisal, poka čto.";
+"messages_blocked" = "Vy ne možete otpravití soobsčenie etomu polízovatelju, poskolíku on ograničil krug lic, kotorye mogut prisylatí emu soobsčenija.";
+"enter_message" = "Vvedite soobsčenie";
+"messages_error_1" = "Soobsčenie ne dostavleno";
+"messages_error_1_description" = "Pri otpravke etogo soobsčenija proizošla ošibka obsčego haraktera...";
+
+/* Polls */
+"poll" = "Opros";
+"create_poll" = "Novyj opros";
+"poll_title" = "Tema oprosa";
+"poll_add_option" = "Dobavití variant otveta...";
+"poll_anonymous" = "Anonimnyj opros";
+"poll_multiple" = "Množestvennyj vybor";
+"poll_locked" = "Zapretití otmenjatí svoj golos";
+"poll_edit_expires" = "Golosovanie istekaet čerez: ";
+"poll_edit_expires_days" = "dnej";
+"poll_editor_tips" = "Nažatie Backspace v pustom variante privodit k ego udaleniju. Tab/Enter v poslednem dobavljaet novyj.";
+"poll_embed" = "Polučití kod";
+"poll_voter_count_zero" = "Budíte <b>pervym</b>, kto progolosuet!";
+"poll_voter_count_one" = "V oprose progolosoval <b>odin</b> čelovek.";
+"poll_voter_count_few" = "V oprose progolosovalo <b>$1</b> čeloveka.";
+"poll_voter_count_many" = "V oprose progolosovalo <b>$1</b> čelovek.";
+"poll_voter_count_other" = "V oprose progolosovalo <b>$1</b> čelovek.";
+"poll_voters_list" = "Spisok progolosovavših";
+"poll_anon" = "Anonimnoe golosovanie";
+"poll_public" = "Publičnoe golosovanie";
+"poll_multi" = "mnogo variantov";
+"poll_lock" = "nelízja peregolosovatí";
+"poll_until" = "do $1";
+"poll_err_to_much_options" = "Sliškom mnogo variantov v oprose.";
+"poll_err_anonymous" = "Nevozmožno prosmotretí spisok progolosovavših v anonimnom golosovanii.";
+"cast_vote" = "Progolosovatí!";
+"retract_vote" = "Otmenití golos";
+
+/* Discussions */
+
+"discussions" = "Obsuždenija";
+"messages_one" = "Odno soobsčenie";
+"messages_few" = "$1 soobsčenija";
+"messages_many" = "$1 soobsčenij";
+"messages_other" = "$1 soobsčenij";
+"topic_messages_count_zero" = "V teme net soobsčenij";
+"topic_messages_count_one" = "V teme odno soobsčenie";
+"topic_messages_count_few" = "V teme $1 soobsčenija";
+"topic_messages_count_many" = "V teme $1 soobsčenij";
+"topic_messages_count_other" = "V teme $1 soobsčenij";
+"replied" = "otvetil";
+"create_topic" = "Sozdatí temu";
+"new_topic" = "Novaja tema";
+"title" = "Zagolovok";
+"text" = "Tekst";
+"view_topic" = "Prosmotr temy";
+"edit_topic_action" = "Redaktirovatí temu";
+"edit_topic" = "Redaktirovanie temy";
+"topic_settings" = "Nastrojki temy";
+"pin_topic" = "Zakrepití temu";
+"close_topic" = "Zakrytí temu";
+"delete_topic" = "Udalití temu";
+"topics_one" = "Odna tema";
+"topics_few" = "$1 temy";
+"topics_many" = "$1 tema";
+"topics_other" = "$1 tem";
+"created" = "Sozdano";
+"everyone_can_create_topics" = "Vse mogut sozdavatí temy";
+"display_list_of_topics_above_wall" = "Otobražatí spisok tem nad stenoj";
+"topic_changes_saved_comment" = "Obnovljonnyj zagolovok i nastrojki pojavjatsja na stranice s temoj.";
+"failed_to_create_topic" = "Ne udalosí sozdatí temu";
+"failed_to_change_topic" = "Ne udalosí izmenití temu";
+"no_title_specified" = "Zagolovok ne ukazan.";
+
+/* Errors */
+
+"error_1" = "Nekorrektnyj zapros";
+"error_2" = "Nevernyj login ili parolí";
+"error_3" = "Ne avtorizovan";
+"error_4" = "Polízovatelí ne susčestvuet";
+"information_-1" = "Operacija vypolnena uspešno";
+"information_-2" = "Vhod vypolnen uspešno";
+"no_data" = "Net dannyh";
+"no_data_description" = "Tut ničego net... Poka...";
+"error" = "Ošibka";
+"error_shorturl" = "Dannyj korotkij adres uže zanjat.";
+"error_segmentation" = "Ošibka segmentacii";
+"error_upload_failed" = "Ne udalosí zagruzití foto";
+"error_old_password" = "Staryj parolí ne sovpadaet";
+"error_new_password" = "Novye paroli ne sovpadaet";
+"error_weak_password" = "Nenadjožnyj parolí. Parolí dolžen soderžatí ne menee 8 simvolov, cifry, propisnye i stročnye bukvy";
+"error_shorturl_incorrect" = "Korotkij adres imeet nekorrektnyj format.";
+"error_repost_fail" = "Ne udalosí podelitísja zapisíju";
+"error_data_too_big" = "Attribut '$1' ne možet bytí dlinnee $2 $3";
+"forbidden" = "Ošibka dostupa";
+"unknown_error" = "Neizvestnaja ošibka";
+"forbidden_comment" = "Nastrojki privatnosti etogo polízovatelja ne razrešajut vam smotretí na ego stranicu.";
+"changes_saved" = "Izmenenija sohraneny";
+"changes_saved_comment" = "Novye dannye pojavjatsja na vašej stranice";
+"photo_saved" = "Fotografija sohranena";
+"photo_saved_comment" = "Novoe izobraženie profilja pojavitsja u vas na stranice";
+"shared_succ" = "Zapisí pojavitsja na vašej stene. Nažmite na uvedomlenie, čtoby perejti k svoej stene.";
+"invalid_email_address" = "Nevernyj Email adres";
+"invalid_email_address_comment" = "Email, kotoryj vy vveli, ne javljaetsja korrektnym.";
+"invalid_real_name" = "Požalujsta, ispolízujte realínye imena. Tak vašim druzíjam budet legče najti vas.";
+"invalid_telegram_name" = "Nevernoe imja Telegram akkaunta";
+"invalid_telegram_name_comment" = "Vy vveli nevernoe imja akkaunta Telegram.";
+"invalid_birth_date" = "Nevernaja data roždenija";
+"invalid_birth_date_comment" = "Data roždenija, kotoruju vy vveli, ne javljaetsja korrektnoj.";
+"token_manipulation_error" = "Ošibka manipulirovanija tokenom";
+"token_manipulation_error_comment" = "Token nedejstvitelen ili istjok";
+"profile_changed" = "Profilí izmenjon";
+"profile_changed_comment" = "Vaš aktivnyj profilí byl izmenjon.";
+"profile_not_found" = "Polízovatelí ne najden.";
+"profile_not_found_text" = "Stranica udalena libo esčjo ne sozdana.";
+"suspicious_registration_attempt" = "Podozritelínaja popytka registracii";
+"suspicious_registration_attempt_comment" = "Vy pytalisí zaregistrirovatísja iz podozritelínogo mesta.";
+"rate_limit_error" = "Ej, sbaví oboroty!";
+"rate_limit_error_comment" = "Daniil Myslivec vam očení nedovolen. V $1 nelízja delatí zaprosy tak často. Kod isključenija: $2.";
+"not_enough_permissions" = "Nedostatočno prav";
+"not_enough_permissions_comment" = "U vas nedostatočno prav čtoby vypolnjatí eto dejstvie.";
+"login_required_error" = "Nedostatočno prav";
+"login_required_error_comment" = "Čtoby prosmatrivatí etu stranicu, nužno zajti na sajt.";
+"captcha_error" = "Nepravilíno vvedeny simvoly";
+"captcha_error_comment" = "Požalujsta, ubeditesí, čto vy pravilíno zapolnili pole s kapčej.";
+"failed_to_publish_post" = "Ne udalosí opublikovatí post";
+"failed_to_delete_post" = "Ne udalosí udalití post";
+"media_file_corrupted" = "Fajl mediakontenta povreždjon.";
+"media_file_corrupted_or_too_large" = "Fajl mediakontenta povreždjon ili sliškom velik.";
+"post_is_empty_or_too_big" = "Post pustoj ili sliškom bolíšoj.";
+"post_is_too_big" = "Post sliškom bolíšoj.";
+"error_sending_report" = "Ne udalosí podatí žalobu...";
+"error_when_saving_gift" = "Ne udalosí sohranití podarok";
+"error_when_saving_gift_bad_image" = "Izobraženie podarka krivoe.";
+"error_when_saving_gift_no_image" = "Požalujsta, zagruzite izobraženie podarka.";
+"video_uploads_disabled" = "Zagruzki video otključeny administratorom.";
+
+"error_when_publishing_comment" = "Ne udalosí opublikovatí kommentarij";
+"error_when_publishing_comment_description" = "Fajl izobraženija povreždjon, sliškom velik ili odna storona izobraženija v razy bolíše drugoj.";
+"error_comment_empty" = "Kommentarij pustoj ili sliškom bolíšoj.";
+"error_comment_too_big" = "Kommentarij sliškom bolíšoj.";
+"error_comment_file_too_big" = "Fajl mediakontenta povreždjon ili sliškom velik.";
+
+"comment_is_added" = "Kommentarij dobavlen";
+"comment_is_added_desc" = "Vaš kommentarij pojavitsja na stranice.";
+
+"error_access_denied_short" = "Ošibka dostupa";
+"error_access_denied" = "U vas nedostatočno prav, čtoby redaktirovatí etot resurs";
+"success" = "Uspešno";
+"comment_will_not_appear" = "Etot kommentarij bolíše ne budet pokazyvatsja.";
+
+"error_when_gifting" = "Ne udalosí podarití";
+"error_user_not_exists" = "Polízovatelí ili nabor ne susčestvujut.";
+"error_no_rights_gifts" = "Ne udalosí podtverdití prava na podarok.";
+"error_no_more_gifts" = "U vas bolíše ne ostalosí takih podarkov.";
+"error_no_money" = "Oru nisč ne puk.";
+
+"gift_sent" = "Podarok otpravlen";
+"gift_sent_desc" = "Vy otpravili podarok <b>$1</b> za $2 golosov";
+
+"error_on_server_side" = "Proizošla ošibka na storone servera. Obratitesí k sistemnomu administratoru.";
+"error_no_group_name" = "Vy ne vveli nazvanie gruppy.";
+
+"success_action" = "Operacija uspešna";
+"connection_error" = "Ošibka podključenija";
+"connection_error_desc" = "Ne udalosí podključitsja k službe telemetrii.";
+
+"error_when_uploading_photo" = "Ne udalosí sohranití fotografiju.";
+
+"new_changes_desc" = "Novye dannye pojavjatsja v vašej gruppe.";
+"comment_is_changed" = "Kommentarij k administratoru izmenjon";
+"comment_is_deleted" = "Kommentarij k administratoru udalen";
+"comment_is_too_long" = "Kommentarij sliškom dlinnyj ($1 simvolov vmesto 36 simvolov)";
+"x_no_more_admin" = "$1 bolíše ne administrator.";
+"x_is_admin" = "$1 naznačen(a) administratorom.";
+
+"x_is_now_hidden" = "Teperí $1 budet pokazyvatísja kak obyčnyj podpisčik vsem, krome drugih administratorov";
+"x_is_now_showed" = "Teperí vse budut znatí, čto $1 — administrator.";
+
+"note_is_deleted" = "Zametka udalena";
+"note_x_is_now_deleted" = "Zametka \"$1\" byla uspešno udalena.";
+"new_data_accepted" = "Novye dannye prinjaty.";
+
+"album_is_deleted" = "Alíbom udaljon";
+"album_x_is_deleted" = "Alíbom $1 byl uspešno udaljon.";
+
+"error_adding_to_deleted" = "Ne udalosí sohranití fotografiju v <b>DELETED</b>.";
+"error_adding_to_x" = "Ne udalosí sohranití fotografiju v <b>$1</b>.";
+"no_photo" = "Netu fotografii";
+
+"select_file" = "Vyberite fajl";
+"new_description_will_appear" = "Obnovljonnoe opisanie pojavitsja na stranice s fotkoj.";
+"photo_is_deleted" = "Fotografija udalena";
+"photo_is_deleted_desc" = "Eta fotografija byla uspešno udalena.";
+
+"no_video" = "Net videozapisi";
+"no_video_desc" = "Vyberite fajl ili ukažite ssylku.";
+"error_occured" = "Proizošla ošibka";
+"error_video_damaged_file" = "Fajl povreždjon ili ne soderžit video.";
+"error_video_incorrect_link" = "Vozmožno, ssylka nekorrektna.";
+"error_video_no_title" = "Video ne možet bytí opublikovano bez nazvanija.";
+
+"new_data_video" = "Obnovljonnoe opisanie pojavitsja na stranice s video.";
+"error_deleting_video" = "Ne udalosí udalití video";
+"login_please" = "Vy ne vošli v akkaunt.";
+"invalid_code" = "Ne udalosí podtverdití nomer telefona: nevernyj kod.";
+
+"error_max_pinned_clubs" = "Nahoditsja v levom menju mogut maksimum 10 grupp";
+"error_viewing_subs" = "Vy ne možete prosmatrivatí polnyj spisok podpisok $1.";
+"error_status_too_long" = "Status sliškom dlinnyj ($1 simvolov vmesto 255 simvolov)";
+"death" = "Smertí...";
+"nehay" = "Nehaj žive!";
+"user_successfully_banned" = "Polízovatelí uspešno zabanen.";
+
+"content_is_deleted" = "Kontent udaljon, a polízovatelju priletelo predupreždenie.";
+"report_is_ignored" = "Žaloba proignorirovana.";
+"group_owner_is_banned" = "Sozdatelí soobsčestva uspešno zabanen.";
+"group_is_banned" = "Soobsčestvo uspešno zabaneno";
+"description_too_long" = "Opisanie sliškom dlinnoe.";
+
+/* Admin actions */
+
+"login_as" = "Vojti kak $1";
+"manage_user_action" = "Upravlenie polízovatelem";
+"manage_group_action" = "Upravlenie gruppoj";
+"ban_user_action" = "Zablokirovatí polízovatelja";
+"blocks" = "Blokirovki";
+"last_actions" = "Poslednie dejstvija";
+"unban_user_action" = "Razblokirovatí polízovatelja";
+"warn_user_action" = "Predupredití polízovatelja";
+"ban_in_support_user_action" = "Zablokirovatí v podderžke";
+"unban_in_support_user_action" = "Razblokirovatí v podderžke";
+"changes_history" = "Istorija redaktirovanija";
+
+/* Admin panel */
+
+"admin" = "Admin-panelí";
+"sandbox_for_developers" = "Sandbox dlja razrabotčikov";
+"admin_ownerid" = "ID vladelíca";
+"admin_author" = "Avtor";
+"admin_name" = "Imja";
+"admin_title" = "Nazvanie";
+"admin_description" = "Opisanie";
+"admin_first_known_ip" = "Pervyj IP";
+"admin_shortcode" = "Korotkij adres";
+"admin_verification" = "Verifikacija";
+"admin_banreason" = "Pričina blokirovki";
+"admin_banned" = "zablokirovan";
+"admin_actions" = "Dejstvija";
+"admin_image" = "Izobraženie";
+"admin_image_replace" = "Zamenití izobraženie?";
+"admin_uses" = "Ispolízovanij";
+"admin_uses_reset" = "Sbrosití količestvo ispolízovanij?";
+"admin_limits" = "Ograničenija";
+"admin_limits_reset" = "Sbrosití količestvo ograničenij";
+"admin_open" = "Otkrytí";
+"admin_loginas" = "Vojti kak...";
+"admin_commonsettings" = "Obsčie nastrojki";
+"admin_langsettings" = "Jazyko-zavisimye nastrojki";
+"admin_tab_main" = "Glavnoe";
+"admin_tab_ban" = "Blokirovka";
+"admin_tab_followers" = "Učastniki";
+"admin_overview" = "Obzor";
+"admin_overview_summary" = "Svodka";
+"admin_content" = "Polízovatelískij kontent";
+"admin_user_search" = "Poisk polízovatelej";
+"admin_user_online" = "Onlajn status";
+"admin_user_online_default" = "Po-umolčaniju";
+"admin_user_online_incognito" = "Inkognito";
+"admin_user_online_deceased" = "Pokojnik";
+"admin_club_search" = "Poisk grupp";
+"admin_club_excludeglobalfeed" = "Ne otobražatí zapisi v globalínoj lente";
+"admin_services" = "Platnye uslugi";
+"admin_newgift" = "Novyj podarok";
+"admin_price" = "Cena";
+"admin_giftset" = "Nabor podarkov";
+"admin_giftsets" = "Nabory podarkov";
+"admin_giftsets_none" = "Net naborov podarkov. Sozdajte nabor, čtoby sozdatí podarok.";
+"admin_giftsets_create" = "Sozdatí nabor podarkov";
+"admin_giftsets_title" = "Vnutrennee nazvanie nabora, kotoroe budet ispolízovatísja, esli ne udajotsja najti nazvanie na jazyke polízovatelja.";
+"admin_giftsets_description" = "Vnutrennee opisanie nabora, kotoroe budet ispolízovatísja, esli ne udajotsja najti nazvanie na jazyke polízovatelja.";
+"admin_price_free" = "besplatnyj";
+"admin_voucher_rating" = "Rejting";
+"admin_voucher_serial" = "Serijnyj nomer";
+"admin_voucher_serial_desc" = "Nomer sostoit iz 24 simvolov. Esli format nepravilínyj ili pole ne zapolneno, budet naznačen avtomatičeski.";
+"admin_voucher_coins" = "Količestvo golosov";
+"admin_voucher_rating_number" = "Količestvo rejtinga";
+"admin_voucher_usages_desc" = "Količestvo akkauntov, kotorye mogut ispolízovatí vaučer. Esli napisatí -1, budet beskonečností.";
+"admin_voucher_status" = "Sostojanie";
+"admin_voucher_status_opened" = "aktiven";
+"admin_voucher_status_closed" = "zakončilsja";
+"admin_settings" = "Nastrojki";
+"admin_settings_tuning" = "Obsčee";
+"admin_settings_appearance" = "Vnešnij vid";
+"admin_settings_security" = "Bezopasností";
+"admin_settings_integrations" = "Integracii";
+"admin_settings_system" = "Sistema";
+"admin_about" = "Ob OpenVK";
+"admin_about_version" = "Versija";
+"admin_about_instance" = "Instancija";
+"admin_commerce_disabled" = "Kommercija otključena sistemnym administratorom";
+"admin_commerce_disabled_desc" = "Nastrojki vaučerov i podarkov budut sohraneny, no ne budut okazyvatí nikakogo vlijanija.";
+"admin_banned_links" = "Zablokirovannye ssylki";
+"admin_banned_link" = "Ssylka";
+"admin_banned_domain" = "Domen";
+"admin_banned_link_description" = "S protokolom (https://example.com/)";
+"admin_banned_link_regexp" = "Reguljarnoe vyraženie";
+"admin_banned_link_regexp_description" = "Podstavljaetsja posle domena, ukazannogo vyše. Ne zapolnjajte, esli hotite zablokirovatí vesí domen";
+"admin_banned_link_reason" = "Pričina";
+"admin_banned_link_initiator" = "Iniciator";
+"admin_banned_link_not_specified" = "Ssylka ne ukazana";
+"admin_banned_link_not_found" = "Ssylka ne najdena";
+
+"admin_gift_moved_successfully" = "Podarok uspešno peremesčjon";
+"admin_gift_moved_to_recycle" = "Teperí podarok nahoditsja v <b>korzine</b>.";
+
+"logs" = "Logi";
+"logs_anything" = "Ljuboe";
+"logs_adding" = "Sozdanie";
+"logs_editing" = "Redaktirovanie";
+"logs_removing" = "Udalenie";
+"logs_restoring" = "Vosstanovlenie";
+"logs_added" = "dobavil";
+"logs_edited" = "otredaktiroval";
+"logs_removed" = "udalil";
+"logs_restored" = "vosstanovil";
+"logs_id_post" = "ID zapisi";
+"logs_id_object" = "ID objekta";
+"logs_uuid_user" = "UUID polízovatelja";
+"logs_change_type" = "Tip izmenenija";
+"logs_change_object" = "Tip objekta";
+
+"logs_user" = "Polízovatelí";
+"logs_object" = "Objekt";
+"logs_type" = "Tip";
+"logs_changes" = "Izmenenija";
+"logs_time" = "Vremja";
+
+"bans_history" = "Istorija blokirovok";
+"bans_history_blocked" = "Zabanennyj";
+"bans_history_initiator" = "Iniciator";
+"bans_history_start" = "Načalo";
+"bans_history_end" = "Konec";
+"bans_history_time" = "Vremja";
+"bans_history_reason" = "Pričina";
+"bans_history_start" = "Načalo";
+"bans_history_removed" = "Snjata";
+"bans_history_active" = "Aktivnaja blokirovka";
+
+/* Paginator (deprecated) */
+
+"paginator_back" = "Nazad";
+"paginator_page" = "Stranica $1";
+"paginator_next" = "Dalíše";
+
+/* About */
+
+"about_openvk" = "Ob OpenVK";
+"about_this_instance" = "Ob etoj instancii";
+"rules" = "Pravila";
+"most_popular_groups" = "Samye populjarnye gruppy";
+"on_this_instance_are" = "Na etoj instancii:";
+"about_links" = "Ssylki";
+"instance_links" = "Ssylki instancii:";
+"about_users_one" = "<b>1</b> polízovatelí";
+"about_users_few" = "<b>$1</b> polízovatelja";
+"about_users_many" = "<b>$1</b> polízovatelej";
+"about_users_other" = "<b>$1</b> polízovatelej";
+"about_online_users_one" = "<b>1</b> polízovatelí v seti";
+"about_online_users_few" = "<b>$1</b> polízovatelja v seti";
+"about_online_users_many" = "<b>$1</b> polízovatelej v seti";
+"about_online_users_other" = "<b>$1</b> polízovatelej v seti";
+"about_active_users_one" = "<b>1</b> aktivnyj polízovatelí";
+"about_active_users_few" = "<b>$1</b> aktivnyh polízovatelja";
+"about_active_users_many" = "<b>$1</b> aktivnyh polízovatelej";
+"about_active_users_other" = "<b>$1</b> aktivnyh polízovatelej";
+"about_groups_one" = "<b>1</b> gruppa";
+"about_groups_few" = "<b>$1</b> gruppy";
+"about_groups_many" = "<b>$1</b> grupp";
+"about_groups_other" = "<b>$1</b> grupp";
+"about_wall_posts_one" = "<b>1</b> zapisí na stenah";
+"about_wall_posts_few" = "<b>$1</b> zapisi na stenah";
+"about_wall_posts_many" = "<b>$1</b> zapisej na stenah";
+"about_wall_posts_other" = "<b>$1</b> zapisej na stenah";
+"about_watch_rules" = "Smotrite <a href='$1'>zdesí</a>.";
+
+/* Dialogs */
+
+"ok" = "OK";
+"yes" = "Da";
+"no" = "Net";
+"cancel" = "Otmena";
+"edit_action" = "Izmenití";
+"transfer" = "Peredatí";
+"close" = "Zakrytí";
+"warning" = "Vnimanie";
+"question_confirm" = "Eto dejstvie nelízja otmenití. Vy dejstvitelíno uvereny v tom čto hotite sdelatí?";
+"confirm_m" = "Podtverdití";
+"action_successfully" = "Operacija uspešna";
+
+/* User alerts */
+
+"user_alert_scam" = "Na etot akkaunt mnogo žalovalisí v svjazi s mošenničestvom. Požalujsta, budíte ostorožny, osobenno esli u vas poprosjat deneg.";
+"user_may_not_reply" = "Etot polízovatelí, vozmožno, vam ne smožet otvetití iz-za vaših nastroek privatnosti. <a href='/settings?act=privacy'>Otkrytí nastrojki privatnosti</a>";
+
+/* Cookies pop-up */
+
+"cookies_popup_content" = "Vse deti ljubjat pečeníe, poetomu etot veb-sajt ispolízuet Cookies dlja togo, čtoby identificirovatí vašu sessiju i ničego bolee. Oznakomítesí s našej <a href='/privacy'>politikoj konfidencialínosti</a> dlja polučenija dopolnitelínoj informacii.";
+"cookies_popup_agree" = "Soglasen";
+
+/* Away */
+
+"transition_is_blocked" = "Perehod po ssylke zablokirovan";
+"caution" = "Predupreždenie";
+"url_is_banned" = "Perehod nevozmožen";
+"url_is_banned_comment" = "Administracija <b>$1</b> ne rekomenduet perehodití po etoj ssylke.";
+"url_is_banned_comment_r" = "Administracija <b>$1</b> ne rekomenduet perehodití po etoj ssylke.<br><br>Pričina: <b>$2</b>";
+"url_is_banned_default_reason" = "Ssylka, po kotoroj vy popytalisí perejti, možet vesti na sajt, kotoryj byl sozdan s celíju obmana polízovatelej i polučenija za sčjot etogo pribyli.";
+"url_is_banned_title" = "Ssylka na podozritelínyj sajt";
+"url_is_banned_proceed" = "Perejti po ssylke";
+
+"recently" = "Nedavno";
+
+/* Helpdesk */
+"helpdesk" = "Podderžka";
+"helpdesk_agent" = "Agent Podderžki";
+"helpdesk_agent_card" = "Kartočka agenta";
+"helpdesk_positive_answers" = "položitelínyh otvetov";
+"helpdesk_negative_answers" = "otricatelínyh otvetov";
+"helpdesk_all_answers" = "vsego otvetov";
+"helpdesk_showing_name" = "Otobražaemoe imja";
+"helpdesk_show_number" = "Pokazyvatí nomer";
+"helpdesk_avatar_url" = "Ssylka na avatarku";
+/* Chandler */
+
+"c_user_removed_from_group" = "Polízovatelí byl udaljon iz gruppy";
+"c_permission_removed_from_group" = "Pravo bylo udaleno iz gruppy";
+"c_group_removed" = "Gruppa byla udalena.";
+"c_groups" = "Gruppy Chandler";
+"c_users" = "Polízovateli Chandler";
+"c_group_permissions" = "Prava";
+"c_group_members" = "Učastniki";
+"c_model" = "Modelí";
+"c_permission" = "Pravo";
+"c_permissions" = "Prava";
+"c_color" = "Cvet";
+"add" = "Dobavití";
+"c_edit_groups" = "Redaktirovatí gruppy";
+"c_user_is_not_in_group" = "Svjazí polízovatelja i gruppy ne najdena.";
+"c_permission_not_found" = "Svjazí prava i gruppy ne najdena.";
+"c_group_not_found" = "Gruppa ne najdena.";
+"c_user_is_already_in_group" = "Etot polízovatelí uže vključjon v etu gruppu.";
+"c_add_to_group" = "Dobavití v gruppu";
+"c_remove_from_group" = "Isključití iz gruppy";
+
+/* Maintenance */
+
+"global_maintenance" = "Tehničeskie raboty";
+"section_maintenance" = "Razdel nedostupen";
+"undergoing_global_maintenance" = "K sožaleniju, sejčas instans zakryt na tehničeskie raboty. My uže rabotaem nad ustraneniem neispravnostej. Požalujsta, poprobujte zajti pozže.";
+"undergoing_section_maintenance" = "K sožaleniju, razdel <b>$1</b> vremenno nedostupen. My uže rabotaem nad ustraneniem neispravnostej. Požalujsta, poprobujte zajti pozže.";
+"topics" = "Temy";
+"__transNames" = "";
+"admin_registrationdate" = "Data registracii";
+"gifts_left_zero" = "Ostalosí nolí podarkov";
+"admin_gender" = "Pol";
+
+/* Tutorial */
+
+"tour_title" = "Ekskursija po sajtu";
+"reg_title" = "Registracija";
+"ifnotlike_title" = " &quot;A esli mne zdesí ne ponravitsja?..&quot; ";
+"tour_promo" = "O tom, čto Vas ždet posle registracii";
+
+"reg_text" = "<a href='/reg'>Registracija</a> akkaunta absoljutno besplatna i zajmjot ne bolee dvuh minut";
+"ifnotlike_text" = "Vy vsegda možete udalití svoj akkaunt";
+
+
+"tour_next" = "Dalee →";
+"tour_reg" = "Registracija →";
+
+
+"tour_section_1" = "Načalo";
+"tour_section_2" = "Profilí";
+"tour_section_3" = "Fotografii";
+"tour_section_4" = "Poisk";
+"tour_section_5" = "Videozapisi";
+"tour_section_6" = "Audiozapisi";
+"tour_section_7" = "Novostnaja lenta";
+"tour_section_8" = "Globalínaja lenta";
+"tour_section_9" = "Gruppy";
+"tour_section_10" = "Sobytija";
+"tour_section_11" = "Temy i dizajn";
+"tour_section_12" = "Kastomizacija";
+"tour_section_13" = "Vaučery";
+"tour_section_14" = "Mobilínaja versija";
+
+
+"tour_section_1_title_1" = "S čego načatí?";
+"tour_section_1_text_1" = "Registracija akkaunta javljaetsja samym pervym i osnovnym etapom v načale vašego puti na dannom sajte.";
+"tour_section_1_text_2" = "Dlja registracii vam potrebuetsja vvesti imja, E-mail i parolí.";
+"tour_section_1_text_3" = "<b>Pomnite:</b> Vaš E-mail budet ispolízovatísja v kačestve logina dlja vhoda na sajt. Takže vy imeete polnoe pravo ne ukazyvatí familiju pri registracii. V slučae uteri parolja dlja vhoda na sajt, vospolízujtesí razdelom <a href='/restore'>vosstanovlenija</a>";
+"tour_section_1_bottom_text_1" = "Registrirujasí na sajte, vy soglašaetesí s <a href='/terms'>pravilami sajta</a> i <a href='/privacy'>politikoj konfidencialínosti</a>";
+
+
+"tour_section_2_title_1" = "Vaš profilí";
+"tour_section_2_text_1_1" = "Posle registracii na sajte, vy avtomatičeski popadjote v <b>svoj</b> profilí";
+"tour_section_2_text_1_2" = "Vy možete redaktirovatí ego gde ugodno i v ljuboe vremja, kogda vy sami etogo poželaete.";
+"tour_section_2_text_1_3" = "<b>Sovet:</b> Čtoby vaš profilí vygljadel krasivo i prezentabelíno, vy možete ego zapolnití kakoj-libo informaciej ili zagruzití fotografiju, kotoraja podčerknjot, naprimer, vaš glubokij vnutrennij mir.";
+"tour_section_2_bottom_text_1" = "Vy edinstvennyj, kto rešaet, skolíko informacii vaši druzíja dolžny uznatí o vas.";
+"tour_section_2_title_2" = "Zadajte svoi nastrojki svoej privatnosti";
+"tour_section_2_text_2_1" = "Vy možete opredelití, kto imenno možet imetí dostup k opredelennym tipam informacii, razdelam i vozmožnostjam svjazatísja na vašej stranice.";
+"tour_section_2_text_2_2" = "Vy imeete polnoe pravo zakrytí dostup k svoej stranice ot poiskovyh sistem i nezaregistrirovannyh polízovatelej.";
+"tour_section_2_text_2_3" = "<b>Pomnite:</b> v budusčem nastrojki privatnosti budut rasširjatísja.";
+"tour_section_2_title_3" = "Personalínyj adres stranicy";
+"tour_section_2_text_3_1" = "Posle registracii stranicy, vam vydajotsja personalínyj ID vida <b>@id12345</b>";
+"tour_section_2_text_3_2" = "<b>Standartnyj ID</b>, kotoryj byl polučen posle registracii, <b>izmenití nelízja</b>";
+"tour_section_2_text_3_3" = "No v nastrojkah svoej stranicy vy možete privjazatí svoj personalínyj adres i etot adres <b>možno budet izmenití</b> v ljuboe vremja";
+"tour_section_2_text_3_4" = "<b>Sovet:</b> Možno zanimatí ljuboj svobodnyj adres, dlina kotorogo ne meníše 5 simvolov. Avosí kakoj-nibudí krutoj zajmjote :)";
+"tour_section_2_bottom_text_2" = "<i>Podderživaetsja ustanovka ljubogo korotkogo adresa iz latinskih maleníkih bukv; adres možet soderžatí cifry (ne v načale), točki i nižnie podčjorkivanija (ne v načale ili konce)</i>";
+"tour_section_2_title_4" = "Stena";
+
+
+"tour_section_3_title_1" = "Delitesí svoimi fotomomentami";
+"tour_section_3_text_1" = "Razdel &quot;Fotografii&quot; dostupen v vašem profile srazu že s momenta registracii.";
+"tour_section_3_text_2" = "Vy možete prosmatrivatí fotoalíbomy polízovatelej i sozdavatí svoi sobstvennye.";
+"tour_section_3_text_3" = "Dostup ko vsem vašim fotoalíbomam dlja drugih polízovatelej reguliruetsja v nastrojkah privatnosti stranicy.";
+"tour_section_3_bottom_text_1" = "Vy možete sozdavatí neograničennoe količestvo fotoalíbomov s vaših putešestvij ili kakih-libo sobytij, ili prosto hranití memy";
+
+
+"tour_section_4_title_1" = "Poisk";
+"tour_section_4_text_1" = "Razdel &quot;Poisk&quot; pozvoljaet iskatí polízovatelej i gruppy.";
+"tour_section_4_text_2" = "Dannyj razdel sajta so vremenem budet ulučšatísja.";
+"tour_section_4_text_3" = "Dlja načala poiska nužno znatí imja (ili familiju) polízovatelja; a esli isčete gruppu, to nužno znatí ejo nazvanie.";
+"tour_section_4_title_2" = "Bystryj poisk";
+"tour_section_4_text_4" = "Esli vy hotite kak-libo sekonomití vremja, to stroka poiska dostupna i v šapke sajta";
+
+
+"tour_section_5_title_1" = "Zagružajte i delitesí video so svoimi druzíjami!";
+"tour_section_5_text_1" = "Vy možete zagružatí neograničennoe količestvo videozapisej i klipov";
+"tour_section_5_text_2" = "Razdel &quot;Videozapisi&quot; reguliruetsja nastrojkami privatnosti";
+"tour_section_5_bottom_text_1" = "Video možno zagružatí minuja razdel &quot;Videozapisi&quot; čerez obyčnoe prikreplenie k novoj zapisi na stene:";
+"tour_section_5_title_2" = "Importirovanie video s YouTube";
+"tour_section_5_text_3" = "Krome zagruzki video naprjamuju, sajt podderživaet i vstraivanie video iz YouTube";
+
+
+"tour_section_6_title_1" = "Audiozapisi, kotoryh poka čto net XD";
+"tour_section_6_text_1" = "Ja byl by očení rad sdelatí tutorial po etomu razdelu, no solnyško Vriska ne sdelala muzyku";
+
+
+"tour_section_7_title_1" = "Sledite za tem, čto pišut vaši druzíja";
+"tour_section_7_text_1" = "Razdel &quot;Moi Novosti&quot; razdeljaetsja na dva tipa: lokalínaja lenta i globalínaja lenta";
+"tour_section_7_text_2" = "V lokalínoj lente budut pokazyvatísja novosti tolíko vaših druzej i grupp";
+"tour_section_7_bottom_text_1" = "Nikakoj sistemy rekomendacij. <b>Svoju lentu novostej formiruete tolíko vy.</b>";
+
+
+"tour_section_8_title_1" = "Sledite za tem, kakie temy obsuždajut na sajte";
+"tour_section_8_text_1" = "V globalínoj lente novostej budut pokazyvatísja zapisi vseh polízovatelej sajta i grupp";
+"tour_section_8_text_2" = "Prosmotr dannogo razdela možet ne rekomendovatísja dlja čuvstvitelínyh i ranimyh ljudej";
+"tour_section_8_bottom_text_1" = "Dizajn globalínoj lenty po dizajnu nikak ne otličaetsja ot lokalínoj";
+"tour_section_8_bottom_text_2" = "V lente estí množestvo tipov kontenta: načinaja ot obyčnyh foto i video, i zakančivaja anonimnymi postami i oprosami";
+
+
+"tour_section_9_title_1" = "Sozdavajte gruppy!";
+"tour_section_9_text_1" = "Na sajte uže imejutsja tysjači grupp, posvjasčjonnye različnym temam i kakim-libo fanatskim objedinenijam";
+"tour_section_9_text_2" = "Vy možete prisoedinjatísja k ljuboj gruppe. A esli ne našli podhodjasčuju, to možno sozdavatí i svoju";
+"tour_section_9_text_3" = "Každaja gruppa imeet svoj razdel viki-stranic, fotoalíbomov, blok ssylok i obsuždenij";
+"tour_section_9_title_2" = "Upravljajte svoej gruppoj vmeste s drugom";
+"tour_section_9_text_2_1" = "Upravlenie gruppoj osusčestvljaetsja v razdele &quot;Redaktirovatí gruppu&quot; pod avatarom soobsčestva";
+"tour_section_9_text_2_2" = "Sozdajte komandu administratorov iz obyčnyh učastnikov ili teh, komu vy doverjaete";
+"tour_section_9_text_2_3" = "Vy možete skrytí nužnogo Vam administratora, čtoby on nigde ne pokazyvalsja v predelah vašej gruppy";
+"tour_section_9_bottom_text_1" = "Razdel &quot;Moi Gruppy&quot; nahoditsja v levom menju sajta";
+"tour_section_9_bottom_text_2" = "Primer soobsčestva";
+"tour_section_9_bottom_text_3" = "Gruppy často predstavljajut soboj realínye organizacii, členy kotoryh hotjat ostavatísja na svjazi so svoej auditoriej";
+
+
+"tour_section_10_title_1" = "Ups";
+"tour_section_10_text_1" = "Ja byl by očení rad sdelatí tutorial po etomu razdelu, no razdel nahoditsja na etape razrabotki. A sejčas my poka etot razdel tutoriala propustim i pojdjom dalíše...";
+
+
+"tour_section_11_title_1" = "Temy oformlenija";
+"tour_section_11_text_1" = "Posle registracii, v kačestve oformlenija u vas budet ustanovlena standartnaja tema";
+"tour_section_11_text_2" = "Nekotoryh novyh polízovatelej možet slegka otpugnutí nynešnjaja stokovaja tema, kotoraja veet sovsem už drevnostíju";
+"tour_section_11_text_3" = "<b>No ne beda:</b> Vy možete sozdatí svoju temu dlja sajta, oznakomivšisí s <a href='https://docs.openvk.uk/'>dokumentaciej</a> ili vybratí uže susčestvujusčuju iz kataloga";
+"tour_section_11_bottom_text_1" = "Katalog tem dostupen v razdele &quot;Moi Nastrojki&quot; vo vkladke &quot;Interfejs&quot; ";
+"tour_section_11_wordart" = "<img src='https://openvk.uk/assets/packages/static/openvk/img/tour/wordart.png' width='65%'>";
+
+"tour_section_12_title_1" = "Fon profilja i gruppy";
+"tour_section_12_text_1" = "Vy možete ustanovití dva izobraženija v kačestve fona vašej stranicy";
+"tour_section_12_text_2" = "Oni budut otobražatísja po bokam u teh, kto zajdjot na vašu stranicu";
+"tour_section_12_text_3" = "<b>Sovet:</b> pered ustanovkoj fona, poeksperimentirujte s razmetkoj: poprobujte otzerkalití budusčuju fonovuju kartinku, ili voobsče prosto sozdajte krasivyj gradient";
+"tour_section_12_title_2" = "Avatary";
+"tour_section_12_text_2_1" = "Vy možete zadatí variant pokaza avatara polízovatelja: standartnoe, zakrugljonnye i kvadratnye (1:1)";
+"tour_section_12_text_2_2" = "Dannye nastrojki budut vidny tolíko vam";
+"tour_section_12_title_3" = "Redaktirovanie levogo menju";
+"tour_section_12_text_3_1" = "Pri neobhodimosti vy možete skrytí nenužnye razdely sajta";
+"tour_section_12_text_3_2" = "<b>Napominanie: </b>Razdely pervoj neobhodimosti (Moja Stranica; Moi Druzíja; Moi Otvety; Moi Nastrojki) skrytí nelízja";
+"tour_section_12_title_4" = "Vid postov";
+"tour_section_12_text_4_1" = "Esli nadoel staryj dizajn steny, kotoryj byl v nekogda populjarnom originalínom VKontakte.ru, to vy vsegda možete izmenití vid postov na Mikroblog";
+"tour_section_12_text_4_2" = "Vid postov možno menjatí meždu dvumja variantami v ljuboe vremja";
+"tour_section_12_text_4_3" = "<b>Obratite vnimanie</b>, čto esli vybran staryj vid otobraženija postov, to poslednie kommentarii podgružatísja ne budut";
+"tour_section_12_bottom_text_1" = "Stranica ustanovki fona";
+"tour_section_12_bottom_text_2" = "Primery stranic s ustanovlennym fonom";
+"tour_section_12_bottom_text_3" = "S pomosčíju etoj vozmožnosti vy možete dobavití svoemu profilju bolíše individualínosti";
+"tour_section_12_bottom_text_4" = "Staryj vid postov";
+"tour_section_12_bottom_text_5" = "Mikroblog";
+
+
+"tour_section_13_title_1" = "Vaučery";
+"tour_section_13_text_1" = "Vaučer v OpenVK eto čto-to vrode promokoda na dobavlenie kakoj-libo valjuty (procenty rejtinga, golosov i tak dalee)";
+"tour_section_13_text_2" = "Podobnye kupony sozdajutsja po kakim-libo značimym sobytijam i prazdnikam. Sledite za <a href='https://t.me/openvk'>Telegram-kanalom</a> OpenVK";
+"tour_section_13_text_3" = "Posle aktivacii kakogo-libo vaučera, zadannaja administratorami valjuta budet perečislena v vašu polízu";
+"tour_section_13_text_4" = "<b>Pomnite: </b>Vse vaučery imejut ograničennyj srok aktivacii";
+"tour_section_13_bottom_text_1" = "Vaučery sostojat iz 24 cifr i bukv";
+"tour_section_13_bottom_text_2" = "Uspešnaja aktivacija (naprimer, nam začislili 100 golosov)";
+"tour_section_13_bottom_text_3" = "<b>Vnimanie: </b>Posle aktivacii vaučera na vašu stranicu, tot že samyj vaučer nelízja budet aktivirovatí povtorno";
+
+"tour_section_14_title_1" = "Mobilínaja versija";
+"tour_section_14_text_1" = "Na dannyj moment mobilínoj veb-versii sajta poka net, no zato estí mobilínoe priloženie dlja Android";
+"tour_section_14_text_2" = "OpenVK Legacy - eto mobilínoe priloženie OpenVK dlja retro-ustrojstv na Android s dizajnom VKontakte 3.0.4 iz 2013 goda";
+"tour_section_14_text_3" = "Minimalíno podderživaemoj versiej javljaetsja Android 2.1 Eclair, to estí apparaty vremjon načala 2010-yh vpolne prigodjatsja";
+
+"tour_section_14_title_2" = "Gde eto možno skačatí?";
+"tour_section_14_text_2_1" = "Reliznye versii skačivajutsja čerez oficialínyj repozitorij F-Droid";
+"tour_section_14_text_2_2" = "Esli vy javljaetesí beta-testirovsčikom priloženija, to novye versii priloženija vykladyvajutsja v otdelínyj kanal obnovlenija";
+"tour_section_14_text_2_3" = "<b>Važno: </b>Priloženie možet imetí različnye bagi i nedočjoty, ob ošibkah soobsčajte v <a href='/app'>oficialínuju gruppu priloženija</a>";
+
+"tour_section_14_bottom_text_1" = "Skrinšoty priloženija";
+"tour_section_14_bottom_text_2" = "Na etom ekskursija po sajtu zaveršena. Esli vy hotite poprobovatí naše mobilínoe priloženie, sozdatí zdesí svoju gruppu, pozvatí svoih druzej ili najti novyh, ili voobsče prosto kak-nibudí porazvlekatísja, to eto možno sdelatí prjamo sejčas, projdja nebolíšuju <a href='/reg'>registraciju</a>";
+"tour_section_14_bottom_text_3" = "Na etom ekskursija po sajtu zaveršena.";
+
+/* Search */
+
+"s_people" = "Ljudi";
+"s_groups" = "Gruppy";
+"s_events" = "Sobytija";
+"s_apps" = "Priloženija";
+"s_questions" = "Voprosy";
+"s_notes" = "Zametki";
+"s_themes" = "Temy";
+"s_posts" = "Zapisi";
+"s_comments" = "Kommentarii";
+"s_videos" = "Video";
+"s_audios" = "Audio";
+"s_by_people" = "po ljudjam";
+"s_by_groups" = "po gruppam";
+"s_by_posts" = "po zapisjam";
+"s_by_comments" = "po kommentarijam";
+"s_by_videos" = "po video";
+"s_by_apps" = "po priloženijam";
+"s_by_audios" = "po muzyke";
+
+"s_order_by" = "Porjadok";
+
+"s_order_by_id" = "Po id";
+"s_order_by_name" = "Po imeni";
+"s_order_by_random" = "Po slučajnosti";
+"s_order_by_rating" = "Po rejtingu";
+"s_order_invert" = "Invertirovatí";
+
+"s_by_date" = "Po date";
+"s_registered_before" = "Zaregistrirovan do";
+"s_registered_after" = "Zaregistrirovan posle";
+"s_date_before" = "Do";
+"s_date_after" = "Posle";
+
+"s_main" = "Osnovnoe";
+
+"s_now_on_site" = "cejčas na sajte";
+"s_with_photo" = "s foto";
+"s_only_in_names" = "tolíko v imenah";
+
+"s_any" = "ljuboj";
+"reset" = "Sbros";
+
+"closed_group_post" = "Eta zapisí iz zakrytoj gruppy";
+"deleted_target_comment" = "Etot kommentarij prinadležit k udaljonnoj zapisi";
+
+"no_results" = "Rezulítatov net";
+
+/* BadBrowser */
+
+"deprecated_browser" = "Ustarevšij brauzer";
+"deprecated_browser_description" = "Dlja prosmotra etogo kontenta vam ponadobitsja Firefox ESR 52+ ili ekvivalentnyj po funkcionalu navigator po vsemirnoj seti internet. Sožaleem ob etom.";
+
+/* Statistics */
+
+"coverage" = "Ohvat";
+"coverage_this_week" = "Etot grafik otobražaet ohvat za poslednie 7 dnej.";
+"views" = "Prosmotry";
+"views_this_week" = "Etot grafik otobražaet prosmotry postov soobsčestva za poslednie 7 dnej.";
+
+"full_coverage" = "Polnyj ohvat";
+"all_views" = "Vse prosmotry";
+
+"subs_coverage" = "Ohvat podpisčikov";
+"subs_views" = "Prosmotry podpisčikov";
+
+"viral_coverage" = "Viralínyj ohvat";
+"viral_views" = "Viralínye prosmotry";
+
+/* Sudo */
+
+"you_entered_as" = "Vy vošli kak";
+"please_rights" = "požalujsta, uvažajte pravo na tajnu perepiski drugih ljudej i ne zloupotrebljajte podmenoj polízovatelja.";
+"click_on" = "Nažmite";
+"there" = "zdesí";
+"to_leave" = "čtoby vyjti";
+
+/* Phone number */
+
+"verify_phone_number" = "Podtverdití nomer telefona";
+"we_sended_first" = "My otpravili SMS s kodom na nomer";
+"we_sended_end" = "vvedite ego sjuda";
+
+/* Mobile */
+"mobile_friends" = "Druzíja";
+"mobile_photos" = "Fotografii";
+"mobile_videos" = "Videozapisi";
+"mobile_messages" = "Soobsčenija";
+"mobile_notes" = "Zametki";
+"mobile_groups" = "Gruppy";
+"mobile_search" = "Poisk";
+"mobile_settings" = "Nastrojki";
+"mobile_desktop_version" = "Polnaja versija";
+"mobile_log_out" = "Vyjti";
+"mobile_menu" = "Menju";
+"mobile_like" = "Nravitsja";
+"mobile_user_info_hide" = "Skrytí";
+"mobile_user_info_show_details" = "Pokazatí podrobnee";
+
+/* Moderation */
+
+"section" = "Razdel";
+"template_ban" = "Ban po šablonu";
+"active_templates" = "Dejstvujusčie šablony";
+"users_reports" = "Žaloby polízovatelej";
+"substring" = "Podstroka";
+"n_user" = "Polízovatelí";
+"time_before" = "Vremja raníše, čem";
+"time_after" = "Vremja pozže, čem";
+"where_for_search" = "WHERE dlja poiska po razdelu";
+"block_params" = "Parametry blokirovki";
+"only_rollback" = "Tolíko otkat";
+"only_block" = "Tolíko blokirovka";
+"rollback_and_block" = "Otkat i blokirovka";
+"subm" = "Primenití";
+
+"select_section_for_start" = "Vyberite razdel dlja načala raboty";
+"results_will_be_there" = "Zdesí budut otobražatísja rezulítaty poiska";
+"search_results" = "Rezulítaty poiska";
+"cnt" = "št";
+
+"link_to_page" = "Ssylka na stranicu";
+"or_subnet" = "ili podsetí";
+"error_when_searching" = "Ošibka pri vypolnenii zaprosa";
+"no_found" = "Ničego ne najdeno";
+"operation_successfully" = "Operacija zaveršena uspešno";
+
+"unknown_error" = "Neizvestnaja ošibka";
+"templates" = "Šablony";
+"type" = "Tip";
+"count" = "Količestvo";
+"time" = "Vremja";
+
+"roll_back" = "otkatití";
+"roll_backed" = "otkačeno";

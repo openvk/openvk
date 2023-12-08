@@ -38,13 +38,10 @@ items:
                 chown -R 33:33 /opt/chandler/extensions/available/openvk/tmp/api-storage/audios
                 chown -R 33:33 /opt/chandler/extensions/available/openvk/tmp/api-storage/photos
                 chown -R 33:33 /opt/chandler/extensions/available/openvk/tmp/api-storage/videos
-                chown -R 33:33 /var/log/openvk
 
                 sleep 600
             done
           volumeMounts:
-          - mountPath: /var/log/openvk
-            name: openvk-logs
           - mountPath: /opt/chandler/extensions/available/openvk/storage
             name: openvk-storage
           - mountPath: /opt/chandler/extensions/available/openvk/tmp/api-storage/audios
@@ -66,8 +63,6 @@ items:
               cpu: 100m
               memory: 512Mi
           volumeMounts:
-          - mountPath: /var/log/openvk
-            name: openvk-logs
           - mountPath: /opt/chandler/extensions/available/openvk/openvk.yml
             name: openvk-config
             subPath: openvk.yml

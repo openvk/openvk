@@ -33,7 +33,7 @@
 {/block}
 
 {block preview}
-    <div class="video-preview">
+    <div class="video-preview" id="videoOpen" data-id="{$x->getId()}">
         <img src="{$x->getThumbnailURL()}"
             alt="{$x->getName()}"
             style="max-width: 170px; max-height: 127px; margin: auto;" />
@@ -41,7 +41,7 @@
 {/block}
 
 {block name}
-    {$x->getName()}
+    <span id="videoOpen" data-id="{$x->getId()}" style="color:unset;">{$x->getName()}</span>
 {/block}
 
 {block description}
@@ -51,7 +51,7 @@
     <span style="color: grey;">{_video_uploaded} {$x->getPublicationTime()}</span><br/>
     <span style="color: grey;">{_video_updated} {$x->getEditTime() ?? $x->getPublicationTime()}</span>
     <p>
-        <a href="/video{$x->getPrettyId()}">{_view_video}</a>
+        <a href="/video{$x->getPrettyId()}" id="videoOpen" data-id="{$x->getId()}">{_view_video}</a>
         {if $x->getCommentsCount() > 0}| <a href="/video{$x->getPrettyId()}#comments">{_comments} ({$x->getCommentsCount()})</a>{/if}
     </p>
 {/block}

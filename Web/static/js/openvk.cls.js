@@ -68,7 +68,7 @@ function toggleMenu(id) {
 }
 document.addEventListener("DOMContentLoaded", function() { //BEGIN
 
-    u("#_photoDelete").on("click", function(e) {
+    $(document).on("click", "#_photoDelete", function(e) {
         var formHtml = "<form id='tmpPhDelF' action='" + u(this).attr("href") + "' >";
         formHtml    += "<input type='hidden' name='hash' value='" + u("meta[name=csrf]").attr("value") + "' />";
         formHtml    += "</form>";

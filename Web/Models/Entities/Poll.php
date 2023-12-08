@@ -4,7 +4,7 @@ use openvk\Web\Models\Exceptions\TooMuchOptionsException;
 use openvk\Web\Util\DateTime;
 use \UnexpectedValueException;
 use Nette\InvalidStateException;
-use openvk\Web\Models\Repositories\Users;
+use openvk\Web\Models\Repositories\{Users, Posts};
 use Chandler\Database\DatabaseConnection;
 use openvk\Web\Models\Exceptions\PollLockedException;
 use openvk\Web\Models\Exceptions\AlreadyVotedException;
@@ -165,7 +165,7 @@ class Poll extends Attachable
     
     function canVote(User $user): bool
     {
-        return !$this->hasEnded() && !$this->hasVoted($user);
+        return !$this->hasEnded() && !$this->hasVoted($user) && !is_null($this->getAttachedPost()) && $this->getAttachedPost()->getSuggestionType() == 0;
     }
     
     function vote(User $user, array $optionIds): void
@@ -278,18 +278,42 @@ class Poll extends Attachable
         
         return $poll;
     }
+
+    function canBeViewedBy(?User $user = NULL): bool
+    {
+        # waiting for #935 :(
+        /*if(!is_null($this->getAttachedPost())) {
+            return $this->getAttachedPost()->canBeViewedBy($user);
+        } else {*/
+            return true;
+        #}
+
+    }
     
-    function save(): void
+    function save(?bool $log = false): void
     {
         if(empty($this->choicesToPersist))
             throw new InvalidStateException;
     
-        parent::save();
+        parent::save($log);
         foreach($this->choicesToPersist as $option) {
             DatabaseConnection::i()->getContext()->table("poll_options")->insert([
                 "poll" => $this->getId(),
                 "name" => $option,
             ]);
         }
+    }
+
+    function getAttachedPost()
+    {
+        $post = DatabaseConnection::i()->getContext()->table("attachments")
+            ->where(
+                ["attachable_type" => static::class, 
+                "attachable_id"    => $this->getId()])->fetch();
+
+        if(!is_null($post->target_id))
+            return (new Posts)->get($post->target_id);
+        else
+            return NULL;
     }
 }

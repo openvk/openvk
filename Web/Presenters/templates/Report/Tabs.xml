@@ -46,6 +46,9 @@
     <div n:attr="id => ($mode === 'user' ? 'activetabs' : 'ki')" class="tab" mode="user">
         <a n:attr="id => ($mode === 'user' ? 'act_tab_a' : 'ki')">Пользователи</a>
     </div>
+    <div n:attr="id => ($mode === 'audio' ? 'activetabs' : 'ki')" class="tab" mode="audio">
+        <a n:attr="id => ($mode === 'audio' ? 'act_tab_a' : 'ki')">{_audios}</a>
+    </div>
 </center>
 
 <script>

@@ -123,7 +123,11 @@ class Message extends RowModel
                     ],
                 ];
             } else {
-                throw new \Exception("Unknown attachment type: " . get_class($attachment));
+                $attachments[] = [
+                    "type"  => "unknown"
+                ];
+                
+                # throw new \Exception("Unknown attachment type: " . get_class($attachment));
             }
         }
         

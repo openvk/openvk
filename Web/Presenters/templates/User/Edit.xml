@@ -101,7 +101,7 @@
                             <span class="nobold">{_relationship}: </span>
                         </td>
                         <td>
-                            <select name="marialstatus">
+                            <select name="marialstatus" onChange="toggleMaritalStatus(this)">
                                 <option n:foreach="range(0, 8) as $i" n:attr="selected => ($user->getMaritalStatus() == $i)" value="{$i}">
                                     {if $user->isFemale()}
                                         {var $str = "relationship_$i"}
@@ -117,34 +117,35 @@
                             </select>
                         </td>
                     </tr>
+                    <tr id="maritalstatus-user"
+                        n:attr="style => $user->getMaritalStatusUser() || ($user->getMaritalStatus() && !in_array($user->getMaritalStatus(), [0, 1, 8])) ? '' : 'display: none;'">
+                        <td width="120" valign="top"></td>
+                        <td>
+                            <input type="text" placeholder="{_page_address}" name="maritalstatus-user"
+                                   n:attr="value => $user->getMaritalStatusUser() ? $user->getMaritalStatusUser()->getId() : ''" />
+                        </td>
+                    </tr>
                     <tr>
                         <td width="120" valign="top">
                             <span class="nobold">{_politViews}: </span>
                         </td>
                         <td>
                             <select name="politViews">
-                                <option value="0" {if $user->getPoliticalViews() == 0}selected{/if}>{_politViews_0}</option>
-                                <option value="1" {if $user->getPoliticalViews() == 1}selected{/if}>{_politViews_1}</option>
-                                <option value="2" {if $user->getPoliticalViews() == 2}selected{/if}>{_politViews_2}</option>
-                                <option value="3" {if $user->getPoliticalViews() == 3}selected{/if}>{_politViews_3}</option>
-                                <option value="4" {if $user->getPoliticalViews() == 4}selected{/if}>{_politViews_4}</option>
-                                <option value="5" {if $user->getPoliticalViews() == 5}selected{/if}>{_politViews_5}</option>
-                                <option value="6" {if $user->getPoliticalViews() == 6}selected{/if}>{_politViews_6}</option>
-                                <option value="7" {if $user->getPoliticalViews() == 7}selected{/if}>{_politViews_7}</option>
-                                <option value="8" {if $user->getPoliticalViews() == 8}selected{/if}>{_politViews_8}</option>
-                                <option value="9" {if $user->getPoliticalViews() == 9}selected{/if}>{_politViews_9}</option>
-
+                                <option n:foreach="range(0, 9) as $i" n:attr="selected => ($user->getPoliticalViews() == $i)" value="{$i}">
+                                    {tr("politViews_" . $i)}
+                                </option>
                             </select>
                         </td>
                     </tr>
                     <tr>
                         <td width="120" valign="top">
-                            <span class="nobold">{_gender}: </span>
+                            <span class="nobold">{_pronouns}: </span>
                         </td>
                         <td>
-                            <select name="gender">
-                                <option value="1" {if $user->isFemale() == true}selected{/if}>{_female}</option>
-                                <option value="0" {if $user->isFemale() == false}selected{/if}>{_male}</option>
+                            <select name="pronouns">
+                                <option value="0" {if $user->getPronouns() == 0}selected{/if}>{_male}</option>
+                                <option value="1" {if $user->getPronouns() == 1}selected{/if}>{_female}</option>
+                                <option value="2" {if $user->getPronouns() == 2}selected{/if}>{_neutral}</option>
                             </select>
                         </td>
                     </tr>
@@ -161,6 +162,13 @@
                         </td>
                     </tr>
                     <tr>
+                        <td width="120" valign="top">
+                        </td>
+                        <td>
+                            <label><input type="checkbox" name="broadcast_music" n:attr="checked => $user->isBroadcastEnabled()">{_broadcast_audio}</label>
+                        </td>
+                    </tr>
+                    <tr>
                         <td>
 
                         </td>
@@ -171,6 +179,17 @@
                     </tr>
                 </tbody>
             </table>
+            <script>
+                function toggleMaritalStatus(e) {
+                    let elem = $("#maritalstatus-user");
+                    $("#maritalstatus-user-select").empty();
+                    if ([0, 1, 8].includes(Number(e.value))) {
+                        elem.hide();
+                    } else {
+                        elem.show();
+                    }
+                }
+            </script>
         </form>
 
         {elseif $isContacts}

@@ -58,3 +58,244 @@ body.dimmed > .dimmer {
 .ovk-diag-action > .button {
     margin-left: 10px;
 }
+
+
+/* fullscreen player */
+
+.ovk-fullscreen-player {
+    top: 9%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, 0%);
+    z-index: 6667;
+    position: absolute;
+    width: 823px;
+    min-height: 400px;
+    box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.2);
+}
+
+.top-part span {
+    color: #515151;
+    font-size: 13px;
+    transition: color 200ms ease-in-out;
+}
+
+.top-part .clickable:hover {
+    color: #ffffff;
+}
+
+.ovk-fullscreen-player .bsdn_teaserTitleBox span {
+    color: unset;
+    font-size: unset;
+}
+
+.ovk-fullscreen-player .bsdn-player {
+    max-width: 80%;
+    max-height: 350px;
+}
+
+.inner-player {
+    background: #000000;
+    min-height: 438px;
+    max-height: 439px;
+    position: relative;
+    padding-top: 11px;
+}
+
+.top-part-name {
+    font-size: 15px;
+    font-weight: bolder;
+    margin-left: 20px;
+    margin-top: 5px;
+}
+
+.top-part-buttons {
+    float: right;
+    margin-right: 20px;
+}
+
+.top-part-buttons span {
+    cursor: pointer;
+    user-select: none;
+}
+
+.fplayer {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.top-part-bottom-buttons {
+    position: absolute;
+    margin-left: 20px;
+    bottom: 0;
+    margin-bottom: 20px;
+}
+
+.top-part-bottom-buttons span {
+    user-select: none;
+}
+
+.top-part .clickable {
+    cursor: pointer;
+}
+
+.bottom-part {
+    display: none;
+    background: white;
+    padding-bottom: 20px;
+    padding-top: 30px;
+}
+
+.left_block {
+    padding-left: 20px;
+    /*padding-top: 20px;*/
+    width: 75%;
+    float: left;
+    background: white;
+    padding-right: 6px;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.right_block {
+    padding-left: 10px;
+    /*padding-top: 20px;*/
+    width: 20%;
+    border-left: 1px solid gray;
+    float: right;
+}
+
+.bottom-part span {
+    font-size: 13px;
+}
+
+.bottom-part .gray {
+    color: gray;
+}
+
+.ovk-fullscreen-dimmer {
+    /* спижжено у пулла с несколькими картинками там где просмотрщик фоток */
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    right: 0px;
+    bottom: 0px;
+    overflow: auto;
+    padding-bottom: 20px;
+    z-index: 300;
+}
+
+.v_author {
+    margin-top: 20px;
+}
+
+.miniplayer {
+    position: absolute;
+    top:0;
+    background: rgba(54, 54, 54, 0.9);
+    border-radius: 3px;
+    min-width: 299px;
+    min-height: 192px;
+    padding-top: 3px;
+    z-index: 9999;
+}
+
+.miniplayer .bsdn-player {
+    max-height: 150px;
+}
+
+.miniplayer .fplayer {
+    max-width: 286px;
+    margin-left: 6px;
+    margin-top: 10px;
+}
+
+.miniplayer-actions {
+    float: right;
+    margin-right: 8px;
+    margin-top: 4px;
+}
+
+.miniplayer-name {
+    color: #8a8a8a;
+    font-size: 14px;
+    margin-left: 7px;
+    margin-top: -6px;
+    font-weight: bolder;
+    user-select: none;
+}
+
+.ui-draggable {
+    position:fixed !important;
+}
+
+.miniplayer-actions img {
+    max-width: 11px;
+    cursor: pointer;
+    transition: opacity 200ms ease-in-out;
+    opacity: 70%;
+}
+
+.miniplayer .fplayer iframe {
+    max-width: 260px;
+    max-height: 160px;
+}
+
+.miniplayer-actions img:hover {
+    opacity: 100%;
+}
+
+#vidComments {
+    margin-top: 10px;
+}
+
+.showMoreComments {
+    background: #eaeaea;
+    cursor: pointer;
+    text-align: center;
+    padding: 10px;
+    user-select: none;
+    margin-top: 10px;
+}
+
+.loader {
+    display: none;
+    position: fixed;
+    top: -10%;
+    background: rgba(26, 26, 26, 0.9);;
+    padding-top: 12px;
+    width: 91px;
+    height: 25px;
+    text-align: center;
+    border-radius: 1px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5555;
+}
+
+.right-arrow, .left-arrow {
+    position: absolute;
+    cursor: pointer;
+    transition: all 200ms ease-in-out;
+    margin-left: -50px;
+    background: none;
+    height: 449px;
+    width: 57px;
+    user-select: none;
+}
+
+.right-arrow img, .left-arrow img {
+    user-select: none;
+    opacity: 5%;
+    transition: all 200ms ease-in-out;
+}
+
+.right-arrow:hover, .left-arrow:hover {
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.right-arrow img:hover, .left-arrow img:hover {
+    opacity: 50%;
+}

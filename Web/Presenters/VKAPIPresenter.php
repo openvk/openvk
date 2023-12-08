@@ -233,8 +233,13 @@ final class VKAPIPresenter extends OpenVKPresenter
                     $this->badMethodCall($object, $method, $parameter->getName());
             }
             
-            settype($val, $parameter->getType()->getName());
-            $params[] = $val;
+            try {
+                settype($val, $parameter->getType()->getName());
+                $params[] = $val;
+            } catch (\Throwable $e) {
+                // Just ignore the exception, since
+                // some args are intended for internal use
+            }
         }
         
         define("VKAPI_DECL_VER", $this->requestParam("v") ?? "4.100", false);

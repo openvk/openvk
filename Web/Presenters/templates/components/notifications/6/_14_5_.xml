@@ -1,0 +1,7 @@
+{var $club = $notification->getModel(1)}
+{var $post = $notification->getModel(0)}
+
+{_group}
+<a href="{$club->getURL()}"><b>{$club->getName()}</b></a>
+{_nt_accepted_your_post}
+<a href="/wall{$post->getPrettyId()}"><b>{_nt_post_small}</b></a>.

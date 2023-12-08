@@ -130,7 +130,7 @@ class Albums
             "owner" => $owner,
             "id"    => $id
         ])->fetch();
-        
-        return new Album($album);
+
+        return $album ? new Album($album) : NULL;
     }
 }

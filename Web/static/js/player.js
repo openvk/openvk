@@ -69,6 +69,12 @@ function _bsdnTpl(name, author) {
                 </div>
 
                 <div>
+                    <div class="bsdn_repeatButton">
+                        <img src="/assets/packages/static/openvk/img/bsdn/repeat.gif" />
+                    </div>
+                </div>
+
+                <div>
                     <div class="bsdn_fullScreenButton">
                         <img src="/assets/packages/static/openvk/img/bsdn/fullscreen.gif" />
                     </div>
@@ -248,6 +254,26 @@ function _bsdnEventListenerFactory(el, v) {
             loadedmetadata: [
                 () => {
                     el.querySelector(".bsdn_timeFull").innerHTML = _bsdnToHumanTime(v.duration);
+                }
+            ]
+        },
+
+        ".bsdn_repeatButton": {
+            click: [
+                () => {
+                    if(!v.loop) {
+                        v.loop = true
+                        el.querySelector(".bsdn_repeatButton").classList.add("pressed")
+
+                        if(v.currentTime == v.duration) {
+                            v.currentTime = 0
+                            v.play()
+                        }
+
+                    } else {
+                        v.loop = false
+                        el.querySelector(".bsdn_repeatButton").classList.remove("pressed")
+                    }
                 }
             ]
         },

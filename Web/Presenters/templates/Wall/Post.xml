@@ -14,6 +14,20 @@
 {/block}
 
 {block content}
+    <div class="tabs">
+        <div class="tab">
+            <a href="/wall{$post->getTargetWall()}">{_all_posts}</a>
+        </div>
+        <div class="tab">
+            <a href="/wall{$post->getTargetWall()}?type=owners">{$post->getTargetWall() < 0 ? tr("clubs_posts") : tr("users_posts", ovk_proc_strtr($wallOwner->getFirstName(), 20))}</a>
+        </div>
+        <div class="tab">
+            <a href="/wall{$post->getTargetWall()}?type=others">{_others_posts}</a>
+        </div>
+        <div class="tab" id="activetabs">
+            <a href="" id="act_tab_a">{_post}</a>
+        </div>
+    </div>
     {include "../components/post.xml", post => $post, forceNoCommentsLink => TRUE, forceNoDeleteLink => TRUE}
     <hr/>
     <div style="float: left; min-height: 100px; width: 68%;">
@@ -35,7 +49,7 @@
         
         <a n:if="$canDelete ?? false" class="profile_link" style="display:block;width:96%;" href="/wall{$post->getPrettyId()}/delete">{_delete}</a>
         <a
-            n:if="$thisUser->getChandlerUser()->can('access')->model('admin')->whichBelongsTo(NULL) AND $post->getEditTime()"
+            n:if="isset($thisUser) && $thisUser->getChandlerUser()->can('access')->model('admin')->whichBelongsTo(NULL) AND $post->getEditTime()"
             style="display:block;width:96%;"
             class="profile_link"
             href="/admin/logs?type=1&obj_type=Post&obj_id={$post->getId()}"

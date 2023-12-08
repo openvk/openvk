@@ -1,0 +1,126 @@
+{extends "../@layout.xml"}
+
+{block title}
+    {if $mode == 'list'}
+        {if $ownerId > 0}
+            {_audios} {$owner->getMorphedName("genitive", false)}
+        {else}
+            {_audios_group}
+        {/if}
+    {elseif $mode == 'new'}
+        {_audio_new}
+    {elseif $mode == 'popular'}
+        {_audio_popular}
+    {else}
+        {if $ownerId > 0}
+            {_playlists} {$owner->getMorphedName("genitive", false)}
+        {else}
+            {_playlists_group}
+        {/if}
+    {/if}
+{/block}
+
+{block header}
+    <div n:if="$mode == 'list'">
+        <div n:if="$isMy">{_my_audios_small}</div>
+        <div n:if="!$isMy">
+            <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+            »
+            {_audios}
+        </div>
+    </div>
+
+    <div n:if="$mode == 'new'">
+        {_audios}
+        »
+        {_audio_new}
+    </div>
+
+    <div n:if="$mode == 'popular'">
+        {_audios}
+        »
+        {_audio_popular}
+    </div>
+
+    <div n:if="$mode == 'playlists'">
+        {_audios}
+        »
+        {if $isMy}{_my_playlists}{else}{_playlists}{/if}
+    </div>
+{/block}
+
+{block content}
+    {* ref: https://archive.li/P32em *}
+    
+    {include "bigplayer.xml"}
+
+    <input n:if="$mode == 'list'" type="hidden" name="bigplayer_context" data-type="entity_audios" data-entity="{$ownerId}" data-page="{$page}">
+    <input n:if="$mode == 'new'" type="hidden" name="bigplayer_context" data-type="new_audios" data-entity="0" data-page="1">
+    <input n:if="$mode == 'popular'" type="hidden" name="bigplayer_context" data-type="popular_audios" data-entity="0" data-page="1">
+    <div class="bigPlayerDetector"></div>
+
+    <div style="width: 100%;display: flex;margin-bottom: -10px;" class="audiosDiv">
+        <div style="width: 74%;" class="audiosContainer" n:if="$mode != 'playlists'">
+            <div style="padding: 8px;">
+                <div n:if="$audiosCount <= 0">
+                    {include "../components/error.xml", description => $ownerId > 0 ? ($ownerId == $thisUser->getId() ? tr("no_audios_thisuser") : tr("no_audios_user")) : tr("no_audios_club")}
+                </div>
+                <div n:if="$audiosCount > 0" class="infContainer">
+                    <div class="infObj" n:foreach="$audios as $audio">
+                        {include "player.xml", audio => $audio, club => $club}
+                    </div>
+                </div>
+
+                <div n:if="$mode != 'new' && $mode != 'popular'">
+                    {include "../components/paginator.xml", conf => (object) [
+                        "page"     => $page,
+                        "count"    => $audiosCount,
+                        "amount"   => sizeof($audios),
+                        "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                        "atBottom" => true,
+                    ]}
+                </div>
+            </div>
+        </div>
+        
+        <div style="width: 74%;" n:if="$mode == 'playlists'">
+            <div style="padding: 8px;">
+                <div n:if="$playlistsCount <= 0">
+                    {include "../components/error.xml", description => $ownerId > 0 ? ($ownerId == $thisUser->getId() ? tr("no_playlists_thisuser") : tr("no_playlists_user")) : tr("no_playlists_club")}
+                </div>
+
+                <div class="infContainer playlistContainer" n:if="$playlistsCount > 0">
+                    <div class="infObj" n:foreach="$playlists as $playlist">
+                        <a href="/playlist{$playlist->getPrettyId()}">
+                            <div class="playlistCover">
+                                <img src="{$playlist->getCoverURL()}" alt="{_playlist_cover}">
+                            </div>
+                        </a>
+
+
+                        <div class="playlistInfo">
+                            <a href="/playlist{$playlist->getPrettyId()}">
+                                <span style="font-size: 12px" class="playlistName">
+                                    {ovk_proc_strtr($playlist->getName(), 15)}
+                                </span>
+                            </a>
+
+                            <a href="{$playlist->getOwner()->getURL()}">{ovk_proc_strtr($playlist->getOwner()->getCanonicalName(), 20)}</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    {include "../components/paginator.xml", conf => (object) [
+                        "page"     => $page,
+                        "count"    => $playlistsCount,
+                        "amount"   => sizeof($playlists),
+                        "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                        "atBottom" => true,
+                    ]}
+                </div>
+            </div>
+        </div>
+        {include "tabs.xml"}
+    </div>
+{/block}

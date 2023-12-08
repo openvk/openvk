@@ -198,6 +198,9 @@ abstract class OpenVKPresenter extends SimplePresenter
     {
         $user = Authenticator::i()->getUser();
 
+        if(!$this->template)
+            $this->template = new \stdClass;
+        
         $this->template->isXmas = intval(date('d')) >= 1 && date('m') == 12 || intval(date('d')) <= 15 && date('m') == 1 ? true : false;
         $this->template->isTimezoned = Session::i()->get("_timezoneOffset");
 

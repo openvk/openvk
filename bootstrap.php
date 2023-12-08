@@ -22,6 +22,7 @@ function _ovk_check_environment(): void
         "fileinfo",
         "PDO",
         "pdo_mysql",
+        "pdo_sqlite",
         "pcre",
         "hash",
         "curl",
@@ -62,6 +63,33 @@ function ovk_proc_strtr(string $string, int $length = 0): string
     $newString = iconv_substr($string, 0, $length);
     
     return $newString . ($string !== $newString ? "…" : ""); #if cut hasn't happened, don't append "..."
+}
+
+function knuth_shuffle(iterable $arr, int $seed): array
+{
+    $data   = is_array($arr) ? $arr : iterator_to_array($arr);
+    $retVal = [];
+    $ind    = [];
+    $count  = sizeof($data);
+
+    srand($seed, MT_RAND_PHP);
+
+    for($i = 0; $i < $count; ++$i)
+        $ind[$i] = 0;
+
+    for($i = 0; $i < $count; ++$i) {
+        do {
+            $index = rand() % $count;
+        } while($ind[$index] != 0);
+
+        $ind[$index] = 1;
+        $retVal[$i] = $data[$index];
+    }
+
+    # Reseed
+    srand(hexdec(bin2hex(openssl_random_pseudo_bytes(4))));
+
+    return $retVal;
 }
 
 function bmask(int $input, array $options = []): Bitmask
@@ -201,6 +229,50 @@ function ovk_is_ssl(): bool
     }
     
     return $GLOBALS["requestIsSSL"];
+}
+
+function parseAttachments(string $attachments)
+{
+    $attachmentsArr = explode(",", $attachments);
+    $returnArr      = [];
+
+    foreach($attachmentsArr as $attachment) {
+        $attachmentType = NULL;
+
+        if(str_contains($attachment, "photo"))
+            $attachmentType = "photo";
+        elseif(str_contains($attachment, "video"))
+            $attachmentType = "video";
+        elseif(str_contains($attachment, "note"))
+            $attachmentType = "note";
+        elseif(str_contains($attachment, "audio"))
+            $attachmentType = "audio";
+
+        $attachmentIds = str_replace($attachmentType, "", $attachment);
+        $attachmentOwner = (int)explode("_", $attachmentIds)[0];
+        $attachmentId    = (int)end(explode("_", $attachmentIds));
+
+        switch($attachmentType) {
+            case "photo":
+                $attachmentObj = (new openvk\Web\Models\Repositories\Photos)->getByOwnerAndVID($attachmentOwner, $attachmentId);
+                $returnArr[]   = $attachmentObj;
+                break;
+            case "video":
+                $attachmentObj = (new openvk\Web\Models\Repositories\Videos)->getByOwnerAndVID($attachmentOwner, $attachmentId);
+                $returnArr[]   = $attachmentObj;
+                break;
+            case "note":
+                $attachmentObj = (new openvk\Web\Models\Repositories\Notes)->getNoteById($attachmentOwner, $attachmentId);
+                $returnArr[]   = $attachmentObj;
+                break;
+            case "audio":
+                $attachmentObj = (new openvk\Web\Models\Repositories\Audios)->getByOwnerAndVID($attachmentOwner, $attachmentId);
+                $returnArr[]   = $attachmentObj;
+                break;
+        }
+    }
+
+    return $returnArr;
 }
 
 function ovk_scheme(bool $with_slashes = false): string

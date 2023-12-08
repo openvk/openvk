@@ -65,7 +65,8 @@ final class Messages extends VKAPIRequestHandler
         ];
     }
     
-    function send(int $user_id = -1, int $peer_id = -1, string $domain = "", int $chat_id = -1, string $user_ids = "", string $message = "", int $sticker_id = -1, int $forGodSakePleaseDoNotReportAboutMyOnlineActivity = 0)
+    function send(int $user_id = -1, int $peer_id = -1, string $domain = "", int $chat_id = -1, string $user_ids = "", string $message = "", int $sticker_id = -1, int $forGodSakePleaseDoNotReportAboutMyOnlineActivity = 0,
+                    string $attachment = "") # интересно почему не attachments
     {
         $this->requireUser();
         $this->willExecuteWriteAction();
@@ -79,7 +80,8 @@ final class Messages extends VKAPIRequestHandler
             $this->fail(946, "Chats are not implemented");
         else if($sticker_id !== -1)
             $this->fail(-151, "Stickers are not implemented");
-        else if(empty($message))
+        
+        if(empty($message) && empty($attachment))
             $this->fail(100, "Message text is empty or invalid");
         
         # lol recursion
@@ -117,6 +119,21 @@ final class Messages extends VKAPIRequestHandler
         if(!$msg)
             $this->fail(950, "Internal error");
         else
+            if(!empty($attachment)) {
+                $attachs = parseAttachments($attachment);
+                
+                # Работают только фотки, остальное просто не будет отображаться.
+                if(sizeof($attachs) >= 10)
+                    $this->fail(15, "Too many attachments");
+    
+                foreach($attachs as $attach) {
+                    if($attach && !$attach->isDeleted() && $attach->getOwner()->getId() == $this->getUser()->getId())
+                        $msg->attach($attach);
+                    else
+                        $this->fail(52, "One of the attachments is invalid");
+                }
+            }
+
             return $msg->getId();
     }
     
@@ -392,5 +409,50 @@ final class Messages extends VKAPIRequestHandler
             $res["pts"] = -1;
         
         return $res;
+    }
+
+    function edit(int $message_id, string $message = "", string $attachment = "", int $peer_id = 0)
+    {
+        $this->requireUser();
+        $this->willExecuteWriteAction();
+
+        $msg = (new MSGRepo)->get($message_id);
+
+        if(empty($message) && empty($attachment))
+            $this->fail(100, "Required parameter 'message' missing.");
+
+        if(!$msg || $msg->isDeleted())
+            $this->fail(102, "Invalid message");
+
+        if($msg->getSender()->getId() != $this->getUser()->getId())
+            $this->fail(15, "Access to message denied");
+        
+        if(!empty($message))
+            $msg->setContent($message);
+
+        $msg->setEdited(time());
+        $msg->save(true);
+
+        if(!empty($attachment)) {
+            $attachs = parseAttachments($attachment);
+            $newAttachmentsCount = sizeof($attachs);
+
+            $postsAttachments = iterator_to_array($msg->getChildren());
+
+            if(sizeof($postsAttachments) >= 10)
+                $this->fail(15, "Message have too many attachments");
+
+            if(($newAttachmentsCount + sizeof($postsAttachments)) > 10)
+                $this->fail(158, "Message will have too many attachments");
+
+            foreach($attachs as $attach) {
+                if($attach && !$attach->isDeleted() && $attach->getOwner()->getId() == $this->getUser()->getId())
+                    $msg->attach($attach);
+                else
+                    $this->fail(52, "One of the attachments is invalid");
+            }
+        }
+
+        return 1;
     }
 }

@@ -4,6 +4,16 @@ use openvk\Web\Models\Entities\User;
 
 trait TOwnable
 {
+    function canBeViewedBy(?User $user = NULL): bool
+    {
+        # TODO: #950
+        if($this->isDeleted())  {
+            return false;
+        }
+        
+        return true;
+    }
+
     function canBeModifiedBy(User $user): bool
     {
         if(method_exists($this, "isCreatedBySystem"))

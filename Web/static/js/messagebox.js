@@ -20,9 +20,13 @@ function MessageBox(title, body, buttons, callbacks) {
         
         button.on("click", function(e) {
             let __closeDialog = () => {
-                u("body").removeClass("dimmed");
+              
+                if(document.querySelector(".ovk-photo-view-dimmer") == null && document.querySelector(".ovk-fullscreen-player") == null) {
+                    u("body").removeClass("dimmed");
+                    document.querySelector("html").style.overflowY = "scroll"
+                }
+                
                 u(".ovk-diag-cont").remove();
-                document.querySelector("html").style.overflowY = "scroll"
             };
             
             Reflect.apply(callbacks[callback], {

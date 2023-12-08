@@ -1,0 +1,96 @@
+{extends "../@layout.xml"}
+{block title}{$user->getCanonicalName()}{/block}
+
+{block header}
+    {$user->getCanonicalName()}
+    <img n:if="$user->isVerified()"
+         class="name-checkmark"
+         src="/assets/packages/static/openvk/img/checkmark.png"
+         />
+{/block}
+
+{block content}
+    <div class="left_small_block">
+        <div>
+            <img src="{$user->getAvatarUrl('normal')}"
+                alt="{$user->getCanonicalName()}"
+                style="width: 100%; image-rendering: -webkit-optimize-contrast;" />
+        </div>
+        <div id="profile_links" n:if="isset($thisUser)">
+            <a style="width: 194px;" n:if="$user->getPrivacyPermission('messages.write', $thisUser)" href="/im?sel={$user->getId()}" class="profile_link">{_send_message}</a>
+            {var $subStatus = $user->getSubscriptionStatus($thisUser)}
+            {if $subStatus === 0}
+                <form action="/setSub/user" method="post" class="profile_link_form" id="addToFriends">
+                    <input type="hidden" name="act" value="add" />
+                    <input type="hidden" name="id"  value="{$user->getId()}" />
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input type="submit" class="profile_link" value="{_friends_add}" style="width: 194px;" />
+                </form>
+            {elseif $subStatus === 1}
+                <form action="/setSub/user" method="post" class="profile_link_form" id="addToFriends">
+                    <input type="hidden" name="act" value="add" />
+                    <input type="hidden" name="id"  value="{$user->getId()}" />
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input type="submit" class="profile_link" value="{_friends_accept}" style="width: 194px;" />
+                </form>
+            {elseif $subStatus === 2}
+                <form action="/setSub/user" method="post" class="profile_link_form" id="addToFriends">
+                    <input type="hidden" name="act" value="rem" />
+                    <input type="hidden" name="id"  value="{$user->getId()}" />
+                    <input type="hidden" name="hash" value="{$csrfToken}" />
+                    <input type="submit" class="profile_link" value="{_friends_reject}" style="width: 194px;" />
+                </form>
+            {/if}
+            <a class="profile_link" style="display:block;width:96%;" href="javascript:reportUser()">{_report}</a>
+            <script>
+                function reportUser() {
+                    uReportMsgTxt  = "Вы собираетесь пожаловаться на данного пользователя.";
+                    uReportMsgTxt += "<br/>Что именно вам кажется недопустимым в этом материале?";
+                    uReportMsgTxt += "<br/><br/><b>Причина жалобы</b>: <input type='text' id='uReportMsgInput' placeholder='Причина' />"
+
+                    MessageBox("Пожаловаться?", uReportMsgTxt, ["Подтвердить", "Отмена"], [
+                        (function() {
+                            res = document.querySelector("#uReportMsgInput").value;
+                            xhr = new XMLHttpRequest();
+                            xhr.open("GET", "/report/" + {$user->getId()} + "?reason=" + res + "&type=user", true);
+                            xhr.onload = (function() {
+                                if(xhr.responseText.indexOf("reason") === -1)
+                                    MessageBox("Ошибка", "Не удалось подать жалобу...", ["OK"], [Function.noop]);
+                                else
+                                    MessageBox("Операция успешна", "Скоро её рассмотрят модераторы", ["OK"], [Function.noop]);
+                            });
+                            xhr.send(null);
+                        }),
+                        Function.noop
+                    ]);
+                }
+            </script>
+        </div>
+    </div>
+
+    <div class="right_big_block">
+        <div class="page_info">
+            <div class="accountInfo clearFix">
+                <div class="profileName">
+                    <h2>{$user->getFullName()}</h2>
+                    <div class="page_status" style="color: #AAA;">{_closed_page}</div>
+                </div>
+            </div>
+            <div class="msg msg_yellow" style="width: 93%;margin-top: 10px;">
+                {var $m = $user->isFemale() ? "f" : "m"}
+                {tr("limited_access_to_page_$m", $user->getFirstName())}
+
+                {if isset($thisUser)}
+                    {if $subStatus != 2}
+                        <br /><br />
+                        {_you_can_add}
+                        <a href="javascript:addToFriends.submit()">{tr("add_to_friends_$m")}</a>
+                    {/if}
+                {else}
+                    <br /><br />
+                    {tr("register_to_access_page_$m")}
+                {/if}
+            </div>
+        </div>
+    </div>
+{/block}

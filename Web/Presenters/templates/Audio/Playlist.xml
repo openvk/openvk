@@ -1,0 +1,81 @@
+{extends "../@layout.xml"}
+
+{block title}{_playlist}{/block}
+
+{block headIncludes}
+    <meta property="og:type" content="music.album">
+    <meta property="og:title" content="{$playlist->getName()}">
+    <meta property="og:url" content="{$playlist->getURL()}">
+    <meta property="og:description" content="{$playlist->getDescription()}">
+    <meta property="og:image" content="{$playlist->getCoverURL()}">
+    
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org/",
+            "type": "MusicAlbum",
+            "name": {$playlist->getName()},
+            "url": {$playlist->getURL()}
+        }
+    </script>
+{/block}
+
+{block header}
+    <a href="{$owner->getURL()}">{$owner->getCanonicalName()}</a>
+    »
+    <a href="/audios{$ownerId}">{_audios}</a>
+    »
+    {_playlist}
+{/block}
+
+{block content}
+    {include "bigplayer.xml"}
+
+    {php $count = $playlist->size()}
+    
+    <input type="hidden" name="bigplayer_context" data-type="playlist_context" data-entity="{$playlist->getId()}" data-page="{$page}">
+    <div class="playlistBlock">
+        <div class="playlistCover" style="float: left;">
+            <a href="{$playlist->getCoverURL()}" target="_blank">
+                <img src="{$playlist->getCoverURL('normal')}" alt="{_playlist_cover}">
+            </a>
+
+            <div class="profile_links" style="width: 139px;" n:if="isset($thisUser)">
+                <a class="profile_link" style="width: 98%;" href="/playlist{$playlist->getPrettyId()}/edit" n:if="$playlist->canBeModifiedBy($thisUser)">{_edit_playlist}</a>
+                <a class="profile_link" style="width: 98%;" id="bookmarkPlaylist" data-id="{$playlist->getId()}" n:if="!$isBookmarked">{_bookmark}</a>
+                <a class="profile_link" style="width: 98%;" id="unbookmarkPlaylist" data-id="{$playlist->getId()}" n:if="$isBookmarked">{_unbookmark}</a>
+            </div>
+        </div>
+
+        <div style="float: left;padding-left: 13px;width:75%">
+            <div class="playlistInfo">
+                <h4 style="border-bottom:unset;">{$playlist->getName()}</h4>
+
+                <div class="moreInfo">
+                    {$playlist->getMetaDescription()|noescape}
+
+                    <div style="margin-top: 11px;">
+                        <span>{nl2br($playlist->getDescriptionHTML())|noescape}</span>
+                    </div>
+                    <hr style="color: #f7f7f7;">
+                </div>
+            </div>
+            <div class="audiosContainer infContainer" style="margin-top: 14px;">
+                {if $count < 1}
+                    {_empty_playlist}
+                {else}  
+                    <div class="infObj" n:foreach="$audios as $audio">
+                        {include "player.xml", audio => $audio}
+                    </div>
+
+                    {include "../components/paginator.xml", conf => (object) [
+                        "page"     => $page,
+                        "count"    => $count,
+                        "amount"   => sizeof($audios),
+                        "perPage"  => $perPage ?? OPENVK_DEFAULT_PER_PAGE,
+                        "atBottom" => true,
+                    ]}
+                {/if}
+            </div>
+        </div>
+    </div>
+{/block}

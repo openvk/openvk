@@ -54,27 +54,6 @@ CREATE TABLE `attachments` (
   `index` bigint(20) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
 
-CREATE TABLE `audios` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `owner` bigint(20) UNSIGNED NOT NULL,
-  `virtual_id` bigint(20) UNSIGNED NOT NULL,
-  `created` bigint(20) UNSIGNED NOT NULL,
-  `edited` bigint(20) UNSIGNED DEFAULT NULL,
-  `hash` char(128) COLLATE utf8mb4_unicode_520_ci NOT NULL,
-  `deleted` tinyint(4) DEFAULT 0,
-  `name` varchar(190) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT '(no name)',
-  `performer` varchar(190) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'Unknown',
-  `genre` varchar(190) COLLATE utf8mb4_unicode_520_ci NOT NULL DEFAULT 'K-POP',
-  `lyrics` longtext COLLATE utf8mb4_unicode_520_ci DEFAULT NULL,
-  `explicit` tinyint(4) NOT NULL DEFAULT 0
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
-
-CREATE TABLE `audio_relations` (
-  `user` bigint(20) UNSIGNED NOT NULL,
-  `audio` bigint(20) UNSIGNED NOT NULL,
-  `index` bigint(20) UNSIGNED NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_520_ci;
-
 CREATE TABLE `comments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `owner` bigint(20) NOT NULL,
@@ -354,12 +333,6 @@ ALTER TABLE `approval_queue`
 ALTER TABLE `attachments`
   ADD PRIMARY KEY (`index`);
 
-ALTER TABLE `audios`
-  ADD PRIMARY KEY (`id`);
-
-ALTER TABLE `audio_relations`
-  ADD UNIQUE KEY `index` (`index`);
-
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
@@ -450,12 +423,6 @@ ALTER TABLE `approval_queue`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `attachments`
-  MODIFY `index` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `audios`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
-
-ALTER TABLE `audio_relations`
   MODIFY `index` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `comments`

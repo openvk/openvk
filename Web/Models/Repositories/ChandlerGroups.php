@@ -45,4 +45,9 @@ class ChandlerGroups
     {
         foreach($this->perms->where("group", $UUID) as $perm) yield $perm;
     }
+
+    function isUserAMember(string $GID, string $UID): bool
+    {
+        return ($this->context->query("SELECT * FROM `ChandlerACLRelations` WHERE `group` = ? AND `user` = ?", $GID, $UID)) !== NULL;
+    }
 }

@@ -132,4 +132,138 @@ QUERY;
         
         return true;
     }
+
+    function getVkApiInfo()
+    {
+        $origin_m = $this->encodeType($this->originModel);
+        $target_m = $this->encodeType($this->targetModel);
+
+        $info = [
+            "type"     => "",
+            "parent"   => NULL,
+            "feedback" => NULL,
+        ];
+
+        switch($this->getActionCode()) {
+            case 0:
+                $info["type"]     = "like_post";
+                $info["parent"]   = $this->getModel(0)->toNotifApiStruct();
+                $info["feedback"] = $this->getModel(1)->toVkApiStruct();
+                break;
+            case 1:
+                $info["type"]     = "copy_post";
+                $info["parent"]   = $this->getModel(0)->toNotifApiStruct();
+                $info["feedback"] = NULL; # todo
+                break;
+            case 2:
+                switch($origin_m) {
+                    case 19:
+                        $info["type"] = "comment_video";
+                        $info["parent"] = $this->getModel(0)->toNotifApiStruct();
+                        $info["feedback"] = NULL; # айди коммента не сохраняется в бд( ну пиздец блять
+                        break;
+                    case 13:
+                        $info["type"] = "comment_photo";
+                        $info["parent"] = $this->getModel(0)->toNotifApiStruct();
+                        $info["feedback"] = NULL;
+                        break;
+                    # unstandart (vk forgor about notes)
+                    case 10:
+                        $info["type"] = "comment_note";
+                        $info["parent"] = $this->getModel(0)->toVkApiStruct();
+                        $info["feedback"] = NULL;
+                        break;
+                    case 14:
+                        $info["type"] = "comment_post";
+                        $info["parent"] = $this->getModel(0)->toNotifApiStruct();
+                        $info["feedback"] = NULL;
+                        break;
+                    # unused (users don't have topics bruh)
+                    case 21:
+                        $info["type"] = "comment_topic";
+                        $info["parent"] = $this->getModel(0)->toVkApiStruct(0, 90);
+                        break;
+                    default:
+                        $info["type"] = "comment_unknown";
+                        break;
+                }
+
+                break;
+            case 3:
+                $info["type"] = "wall";
+                $info["feedback"] = $this->getModel(0)->toNotifApiStruct();
+                break;
+            case 4:
+                switch($target_m) {
+                    case 14:
+                        $info["type"] = "mention";
+                        $info["feedback"] = $this->getModel(1)->toNotifApiStruct();
+                        break;
+                    case 19:
+                        $info["type"]   = "mention_comment_video";
+                        $info["parent"] = $this->getModel(1)->toNotifApiStruct();
+                        break;
+                    case 13:
+                        $info["type"] = "mention_comment_photo";
+                        $info["parent"] = $this->getModel(1)->toNotifApiStruct();
+                        break;
+                    # unstandart
+                    case 10:
+                        $info["type"] = "mention_comment_note";
+                        $info["parent"] = $this->getModel(1)->toVkApiStruct();
+                        break;
+                    case 21:
+                        $info["type"] = "mention_comments";
+                        break;
+                    default:
+                        $info["type"] = "mention_comment_unknown";
+                        break;
+                }
+                break;
+            case 5:
+                $info["type"]   = "make_you_admin";
+                $info["parent"] = $this->getModel(0)->toVkApiStruct($this->getModel(1));
+                break;
+            # Нужно доделать после мержа #935
+            case 6:
+                $info["type"] = "wall_publish";
+                break;
+            # В вк не было такого уведомления, так что unstandart
+            case 7:
+                $info["type"] = "new_posts_in_club";
+                break;
+            # В вк при передаче подарков приходит сообщение, а не уведомление, так что unstandart
+            case 9601:
+                $info["type"]   = "sent_gift";
+                $info["parent"] = $this->getModel(1)->toVkApiStruct($this->getModel(1));
+                break;
+            case 9602:
+                $info["type"] = "voices_transfer";
+                $info["parent"] = $this->getModel(1)->toVkApiStruct($this->getModel(1));
+                break;
+            case 9603:
+                $info["type"] = "up_rating";
+                $info["parent"] = $this->getModel(1)->toVkApiStruct($this->getModel(1));
+                $info["parent"]->count = $this->getData();
+                break;
+            default:
+                $info["type"] = NULL;
+                break;
+        }
+
+        return $info;
+    }
+
+    function toVkApiStruct()
+    {
+        $res = (object)[];
+
+        $info = $this->getVkApiInfo();
+        $res->type     = $info["type"];
+        $res->date     = $this->getDateTime()->timestamp();
+        $res->parent   = $info["parent"];
+        $res->feedback = $info["feedback"];
+        $res->reply    = NULL; # Ответы на комментарии не реализованы
+        return $res;
+    }
 }

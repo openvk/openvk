@@ -1,0 +1,40 @@
+<div class="searchOptions newer">
+    <div class="searchList" style="margin-top:10px">
+        <a n:attr="id => $mode === 'list' && $isMy ? 'used' : 'ki'" href="/audios{$thisUser->getId()}" n:if="isset($thisUser)">{_my_music}</a>
+        <a href="/player/upload{if $isMyClub}?gid={abs($ownerId)}{/if}" n:if="isset($thisUser)">{_upload_audio}</a>
+        <a n:attr="id => $mode === 'new' ? 'used' : 'ki'" href="/audios/new">{_audio_new}</a>
+        <a n:attr="id => $mode === 'popular' ? 'used' : 'ki'" href="/audios/popular">{_audio_popular}</a>
+        <a href="/search?type=audios" n:if="isset($thisUser)">{_audio_search}</a>
+
+        <hr n:if="isset($thisUser)">
+
+        <a n:attr="id => $mode === 'playlists' && $ownerId == $thisUser->getId() ? 'used' : 'ki'" href="/playlists{$thisUser->getId()}" n:if="isset($thisUser)">{_my_playlists}</a>
+
+        <a n:if="isset($thisUser)" href="/audios/newPlaylist">{_new_playlist}</a>
+
+        {if !$isMy && $mode !== 'popular' && $mode !== 'new'}
+            <hr>
+            
+            <a n:if="!$isMy" n:attr="id => $mode === 'list' ? 'used' : 'ki'" href="/audios{$ownerId}">{if $ownerId > 0}{_music_user}{else}{_music_club}{/if}</a>
+            <a href="/player/upload?gid={abs($ownerId)}" n:if="isset($thisUser) && isset($club) && $club->canUploadAudio($thisUser)">{_upload_audio}</a>
+            <a n:attr="id => $mode === 'playlists' && $ownerId != $thisUser->getId() ? 'used' : 'ki'" href="/playlists{$ownerId}"  n:if="isset($thisUser) && isset($ownerId) && !$isMy">{if $ownerId > 0}{_playlists_user}{else}{_playlists_club}{/if}</a>
+            <a href="/audios/newPlaylist{if $isMyClub}?gid={abs($ownerId)}{/if}" n:if="isset($thisUser) && $isMyClub">{_new_playlist}</a>
+        {/if}
+
+        {if $friendsAudios}
+            <div class="friendsAudiosList">
+                <a href="/audios{$fr->getRealId()}" style="width: 94%;padding-left: 10px;" n:foreach="$friendsAudios as $fr">
+                    <div class="elem">
+                        <img src="{$fr->getAvatarURL()}" />
+
+                        <div class="additionalInfo">
+                            {php $audioStatus = $fr->getCurrentAudioStatus()}
+                            <span class="name">{$fr->getCanonicalName()}</span>
+                            <span class="desc">{$audioStatus ? $audioStatus->getName() : tr("audios_count", $fr->getAudiosCollectionSize())}</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
+        {/if}
+    </div>
+</div>

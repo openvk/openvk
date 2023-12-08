@@ -15,7 +15,7 @@
 
         .navigation-lang .link_new {
             display: inline-block;
-            padding: 25px 25px 20px 25px;
+            padding: 20px 10px 5px 10px;
             text-decoration: none;
             border-top: 1px solid #fff;
             color: #000;

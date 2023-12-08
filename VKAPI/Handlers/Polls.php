@@ -104,4 +104,67 @@ final class Polls extends VKAPIRequestHandler
             $this->fail(8, "how.to. ook.bacon.in.microwova.");
         }
     }
+
+    function getVoters(int $poll_id, int $answer_ids, int $offset = 0, int $count = 6)
+    {
+        $this->requireUser();
+
+        $poll = (new PollsRepo)->get($poll_id);
+
+        if(!$poll)
+            $this->fail(251, "Invalid poll");
+
+        if($poll->isAnonymous())
+            $this->fail(251, "Access denied: poll is anonymous.");
+
+        $voters = array_slice($poll->getVoters($answer_ids, 1, $offset + $count), $offset);
+        $res = (object)[
+            "answer_id" => $answer_ids,
+            "users"     => []
+        ];
+
+        foreach($voters as $voter)
+            $res->users[] = $voter->toVkApiStruct();
+
+        return $res;
+    }
+
+    function create(string $question, string $add_answers, bool $disable_unvote = false, bool $is_anonymous = false, bool $is_multiple = false, int $end_date = 0)
+    {
+        $this->requireUser();
+        $this->willExecuteWriteAction();
+
+        $options = json_decode($add_answers);
+
+        if(!$options || empty($options))
+            $this->fail(62, "Invalid options");
+
+        if(sizeof($options) > ovkGetQuirk("polls.max-opts"))
+            $this->fail(51, "Too many options");
+
+        $poll = new Poll;
+        $poll->setOwner($this->getUser());
+        $poll->setTitle($question);
+        $poll->setMultipleChoice($is_multiple);
+        $poll->setAnonymity($is_anonymous);
+        $poll->setRevotability(!$disable_unvote);
+        $poll->setOptions($options);
+
+        if($end_date > time()) {
+            if($end_date > time() + (DAY * 365))
+                $this->fail(89, "End date is too big");
+
+            $poll->setEndDate($end_date);
+        }
+
+        $poll->save();
+
+        return $this->getById($poll->getId());
+    }
+
+    function edit()
+    {
+        #todo
+        return 1;
+    }
 }

@@ -3,7 +3,7 @@ namespace openvk\Web\Presenters;
 use openvk\Web\Models\Entities\{Club, Photo, Post};
 use Nette\InvalidStateException;
 use openvk\Web\Models\Entities\Notifications\ClubModeratorNotification;
-use openvk\Web\Models\Repositories\{Clubs, Users, Albums, Managers, Topics};
+use openvk\Web\Models\Repositories\{Clubs, Users, Albums, Managers, Topics, Audios, Posts};
 use Chandler\Security\Authenticator;
 
 final class GroupPresenter extends OpenVKPresenter
@@ -31,6 +31,15 @@ final class GroupPresenter extends OpenVKPresenter
                 $this->template->albumsCount = (new Albums)->getClubAlbumsCount($club);
                 $this->template->topics = (new Topics)->getLastTopics($club, 3);
                 $this->template->topicsCount = (new Topics)->getClubTopicsCount($club);
+                $this->template->audios      = (new Audios)->getRandomThreeAudiosByEntityId($club->getRealId());
+                $this->template->audiosCount = (new Audios)->getClubCollectionSize($club);
+            }
+
+            if(!is_null($this->user->identity) && $club->getWallType() == 2) {
+                if(!$club->canBeModifiedBy($this->user->identity))
+                    $this->template->suggestedPostsCountByUser = (new Posts)->getSuggestedPostsCountByUser($club->getId(), $this->user->id);
+                else
+                    $this->template->suggestedPostsCountByEveryone = (new Posts)->getSuggestedPostsCount($club->getId());
             }
 
             $this->template->club = $club;
@@ -214,10 +223,16 @@ final class GroupPresenter extends OpenVKPresenter
             
             $club->setName((empty($this->postParam("name")) || mb_strlen(trim($this->postParam("name"))) === 0) ? $club->getName() : $this->postParam("name"));
             $club->setAbout(empty($this->postParam("about")) ? NULL : $this->postParam("about"));
-	    $club->setWall(empty($this->postParam("wall")) ? 0 : 1);
+            try {
+                $club->setWall(empty($this->postParam("wall")) ? 0 : (int)$this->postParam("wall"));
+            } catch(\Exception $e) {
+                $this->flashFail("err", tr("error"), tr("error_invalid_wall_value"));
+            }
+            
             $club->setAdministrators_List_Display(empty($this->postParam("administrators_list_display")) ? 0 : $this->postParam("administrators_list_display"));
 	    $club->setEveryone_Can_Create_Topics(empty($this->postParam("everyone_can_create_topics")) ? 0 : 1);
             $club->setDisplay_Topics_Above_Wall(empty($this->postParam("display_topics_above_wall")) ? 0 : 1);
+            $club->setEveryone_can_upload_audios(empty($this->postParam("upload_audios")) ? 0 : 1);
             $club->setHide_From_Global_Feed(empty($this->postParam("hide_from_global_feed")) ? 0 : 1);
             
             $website = $this->postParam("website") ?? "";
@@ -410,5 +425,38 @@ final class GroupPresenter extends OpenVKPresenter
         $club->save();
 
         $this->flashFail("succ", tr("information_-1"), tr("group_owner_setted", $newOwner->getCanonicalName(), $club->getName()));
+    }
+
+    function renderSuggested(int $id): void
+    {
+        $this->assertUserLoggedIn();
+
+        $club = $this->clubs->get($id);
+        if(!$club)
+            $this->notFound();
+        else
+            $this->template->club = $club;
+
+        if($club->getWallType() == 0) {
+            $this->flash("err", tr("error_suggestions"), tr("error_suggestions_closed"));
+            $this->redirect("/club".$club->getId());
+        }
+    
+        if($club->getWallType() == 1) {
+            $this->flash("err", tr("error_suggestions"), tr("error_suggestions_open"));
+            $this->redirect("/club".$club->getId());
+        }
+        
+        if(!$club->canBeModifiedBy($this->user->identity)) {
+            $this->template->posts = iterator_to_array((new Posts)->getSuggestedPostsByUser($club->getId(), $this->user->id, (int) ($this->queryParam("p") ?? 1)));
+            $this->template->count = (new Posts)->getSuggestedPostsCountByUser($club->getId(), $this->user->id);
+            $this->template->type  = "my";
+        } else {
+            $this->template->posts = iterator_to_array((new Posts)->getSuggestedPosts($club->getId(), (int) ($this->queryParam("p") ?? 1)));
+            $this->template->count = (new Posts)->getSuggestedPostsCount($club->getId());
+            $this->template->type  = "everyone";
+        }
+
+        $this->template->page  = (int) ($this->queryParam("p") ?? 1);
     }
 }

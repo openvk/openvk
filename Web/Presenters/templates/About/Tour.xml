@@ -178,11 +178,29 @@
     <h2>{_tour_section_6_title_1|noescape}</h2>
         
      <ul class="listing">
-     <li><span>{_tour_section_6_text_1|noescape}</span></li> 
+        <li><span>{_tour_section_6_text_1|noescape}</span></li> 
+        <li><span>{_tour_section_6_text_2|noescape}</span></li> 
+        <li><span>{_tour_section_6_text_3|noescape}</span></li> 
+        <img src="assets/packages/static/openvk/img/tour/audios.png" width="440">
      </ul>
+
+    <ul class="listing">
+        <li><span>{_tour_section_6_text_4|noescape}</span></li> 
+        <img src="assets/packages/static/openvk/img/tour/audios_search.png" width="440">
+        <li><span>{_tour_section_6_text_5|noescape}</span></li> 
+        <img src="assets/packages/static/openvk/img/tour/audios_upload.png" width="440">
+    </ul>
      
-    
-                          
+    <p class="big">{_tour_section_6_bottom_text_1|noescape}</p>
+
+    <h2>{_tour_section_6_title_2|noescape}</h2>        
+
+    <ul class="listing">
+        <li><span>{_tour_section_6_text_6|noescape}</span></li> 
+        <li><span>{_tour_section_6_text_7|noescape}</span></li> 
+        <img src="assets/packages/static/openvk/img/tour/audios_playlists.png" width="440">
+    </ul>
+
      <br>       
     </div>
     

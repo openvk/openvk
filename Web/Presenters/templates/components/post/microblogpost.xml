@@ -26,8 +26,8 @@
                 <div class="post-author">
                     <a href="{$author->getURL()}"><b class="post-author-name">{$author->getCanonicalName()}</b></a>
                     <img n:if="$author->isVerified()" class="name-checkmark" src="/assets/packages/static/openvk/img/checkmark.png">
-                    {$post->isDeactivationMessage() ? ($author->isFemale() ? tr($deac . "_f") : tr($deac . "_m"))}
-                    {$post->isUpdateAvatarMessage() && !$post->isPostedOnBehalfOfGroup() ? ($author->isFemale() ? tr("upd_f") : tr("upd_m"))}
+                    {$post->isDeactivationMessage() ? ($author->isFemale() ? tr($deac . "_f") : ($author->isNeutral() ? tr($deac . "_g") : tr($deac . "_m")))}
+                    {$post->isUpdateAvatarMessage() && !$post->isPostedOnBehalfOfGroup() ? ($author->isFemale() ? tr("upd_f") : ($author->isNeutral() ? tr("upd_n") : tr("upd_m")))}
                     {$post->isUpdateAvatarMessage() && $post->isPostedOnBehalfOfGroup() ? tr("upd_g") : ""}
                     {if ($onWallOf ?? false) &&!$post->isPostedOnBehalfOfGroup() && $post->getOwnerPost() !== $post->getTargetWall()}
                         {var $wallOwner = $post->getWallOwner()}
@@ -71,12 +71,23 @@
                     {/if}
                 </div>
                 <div class="post-content" id="{$post->getPrettyId()}">
-                    <div class="text">
+                    <div class="text" id="text{$post->getPrettyId()}">
                         <span data-text="{$post->getText(false)}" class="really_text">{$post->getText()|noescape}</span>
+                        
+                        {var $width = ($GLOBALS["_bigWall"] ?? false) ? 550 : 320}
+                        {if isset($GLOBALS["_nesAttGloCou"])}
+                            {var $width = $width - 70 * $GLOBALS["_nesAttGloCou"]}
+                        {/if}
+                        {var $attachmentsLayout = $post->getChildrenWithLayout($width)}
+                        <div n:ifcontent class="attachments attachments_b" style="height: {$attachmentsLayout->height|noescape}; width: {$attachmentsLayout->width|noescape};">
+                            <div class="attachment" n:foreach="$attachmentsLayout->tiles as $attachment" style="float: {$attachment[3]|noescape}; width: {$attachment[0]|noescape}; height: {$attachment[1]|noescape};" data-localized-nsfw-text="{_nsfw_warning}">
+                                {include "../attachment.xml", attachment => $attachment[2], parent => $post, parentType => "post"}
+                            </div>
+                        </div>
 
-                        <div n:ifcontent class="attachments_b">
-                            <div class="attachment" n:foreach="$post->getChildren() as $attachment" data-localized-nsfw-text="{_nsfw_warning}">
-                                {include "../attachment.xml", attachment => $attachment}
+                        <div n:ifcontent class="attachments attachments_m">
+                            <div class="attachment" n:foreach="$attachmentsLayout->extras as $attachment">
+                                {include "../attachment.xml", attachment => $attachment, post => $post}
                             </div>
                         </div>
                     </div>
@@ -87,17 +98,18 @@
                     <div n:if="$post->isSigned()" class="post-signature">
                         {var $actualAuthor = $post->getOwner(false)}
                         <span>
-                            {_author}:
-                            <a href="{$actualAuthor->getURL()}" class="mention" data-mention-ref="{$actualAuthor->getId()}">
+                            <div class="authorIcon"></div>
+                            <a href="{$actualAuthor->getURL()}" class="mention authorName" data-mention-ref="{$actualAuthor->getId()}">
                                {$actualAuthor->getCanonicalName()}
                             </a>
                         </span>
                     </div>
                 </div>
                 <div class="post-menu" n:if="$compact == false">
-                    <a href="/wall{$post->getPrettyId()}" class="date">{$post->getPublicationTime()}
+                    <a href="{if !$suggestion}/wall{$post->getPrettyId()}{else}javascript:void(0){/if}" class="date">{$post->getPublicationTime()}
                         <span n:if="$post->getEditTime()" class="edited editedMark">({_edited_short})</span>
                     </a>
+                  
                     <a n:if="!empty($platform)" class="client_app" data-app-tag="{$platform}" data-app-name="{$platformDetails['name']}" data-app-url="{$platformDetails['url']}" data-app-img="{$platformDetails['img']}">
                         <img src="/assets/packages/static/openvk/img/app_icons_mini/{$post->getPlatform(this)}.svg">
                     </a>
@@ -132,6 +144,10 @@
                         {var $club = is_null($club) ? ($post->getTargetWall() < 0 ? (new openvk\Web\Models\Repositories\Clubs)->get(abs($post->getTargetWall())) : NULL) : $club}
                         {include "../textArea.xml", route => $commentsURL, postOpts => false, graffiti => (bool) ovkGetQuirk("comments.allow-graffiti"), post => $post, club => $club}
                     </div>
+                </div>
+                <div n:if="$suggestion && $post->canBePinnedBy($thisUser ?? NULL)" class="suggestionControls">
+                    <input type="button" class="button" id="publish_post" data-id="{$post->getId()}" value="{_publish_suggested}">
+                    <input type="button" class="button" id="decline_post" data-id="{$post->getId()}" value="{_decline_suggested}">
                 </div>
             </td>
         </tr>

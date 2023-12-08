@@ -30,7 +30,7 @@ If you want, you can add your instance to the list above so that people can regi
 
 1. Install PHP 7.4, web-server, Composer, Node.js, Yarn and [Chandler](https://github.com/openvk/chandler)
 
-* PHP 8.1 is supported too, however it was not tested carefully, so be aware.
+* PHP 8 is still being tested; the functionality of the engine on this version of PHP is not yet guaranteed.
 
 2. Install MySQL-compatible database.
 

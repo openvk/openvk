@@ -1,7 +1,7 @@
 <?php declare(strict_types=1);
 namespace openvk\Web\Presenters;
 use openvk\Web\Models\Entities\{IP, User, PasswordReset, EmailVerification};
-use openvk\Web\Models\Repositories\{Bans, IPs, Users, Restores, Verifications, Logs};
+use openvk\Web\Models\Repositories\{Bans, IPs, Users, Restores, Verifications};
 use openvk\Web\Models\Exceptions\InvalidUserNameException;
 use openvk\Web\Util\Validator;
 use Chandler\Session\Session;
@@ -95,7 +95,17 @@ final class AuthPresenter extends OpenVKPresenter
                 $user = new User;
                 $user->setFirst_Name($this->postParam("first_name"));
                 $user->setLast_Name($this->postParam("last_name"));
-                $user->setSex((int)($this->postParam("sex") === "female"));
+                switch ($this->postParam("pronouns")) {
+                    case 'male':
+                        $user->setSex(0);
+                        break;
+                    case 'female':
+                        $user->setSex(1);
+                        break;
+                    case 'neutral':
+                        $user->setSex(2);
+                        break;
+                }
                 $user->setEmail($this->postParam("email"));
                 $user->setSince(date("Y-m-d H:i:s"));
                 $user->setRegistering_Ip(CONNECTING_IP);
@@ -130,7 +140,6 @@ final class AuthPresenter extends OpenVKPresenter
             }
             
             $this->authenticator->authenticate($chUser->getId());
-            (new Logs)->create($user->getId(), "profiles", "openvk\\Web\\Models\\Entities\\User", 0, $user, $user, $_SERVER["REMOTE_ADDR"], $_SERVER["HTTP_USER_AGENT"]);
             $this->redirect("/id" . $user->getId());
             $user->save();
         }

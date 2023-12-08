@@ -1,7 +1,9 @@
 <?php declare(strict_types=1);
 namespace openvk\VKAPI\Handlers;
-use openvk\Web\Models\Entities\User;
+use openvk\Web\Models\Entities\{User, Report};
 use openvk\Web\Models\Repositories\Users as UsersRepo;
+use openvk\Web\Models\Repositories\{Photos, Clubs, Albums, Videos, Notes, Audios};
+use openvk\Web\Models\Repositories\Reports;
 
 final class Users extends VKAPIRequestHandler
 {
@@ -36,8 +38,8 @@ final class Users extends VKAPIRequestHandler
 				} else if($usr->isBanned()) {
 					$response[$i] = (object)[
 						"id"          => $usr->getId(),
-						"first_name"  => $usr->getFirstName(),
-						"last_name"   => $usr->getLastName(),
+						"first_name"  => $usr->getFirstName(true),
+						"last_name"   => $usr->getLastName(true),
 						"deactivated" => "banned",
 						"ban_reason"  => $usr->getBanReason()
 					];
@@ -46,21 +48,21 @@ final class Users extends VKAPIRequestHandler
 				} else {
 					$response[$i] = (object)[
 						"id"                => $usr->getId(),
-						"first_name"        => $usr->getFirstName(),
-						"last_name"         => $usr->getLastName(),
-						"is_closed"         => false,
-						"can_access_closed" => true,
+						"first_name"        => $usr->getFirstName(true),
+						"last_name"         => $usr->getLastName(true),
+						"is_closed"         => $usr->isClosed(),
+						"can_access_closed" => (bool)$usr->canBeViewedBy($this->getUser()),
 					];
 
 					$flds = explode(',', $fields);
-
-					foreach($flds as $field) { 
+					$canView = $usr->canBeViewedBy($this->getUser());
+					foreach($flds as $field) {
 						switch($field) {
 							case "verified":
 								$response[$i]->verified = intval($usr->isVerified());
 								break;
 							case "sex":
-								$response[$i]->sex = $usr->isFemale() ? 1 : 2;
+								$response[$i]->sex = $usr->isFemale() ? 1 : ($usr->isNeutral() ? 0 : 2);
 								break;
 							case "has_photo":
 								$response[$i]->has_photo = is_null($usr->getAvatarPhoto()) ? 0 : 1;
@@ -95,6 +97,12 @@ final class Users extends VKAPIRequestHandler
 							case "status":
 								if($usr->getStatus() != NULL)
 									$response[$i]->status = $usr->getStatus();
+								
+								$audioStatus = $usr->getCurrentAudioStatus();
+
+								if($audioStatus)
+									$response[$i]->status_audio = $audioStatus->toVkApiStruct();
+
 								break;
 							case "screen_name":
 								if($usr->getShortCode() != NULL)
@@ -142,26 +150,102 @@ final class Users extends VKAPIRequestHandler
 									];
 								}
 							case "music":
+								if(!$canView) {
+									$response[$i]->music = "secret";
+									break;
+								}
+
 								$response[$i]->music = $usr->getFavoriteMusic();
 								break;
 							case "movies":
+								if(!$canView) {
+									$response[$i]->movies = "secret";
+									break;
+								}
+
 								$response[$i]->movies = $usr->getFavoriteFilms();
 								break;
 							case "tv":
+								if(!$canView) {
+									$response[$i]->tv = "secret";
+									break;
+								}
+
 								$response[$i]->tv = $usr->getFavoriteShows();
 								break;
 							case "books":
+								if(!$canView) {
+									$response[$i]->books = "secret";
+									break;
+								}
+
 								$response[$i]->books = $usr->getFavoriteBooks();
 								break;
 							case "city":
+								if(!$canView) {
+									$response[$i]->city = "Воскресенск";
+									break;
+								}
+
 								$response[$i]->city = $usr->getCity();
 								break;
 							case "interests":
+								if(!$canView) {
+									$response[$i]->interests = "secret";
+									break;
+								}
+
 								$response[$i]->interests = $usr->getInterests();
 								break;
+							case "quotes":
+								if(!$canView) {
+									$response[$i]->quotes = "secret";
+									break;
+								}
+
+								$response[$i]->quotes = $usr->getFavoriteQuote();
+								break;
+							case "email":
+								if(!$canView) {
+									$response[$i]->email = "secret@gmail.com";
+									break;
+								}
+
+								$response[$i]->email = $usr->getContactEmail();
+								break;
+							case "telegram":
+								if(!$canView) {
+									$response[$i]->telegram = "@secret";
+									break;
+								}
+
+								$response[$i]->telegram = $usr->getTelegram();
+								break;
+							case "about":
+								if(!$canView) {
+									$response[$i]->about = "secret";
+									break;
+								}
+								
+								$response[$i]->about = $usr->getDescription();
+								break;
 							case "rating":
+								if(!$canView) {
+									$response[$i]->rating = 22;
+									break;
+								}
+
 								$response[$i]->rating = $usr->getRating();
-								break;	 
+								break;
+							case "counters":
+								$response[$i]->counters = (object) [
+									"friends_count" => $usr->getFriendsCount(),
+									"photos_count" => (new Albums)->getUserPhotosCount($usr),
+									"videos_count" => (new Videos)->getUserVideosCount($usr),
+									"audios_count" => (new Audios)->getUserCollectionSize($usr),
+									"notes_count" => (new Notes)->getUserNotesCount($usr)
+								];
+								break;
 						}
 					}
 
@@ -185,6 +269,14 @@ final class Users extends VKAPIRequestHandler
 
         $this->requireUser();
         
+        $user = $users->get($user_id);
+		
+        if(!$user || $user->isDeleted())
+            $this->fail(14, "Invalid user");
+
+        if(!$user->canBeViewedBy($this->getUser()))
+            $this->fail(15, "Access denied");
+
         foreach($users->get($user_id)->getFollowers($offset, $count) as $follower)
             $followers[] = $follower->getId();
 
@@ -277,6 +369,7 @@ final class Users extends VKAPIRequestHandler
             "fav_shows"       => !empty($fav_shows) ? $fav_shows : NULL,
             "fav_books"       => !empty($fav_books) ? $fav_books : NULL,
             "fav_quotes"      => !empty($fav_quotes) ? $fav_quotes : NULL,
+            "doNotSearchPrivate" => true,
         ];
 
         $find  = $users->find($q, $parameters, $sortg);
@@ -289,4 +382,26 @@ final class Users extends VKAPIRequestHandler
         	"items" => $this->get(implode(',', $array), $nfilds, $offset, $count)
         ];
     }
+
+	function report(int $user_id, string $type = "spam", string $comment = "")
+	{
+		$this->requireUser();
+		$this->willExecuteWriteAction();
+
+		if($user_id == $this->getUser()->getId())
+			$this->fail(12, "Can't report yourself.");
+
+		if(sizeof(iterator_to_array((new Reports)->getDuplicates("user", $user_id, NULL, $this->getUser()->getId()))) > 0)
+			return 1;
+
+		$report = new Report;
+		$report->setUser_id($this->getUser()->getId());
+		$report->setTarget_id($user_id);
+		$report->setType("user");
+		$report->setReason($comment);
+		$report->setCreated(time());
+		$report->save();
+
+		return 1;
+	}
 }

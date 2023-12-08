@@ -54,11 +54,11 @@ class PasswordReset extends RowModel
         }
     }
     
-    function save(): void
+    function save(?bool $log = false): void
     {
         $this->stateChanges("key", base64_encode(openssl_random_pseudo_bytes(46)));
         $this->stateChanges("timestamp", time());
         
-        parent::save();
+        parent::save($log);
     }
 }

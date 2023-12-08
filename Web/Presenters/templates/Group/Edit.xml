@@ -77,7 +77,12 @@
                             <span class="nobold">{_wall}: </span>
                         </td>
                         <td>
-                            <input type="checkbox" name="wall" value="1" n:attr="checked => $club->canPost()" /> {_group_allow_post_for_everyone}<br>
+                            <select name="wall">
+                                <option value="1" n:attr="selected => $club->getWallType() == 1" /> {_group_allow_post_for_everyone}</option>
+                                <option value="2" n:attr="selected => $club->getWallType() == 2" /> {_group_limited_post}</option>
+                                <option value="0" n:attr="selected => $club->getWallType() == 0" /> {_group_closed_post}</option>
+                            <select>
+
                             <input type="checkbox" name="hide_from_global_feed" value="1" n:attr="checked => $club->isHideFromGlobalFeedEnabled()" /> {_group_hide_from_global_feed}
                         </td>
                     </tr>
@@ -99,6 +104,15 @@
                             <input type="radio" name="administrators_list_display" value="0" n:attr="checked => $club->getAdministratorsListDisplay() == 0, disabled => $areAllAdminsHidden" /> {_group_display_only_creator}<br>
                             <input type="radio" name="administrators_list_display" value="1" n:attr="checked => $club->getAdministratorsListDisplay() == 1, disabled => $areAllAdminsHidden" /> {_group_display_all_administrators}<br>
                             <input type="radio" name="administrators_list_display" value="2" n:attr="checked => $club->getAdministratorsListDisplay() == 2" /> {_group_dont_display_administrators_list}<br>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td width="120" valign="top">
+                            <span class="nobold">{_audios}: </span>
+                        </td>
+                        <td>
+                            <label><input type="checkbox" name="upload_audios" value="1" n:attr="checked => $club->isEveryoneCanUploadAudios()" /> {_everyone_can_upload_audios}</label>
                         </td>
                     </tr>
 
