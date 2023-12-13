@@ -679,23 +679,20 @@ final class WallPresenter extends OpenVKPresenter
 
             if($ignoredSourceModel->getId() == $this->user->id)
                 $this->flashFail("err", "Error", tr("cant_ignore_self"), null, true);
+
+            if($ignoredSourceModel->isClosed())
+                $this->flashFail("err", "Error", tr("no_sense"), null, true);
         } else {
             $ignoredSourceModel = (new Clubs)->get(abs($ignoredSource));
 
             if(!$ignoredSourceModel)
                 $this->flashFail("err", "Error", tr("invalid_club"), null, true);
 
-            if($ignoredSourceModel->isHideFromGlobalFeedEnabled()) {
+            if($ignoredSourceModel->isHideFromGlobalFeedEnabled())
                 $this->flashFail("err", "Error", tr("no_sense"), null, true);
-            }
         }
-
-        if($ignoredSourceModel->isIgnoredBy($this->user->identity)) {
-            DatabaseConnection::i()->getContext()->table("ignored_sources")->where([
-                "owner"          => $this->user->id,
-                "ignored_source" => $ignoredSource
-            ])->delete();
-
+        
+        if(!$ignoredSourceModel->toggleIgnore($this->user->identity)) {
             $tr = "";
 
             if($ignoredSource > 0)
@@ -705,11 +702,6 @@ final class WallPresenter extends OpenVKPresenter
 
             $this->returnJson(["success" => true, "act" => "unignored", "text" => $tr]);
         } else {
-            DatabaseConnection::i()->getContext()->table("ignored_sources")->insert([
-                "owner"          => $this->user->id,
-                "ignored_source" => $ignoredSource
-            ]);
-
             if($ignoredSource > 0)
                 $tr = tr("unignore_user");
             else

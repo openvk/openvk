@@ -461,29 +461,8 @@ class Club extends RowModel
         return $res;
     }
 
-    function isIgnoredBy(User $user): bool
-    {
-        $ctx  = DB::i()->getContext();
-        $data = [
-            "owner"            => $user->getId(),
-            "ignored_source"   => $this->getId() * -1,
-        ];
-
-        $sub  = $ctx->table("ignored_sources")->where($data);
-
-        if(!$sub->fetch()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    function getRealId()
-    {
-        return $this->getId() * -1;
-    }
-
     use Traits\TBackDrops;
     use Traits\TSubscribable;
     use Traits\TAudioStatuses;
+    use Traits\TIgnorable;
 }

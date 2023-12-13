@@ -16,7 +16,7 @@
             <a n:attr="id => (isset($globalFeed) ? 'act_tab_a' : 'ki')" href="/feed/all">{_all_news}</a>
         </div>
 
-        <span n:if="isset($globalFeed)" class="ignoredSourcesLink">{_ignored_sources}</span>
+        <span n:if="isset($globalFeed) && $thisUser->getIgnoredSourcesCount() > 0" id="_ignoredSourcesLink">{_ignored_sources}</span>
     </div>
 
     <div n:class="postFeedWrapper, $thisUser->hasMicroblogEnabled() ? postFeedWrapperMicroblog">

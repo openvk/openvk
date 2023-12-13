@@ -164,7 +164,7 @@ class Wall implements Handler
         }
 
         if(rand(0, 200) == 50) {
-            $arr["fact"] = $this->user->getUsersIgnoredCount();
+            $arr["fact"] = $this->user->getIgnoresCount();
         }
         
         $resolve($arr);

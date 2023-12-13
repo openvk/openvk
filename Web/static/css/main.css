@@ -3023,7 +3023,7 @@ body.article .floating_sidebar, body.article .page_content {
     background: #E9F0F1 !important;
 }
 
-.ignoredSourcesLink {
+#_ignoredSourcesLink {
     float: right;
     margin-right: 3px;
     margin-top: 2px;
@@ -3031,22 +3031,23 @@ body.article .floating_sidebar, body.article .page_content {
     cursor: pointer;
 }
 
-.ignoredSourcesLink:hover {
+#_ignoredSourcesLink:hover {
     text-decoration: underline;
 }
 
-.ignorredList {
+._ignorredList {
     height: 87%;
     border: 1px solid gray;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-top: 4px;
+    padding: 5px;
 }
 
-.smolContent img {
+._ignorredList ._ignoredListContent img {
     width: 38px;
 }
 
-.smolContent {
+._ignorredList ._ignoredListContent {
     height: 42px;
     padding-bottom: 9px;
 }

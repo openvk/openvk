@@ -1,9 +1,7 @@
-$(document).on("click", ".ignoredSourcesLink", (e) => {
+$(document).on("click", "#_ignoredSourcesLink", (e) => {
     let body = `
         <span id="ignoredClubersList">${tr("ignored_clubsers_list")}</span>
-        <div class="ignorredList">
-            <div class="list" style="padding-top: 7px;padding-left: 7px;"></div>
-        </div>
+        <div class="_ignorredList"></div>
     `
     MessageBox(tr("ignored_sources"), body, [tr("cancel")], [Function.noop]);
 
@@ -11,19 +9,21 @@ $(document).on("click", ".ignoredSourcesLink", (e) => {
     document.querySelector(".ovk-diag-body").style.height = "330px"
 
     async function insertMoreSources(page) {
-        document.querySelector(".ignorredList .list").insertAdjacentHTML("beforeend", `<img id="loader" src="/assets/packages/static/openvk/img/loading_mini.gif">`)
+        document.querySelector("._ignorredList").insertAdjacentHTML("beforeend", `<img id="loader" src="/assets/packages/static/openvk/img/loading_mini.gif">`)
         let ar = await API.Wall.getIgnoredSources(page)
         u("#loader").remove()
 
         let pagesCount = Math.ceil(Number(ar.count) / 10)
 
         for(const a of ar.items) {
-            document.querySelector(".ignorredList .list").insertAdjacentHTML("beforeend", `
-                <div class="smolContent">
-                    <a href="${a.url}" target="_blank"><img style="float: left;width: 38px;height: 38px;object-fit: cover;" src="${a.avatar}"></a>
+            document.querySelector("._ignorredList").insertAdjacentHTML("beforeend", `
+                <div class="_ignoredListContent">
+                    <a href="${a.url}" target="_blank">
+                        <img style="float: left" class="ava" src="${a.avatar}">
+                    </a>
                     <div style="float: left;margin-left: 6px;">
-                        <a href="${a.url}" target="_blank">${ovk_proc_strtr(escapeHtml(a.name), 12)}</a><br>
-                        <span>${ovk_proc_strtr(escapeHtml(a.additional), 40)}</span>
+                        <a href="${a.url}" target="_blank">${ovk_proc_strtr(escapeHtml(a.name), 30)}</a><br>
+                        <a class="profile_link" id="ignoreSomeone" data-id="${a.id}">${a.id > 0 ? tr("unignore_user") : tr("unignore_club")}</a>
                     </div>
                 </div>
             `)
@@ -35,7 +35,7 @@ $(document).on("click", ".ignoredSourcesLink", (e) => {
         }
 
         if(page < pagesCount) {
-            document.querySelector(".ignorredList .list").insertAdjacentHTML("beforeend", `
+            document.querySelector("._ignorredList").insertAdjacentHTML("beforeend", `
             <div id="showMoreIgnors" data-pagesCount="${pagesCount}" data-page="${page + 1}" style="width: 99%;text-align: center;background: #d5d5d5;height: 22px;padding-top: 9px;cursor:pointer;">
                 <span>more...</span>
             </div>`)
@@ -69,7 +69,6 @@ $(document).on("click", "#ignoreSomeone", (e) => {
             e.currentTarget.innerHTML = result.text
         } else {
             MessageBox(tr("error"), result.flash.message, [tr("ok")], [Function.noop]);
-
         }
     }
 

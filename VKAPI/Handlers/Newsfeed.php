@@ -47,7 +47,7 @@ final class Newsfeed extends VKAPIRequestHandler
         return $response;
     }
 
-    function getGlobal(string $fields = "", int $start_from = 0, int $start_time = 0, int $end_time = 0,  int $offset = 0, int $count = 30, int $extended = 0)
+    function getGlobal(string $fields = "", int $start_from = 0, int $start_time = 0, int $end_time = 0,  int $offset = 0, int $count = 30, int $extended = 0, int $return_banned = 0)
     {
         $this->requireUser();
         
@@ -57,7 +57,7 @@ final class Newsfeed extends VKAPIRequestHandler
         if($this->getUser()->getNsfwTolerance() === User::NSFW_INTOLERANT)
             $queryBase .= " AND `nsfw` = 0";
         
-        if(($ignoredCount = $this->getUser()->getIgnoredSourcesCount()) > 0) {
+        if(($ignoredCount = $this->getUser()->getIgnoredSourcesCount()) > 0 && $return_banned == 0) {
             $sources = implode("', '", $this->getUser()->getIgnoredSources(1, $ignoredCount, true));
             
             $queryBase .= " AND `posts`.`wall` NOT IN ('$sources')";
@@ -127,5 +127,83 @@ final class Newsfeed extends VKAPIRequestHandler
 
             return $retArr;
         }
+    }
+
+    function addBan(string $user_ids = "", string $group_ids = "")
+    {
+        $this->requireUser();
+        $this->willExecuteWriteAction();
+
+        if(empty($user_ids) && empty($group_ids))
+            $this->fail(52, "Provide 'user_ids' or 'groups_ids'");
+
+        $arr = [];
+
+        if(!empty($user_ids)) {
+            $arr = array_merge($arr, array_map(function($el) {
+                return (int)$el;
+            }, explode(",", $user_ids)));
+        } 
+        
+        if(!empty($group_ids)) {
+            $arr = array_merge($arr, array_map(function($el) {
+                return abs((int)$el) * -1;
+            }, explode(",", $group_ids)));
+        }
+
+        $arr = array_unique($arr);
+        if(sizeof($arr) > 10 || sizeof($arr) < 1)
+            $this->fail(20, "You can ignore only 10 users/groups at once");
+        
+        $successes = 0;
+        foreach($arr as $ar) {
+            $entity = getEntity($ar);
+
+            if(!$entity || $entity->isHideFromGlobalFeedEnabled() || $entity->isIgnoredBy($this->getUser())) continue;
+        
+            $entity->toggleIgnore($this->getUser());
+            $successes += 1;
+        }
+
+        return (int)($successes > 0);
+    }
+
+    function deleteBan(string $user_ids = "", string $group_ids = "")
+    {
+        $this->requireUser();
+        $this->willExecuteWriteAction();
+
+        if(empty($user_ids) && empty($group_ids))
+            $this->fail(52, "Provide 'user_ids' or 'groups_ids'");
+
+        $arr = [];
+
+        if(!empty($user_ids)) {
+            $arr = array_merge($arr, array_map(function($el) {
+                return (int)$el;
+            }, explode(",", $user_ids)));
+        } 
+        
+        if(!empty($group_ids)) {
+            $arr = array_merge($arr, array_map(function($el) {
+                return abs((int)$el) * -1;
+            }, explode(",", $group_ids)));
+        }
+
+        $arr = array_unique($arr);
+        if(sizeof($arr) > 10 || sizeof($arr) < 1)
+            $this->fail(20, "You can unignore only 10 users/groups at once");
+        
+        $successes = 0;
+        foreach($arr as $ar) {
+            $entity = getEntity($ar);
+
+            if(!$entity || $entity->isHideFromGlobalFeedEnabled() || !$entity->isIgnoredBy($this->getUser())) continue;
+        
+            $entity->toggleIgnore($this->getUser());
+            $successes += 1;
+        }
+
+        return (int)($successes > 0);
     }
 }

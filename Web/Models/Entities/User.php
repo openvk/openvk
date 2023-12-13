@@ -1368,28 +1368,6 @@ class User extends RowModel
     {
         return sizeof(DatabaseConnection::i()->getContext()->table("ignored_sources")->where("owner", $this->getId()));
     }
-
-    function isIgnoredBy(User $user): bool
-    {
-        $ctx  = DatabaseConnection::i()->getContext();
-        $data = [
-            "owner"            => $user->getId(),
-            "ignored_source"   => $this->getId(),
-        ];
-
-        $sub  = $ctx->table("ignored_sources")->where($data);
-
-        if(!$sub->fetch()) {
-            return false;
-        }
-
-        return true;
-    }
-
-    function getUsersIgnoredCount()
-    {
-        return sizeof(DatabaseConnection::i()->getContext()->table("ignored_sources")->where("ignored_source", $this->getId()));
-    }
     
     function getAudiosCollectionSize()
     {
@@ -1430,7 +1408,13 @@ class User extends RowModel
         return $returnArr;
     }
 
+    function isHideFromGlobalFeedEnabled(): bool
+    {
+        return $this->isClosed();
+    }
+
     use Traits\TBackDrops;
     use Traits\TSubscribable;
     use Traits\TAudioStatuses;
+    use Traits\TIgnorable;
 }
