@@ -465,15 +465,17 @@
 "groups_avatar" = "Good photo can make your group more recognizable.";
 "formats_avatar" = "You can upload an image in JPG, GIF or PNG format.";
 "troubles_avatar" = "If you're having trouble uploading, try selecting a smaller photo.";
-"webcam_avatar" = "If your computer is equipped with a webcam, you can <a href='javascript:'>take a snapshot</a>.";
+"webcam_avatar" = "If your computer has a webcam, you can <a id='_takeSelfie'>take a snapshot »</a>";
+"publish_on_wall" = "Make post on wall";
+"take_snapshot" = "Take snapshot";
+"your_browser_doesnt_support_webcam" = "Your browser does not support webcam video capture.";
 
-"update_avatar_notification" = "Profile photo was updated";
-"update_avatar_description" = "Click to watch";
+"selected_area_user" = "The selected area will be shown on your page.";
+"selected_area_club" = "The selected area will be shown on the group page.";
+"selected_area_rotate" = "If the image is not oriented correctly, the photo can be rotated.";
 
 "deleting_avatar" = "Deleting photo";
 "deleting_avatar_sure" = "Do you sure you want to delete avatar?";
-
-"deleted_avatar_notification" = "Picture successfully deleted";
 
 "save_changes" = "Save changes";
 

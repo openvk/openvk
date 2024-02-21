@@ -9,7 +9,7 @@
             {css "css/bsdn.css"}
             {css "css/dialog.css"}
             {css "css/notifications.css"}
-            {css "css/avataredit.css"}
+            {css "css/avatar-edit.css"}
             {css "css/audios.css"}
 
             {if $isXmas}
@@ -27,7 +27,7 @@
         {css "css/bsdn.css"}
         {css "css/dialog.css"}
         {css "css/notifications.css"}
-        {css "css/avataredit.css"}
+        {css "css/avatar-edit.css"}
         {css "css/audios.css"}
 
         {if $isXmas}

@@ -18,9 +18,11 @@
         {script "js/l10n.js"}
         {script "js/openvk.cls.js"}
         {script "js/node_modules/dashjs/dist/dash.all.min.js"}
+        <script src="/assets/packages/static/openvk/js/node_modules/cropperjs/dist/cropper.js" type="module"></script>
         {script "js/al_music.js"}
 
         {css "js/node_modules/tippy.js/dist/backdrop.css"}
+        {css "js/node_modules/cropperjs/dist/cropper.css"}
         {css "js/node_modules/tippy.js/dist/border.css"}
         {css "js/node_modules/tippy.js/dist/svg-arrow.css"}
         {css "js/node_modules/tippy.js/themes/light.css"}

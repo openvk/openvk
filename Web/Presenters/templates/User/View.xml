@@ -69,27 +69,22 @@
     {else}
     
     <div class="left_small_block">
-        <div style="margin-left: auto;margin-right: auto;display: table;position:relative;" class="avatar_block" id="av">
+        <div class="avatar_block">
             {var $hasAvatar = !str_contains($user->getAvatarUrl('miniscule'), "/assets/packages/static/openvk/img/camera_200.png")}
-            {if !is_null($thisUser) && $hasAvatar == false && $user->getId() == $thisUser->getId()}
-                <a href="javascript:addAvatarImage(false)" class="text_add_image">{_add_image}</a>
-            {elseif !is_null($thisUser) && $user && $hasAvatar == true && $user->getId() == $thisUser->getId()}
-                <div class="avatar_controls">
-                    <div class="avatarDelete">
-                        <a id="upl" href="javascript:deleteAvatar('{$user->getAvatarPhoto()->getPrettyId()}')"><img src="/assets/packages/static/openvk/img/delete.png"/></a>
-                    </div>
+            
+            {if $thisUser && $user->getId() == $thisUser->getId()}
+                <a {if $hasAvatar}style="display:none"{/if} class="add_image_text" id="add_image">{_add_image}</a>
+                <div {if !$hasAvatar}style="display:none"{/if} class="avatar_controls">
+                    <div class="avatarDelete hoverable"></div>
                     <div class="avatar_variants">
-                        <div class="variant">
-                            <img src="/assets/packages/static/openvk/img/upload.png" style="margin-left:15px;height: 10px;">
-                            <a href="javascript:addAvatarImage(false)"><p>{_upload_new_picture}</p></a>
-                        </div>
+                        <a class="_add_image hoverable" id="add_image"><span>{_upload_new_picture}</span></a>
                     </div>
                 </div>
             {/if}
             <a href="{$user->getAvatarLink()|nocheck}">
                 <img src="{$user->getAvatarUrl('normal')}"
                      alt="{$user->getCanonicalName()}"
-                     id="thisUserAvatar"
+                     id="bigAvatar"
                      style="width: 100%; image-rendering: -webkit-optimize-contrast;" />
             </a>
         </div>

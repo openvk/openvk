@@ -1374,3 +1374,265 @@ $(document).on("click", "#photosAttachments", async (e) => {
         xhr.send(formdata)
     })
 })
+
+$(document).on("click", "#add_image", (e) => {
+    let isGroup = e.currentTarget.closest(".avatar_block").dataset.club != null
+    let group = isGroup ? e.currentTarget.closest(".avatar_block").dataset.club : 0
+
+    let body = `
+    <div id="avatarUpload">
+        <p>${isGroup == true ? tr('groups_avatar') : tr('friends_avatar')}</p>
+        <p>${tr('formats_avatar')}</p><br>
+
+        <label class="button" style="margin-left:45%;user-select:none" id="uploadbtn">
+            ${tr("browse")}
+            <input accept="image/*" type="file" id="_avaInput" name="blob" hidden style="display: none;">
+        </label>
+
+        <br><br>
+
+        <p>${tr('troubles_avatar')}</p>
+        <p>${tr('webcam_avatar')}</p>
+    </div>
+    `
+
+    let msg = MessageBox(tr('uploading_new_image'), body, [
+        tr('cancel')
+    ], [
+        (function() {
+            u("#tmpPhDelF").remove();
+        }),
+    ]);
+
+    msg.attr("style", "width: 600px;");
+    document.querySelector(".ovk-diag-body").style.padding = "13px"
+
+    $("#avatarUpload input").on("change", (ev) => {
+        let image = URL.createObjectURL(ev.currentTarget.files[0])
+        $(".ovk-diag-body")[0].innerHTML = `
+            <span>${!isGroup ? tr("selected_area_user") : tr("selected_area_club")}</span>
+
+            <p style="margin-bottom: 10px;">${tr("selected_area_rotate")}</p>
+
+            <div class="cropper-image-cont" style="max-height: 274px;">
+                <img src="${image}" id="temp_uploadPic">
+
+                <div class="rotateButtons">
+                    <div class="_rotateLeft hoverable"></div>
+                    <div class="_rotateRight hoverable"></div>
+                </div>
+            </div>
+
+            <label style="margin-top: 14px;display: block;">
+                <input id="publish_on_wall" type="checkbox" checked>${tr("publish_on_wall")}
+            </label>
+        `
+
+        document.querySelector(".ovk-diag-action").insertAdjacentHTML("beforeend", `
+            <button class="button" style="margin-left: 4px;" id="_uploadImg">${tr("upload_button")}</button>
+        `)
+        
+        const image_div = document.getElementById('temp_uploadPic');
+        const cropper = new Cropper(image_div, {
+            aspectRatio: NaN,
+            zoomable: true,
+            minCropBoxWidth: 150,
+            minCropBoxHeight: 150,
+            dragMode: 'move',
+            background: false,
+            center: false,
+            guides: false,
+            modal: true,
+            viewMode: 2,
+            cropstart(event) {
+                document.querySelector(".cropper-container").classList.add("moving")
+            },
+            cropend(event) {
+                document.querySelector(".cropper-container").classList.remove("moving")
+            },
+        });
+
+        msg.attr("style", "width: 487px;");
+
+        document.querySelector("#_uploadImg").onclick = (evv) => {
+            cropper.getCroppedCanvas({
+                fillColor: '#fff',
+                imageSmoothingEnabled: false,
+                imageSmoothingQuality: 'high',
+            }).toBlob((blob) => {
+                document.querySelector("#_uploadImg").classList.add("lagged")
+                let formdata = new FormData()
+                formdata.append("blob", blob)
+                formdata.append("ajax", 1)
+                formdata.append("on_wall", Number(document.querySelector("#publish_on_wall").checked))
+                formdata.append("hash", u("meta[name=csrf]").attr("value"))
+        
+                $.ajax({
+                    type: "POST",
+                    url: isGroup ? "/club" + group + "/al_avatar" : "/al_avatars",
+                    data: formdata,
+                    processData: false,
+                    contentType: false,
+                    error: (response) => {
+                        fastError(response.flash.message)
+                    },
+                    success: (response) => {
+                        document.querySelector("#_uploadImg").classList.remove("lagged")
+                        u("body").removeClass("dimmed");
+                        document.querySelector("html").style.overflowY = "scroll"
+                        u(".ovk-diag-cont").remove();
+
+                        if(!response.success) {
+                            fastError(response.flash.message)
+                            return
+                        }
+                        
+                        document.querySelector("#bigAvatar").src = response.url
+                        document.querySelector("#bigAvatar").parentNode.href = "/photo" + response.new_photo
+                    
+                        document.querySelector(".add_image_text").style.display = "none"
+                        document.querySelector(".avatar_controls").style.display = "block"
+                    }
+                })
+            })
+        }
+
+        $(".ovk-diag-body ._rotateLeft").on("click", (e) => {
+            cropper.rotate(90)
+        })
+
+        $(".ovk-diag-body ._rotateRight").on("click", (e) => {
+            cropper.rotate(-90)
+        })
+    })
+
+    $(".ovk-diag-body #_takeSelfie").on("click", (e) => {
+        $("#avatarUpload")[0].style.display = "none"
+
+        $(".ovk-diag-body")[0].insertAdjacentHTML("beforeend", `
+            <div id="_takeSelfieFrame" style="text-align: center;">
+                <video style="max-width: 100%;max-height: 479px;"></video>
+                <canvas id="_tempCanvas" style="position: absolute;">
+            </div>
+        `)
+
+        let video = document.querySelector("#_takeSelfieFrame video")
+
+        if(!navigator.mediaDevices) {
+            // ех вот бы месседжбоксы были бы классами
+            u("body").removeClass("dimmed");
+            document.querySelector("html").style.overflowY = "scroll"
+            u(".ovk-diag-cont").remove();
+
+            fastError(tr("your_browser_doesnt_support_webcam"))
+
+            return
+        }
+
+        navigator.mediaDevices
+        .getUserMedia({ video: true, audio: false })
+        .then((stream) => {
+            video.srcObject = stream;
+            video.play()
+
+            window._cameraStream = stream
+        })
+        .catch((err) => {
+            u("body").removeClass("dimmed");
+            document.querySelector("html").style.overflowY = "scroll"
+            u(".ovk-diag-cont").remove();
+
+            fastError(err)
+        });
+        
+        function __closeConnection() {
+            window._cameraStream.getTracks().forEach(track => track.stop())
+        }
+
+        document.querySelector(".ovk-diag-action").insertAdjacentHTML("beforeend", `
+            <button class="button" style="margin-left: 4px;" id="_takeSnap">${tr("take_snapshot")}</button>
+        `)
+
+        document.querySelector(".ovk-diag-action button").onclick = (evv) => {
+            __closeConnection()
+        }
+
+        document.querySelector("#_takeSnap").onclick = (evv) => {
+            let canvas = document.getElementById('_tempCanvas')
+            let context = canvas.getContext('2d')
+
+            canvas.setAttribute("width", video.clientWidth)
+            canvas.setAttribute("height", video.clientHeight)
+            context.drawImage(video, 0, 0, video.clientWidth, video.clientHeight);
+            canvas.toBlob((blob) => {
+                $("#_takeSnap").remove()
+                
+                let file = new File([blob], "snapshot.jpg", {type: "image/jpeg", lastModified: new Date().getTime()})
+                let dt = new DataTransfer();
+                dt.items.add(file);
+
+                $("#_avaInput")[0].files = dt.files
+                $("#_avaInput").trigger("change")
+                $("#_takeSelfieFrame").remove()
+
+                __closeConnection()
+            })
+        }
+    })
+})
+
+$(document).on("click", ".avatarDelete", (e) => {
+    let isGroup = e.currentTarget.closest(".avatar_block").dataset.club != null
+    let group = isGroup ? e.currentTarget.closest(".avatar_block").dataset.club : 0
+
+    let body = `
+        <span>${tr("deleting_avatar_sure")}</span>
+    `
+
+    let msg = MessageBox(tr('deleting_avatar'), body, [
+        tr('yes'),
+        tr('no')
+    ], [
+        (function() {
+            let formdata = new FormData()
+            formdata.append("hash", u("meta[name=csrf]").attr("value"))
+
+            $.ajax({
+                type: "POST",
+                url: isGroup ? "/club" + group + "/delete_avatar" : "/delete_avatar",
+                data: formdata,
+                processData: false,
+                contentType: false,
+                beforeSend: () => {
+                    document.querySelector(".avatarDelete").classList.add("lagged")
+                },
+                error: (response) => {
+                    fastError(response.flash.message)
+                },
+                success: (response) => {
+                    if(!response.success) {
+                        fastError(response.flash.message)
+                        return
+                    }
+
+                    document.querySelector(".avatarDelete").classList.remove("lagged")
+                    
+                    u("body").removeClass("dimmed");
+                    document.querySelector("html").style.overflowY = "scroll"
+                    u(".ovk-diag-cont").remove();
+
+                    document.querySelector("#bigAvatar").src = response.url
+                    document.querySelector("#bigAvatar").parentNode.href = response.new_photo ? ("/photo" + response.new_photo) : "javascript:void(0)"
+                    
+                    if(!response.has_new_photo) {
+                        document.querySelector(".avatar_controls").style.display = "none"
+                        document.querySelector(".add_image_text").style.display = "block"
+                    }
+                }
+            })
+        }),
+        (function() {
+            u("#tmpPhDelF").remove();
+        }),
+    ]);
+})

@@ -127,25 +127,19 @@
 <div class="right_small_block">
     {var $avatarPhoto = $club->getAvatarPhoto()}
     {var $avatarLink = ((is_null($avatarPhoto) ? FALSE : $avatarPhoto->isAnonymous()) ? "/photo" . ("s/" . base_convert((string) $avatarPhoto->getId(), 10, 32)) : $club->getAvatarLink())}
-    <div class="avatar_block" style="position:relative;">
-        {var $hasAvatar = !str_contains($club->getAvatarUrl('miniscule'), "/assets/packages/static/openvk/img/camera_200.png")}
-        {if !is_null($thisUser) && $hasAvatar == false && $club->canBeModifiedBy($thisUser)}
-            <a href="javascript:addAvatarImage(true, {$club->getId()})" class="text_add_image">{_add_image_group}</a>
-        {elseif !is_null($thisUser) && $hasAvatar == true && $club->canBeModifiedBy($thisUser)}
-            <div class="avatar_controls">
-                <div class="avatarDelete">
-                    <a id="upl" href="javascript:deleteAvatar('{$club->getAvatarPhoto()->getPrettyId()}')"><img src="/assets/packages/static/openvk/img/delete.png"/></a>
-                </div>
+    <div class="avatar_block" style="position:relative;" data-club="{$club->getId()}">
+        {if $thisUser && $club->canBeModifiedBy($thisUser)}
+            <a {if $avatarPhoto}style="display:none"{/if} class="add_image_text" id="add_image">{_add_image}</a>
+            <div {if !$avatarPhoto}style="display:none"{/if} class="avatar_controls">
+                <div class="avatarDelete hoverable"></div>
                 <div class="avatar_variants">
-                    <div class="variant">
-                        <img src="/assets/packages/static/openvk/img/upload.png" style="margin-left:15px;height: 10px;">
-                        <a href="javascript:addAvatarImage(true, {$club->getId()})"><p>{_upload_new_picture}</p></a>
-                    </div>
+                    <a class="_add_image hoverable" id="add_image"><span>{_upload_new_picture}</span></a>
                 </div>
             </div>
         {/if}
+
         <a href="{$avatarLink|nocheck}">
-            <img src="{$club->getAvatarUrl('normal')}" id="thisGroupAvatar" style="width: 100%; image-rendering: -webkit-optimize-contrast;" />
+            <img src="{$club->getAvatarUrl('normal')}" id="bigAvatar" style="width: 100%; image-rendering: -webkit-optimize-contrast;" />
         </a>
     </div>
     <div n:ifset="$thisUser" id="profile_links">
