@@ -143,4 +143,30 @@ class Wall implements Handler
 
         $resolve($arr);
     }
+
+    function getIgnoredSources(int $page = 1, callable $resolve, callable $reject)
+    {
+        $surses = $this->user->getIgnoredSources($page, 10);
+
+        $arr = [
+            "count" => $this->user->getIgnoredSourcesCount(),
+            "items" => []
+        ];
+
+        foreach($surses as $surs) {
+            $arr["items"][] = [
+                "id"         => $surs->getRealId(),
+                "name"       => $surs->getCanonicalName(),
+                "additional" => (($surs->getRealId() > 0 ? $surs->getStatus() : $surs->getDescription()) ?? "..."),
+                "avatar"     => $surs->getAvatarURL(),
+                "url"        => $surs->getURL(),
+            ];
+        }
+
+        if(rand(0, 200) == 50) {
+            $arr["fact"] = $this->user->getIgnoresCount();
+        }
+        
+        $resolve($arr);
+    }
 }

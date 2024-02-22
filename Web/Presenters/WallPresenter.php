@@ -197,6 +197,12 @@ final class WallPresenter extends OpenVKPresenter
         if($this->user->identity->getNsfwTolerance() === User::NSFW_INTOLERANT)
             $queryBase .= " AND `nsfw` = 0";
 
+        if(($ignoredCount = $this->user->identity->getIgnoredSourcesCount()) > 0) {
+            $sources = implode("', '", $this->user->identity->getIgnoredSources(1, $ignoredCount, true));
+            
+            $queryBase .= " AND `posts`.`wall` NOT IN ('$sources')";
+        }
+
         $posts = DatabaseConnection::i()->getConnection()->query("SELECT `posts`.`id` " . $queryBase . " ORDER BY `created` DESC LIMIT " . $pPage . " OFFSET " . ($page - 1) * $pPage);
         $count = DatabaseConnection::i()->getConnection()->query("SELECT COUNT(*) " . $queryBase)->fetch()->{"COUNT(*)"};
         
@@ -650,7 +656,61 @@ final class WallPresenter extends OpenVKPresenter
                             "avatar"  => $post->getOwner()->getAvatarUrl()
                         ]]);
     }
+    
+    function renderIgnoreSource()
+    {
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction(true);
 
+        if($_SERVER["REQUEST_METHOD"] !== "POST")
+            exit("");
+
+        $owner         = $this->user->id;
+        $ignoredSource = (int)$this->postParam("source");
+
+        if($this->user->identity->getIgnoredSourcesCount() > 50)
+            $this->flashFail("err", "Error", tr("max_ignores", 50), null, true);
+
+        if($ignoredSource > 0) {
+            $ignoredSourceModel = (new Users)->get($ignoredSource);
+
+            if(!$ignoredSourceModel)
+                $this->flashFail("err", "Error", tr("invalid_user"), null, true);
+
+            if($ignoredSourceModel->getId() == $this->user->id)
+                $this->flashFail("err", "Error", tr("cant_ignore_self"), null, true);
+
+            if($ignoredSourceModel->isClosed())
+                $this->flashFail("err", "Error", tr("no_sense"), null, true);
+        } else {
+            $ignoredSourceModel = (new Clubs)->get(abs($ignoredSource));
+
+            if(!$ignoredSourceModel)
+                $this->flashFail("err", "Error", tr("invalid_club"), null, true);
+
+            if($ignoredSourceModel->isHideFromGlobalFeedEnabled())
+                $this->flashFail("err", "Error", tr("no_sense"), null, true);
+        }
+        
+        if(!$ignoredSourceModel->toggleIgnore($this->user->identity)) {
+            $tr = "";
+
+            if($ignoredSource > 0)
+                $tr = tr("ignore_user");
+            else
+                $tr = tr("ignore_club");
+
+            $this->returnJson(["success" => true, "act" => "unignored", "text" => $tr]);
+        } else {
+            if($ignoredSource > 0)
+                $tr = tr("unignore_user");
+            else
+                $tr = tr("unignore_club");
+
+            $this->returnJson(["success" => true, "act" => "ignored", "text" => $tr]);
+        }
+    }
+    
     function renderAccept() {
         $this->assertUserLoggedIn();
         $this->willExecuteWriteAction(true);

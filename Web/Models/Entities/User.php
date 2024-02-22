@@ -1338,7 +1338,37 @@ class User extends RowModel
 
         return $res;
     }
+    
+    function getIgnoredSources(int $page = 1, int $perPage = 10, bool $onlyIds = false)
+    {
+        $sources = DatabaseConnection::i()->getContext()->table("ignored_sources")->where("owner", $this->getId())->page($page, $perPage);
+        $arr = [];
 
+        foreach($sources as $source) {
+            $ignoredSource = (int)$source->ignored_source;
+
+            if($ignoredSource > 0)
+                $ignoredSourceModel = (new Users)->get($ignoredSource);
+            else
+                $ignoredSourceModel = (new Clubs)->get(abs($ignoredSource));
+
+            if(!$ignoredSourceModel)
+                continue;
+
+            if(!$onlyIds)
+                $arr[] = $ignoredSourceModel;
+            else
+                $arr[] = $ignoredSourceModel->getRealId();
+        }
+
+        return $arr;
+    }
+
+    function getIgnoredSourcesCount()
+    {
+        return sizeof(DatabaseConnection::i()->getContext()->table("ignored_sources")->where("owner", $this->getId()));
+    }
+    
     function getAudiosCollectionSize()
     {
         return (new \openvk\Web\Models\Repositories\Audios)->getUserCollectionSize($this);
@@ -1378,7 +1408,13 @@ class User extends RowModel
         return $returnArr;
     }
 
+    function isHideFromGlobalFeedEnabled(): bool
+    {
+        return $this->isClosed();
+    }
+
     use Traits\TBackDrops;
     use Traits\TSubscribable;
     use Traits\TAudioStatuses;
+    use Traits\TIgnorable;
 }

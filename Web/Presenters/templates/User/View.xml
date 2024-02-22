@@ -171,6 +171,9 @@
                 {/if}
 
                 <a class="profile_link" style="display:block;width:96%;" href="javascript:reportUser()">{_report}</a>
+                <a class="profile_link" style="display:block;width:96%;" id="ignoreSomeone" data-id="{$user->getId()}">
+                    {if !$user->isIgnoredBy($thisUser)}{_ignore_user}{else}{_unignore_user}{/if}
+                </a>
                 <script>
                     function reportUser() {
                         uReportMsgTxt  = tr("going_to_report_user");

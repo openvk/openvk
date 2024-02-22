@@ -3023,6 +3023,35 @@ body.article .floating_sidebar, body.article .page_content {
     background: #E9F0F1 !important;
 }
 
+#_ignoredSourcesLink {
+    float: right;
+    margin-right: 3px;
+    margin-top: 2px;
+    color: #2B587A;
+    cursor: pointer;
+}
+
+#_ignoredSourcesLink:hover {
+    text-decoration: underline;
+}
+
+._ignorredList {
+    height: 87%;
+    border: 1px solid gray;
+    overflow-y: auto;
+    margin-top: 4px;
+    padding: 5px;
+}
+
+._ignorredList ._ignoredListContent img {
+    width: 38px;
+}
+
+._ignorredList ._ignoredListContent {
+    height: 42px;
+    padding-bottom: 9px;
+}
+
 .searchOptions.newer {
     padding-left: 6px;
     border-top: unset !important;
@@ -3060,4 +3089,3 @@ hr {
     background-repeat: no-repeat !important;
     background-position: 50% !important;
 }
-
