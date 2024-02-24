@@ -3,6 +3,7 @@ namespace openvk\Web\Models\Repositories;
 use Chandler\Database\DatabaseConnection as DB;
 use Nette\Database\Table\{ActiveRow, Selection};
 use openvk\Web\Models\Entities\BannedLink;
+use function Symfony\Component\Translation\t;
 
 class BannedLinks
 {
@@ -43,7 +44,7 @@ class BannedLinks
 
     function isDomainBanned(string $domain): bool
     {
-        return sizeof($this->bannedLinks->where(["link" => $domain, "regexp_rule" => ""])) > 0;
+        return sizeof($this->bannedLinks->where(["domain" => $domain, "regexp_rule" => ""])) > 0;
     }
 
     function genLinks($rules): \Traversable
@@ -57,12 +58,14 @@ class BannedLinks
         foreach($links as $link)
             if (preg_match($link->getRegexpRule(), $uri))
                 yield $link->getId();
+            else if ($this->isDomainBanned($link->getDomain()))
+                yield $link->getId();
     }
 
     function check(string $url): ?array
     {
-        $uri = strstr(str_replace(["https://", "http://"], "", $url), "/", true);
-        $domain = str_replace("www.", "", $uri);
+        $uri = str_replace(["https://", "http://"], "", $url);
+        $domain = explode("/", str_replace("www.", "", $uri))[0];
         $rules = $this->getByDomain($domain);
 
         if (is_null($rules))
