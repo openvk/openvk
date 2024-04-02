@@ -279,48 +279,99 @@ final class GroupPresenter extends OpenVKPresenter
     
     function renderSetAvatar(int $id)
     {
-        $photo = new Photo;
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction();
+
         $club = $this->clubs->get($id);
-        if ($club->isBanned()) $this->flashFail("err", tr("error"), tr("forbidden"));
-        if($_SERVER["REQUEST_METHOD"] === "POST" && $_FILES["ava"]["error"] === UPLOAD_ERR_OK) {
+
+        if(!$club || $club->isBanned() || !$club->canBeModifiedBy($this->user->identity)) 
+            $this->flashFail("err", tr("error"), tr("forbidden"), NULL, true);
+
+        if($_SERVER["REQUEST_METHOD"] === "POST" && $_FILES["blob"]["error"] === UPLOAD_ERR_OK) {
             try {
+                $photo = new Photo;
+                
                 $anon = OPENVK_ROOT_CONF["openvk"]["preferences"]["wall"]["anonymousPosting"]["enable"];
                 if($anon && $this->user->id === $club->getOwner()->getId())
                     $anon = $club->isOwnerHidden();  
                 else if($anon)
                     $anon = $club->getManager($this->user->identity)->isHidden();
+
                 $photo->setOwner($this->user->id);
                 $photo->setDescription("Club image");
-                $photo->setFile($_FILES["ava"]);
+                $photo->setFile($_FILES["blob"]);
                 $photo->setCreated(time());
                 $photo->setAnonymous($anon);
                 $photo->save();
                 
                 (new Albums)->getClubAvatarAlbum($club)->addPhoto($photo);
 
-                $flags = 0;
-                $flags |= 0b00010000;
-                $flags |= 0b10000000;
+                if($this->postParam("on_wall") == 1) {
+                    $post = new Post;
+                    
+                    $post->setOwner($this->user->id);
+                    $post->setWall($club->getId() * -1);
+                    $post->setCreated(time());
+                    $post->setContent("");
 
-                $post = new Post;
-                $post->setOwner($this->user->id);
-                $post->setWall($club->getId()*-1);
-                $post->setCreated(time());
-                $post->setContent("");
-                $post->setFlags($flags);
-                $post->save();
-                $post->attach($photo);
+                    $flags = 0;
+                    $flags |= 0b00010000;
+                    $flags |= 0b10000000;
 
-            } catch(ISE $ex) {
-                $name = $album->getName();
-                $this->flashFail("err", tr("error"), tr("error_when_uploading_photo"));
+                    $post->setFlags($flags);
+                    $post->save();
+
+                    $post->attach($photo);
+                }
+
+            } catch(\Throwable $ex) {
+                $this->flashFail("err", tr("error"), tr("error_when_uploading_photo"), NULL, true);
             }
+
+            $this->returnJson([
+                "success"   => true,
+                "new_photo" => $photo->getPrettyId(),
+                "url"       => $photo->getURL(),
+            ]);
+        } else {
+            return " ";
         }
-        $this->returnJson([
-            "url" => $photo->getURL(),
-            "id" => $photo->getPrettyId()
-        ]);
     }
+
+    function renderDeleteAvatar(int $id) {
+        $this->assertUserLoggedIn();
+        $this->willExecuteWriteAction();
+
+        $club = $this->clubs->get($id);
+
+        if(!$club || $club->isBanned() || !$club->canBeModifiedBy($this->user->identity)) 
+            $this->flashFail("err", tr("error"), tr("forbidden"), NULL, true);
+
+        $avatar = $club->getAvatarPhoto();
+
+        if(!$avatar)
+            $this->flashFail("succ", tr("error"), "no avatar bro", NULL, true);
+
+        $avatar->isolate();
+
+        $newAvatar = $club->getAvatarPhoto();
+
+        if(!$newAvatar)
+            $this->returnJson([
+                "success" => true,
+                "has_new_photo" => false,
+                "new_photo" => NULL,
+                "url"       => "/assets/packages/static/openvk/img/camera_200.png",
+            ]);
+        else
+            $this->returnJson([
+                "success" => true,
+                "has_new_photo" => true,
+                "new_photo" => $newAvatar->getPrettyId(),
+                "url"       => $newAvatar->getURL(),
+            ]);
+    }
+
     function renderEditBackdrop(int $id): void
     {
         $this->assertUserLoggedIn();

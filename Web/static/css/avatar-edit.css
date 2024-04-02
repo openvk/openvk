@@ -1,0 +1,182 @@
+.avatar_block {
+    position: relative;
+    clip-path: inset(0 0 0.7% 0);
+}
+
+.avatar_block .add_image_text {
+    position: absolute;
+    font-size: 12px;
+    color: #2B587A;
+    text-align: center;
+    width: 100%;
+    left: 0px;
+    bottom: 30px;
+}
+
+.avatar_block .add_image_text:hover {
+    text-decoration: underline;
+}
+
+#temp_uploadPic {
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+}
+
+.hoverable {
+    transition: all 200ms ease-in-out;
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.hoverable:hover {
+    opacity: 1;
+}
+
+.avatar_block *, .avatar_block .avatarDelete::before {
+    -webkit-transition: all 200ms ease-in-out;
+    -moz-transition: all 200ms ease-in-out;
+    -o-transition: all 200ms ease-in-out;
+    transition: all 200ms ease-in-out;
+}
+
+._add_image::before {
+    margin-top: 2px;
+    content: ' ';
+    background: url('/assets/packages/static/openvk/img/upload.png');
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    margin-left: 15px;
+}
+
+.avatarDelete {
+    position: absolute;
+    right: 0%;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 1px 0px 4px 3px;
+    border-radius: 0px 0px 0px 5px;
+    opacity: 0;
+    cursor: pointer;
+    width: 15px;
+    height: 13px;
+}
+
+.avatarDelete::before {
+    content: ' ';
+    background: url('/assets/packages/static/openvk/img/upload.png');
+    background-position: -10px 2px;
+    background-repeat: no-repeat;
+    width: 12px;
+    height: 14px;
+    display: inline-block;
+    opacity: 0.6;
+}
+
+div.avatar_block:hover .avatarDelete {
+    opacity: 1 !important;
+}
+
+div.avatar_block:hover .avatar_variants {
+    opacity: 1 !important;
+    margin-bottom: 1px;
+}
+
+.avatar_controls .avatar_variants {
+    opacity:0;
+    position:absolute;
+    background-color: rgba(0, 0, 0, 0.75);
+    width:100%;
+    bottom:0;
+    margin-bottom:-8px;
+    color:white;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.avatar_controls .avatar_variants a {
+    opacity: 60%;
+    display: flex;
+    user-select: none;
+    padding: 5px 0px;
+}
+
+.avatar_controls .avatar_variants span {
+    color: white;
+    margin-left: 6px;
+}
+
+.avatar_controls .avatar_variants a:hover, .avatarDelete:hover::before {
+    opacity: 100%;
+}
+
+.cropper-container.moving .cropper-point {
+    opacity: 1;
+}
+
+.cropper-modal {
+    opacity: 0.7;
+    background-color: #000;
+}
+
+.cropper-point {
+    transition: opacity 200ms ease-in-out;
+    background-color: #fff !important;
+    height: 7px !important;
+    width: 9px !important;
+    opacity: 0.6;
+    box-shadow: black 0px 0px 2px;
+}
+
+.cropper-line {
+    opacity: 0;
+}
+
+.cropper-container {
+    width: 421px;
+    height: 279px;
+}
+
+.cropper-view-box {
+    outline: none;
+    outline-color: unset;
+}
+
+.cropper-image-cont {
+    height: 100vh;
+}
+
+.cropper-image-cont img {
+    max-width: 100%;
+}
+
+.cropper-image-cont .rotateButtons {
+    height: 20px;
+    margin-top: -31px;
+    margin-right: 5px;
+    width: 45px;
+    float: right;
+    position: relative;
+    display: flex;
+    padding: 3px 5px 3px 2px;
+    background: rgba(0,0,0,0.5);
+}
+
+.cropper-image-cont .rotateButtons div {
+    background-repeat: no-repeat;
+}
+
+.cropper-image-cont .rotateButtons ._rotateLeft {
+    background: url(/assets/packages/static/openvk/img/upload.png);
+    height: 20px;
+    width: 23px;
+    background-position: -23px 0px;
+}
+
+.cropper-image-cont .rotateButtons ._rotateRight {
+    background: url(/assets/packages/static/openvk/img/upload.png);
+    height: 18px;
+    width: 22px;
+    background-position: -46px 0px;
+}

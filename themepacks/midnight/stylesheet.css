@@ -386,3 +386,7 @@ ul {
 .tabcontent{
     background: #2c2640 !important;
 }
+
+.add_image_text {
+    z-index: 999;
+}
