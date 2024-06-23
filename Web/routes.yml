@@ -141,6 +141,8 @@ routes:
       handler: "Wall->delete"
     - url: "/wall{num}_{num}/pin"
       handler: "Wall->pin"
+    - url: "/wall/ignoreSource"
+      handler: "Wall->ignoreSource"
     - url: "/wall/accept"
       handler: "Wall->accept"
     - url: "/wall/decline"

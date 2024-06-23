@@ -401,6 +401,7 @@
 
         {ifset $thisUser}
             {script "js/al_notifs.js"}
+            {script "js/al_feed.js"}
         {/ifset}
 
         {if OPENVK_ROOT_CONF['openvk']['preferences']['bellsAndWhistles']['fartscroll']}

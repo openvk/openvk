@@ -245,6 +245,21 @@
 
 "edited_short" = "edited";
 
+"ignored_sources" = "Ignored sources";
+"ignore_user" = "Ignore user";
+"unignore_user" = "Stop ignoring user";
+
+"ignore_club" = "Ignore club";
+"unignore_club" = "Stop ignoring club";
+
+"ignored_clubsers_list" = "This users and clubs doesn't appears in your global feed.";
+"interesting_fact_zero" = "Fun fact: you doesn't have been ignored!";
+"interesting_fact_one" = "Fun fact: you have been ignored by one user";
+"interesting_fact_few" = "Fun fact: you have been ignored by $1 users.";
+"interesting_fact_many" = "Fun fact: you have been ignored by $1 users.";
+"interesting_fact_other" = "Fun fact: you have been ignored by $1 users.";
+"add_new_ignores" = "Add new";
+
 "all_posts" = "All posts";
 "users_posts" = "Posts by $1";
 "clubs_posts" = "Group's posts";
@@ -1516,6 +1531,11 @@
 "group_is_banned" = "Group was successfully banned";
 
 "description_too_long" = "Description is too long.";
+"invalid_club" = "This group does not exists.";
+"invalid_user" = "This user does not exists.";
+"no_sense" = "No sense.";
+"cant_ignore_self" = "Can't ignore urself.";
+"max_ignores" = "Max ignores — $1";
 
 "invalid_audio" = "Invalid audio.";
 "do_not_have_audio" = "You don't have this audio.";

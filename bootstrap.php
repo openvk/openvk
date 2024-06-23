@@ -277,6 +277,13 @@ function parseAttachments(string $attachments): array
     return $returnArr;
 }
 
+function getEntity(int $id) {
+    if($id > 0)
+        return (new openvk\Web\Models\Repositories\Users)->get($id);
+    
+    return (new openvk\Web\Models\Repositories\Clubs)->get(abs($id));
+}
+
 function ovk_scheme(bool $with_slashes = false): string
 {
     $scheme = ovk_is_ssl() ? "https" : "http";
