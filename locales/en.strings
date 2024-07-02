@@ -111,7 +111,7 @@
 "relationship_4" = "Married";
 "relationship_5" = "In a civil marriage";
 "relationship_6" = "In love";
-"relationship_7" = "Everything is complicated";
+"relationship_7" = "It's complicated";
 "relationship_8" = "Actively searching";
 
 /* xd */
@@ -122,7 +122,7 @@
 "relationship_6_prefix" = "with";
 "relationship_7_prefix" = "with";
 
-"politViews" = "Polit. Views";
+"politViews" = "Political views";
 
 "politViews_0" = "Not Selected";
 "politViews_1" = "Indifferent";
@@ -156,7 +156,7 @@
 
 "updated_at" = "Updated at $1";
 
-"user_banned" = "Unfortunately, we had to block the <b>$1</b> user page.";
+"user_banned" = "Unfortunately, we had to block <b>$1's</b> user page.";
 "user_banned_comment" = "Moderator's comment:";
 "verified_page" = "Verified page";
 "user_is_blocked" = "User is blocked";
@@ -201,7 +201,7 @@
 "pin" = "Pin";
 "unpin" = "Unpin";
 "pinned" = "pinned";
-"comments_tip" = "Be first, who leaves a comment at this post!";
+"comments_tip" = "Be the first to leave a comment on this post!";
 "your_comment" = "Your comment";
 "auditory" = "Auditory";
 "in_wall" = "to user's wall";
@@ -236,7 +236,7 @@
 "no_posts_abstract" = "Nobody wrote anything here... So far.";
 "attach_no_longer_available" = "This attachment is no longer available.";
 "open_post" = "Open post";
-"version_incompatibility" = "This attachment could not be displayed. Probably the database is incompatible with the current version of OpenVK.";
+"version_incompatibility" = "This attachment could not be displayed. Probably because the database is incompatible with the current version of OpenVK.";
 
 "graffiti" = "Graffiti";
 
@@ -311,8 +311,8 @@
 "create_group" = "Create group";
 "group_managers" = "Managers";
 "group_type" = "Group type";
-"group_type_open" = "This is an open group, anyone can enter it.";
-"group_type_closed" = "This is an closed group. To enter, you must submit an request.";
+"group_type_open" = "This is an open group. Anyone can enter it.";
+"group_type_closed" = "This is a closed group. To enter, you must submit a request.";
 "creator" = "Creator";
 "administrators" = "Administrators";
 "add_to_left_menu" = "Add to left menu";
@@ -351,12 +351,12 @@
 "suggested_by_everyone_many" = "$1 suggested posts";
 "suggested_by_everyone_other" = "$1 suggested posts";
 
-"group_hide_from_global_feed" = "Don't display posts in the global feed";
-"suggested_posts_by_you" = "Suggested posts by you";
+"group_hide_from_global_feed" = "Don't display posts in global feed";
+"suggested_posts_by_you" = "Your suggested posts";
 "suggested_posts_by_everyone" = "Suggested posts";
 "suggested" = "Suggested";
-"suggested_posts_everyone" = "Suggested by users posts";
-"no_suggested_posts_by_you" = "You haven't suggested posts to this group yet.";
+"suggested_posts_everyone" = "Posts suggested by users";
+"no_suggested_posts_by_you" = "You haven't suggested any post to this group yet.";
 "no_suggested_posts_by_people" = "No posts have been suggested to this group yet.";
 
 "publish_suggested" = "Accept";
@@ -371,23 +371,24 @@
 "suggested_posts_in_group_many" = "This group has $1 suggested posts";
 "suggested_posts_in_group_other" = "This group has $1 suggested posts";
 
-"suggested_posts_in_group_by_you_zero" = "You haven't suggested any posts to this group";
+"suggested_posts_in_group_by_you_zero" = "You haven't suggested any post to this group";
 "suggested_posts_in_group_by_you_one" = "You suggested one post to this group";
 "suggested_posts_in_group_by_you_few" = "You suggested $1 posts to this group";
 "suggested_posts_in_group_by_you_many" = "You suggested $1 posts to this group";
 "suggested_posts_in_group_by_you_other" = "You suggested $1 posts to this group";
 
-"suggestion_succefully_published" = "Post successfully published";
-"suggestion_succefully_declined" = "Post successfully declined";
-"suggestion_press_to_go" = "Click to show it";
+"suggestion_successfully_published" = "Post successfully published";
+"suggestion_successfully_declined" = "Post successfully declined";
+"suggestion_press_to_go" = "Go to post";
 
-"error_declining_invalid_post" = "Error when declining post: post does not exists";
-"error_declining_not_suggested_post" = "Error when declining post: post is not suggested";
-"error_declining_declined_post" = "Error when declining post: post is already declined";
+"error_declining_invalid_post" = "The suggested post you attempted to decline is invalid";
+"error_declining_not_suggested_post" = "The post you attempted to decline is not suggested";
+"error_declining_declined_post" = "This suggested post has already been declined";
 
-"error_accepting_invalid_post" = "Error when accepting post: post does not exists";
-"error_accepting_not_suggested_post" = "Error when accepting post: post is not suggested";
-"error_accepting_declined_post" = "Error when accepting post: cant accept declined post";
+"error_accepting_invalid_post" = "The suggested post you attempted to accept is invalid";
+"error_accepting_not_suggested_post" = "The post you attempted to accept is not suggested";
+"error_accepting_declined_post" = "This suggested post has already been declined";
+
 "statistics" = "Statistics";
 "group_administrators_list" = "Admins list";
 "group_display_only_creator" = "Display only group creator";
@@ -473,7 +474,7 @@
 "deleting_avatar" = "Deleting photo";
 "deleting_avatar_sure" = "Do you sure you want to delete avatar?";
 
-"deleted_avatar_notification" = "Picture successfully deleted";
+"deleted_avatar_notification" = "Picture deleted successfully";
 
 "save_changes" = "Save changes";
 
@@ -485,7 +486,7 @@
 "add_photos" = "Add photos";
 "upload_picts" = "Upload photos";
 "end_uploading" = "Finish uploading";
-"photos_successfully_uploaded" = "Photos successfully uploaded";
+"photos_successfully_uploaded" = "Photos uploaded successfully";
 "click_to_go_to_album" = "Click here to go to album.";
 "error_uploading_photo" = "Error when uploading photo";
 "too_many_pictures" = "No more than 10 pictures";
@@ -545,10 +546,10 @@
 
 "error_attaching_note" = "Error when attaching note";
 
-"select_or_create_new" = "Select existing note or <a href='/notes/create'>create new one</a>";
+"select_or_create_new" = "Select an existing note or <a href='/notes/create'>create a new one</a>";
 
-"notes_closed" = "You can't attach note to post, because only you can see them.<br> You can change it in <a href=\"/settings?act=privacy\">settings</a>.";
-"do_not_attach_note" = "Do not attach note";
+"notes_closed" = "You can't attach a note to the post because only you can see them.<br> You can change this in <a href=\"/settings?act=privacy\">settings</a>.";
+"do_not_attach_note" = "Do not attach a note";
 "something" = "Something";
 "supports_xhtml" = "from (X)HTML supported.";
 
@@ -571,15 +572,15 @@
 "my_feed" = "My Feed";
 "my_feedback" = "My Feedback";
 "my_settings" = "My Settings";
-"bug_tracker" = "Bug-tracker";
+"bug_tracker" = "Bug Tracker";
 
 "menu_settings" = "Settings";
 "menu_login" = "Login";
-"menu_registration" = "Registration";
+"menu_registration" = "Register";
 
 "menu_help" = "Help";
 
-"menu_logout" = "Logout";
+"menu_logout" = "Log out";
 "menu_support" = "Support";
 
 "header_home" = "home";
@@ -840,16 +841,16 @@
 
 "limits" = "Limits";
 "select_audio" = "Select audio from your computer";
-"audio_requirements" = "Audio must be between $1 seconds to $2 minutes, weights to $3 MB and contain audio stream.";
-"audio_requirements_2" = "Audio must not infringe copyright and related rights";
-"you_can_also_add_audio_using" = "You can also add audio from among the files you have already downloaded using";
+"audio_requirements" = "Audio must be between $1 seconds and $2 minutes, with a file size up to $3 MB, and contain an audio stream.";
+"audio_requirements_2" = "Audio must not infringe copyright and related rights.";
+"you_can_also_add_audio_using" = "You can also add audio from files you have already downloaded using";
 "search_audio_inst" = "audios search";
 
 "audio_embed_not_found" = "Audio not found";
-"audio_embed_deleted" = "Audio was deleted";
-"audio_embed_withdrawn" = "The audio was withdrawn at the request of the copyright holder";
+"audio_embed_deleted" = "Audio has been deleted";
+"audio_embed_withdrawn" = "The audio has been withdrawn at the request of the copyright holder";
 "audio_embed_forbidden" = "The user's privacy settings do not allow this audio to be embedded";
-"audio_embed_processing" = "Audio is still being processed, or has not been processed correctly.";
+"audio_embed_processing" = "Audio is still being processed or has not been processed correctly.";
 
 "audios_count_zero" = "No audios";
 "audios_count_one" = "One audio";
@@ -862,7 +863,7 @@
 
 "my_music" = "My music";
 "music_user" = "User's music";
-"music_club" = "Club's music";
+"music_club" = "Group's music";
 "audio_new" = "New";
 "audio_popular" = "Popular";
 "audio_search" = "Search";
@@ -904,19 +905,19 @@
 "delete_playlist" = "Delete playlist";
 "playlist_cover" = "Playlist cover";
 
-"playlists_user" = "Users playlists";
-"playlists_club" = "Groups playlists";
+"playlists_user" = "User's playlists";
+"playlists_club" = "Group's playlists";
 "change_cover" = "Change cover";
 "playlist_cover" = "Playlist's cover";
 
-"minutes_count_zero" = "lasts no minutes";
-"minutes_count_one" = "lasts one minute";
-"minutes_count_few" = "lasts $1 minutes";
-"minutes_count_many" = "lasts $1 minutes";
-"minutes_count_other" = "lasts $1 minutes";
+"minutes_count_zero" = "Lasts no minutes";
+"minutes_count_one" = "Lasts one minute";
+"minutes_count_few" = "Lasts $1 minutes";
+"minutes_count_many" = "Lasts $1 minutes";
+"minutes_count_other" = "Lasts $1 minutes";
 
-"listens_count_zero" = "no listens";
-"listens_count_one" = "one listen";
+"listens_count_zero" = "No listens";
+"listens_count_one" = "One listen";
 "listens_count_few" = "$1 listens";
 "listens_count_many" = "$1 listens";
 "listens_count_other" = "$1 listens";
@@ -932,7 +933,7 @@
 "audio_successfully_uploaded" = "Audio has been successfully uploaded and is currently being processed.";
 
 "broadcast_audio" = "Broadcast audio to status";
-"sure_delete_playlist" = "Do you sure want to delete this playlist?";
+"sure_delete_playlist" = "Are you sure you want to delete this playlist?";
 "edit_audio" = "Edit audio";
 "audios_group" = "Audios from group";
 "playlists_group" = "Playlists from group";
@@ -1038,7 +1039,7 @@
 "coins_count" = "Number of votes";
 "message" = "Message";
 
-"failed_to_tranfer_points" = "Failed to transfer votes";
+"failed_to_transfer_points" = "Failed to transfer votes";
 
 "points_transfer_successful" = "You have successfully transferred <b>$1</b> to <b><a href=\"$2\">$3</a></b>.";
 "not_all_information_has_been_entered" = "Not all information has been entered.";
@@ -1057,8 +1058,8 @@
 "apply_voucher" = "Apply voucher";
 
 "failed_to_increase_rating" = "Failed to increase rating";
-"rating_increase_successful" = "You have successfully increased rating of <b><a href=\"$1\">$2</a></b> by <b>$3%</b>.";
-"negative_rating_value" = "We cannot steal rating from another person, sorry.";
+"rating_increase_successful" = "You have successfully increased the rating of <b><a href=\"$1\">$2</a></b> by <b>$3%</b>.";
+"negative_rating_value" = "You can't steal ratings from another person.";
 
 "increased_your_rating_by" = "increased your rating by";
 
@@ -1119,43 +1120,43 @@
 "app_withdrawal_empty" = "Sorry, withdrawal of emptiness is not possible.";
 "app_withdrawal_created" = "A request to withdraw $1 votes has been created. Awaiting crediting.";
 
-"appjs_payment" = "Purchase payment";
+"appjs_payment" = "Purchase Payment";
 "appjs_payment_intro" = "You are about to pay for an order in the application";
 "appjs_order_items" = "Order items";
 "appjs_payment_total" = "Total amount payable";
 "appjs_payment_confirm" = "Pay";
 "appjs_err_funds" = "Failed to pay: insufficient funds.";
 
-"appjs_wall_post" = "Publish a post";
+"appjs_wall_post" = "Publish a Post";
 "appjs_wall_post_desc" = "wants to publish a post on your wall";
 
-"appjs_act_friends" = "your Friends";
+"appjs_act_friends" = "Your Friends";
 "appjs_act_friends_desc" = "add users as friends and read your friends list";
-"appjs_act_wall" = "your Wall";
+"appjs_act_wall" = "Your Wall";
 "appjs_act_wall_desc" = "see your news, your wall and create posts on it";
-"appjs_act_messages" = "your Messages";
+"appjs_act_messages" = "Your Messages";
 "appjs_act_messages_desc" = "read and write messages on your behalf";
-"appjs_act_groups" = "your Groups";
-"appjs_act_groups_desc" = "see a list of your groups and subscribe you to other";
-"appjs_act_likes" = "Likes feature";
+"appjs_act_groups" = "Your Groups";
+"appjs_act_groups_desc" = "see a list of your groups and subscribe you to others";
+"appjs_act_likes" = "Likes Feature";
 "appjs_act_likes_desc" = "give and take away likes to posts";
 
-"appjs_act_request" = "Access request";
+"appjs_act_request" = "Access Request";
 "appjs_act_requests" = "requests access to";
 "appjs_act_can" = "The app will be able to";
 "appjs_act_allow" = "Allow";
 "appjs_act_disallow" = "Disallow";
 
-"app_uninstalled" = "Application is disabled";
+"app_uninstalled" = "Application Disabled";
 "app_uninstalled_desc" = "It will no longer be able to perform actions on your behalf.";
-"app_err_not_found" = "Application not found";
+"app_err_not_found" = "Application Not Found";
 "app_err_not_found_desc" = "Incorrect identifier or it has been disabled.";
-"app_err_forbidden_desc" = "This application is not yours.";
-"app_err_url" = "Incorrect address";
-"app_err_url_desc" = "The address of the application did not pass the check, make sure it is correct.";
-"app_err_ava" = "Unable to upload an avatar";
-"app_err_ava_desc" = "Avatar too big or wrong: general error #$res.";
-"app_err_note" = "Failed to attach a news note";
+"app_err_forbidden_desc" = "This application does not belong to you.";
+"app_err_url" = "Incorrect Address";
+"app_err_url_desc" = "The address of the application did not pass the check; make sure it is correct.";
+"app_err_ava" = "Unable to Upload an Avatar";
+"app_err_ava_desc" = "Avatar is too big or incorrect: general error #$res.";
+"app_err_note" = "Failed to Attach a News Note";
 "app_err_note_desc" = "Make sure the link is correct and the note belongs to you.";
 
 "learn_more" = "Learn more";
@@ -1163,7 +1164,7 @@
 /* Support */
 
 "support_opened" = "Opened";
-"support_answered" = "With a response";
+"support_answered" = "Has a response";
 "support_closed" = "Closed";
 "support_ticket" = "Ticket";
 "support_tickets" = "Tickets";
@@ -1171,28 +1172,28 @@
 "support_status_1" = "There's a response";
 "support_status_2" = "Closed";
 "support_greeting_hi" = "Greetings, $1!";
-"support_greeting_regards" = "Best regards,<br/>$1 support team.";
+"support_greeting_regards" = "Best regards,<br/>$1 Support Team.";
 
 "support_faq" = "Frequently Asked Questions";
-"support_list" = "List of tickets";
-"support_new" = "New ticket";
+"support_list" = "List of Tickets";
+"support_new" = "New Ticket";
 
 "support_new_title" = "Enter the topic of your ticket";
 "support_new_content" = "Describe the issue or suggestion";
 
 "reports" = "Reports";
 
-"support_rate_good_answer" = "This is good answer";
-"support_rate_bad_answer" = "This is bad answer";
-"support_good_answer_user" = "You left a positive feedback.";
-"support_bad_answer_user" = "You left a negative feedback.";
-"support_good_answer_agent" = "User left a positive feedback.";
-"support_bad_answer_agent" = "User left a negative feedback.";
-"support_rated_good" = "You left a positive feedback about the answer.";
-"support_rated_bad" = "You left a negative feedback about the answer.";
+"support_rate_good_answer" = "This is a good answer";
+"support_rate_bad_answer" = "This is a bad answer";
+"support_good_answer_user" = "You left positive feedback.";
+"support_bad_answer_user" = "You left negative feedback.";
+"support_good_answer_agent" = "User left positive feedback.";
+"support_bad_answer_agent" = "User left negative feedback.";
+"support_rated_good" = "You left positive feedback about the answer.";
+"support_rated_bad" = "You left negative feedback about the answer.";
 "wrong_parameters" = "Invalid request parameters.";
 
-"fast_answers" = "Fast answers";
+"fast_answers" = "Quick Answers";
 
 "ignore_report" = "Ignore report";
 "report_number" = "Report #";
@@ -1287,7 +1288,7 @@
 "poll_editor_tips" = "Pressing backspace in empty option will remove it. Use Tab/Enter (in last option) to create new options faster.";
 "poll_embed" = "Embed code";
 
-"poll_voter_count_zero" = "Be <b>the first one</b> to vote!";
+"poll_voter_count_zero" = "Be <b>the first</b> to vote!";
 "poll_voter_count_one" = "<b>Only one</b> user voted.";
 "poll_voter_count_few" = "<b>$1</b> users voted.";
 "poll_voter_count_many" = "<b>$1</b> users voted.";
@@ -1314,7 +1315,7 @@
 "messages_other" = "$1 messages";
 
 "topic_messages_count_zero" = "Topic has no messages";
-"topic_messages_count_one" = "There are one message in the topic";
+"topic_messages_count_one" = "There is one message in the topic";
 "topic_messages_count_other" = "There are $1 messages in the topic";
 
 "replied" = "replied";
@@ -1380,7 +1381,7 @@
 "photo_saved" = "Photo saved";
 "photo_saved_comment" = "New profile picture will appear on your page";
 
-"shared_succ" = "The post will appear on your wall. Click on the notification to go to your wall.";
+"shared_succ" = "The post will appear on your wall. Click on this notification to go there.";
 
 "invalid_email_address" = "Invalid Email address";
 "invalid_email_address_comment" = "The Email you entered is not correct.";
