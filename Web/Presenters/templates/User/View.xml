@@ -207,7 +207,7 @@
             
             {if isset($thisUser) && $user->getId() === $thisUser->getId() && sizeof($completeness->unfilled) > 0}
                 <br/>
-                <a n:if="in_array('interests', $completeness->unfilled)" href="/edit">
+                <a n:if="in_array('interests', $completeness->unfilled)" href="/edit?act=interests">
                     <img src="/assets/packages/static/openvk/img/icon1.gif" />
                     {_interests} (+20%)
                 </a>
