@@ -39,7 +39,7 @@ class BannedLink extends RowModel
 
     function getRegexpRule(): string
     {
-        return addslashes("/" . $this->getDomain() .  $this->getRawRegexp() . "/");
+        return "/^" . $this->getDomain() . "\/" . $this->getRawRegexp() . "$/i";
     }
 
     function getRawRegexp(): string
